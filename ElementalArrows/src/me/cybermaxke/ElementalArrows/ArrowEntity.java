@@ -2,7 +2,6 @@ package me.cybermaxke.ElementalArrows;
 
 import me.cybermaxke.ElementalArrows.Materials.CustomArrowItem;
 
-import net.minecraft.server.EntityHuman;
 import net.minecraft.server.EntityLiving;
 import net.minecraft.server.World;
 
@@ -73,18 +72,4 @@ public class ArrowEntity extends net.minecraft.server.EntityArrow {
 	public int getFireTicks() {
 		return this.fireticks;
 	}
-
-	@Override
-	public void b_(EntityHuman entityhuman) {
-		//HumanEntity ent = entityhuman.getBukkitEntity();
-		
-        if (!this.world.isStatic && this.onGround && this.shake <= 0) {
-            this.world.makeSound(this, "random.pop", 0.2F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
-            //SpoutItemStack i = new SpoutItemStack(this.arrow);
-            
-            //SpoutPlayer p = SpoutManager.getPlayer((Player) ent);
-    		
-            this.die();
-        }
-    }
 }
