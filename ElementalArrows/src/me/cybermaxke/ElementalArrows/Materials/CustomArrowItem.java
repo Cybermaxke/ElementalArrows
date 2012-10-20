@@ -14,10 +14,24 @@ public abstract class CustomArrowItem extends GenericCustomItem {
 	private int damage = 0;
 	private int knockback = 0;
 	private int fireticks = 0;
+	private boolean canpickup = true;
 
 	public CustomArrowItem(Plugin plugin, String name, String texture) {
 		super(plugin, name, texture);
 		SpoutManager.getFileManager().addToCache(plugin, texture);
+		this.registerRecipes();
+	}
+	
+	public void registerRecipes() {
+		
+	}
+	
+	public boolean canPickup() {
+		return this.canpickup;
+	}
+	
+	public void setCanPickup(boolean pickup) {
+		this.canpickup = pickup;
 	}
 	
 	public void setDamage(int amount) {

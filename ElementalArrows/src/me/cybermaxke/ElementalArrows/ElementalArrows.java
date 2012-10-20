@@ -1,6 +1,7 @@
 package me.cybermaxke.ElementalArrows;
 
 import java.lang.reflect.Method;
+import java.util.logging.Level;
 
 import me.cybermaxke.ElementalArrows.Materials.DirtArrow;
 import me.cybermaxke.ElementalArrows.Materials.EggArrow;
@@ -27,11 +28,13 @@ public class ElementalArrows extends JavaPlugin {
 		try {
 		    Metrics m = new Metrics(this);
 		    m.start();
-		    System.out.println("[" + this.getName() + "] Metrics loaded.");
+		    this.getLogger().log(Level.INFO, "Metrics loaded.");
 		} catch (Exception e) {
 			e.printStackTrace();
+			this.getLogger().log(Level.WARNING, "Couldn't load Metrics!");
 		}
-		System.out.println("[" + this.getName() + "] Plugin loaded.");
+		
+		this.getLogger().log(Level.INFO, "[" + this.getName() + "] Plugin enabled.");
 	}
 	
 	@Override

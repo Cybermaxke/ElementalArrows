@@ -8,6 +8,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
 
+import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.inventory.SpoutItemStack;
+import org.getspout.spoutapi.inventory.SpoutShapedRecipe;
+import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.particle.Particle;
 
 public class DirtArrow extends CustomArrowItem {
@@ -16,6 +20,19 @@ public class DirtArrow extends CustomArrowItem {
 		super(plugin, name, texture);
 		this.setKnockback(5);
 		this.setDamage(4);
+	}
+	
+	@Override
+	public void registerRecipes() {
+		SpoutItemStack i = new SpoutItemStack(this, 4);
+		
+		SpoutShapedRecipe r = new SpoutShapedRecipe(i);
+		r.shape("A", "B", "C");
+		r.setIngredient('A', MaterialData.dirt);
+		r.setIngredient('B', MaterialData.stick);
+		r.setIngredient('C', MaterialData.feather);
+		
+		SpoutManager.getMaterialManager().registerSpoutRecipe(r);
 	}
 
 	@Override

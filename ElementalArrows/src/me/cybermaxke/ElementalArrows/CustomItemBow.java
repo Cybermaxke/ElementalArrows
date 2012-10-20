@@ -88,6 +88,7 @@ public class CustomItemBow extends ItemBow {
 				enw.setDamage(ai.getDamage());
 				enw.setKnockback(ai.getKnockback());
 				enw.setFireTicks(ai.getFireTicks());
+				enw.setCanPickup(ai.canPickup());
 			
 				if (is.getAmount() == 1)
 					is = null;
