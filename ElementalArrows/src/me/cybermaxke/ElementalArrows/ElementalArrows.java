@@ -3,8 +3,10 @@ package me.cybermaxke.ElementalArrows;
 import java.lang.reflect.Method;
 import java.util.logging.Level;
 
+import me.cybermaxke.ElementalArrows.Materials.DazingArrow;
 import me.cybermaxke.ElementalArrows.Materials.DirtArrow;
 import me.cybermaxke.ElementalArrows.Materials.EggArrow;
+import me.cybermaxke.ElementalArrows.Materials.EnderEyeArrow;
 import me.cybermaxke.ElementalArrows.Materials.ExplosionArrow;
 import me.cybermaxke.ElementalArrows.Materials.FireArrow;
 import me.cybermaxke.ElementalArrows.Materials.LightningArrow;
@@ -49,6 +51,8 @@ public class ElementalArrows extends JavaPlugin {
 		new LightningArrow(this, "Lightning Arrow", "http://dl.dropbox.com/u/104060836/LegendsOfCubeCraft/Arrows/LightningArrow.png");
 		new DirtArrow(this, "Dirt Arrow", "http://dl.dropbox.com/u/104060836/LegendsOfCubeCraft/Arrows/DirtArrow.png");
 		new PoisonArrow(this, "Poison Arrow", "http://dl.dropbox.com/u/104060836/LegendsOfCubeCraft/Arrows/PoisonArrow.png");
+		new DazingArrow(this, "Arrow of Confusion", "TEXTURE");
+		new EnderEyeArrow(this, "Endery Eye Arrow", "TEXTURE");
 	}
 	
 	private void updateBows() {
