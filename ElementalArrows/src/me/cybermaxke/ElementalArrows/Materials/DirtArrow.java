@@ -49,6 +49,11 @@ public class DirtArrow extends CustomArrowItem {
 	public void onShoot(Player shooter, ArrowEntity arrow) {
 
 	}
+
+	@Override
+	public void onTick(Player shooter, ArrowEntity arrow) {
+	
+	}
 	
 	public class DirtParticle extends Particle {
 

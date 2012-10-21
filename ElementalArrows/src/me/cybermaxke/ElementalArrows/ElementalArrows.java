@@ -4,15 +4,18 @@ import java.lang.reflect.Method;
 import java.util.logging.Level;
 
 import me.cybermaxke.ElementalArrows.Materials.DirtArrow;
+import me.cybermaxke.ElementalArrows.Materials.DualArrow;
 import me.cybermaxke.ElementalArrows.Materials.EggArrow;
 import me.cybermaxke.ElementalArrows.Materials.ExplosionArrow;
 import me.cybermaxke.ElementalArrows.Materials.FireArrow;
 import me.cybermaxke.ElementalArrows.Materials.LightningArrow;
 import me.cybermaxke.ElementalArrows.Materials.PoisonArrow;
+import me.cybermaxke.ElementalArrows.Materials.RazorArrow;
 import me.cybermaxke.ElementalArrows.Utils.Metrics;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+
 import org.getspout.spoutapi.material.MaterialData;
 
 public class ElementalArrows extends JavaPlugin {
@@ -34,7 +37,7 @@ public class ElementalArrows extends JavaPlugin {
 			this.getLogger().log(Level.WARNING, "Couldn't load Metrics!");
 		}
 		
-		this.getLogger().log(Level.INFO, "[" + this.getName() + "] Plugin enabled.");
+		this.getLogger().log(Level.INFO, "Plugin enabled.");
 	}
 	
 	@Override
@@ -49,6 +52,8 @@ public class ElementalArrows extends JavaPlugin {
 		new LightningArrow(this, "Lightning Arrow", "http://dl.dropbox.com/u/104060836/LegendsOfCubeCraft/Arrows/LightningArrow.png");
 		new DirtArrow(this, "Dirt Arrow", "http://dl.dropbox.com/u/104060836/LegendsOfCubeCraft/Arrows/DirtArrow.png");
 		new PoisonArrow(this, "Poison Arrow", "http://dl.dropbox.com/u/104060836/LegendsOfCubeCraft/Arrows/PoisonArrow.png");
+		new RazorArrow(this, "Razor Arrow", "http://dl.dropbox.com/u/104060836/LegendsOfCubeCraft/Arrows/RazorArrow.png");
+		new DualArrow(this, "Dual Arrow", "http://dl.dropbox.com/u/104060836/LegendsOfCubeCraft/Arrows/DualArrow.png");
 	}
 	
 	private void updateBows() {

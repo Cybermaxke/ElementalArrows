@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
 import org.getspout.spoutapi.inventory.SpoutShapedRecipe;
@@ -44,5 +45,10 @@ public class PoisonArrow extends CustomArrowItem {
 	@Override
 	public void onShoot(Player shooter, ArrowEntity arrow) {
 		
+	}
+
+	@Override
+	public void onTick(Player shooter, ArrowEntity arrow) {
+	
 	}
 }

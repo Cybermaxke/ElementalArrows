@@ -8,6 +8,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
 import org.getspout.spoutapi.inventory.SpoutShapedRecipe;
@@ -48,5 +49,10 @@ public class EggArrow extends CustomArrowItem {
 	@Override
 	public void onShoot(Player shooter, ArrowEntity arrow) {
 		
+	}
+
+	@Override
+	public void onTick(Player shooter, ArrowEntity arrow) {
+	
 	}
 }

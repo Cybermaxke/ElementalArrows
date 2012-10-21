@@ -4,9 +4,9 @@ import java.lang.reflect.Field;
 
 import org.bukkit.craftbukkit.entity.CraftItem;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerPickupItemEvent;
-import org.getspout.spoutapi.inventory.SpoutItemStack;
 
 import me.cybermaxke.ElementalArrows.Materials.CustomArrowItem;
 
@@ -95,29 +95,44 @@ public class ArrowEntity extends net.minecraft.server.EntityArrow {
 		return this.fireticks;
 	}
 	
-	@Override
-	public void b_(EntityHuman entityhuman) {			
-		if (!this.canPickup)
-			return;
-		
+	public boolean inGround() {
 		boolean inGround = false;
 		
-		Field f;
 		try {
-			f = EntityArrow.class.getDeclaredField("inGround");
+			Field f = EntityArrow.class.getDeclaredField("inGround");
 			f.setAccessible(true);		
 			inGround = (Boolean) f.get(this);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	
+
+		return inGround;		
+	}
+
+	@Override
+	public void h_() {
 		
-	    if ((!this.world.isStatic) && (inGround) && (this.shake <= 0)) {	
+		if (this.arrow != null) {
+			Arrow a = (Arrow) this.getBukkitEntity();
+			this.arrow.onTick((Player) a.getShooter(), this);
+		}
+			
+	    super.h_();
+	}
+	
+	@Override
+	public void b_(EntityHuman entityhuman) {			
+		if (!this.canPickup)
+			return;
+
+	    if ((!this.world.isStatic) && (this.inGround()) && (this.shake <= 0)) {	
 	    	ItemStack ist = new ItemStack(Item.ARROW);
 	      		
 	    	org.bukkit.inventory.ItemStack is = null;
 	      
 	    	if (this.arrow != null) {
-	    		is = new SpoutItemStack(this.arrow);
+	    		//is = new SpoutItemStack(this.arrow);
+	    		is = this.arrow.getArrowDrop();
 	    		ist = (new CraftItemStack(is)).getHandle();
 	    	}    
 	      

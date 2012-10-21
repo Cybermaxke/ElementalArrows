@@ -3,9 +3,11 @@ package me.cybermaxke.ElementalArrows.Materials;
 import me.cybermaxke.ElementalArrows.ArrowEntity;
 
 import org.bukkit.Effect;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
 import org.getspout.spoutapi.inventory.SpoutShapedRecipe;
@@ -38,11 +40,18 @@ public class FireArrow extends CustomArrowItem {
 
 	@Override
 	public void onHit(Player shooter, ArrowEntity arrow) {
-
+		Arrow a = (Arrow) arrow.getBukkitEntity();		
+		a.remove();
 	}
 
 	@Override
 	public void onShoot(Player shooter, ArrowEntity arrow) {
 		
+	}
+
+	@Override
+	public void onTick(Player shooter, ArrowEntity arrow) {
+		Arrow a = (Arrow) arrow.getBukkitEntity();
+		a.getWorld().playEffect(a.getLocation(), Effect.MOBSPAWNER_FLAMES, 3);
 	}
 }
