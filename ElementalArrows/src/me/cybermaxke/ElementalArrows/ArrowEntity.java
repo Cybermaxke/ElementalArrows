@@ -131,7 +131,6 @@ public class ArrowEntity extends net.minecraft.server.EntityArrow {
 	    	org.bukkit.inventory.ItemStack is = null;
 	      
 	    	if (this.arrow != null) {
-	    		//is = new SpoutItemStack(this.arrow);
 	    		is = this.arrow.getArrowDrop();
 	    		ist = (new CraftItemStack(is)).getHandle();
 	    	}    

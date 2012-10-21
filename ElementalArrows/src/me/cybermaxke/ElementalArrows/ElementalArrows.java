@@ -8,6 +8,7 @@ import me.cybermaxke.ElementalArrows.Materials.DualArrow;
 import me.cybermaxke.ElementalArrows.Materials.EggArrow;
 import me.cybermaxke.ElementalArrows.Materials.ExplosionArrow;
 import me.cybermaxke.ElementalArrows.Materials.FireArrow;
+import me.cybermaxke.ElementalArrows.Materials.IceArrow;
 import me.cybermaxke.ElementalArrows.Materials.LightningArrow;
 import me.cybermaxke.ElementalArrows.Materials.PoisonArrow;
 import me.cybermaxke.ElementalArrows.Materials.RazorArrow;
@@ -54,6 +55,7 @@ public class ElementalArrows extends JavaPlugin {
 		new PoisonArrow(this, "Poison Arrow", "http://dl.dropbox.com/u/104060836/LegendsOfCubeCraft/Arrows/PoisonArrow.png");
 		new RazorArrow(this, "Razor Arrow", "http://dl.dropbox.com/u/104060836/LegendsOfCubeCraft/Arrows/RazorArrow.png");
 		new DualArrow(this, "Dual Arrow", "http://dl.dropbox.com/u/104060836/LegendsOfCubeCraft/Arrows/DualArrow.png");
+		new IceArrow(this, "Ice Arrow", "http://dl.dropbox.com/u/104060836/LegendsOfCubeCraft/Arrows/IceArrow.png");
 	}
 	
 	private void updateBows() {
