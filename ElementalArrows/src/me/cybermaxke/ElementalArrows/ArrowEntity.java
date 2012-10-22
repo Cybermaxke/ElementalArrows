@@ -18,7 +18,7 @@ import net.minecraft.server.Item;
 import net.minecraft.server.ItemStack;
 import net.minecraft.server.World;
 
-public class ArrowEntity extends net.minecraft.server.EntityArrow {
+public class ArrowEntity extends EntityArrow {
 	
 	private CustomArrowItem arrow;
 	private float power;	
