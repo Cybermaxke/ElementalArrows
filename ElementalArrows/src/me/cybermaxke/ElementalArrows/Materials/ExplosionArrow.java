@@ -16,6 +16,8 @@ public class ExplosionArrow extends CustomArrowItem {
 
 	public ExplosionArrow(Plugin plugin, String name, String texture) {
 		super(plugin, name, texture);
+		
+		this.addConfigData("ExplosionPower", 4.0);
 	}
 	
 	@Override
@@ -39,8 +41,12 @@ public class ExplosionArrow extends CustomArrowItem {
 	@Override
 	public void onHit(Player shooter, ArrowEntity arrow) {
 		Arrow a = (Arrow) arrow.getBukkitEntity();
+		float f = ((Double) this.getConfigData("ExplosionPower")).floatValue();
 		
-		a.getWorld().createExplosion(a.getLocation(), 4.0F);
+		if (this.isFactionProtected(a.getLocation()))
+			f = 0F;
+		
+		a.getWorld().createExplosion(a.getLocation(), f);
 	}
 
 	@Override

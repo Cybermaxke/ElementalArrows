@@ -11,8 +11,13 @@ public class RazorArrow extends CustomArrowItem {
 
 	public RazorArrow(Plugin plugin, String name, String texture) {
 		super(plugin, name, texture);
-		this.setKnockback(2);
-		this.setDamage(2);
+		
+		this.addConfigData("Knockback", 2);
+		this.addConfigData("DamageBonus", 2);
+		this.addConfigData("SpeedMultiplier", 2.3);
+		
+		this.setKnockback((Integer) this.getConfigData("Knockback"));
+		this.setDamage((Integer) this.getConfigData("DamageBonus"));
 	}
 	
 	@Override
@@ -34,7 +39,7 @@ public class RazorArrow extends CustomArrowItem {
 	public void onShoot(Player shooter, ArrowEntity arrow) {
 		Arrow a = (Arrow) arrow.getBukkitEntity();
 		
-		a.setVelocity(a.getVelocity().multiply(2.3));
+		a.setVelocity(a.getVelocity().multiply((Double) this.getConfigData("SpeedMultiplier")));
 	}
 
 	@Override

@@ -17,6 +17,8 @@ public class PoisonArrow extends CustomArrowItem {
 
 	public PoisonArrow(Plugin plugin, String name, String texture) {
 		super(plugin, name, texture);
+		
+		this.addConfigData("EffectDuration", 70);
 	}
 	
 	@Override
@@ -34,7 +36,7 @@ public class PoisonArrow extends CustomArrowItem {
 
 	@Override
 	public void onHit(Player shooter, LivingEntity entity, ArrowEntity arrow) {
-		entity.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 70, 10));
+		entity.addPotionEffect(new PotionEffect(PotionEffectType.POISON, (Integer) this.getConfigData("EffectDuration"), 10));
 	}
 
 	@Override

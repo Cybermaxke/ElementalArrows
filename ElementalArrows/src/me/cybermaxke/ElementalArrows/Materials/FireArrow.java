@@ -17,7 +17,10 @@ public class FireArrow extends CustomArrowItem {
 
 	public FireArrow(Plugin plugin, String name, String texture) {
 		super(plugin, name, texture);
-		this.setFireTicks(70);
+		
+		this.addConfigData("FireTicks", 70);
+		
+		this.setFireTicks((Integer) this.getConfigData("FireTicks"));
 	}
 	
 	@Override

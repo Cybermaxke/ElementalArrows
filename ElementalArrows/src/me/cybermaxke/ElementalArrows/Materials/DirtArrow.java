@@ -18,8 +18,12 @@ public class DirtArrow extends CustomArrowItem {
 
 	public DirtArrow(Plugin plugin, String name, String texture) {
 		super(plugin, name, texture);
-		this.setKnockback(5);
-		this.setDamage(4);
+		
+		this.addConfigData("Knockback", 5);
+		this.addConfigData("BonusDamage", 1);
+		
+		this.setKnockback((Integer) this.getConfigData("Knockback"));
+		this.setDamage((Integer) this.getConfigData("BonusDamage"));
 	}
 	
 	@Override

@@ -3,9 +3,11 @@ package me.cybermaxke.ElementalArrows;
 import java.lang.reflect.Method;
 import java.util.logging.Level;
 
+import me.cybermaxke.ElementalArrows.Materials.DazingArrow;
 import me.cybermaxke.ElementalArrows.Materials.DirtArrow;
 import me.cybermaxke.ElementalArrows.Materials.DualArrow;
 import me.cybermaxke.ElementalArrows.Materials.EggArrow;
+import me.cybermaxke.ElementalArrows.Materials.EnderEyeArrow;
 import me.cybermaxke.ElementalArrows.Materials.ExplosionArrow;
 import me.cybermaxke.ElementalArrows.Materials.FireArrow;
 import me.cybermaxke.ElementalArrows.Materials.IceArrow;
@@ -56,6 +58,8 @@ public class ElementalArrows extends JavaPlugin {
 		new RazorArrow(this, "Razor Arrow", "http://dl.dropbox.com/u/104060836/LegendsOfCubeCraft/Arrows/RazorArrow.png");
 		new DualArrow(this, "Dual Arrow", "http://dl.dropbox.com/u/104060836/LegendsOfCubeCraft/Arrows/DualArrow.png");
 		new IceArrow(this, "Ice Arrow", "http://dl.dropbox.com/u/104060836/LegendsOfCubeCraft/Arrows/IceArrow.png");
+		new EnderEyeArrow(this, "EnderEye Arrow", "http://dl.dropbox.com/u/104060836/LegendsOfCubeCraft/Arrows/EnderEyeArrow.png");
+		new DazingArrow(this, "Dazing Arrow", "http://dl.dropbox.com/u/104060836/LegendsOfCubeCraft/Arrows/DazingArrow.png");
 	}
 	
 	private void updateBows() {

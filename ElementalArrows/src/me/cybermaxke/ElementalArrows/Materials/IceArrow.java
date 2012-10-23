@@ -17,6 +17,8 @@ public class IceArrow extends CustomArrowItem {
 
 	public IceArrow(Plugin plugin, String name, String texture) {
 		super(plugin, name, texture);
+		
+		this.addConfigData("EffectDuration", 70);
 	}
 
 	@Override
@@ -26,8 +28,8 @@ public class IceArrow extends CustomArrowItem {
 
 	@Override
 	public void onHit(Player shooter, LivingEntity entity, ArrowEntity arrow) {
-		entity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 70, 5));
-		entity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 70, 5));
+		entity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, (Integer) this.getConfigData("EffectDuration"), 5));
+		entity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, (Integer) this.getConfigData("EffectDuration"), 5));
 	}
 
 	@Override
@@ -44,7 +46,7 @@ public class IceArrow extends CustomArrowItem {
 	@Override
 	public void onTick(Player shooter, ArrowEntity arrow) {
 		Arrow a = (Arrow) arrow.getBukkitEntity();
-		new IceParticle(a.getLocation(), 0.15);
+		new IceParticle(a.getLocation(), 0.17);
 	}
 	
 	public class IceParticle extends Particle {
