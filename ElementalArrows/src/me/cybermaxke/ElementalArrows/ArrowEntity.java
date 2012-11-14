@@ -67,7 +67,7 @@ public class ArrowEntity extends EntityArrow {
 	 
 	public void setDamage(int amount) {
 		if (amount > 0)
-			this.b(this.d() + (double) amount * 0.5D + 0.5D);
+			this.b(this.c() + (double) amount * 0.5D + 0.5D);
 		this.damage = amount;
 	}
 	
@@ -110,18 +110,18 @@ public class ArrowEntity extends EntityArrow {
 	}
 
 	@Override
-	public void h_() {
+	public void j_() {
 		
 		if (this.arrow != null) {
 			Arrow a = (Arrow) this.getBukkitEntity();
 			this.arrow.onTick((Player) a.getShooter(), this);
 		}
 			
-	    super.h_();
+	    super.j_();
 	}
 	
 	@Override
-	public void b_(EntityHuman entityhuman) {			
+	public void c_(EntityHuman entityhuman) {			
 		if (!this.canPickup)
 			return;
 

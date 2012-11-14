@@ -40,8 +40,11 @@ public class CustomItemBow extends ItemBow {
 				if (is.getType().equals(Material.ARROW))
 					return i;
 			
-				if (is.isCustomItem() && is.getMaterial() instanceof CustomArrowItem)
-					return i;
+				if (is.isCustomItem() && is.getMaterial() instanceof CustomArrowItem) {
+					CustomArrowItem ai = (CustomArrowItem) is.getMaterial();
+					if (!ai.isBlackListWorld(p.getWorld()) && ai.hasPermission(p))
+						return i;
+				}
 			}
 		}
 		
@@ -148,7 +151,7 @@ public class CustomItemBow extends ItemBow {
 	}
 
 	@Override
-	public EnumAnimation b(ItemStack itemstack) {	
+	public EnumAnimation d_(ItemStack itemstack) {	
 		return EnumAnimation.e;
 	}
 	
@@ -165,7 +168,7 @@ public class CustomItemBow extends ItemBow {
 	}
 
 	@Override
-	public int b() {
+	public int c() {
 		return 1;
 	}
 }

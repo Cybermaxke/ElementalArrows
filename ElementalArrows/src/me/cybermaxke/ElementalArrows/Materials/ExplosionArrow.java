@@ -43,7 +43,7 @@ public class ExplosionArrow extends CustomArrowItem {
 		Arrow a = (Arrow) arrow.getBukkitEntity();
 		float f = ((Double) this.getConfigData("ExplosionPower")).floatValue();
 		
-		if (this.isFactionProtected(a.getLocation()))
+		if (this.isFactionProtected(a.getLocation()) || this.isWorldGuardProtected(a.getLocation()))
 			f = 0F;
 		
 		a.getWorld().createExplosion(a.getLocation(), f);
