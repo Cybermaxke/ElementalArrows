@@ -2,17 +2,17 @@ package me.cybermaxke.ElementalArrows;
 
 import me.cybermaxke.ElementalArrows.Materials.CustomArrowItem;
 
-import net.minecraft.server.CreativeModeTab;
-import net.minecraft.server.Enchantment;
-import net.minecraft.server.EnchantmentManager;
-import net.minecraft.server.EntityHuman;
-import net.minecraft.server.EnumAnimation;
-import net.minecraft.server.ItemBow;
-import net.minecraft.server.ItemStack;
-import net.minecraft.server.World;
+import net.minecraft.server.v1_4_6.CreativeModeTab;
+import net.minecraft.server.v1_4_6.Enchantment;
+import net.minecraft.server.v1_4_6.EnchantmentManager;
+import net.minecraft.server.v1_4_6.EntityHuman;
+import net.minecraft.server.v1_4_6.EnumAnimation;
+import net.minecraft.server.v1_4_6.Item;
+import net.minecraft.server.v1_4_6.ItemStack;
+import net.minecraft.server.v1_4_6.World;
 
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.event.CraftEventFactory;
+import org.bukkit.craftbukkit.v1_4_6.event.CraftEventFactory;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityShootBowEvent;
 
@@ -21,7 +21,7 @@ import org.getspout.spoutapi.inventory.SpoutItemStack;
 import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class CustomItemBow extends ItemBow {
+public class CustomItemBow extends Item {
 
 	public CustomItemBow() {
 		super(MaterialData.bow.getRawId());
@@ -59,7 +59,7 @@ public class CustomItemBow extends ItemBow {
 		if (slot == -1)
 			return;
 		
-		int j = this.a(itemstack) - i;
+		int j = this.c_(itemstack) - i;
         float f = (float) j / 20.0F;
 
         f = (f * f + f * 2.0F) / 3.0F;
@@ -146,12 +146,12 @@ public class CustomItemBow extends ItemBow {
 	}
 	
 	@Override
-	public int a(ItemStack itemstack) {
+	public int c_(ItemStack itemstack) {
 		return 72000;
 	}
 
 	@Override
-	public EnumAnimation d_(ItemStack itemstack) {	
+	public EnumAnimation b_(ItemStack itemstack) {	
 		return EnumAnimation.e;
 	}
 	
@@ -161,7 +161,7 @@ public class CustomItemBow extends ItemBow {
 		
 		int slot = this.getFirstArrow(p);
 		if (slot != -1) {
-			entityhuman.a(itemstack, a(itemstack));
+			entityhuman.a(itemstack, this.c_(itemstack));
 		}
 		
 		return itemstack;

@@ -2,21 +2,21 @@ package me.cybermaxke.ElementalArrows;
 
 import java.lang.reflect.Field;
 
-import org.bukkit.craftbukkit.entity.CraftItem;
-import org.bukkit.craftbukkit.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_4_6.entity.CraftItem;
+import org.bukkit.craftbukkit.v1_4_6.inventory.CraftItemStack;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 
 import me.cybermaxke.ElementalArrows.Materials.CustomArrowItem;
 
-import net.minecraft.server.EntityArrow;
-import net.minecraft.server.EntityHuman;
-import net.minecraft.server.EntityItem;
-import net.minecraft.server.EntityLiving;
-import net.minecraft.server.Item;
-import net.minecraft.server.ItemStack;
-import net.minecraft.server.World;
+import net.minecraft.server.v1_4_6.EntityArrow;
+import net.minecraft.server.v1_4_6.EntityHuman;
+import net.minecraft.server.v1_4_6.EntityItem;
+import net.minecraft.server.v1_4_6.EntityLiving;
+import net.minecraft.server.v1_4_6.Item;
+import net.minecraft.server.v1_4_6.ItemStack;
+import net.minecraft.server.v1_4_6.World;
 
 public class ArrowEntity extends EntityArrow {
 	
@@ -132,7 +132,7 @@ public class ArrowEntity extends EntityArrow {
 	      
 	    	if (this.arrow != null) {
 	    		is = this.arrow.getArrowDrop();
-	    		ist = (new CraftItemStack(is)).getHandle();
+	    		ist = CraftItemStack.asNMSCopy(is);
 	    	}    
 	      
 	    	if ((this.fromPlayer == 1) && (this.shake <= 0) && (entityhuman.inventory.canHold(ist) > 0)) {

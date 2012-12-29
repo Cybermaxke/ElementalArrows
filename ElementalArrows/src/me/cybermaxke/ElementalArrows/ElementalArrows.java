@@ -15,6 +15,8 @@ import me.cybermaxke.ElementalArrows.Materials.LightningArrow;
 import me.cybermaxke.ElementalArrows.Materials.PoisonArrow;
 import me.cybermaxke.ElementalArrows.Materials.RazorArrow;
 import me.cybermaxke.ElementalArrows.Utils.Metrics;
+import net.minecraft.server.v1_4_6.EntityTypes;
+import net.minecraft.server.v1_4_6.Item;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -63,8 +65,8 @@ public class ElementalArrows extends JavaPlugin {
 	}
 	
 	private void updateBows() {
-		net.minecraft.server.Item.byId[MaterialData.bow.getRawId()] = null;
-		net.minecraft.server.Item.byId[MaterialData.bow.getRawId()] = new CustomItemBow();
+		Item.byId[MaterialData.bow.getRawId()] = null;
+		Item.byId[MaterialData.bow.getRawId()] = new CustomItemBow();
 	}
 	
 	private void updateArrows() {
@@ -74,7 +76,7 @@ public class ElementalArrows extends JavaPlugin {
 			args[1] = String.class;
 			args[2] = int.class;
 
-			Method a = net.minecraft.server.EntityTypes.class.getDeclaredMethod("a", args);
+			Method a = EntityTypes.class.getDeclaredMethod("a", args);
 			a.setAccessible(true);
 
 			a.invoke(a, ArrowEntity.class, "Arrow", 10);
