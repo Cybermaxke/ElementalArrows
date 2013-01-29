@@ -1,3 +1,24 @@
+/**
+ * 
+ * This software is part of the ElementalArrows
+ * 
+ * This plugins adds custom arrows to the game like they from the
+ * ElemantalArrows mod but ported to spoutplugin and bukkit.
+ * 
+ * ElementalArrows is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or 
+ * any later version.
+ *  
+ * ElementalArrows is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
+ * 
+ */
 package me.cybermaxke.ElementalArrows.Materials;
 
 import java.io.File;
@@ -22,6 +43,7 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 import com.massivecraft.factions.Board;
 import com.massivecraft.factions.FLocation;
 import com.massivecraft.factions.Faction;
+
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.flags.DefaultFlag;
 
@@ -71,8 +93,7 @@ public abstract class CustomArrowItem extends GenericCustomItem {
 		
 		SpoutManager.getFileManager().addToCache(plugin, this.getTexture());
 		this.registerRecipes();
-		
-		this.drop = new SpoutItemStack(this);	
+		this.drop = new SpoutItemStack(this);
 	}
 	
 	public boolean hasPermission(SpoutPlayer player) {

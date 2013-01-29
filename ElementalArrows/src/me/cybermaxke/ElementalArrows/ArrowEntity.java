@@ -1,22 +1,37 @@
+/**
+ * 
+ * This software is part of the ElementalArrows
+ * 
+ * This plugins adds custom arrows to the game like they from the
+ * ElemantalArrows mod but ported to spoutplugin and bukkit.
+ * 
+ * ElementalArrows is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or 
+ * any later version.
+ *  
+ * ElementalArrows is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
+ * 
+ */
 package me.cybermaxke.ElementalArrows;
 
 import java.lang.reflect.Field;
 
-import org.bukkit.craftbukkit.v1_4_6.entity.CraftItem;
-import org.bukkit.craftbukkit.v1_4_6.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_4_R1.entity.*;
+import org.bukkit.craftbukkit.v1_4_R1.inventory.*;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 
 import me.cybermaxke.ElementalArrows.Materials.CustomArrowItem;
 
-import net.minecraft.server.v1_4_6.EntityArrow;
-import net.minecraft.server.v1_4_6.EntityHuman;
-import net.minecraft.server.v1_4_6.EntityItem;
-import net.minecraft.server.v1_4_6.EntityLiving;
-import net.minecraft.server.v1_4_6.Item;
-import net.minecraft.server.v1_4_6.ItemStack;
-import net.minecraft.server.v1_4_6.World;
+import net.minecraft.server.v1_4_R1.*;
 
 public class ArrowEntity extends EntityArrow {
 	
