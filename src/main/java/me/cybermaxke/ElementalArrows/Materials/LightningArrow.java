@@ -38,39 +38,38 @@ public class LightningArrow extends CustomArrowItem {
 	public LightningArrow(Plugin plugin, String name, String texture) {
 		super(plugin, name, texture);
 	}
-	
+
 	@Override
 	public void registerRecipes() {
 		SpoutItemStack i = new SpoutItemStack(this, 4);
-		
+
 		SpoutShapedRecipe r = new SpoutShapedRecipe(i);
 		r.shape("A", "B", "C");
 		r.setIngredient('A', MaterialData.diamond);
 		r.setIngredient('B', MaterialData.stick);
 		r.setIngredient('C', MaterialData.feather);
-		
+
 		SpoutManager.getMaterialManager().registerSpoutRecipe(r);
 	}
 
 	@Override
 	public void onHit(Player shooter, LivingEntity entity, ArrowEntity arrow) {
-	
+
 	}
 
 	@Override
 	public void onHit(Player shooter, ArrowEntity arrow) {
 		Arrow a = (Arrow) arrow.getBukkitEntity();
-		
 		a.getWorld().strikeLightning(a.getLocation());
 	}
 
 	@Override
 	public void onShoot(Player shooter, ArrowEntity arrow) {
-		
+
 	}
-	
+
 	@Override
 	public void onTick(Player shooter, ArrowEntity arrow) {
-	
+
 	}
 }

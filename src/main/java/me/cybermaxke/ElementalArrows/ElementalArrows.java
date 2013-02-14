@@ -45,32 +45,32 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.getspout.spoutapi.material.MaterialData;
 
 public class ElementalArrows extends JavaPlugin {
-	
+
 	@Override
 	public void onEnable() {	
 		Bukkit.getServer().getPluginManager().registerEvents(new ArrowListener(), this);
-		
+
 		this.updateArrows();
 		this.updateBows();
 		this.registerArrows();
-		
+
 		try {
-		    Metrics m = new Metrics(this);
-		    m.start();
-		    this.getLogger().log(Level.INFO, "Metrics loaded.");
+			Metrics m = new Metrics(this);
+			m.start();
+			this.getLogger().log(Level.INFO, "Metrics loaded.");
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.getLogger().log(Level.WARNING, "Couldn't load Metrics!");
 		}
-		
+
 		this.getLogger().log(Level.INFO, "Plugin enabled.");
 	}
 
 	@Override
 	public void onDisable() {
-		
+
 	}
-	
+
 	private void registerArrows() {
 		new EggArrow(this, "Egg Arrow", "http://dl.dropbox.com/u/104060836/LegendsOfCubeCraft/Arrows/EggArrow.png");
 		new ExplosionArrow(this, "Explosion Arrow", "http://dl.dropbox.com/u/104060836/LegendsOfCubeCraft/Arrows/ExplosionArrow.png");
@@ -84,18 +84,15 @@ public class ElementalArrows extends JavaPlugin {
 		new EnderEyeArrow(this, "EnderEye Arrow", "http://dl.dropbox.com/u/104060836/LegendsOfCubeCraft/Arrows/EnderEyeArrow.png");
 		new DazingArrow(this, "Dazing Arrow", "http://dl.dropbox.com/u/104060836/LegendsOfCubeCraft/Arrows/DazingArrow.png");
 	}
-	
+
 	private void updateBows() {
 		Item.byId[MaterialData.bow.getRawId()] = null;
 		Item.byId[MaterialData.bow.getRawId()] = new CustomItemBow();
 	}
-	
+
 	private void updateArrows() {
 		try {
-			Class<?>[] args = new Class[3];
-			args[0] = Class.class;
-			args[1] = String.class;
-			args[2] = int.class;
+			Class<?>[] args = new Class[] { Class.class, String.class, int.class };
 
 			Method a = EntityTypes.class.getDeclaredMethod("a", args);
 			a.setAccessible(true);

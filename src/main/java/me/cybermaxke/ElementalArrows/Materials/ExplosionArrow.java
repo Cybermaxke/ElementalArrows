@@ -37,37 +37,37 @@ public class ExplosionArrow extends CustomArrowItem {
 
 	public ExplosionArrow(Plugin plugin, String name, String texture) {
 		super(plugin, name, texture);
-		
+
 		this.addConfigData("ExplosionPower", 4.0);
 	}
-	
+
 	@Override
 	public void registerRecipes() {
 		SpoutItemStack i = new SpoutItemStack(this, 4);
-		
+
 		SpoutShapedRecipe r = new SpoutShapedRecipe(i);
 		r.shape("A", "B", "C");
 		r.setIngredient('A', MaterialData.gunpowder);
 		r.setIngredient('B', MaterialData.stick);
 		r.setIngredient('C', MaterialData.feather);
-		
+
 		SpoutManager.getMaterialManager().registerSpoutRecipe(r);
 	}
 
 	@Override
 	public void onHit(Player shooter, LivingEntity entity, ArrowEntity arrow) {
-		
+
 	}
 
 	@Override
 	public void onHit(Player shooter, ArrowEntity arrow) {
 		Arrow a = (Arrow) arrow.getBukkitEntity();
 		float f = ((Double) this.getConfigData("ExplosionPower")).floatValue();
-		
+
 		if (this.isFactionProtected(a.getLocation()) || this.isWorldGuardProtected(a.getLocation()) || this.isRegionsProtected(a.getLocation())) {
 			f = 0F;
 		}
-		
+
 		a.getWorld().createExplosion(a.getLocation(), f);
 		a.remove();
 	}
@@ -79,6 +79,6 @@ public class ExplosionArrow extends CustomArrowItem {
 
 	@Override
 	public void onTick(Player shooter, ArrowEntity arrow) {
-	
+
 	}
 }

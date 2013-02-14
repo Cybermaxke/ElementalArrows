@@ -38,22 +38,21 @@ public class FireArrow extends CustomArrowItem {
 
 	public FireArrow(Plugin plugin, String name, String texture) {
 		super(plugin, name, texture);
-		
+
 		this.addConfigData("FireTicks", 70);
-		
 		this.setFireTicks((Integer) this.getConfigData("FireTicks"));
 	}
-	
+
 	@Override
 	public void registerRecipes() {
 		SpoutItemStack i = new SpoutItemStack(this, 4);
-		
+
 		SpoutShapedRecipe r = new SpoutShapedRecipe(i);
 		r.shape("A", "B", "C");
 		r.setIngredient('A', MaterialData.coal);
 		r.setIngredient('B', MaterialData.stick);
 		r.setIngredient('C', MaterialData.feather);
-		
+
 		SpoutManager.getMaterialManager().registerSpoutRecipe(r);
 	}
 
@@ -70,7 +69,7 @@ public class FireArrow extends CustomArrowItem {
 
 	@Override
 	public void onShoot(Player shooter, ArrowEntity arrow) {
-		
+
 	}
 
 	@Override

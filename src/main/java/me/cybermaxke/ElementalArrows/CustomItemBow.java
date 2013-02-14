@@ -58,13 +58,13 @@ public class CustomItemBow extends Item {
 				if (is.isCustomItem() && is.getMaterial() instanceof CustomArrowItem) {
 					CustomArrowItem ai = (CustomArrowItem) is.getMaterial();
 					
-					if (!ai.isBlackListWorld(p.getWorld()) && ai.hasPermission(p)) {
+					if (!ai.isBlackListWorld(p.getWorld()) && ai.hasUsePermission(p)) {
 						return i;
 					}
 				}
 			}
 		}
-		
+
 		return -1;	
 	}
 
@@ -78,24 +78,24 @@ public class CustomItemBow extends Item {
 		}
 
 		int j = this.c_(itemstack) - i;
-        float f = (float) j / 20.0F;
+		float f = (float) j / 20.0F;
 
-        f = (f * f + f * 2.0F) / 3.0F;
-        if ((double) f < 0.1D) {
-            return;
-        }
+		f = (f * f + f * 2.0F) / 3.0F;
+		if ((double) f < 0.1D) {
+			return;
+		}
 
-        if (f > 1.0F) {
-            f = 1.0F;
-        }
+		if (f > 1.0F) {
+			f = 1.0F;
+		}
 
-        ArrowEntity[] enws = new ArrowEntity[1];
-        enws[0] = new ArrowEntity(world, entityhuman, f * 2.0F);
+		ArrowEntity[] enws = new ArrowEntity[1];
+		enws[0] = new ArrowEntity(world, entityhuman, f * 2.0F);
 
-        if (f == 1.0F) {
-            enws[0].d(true);
-        }		
-			
+		if (f == 1.0F) {
+			enws[0].d(true);
+		}		
+
 		SpoutItemStack is = new SpoutItemStack(p.getInventory().getItem(slot));
 		if (is.getType().equals(Material.ARROW) && !is.isCustomItem()) {
 			if (is.getAmount() == 1) {
@@ -108,62 +108,64 @@ public class CustomItemBow extends Item {
 		if (is != null) {
 			if (is.isCustomItem() && is.getMaterial() instanceof CustomArrowItem) {
 				CustomArrowItem ai = (CustomArrowItem) is.getMaterial();
-				
+
 				enws = new ArrowEntity[ai.getMultiplePerShot()];
 				for (int it = 0; it < enws.length; it++) {
 					enws[it] = new ArrowEntity(world, entityhuman, f * 2.0F);
-					
+
 					if (f == 1.0F) {
-			            enws[it].d(true);
-			        }
-					
+						enws[it].d(true);
+					}
+
 					enws[it].setArrow(ai);
 					enws[it].setDamage(ai.getDamage());
 					enws[it].setKnockback(ai.getKnockback());
 					enws[it].setFireTicks(ai.getFireTicks());
 					enws[it].setCanPickup(ai.canPickup());
-					
+
 					ai.onShoot(p, enws[it]);
 				}
-				
-				if (is.getAmount() == 1)
+
+				if (is.getAmount() == 1) {
 					is = null;
-				else 
+				} else {
 					is.setAmount(is.getAmount() - 1);
+				}
 			}
 		}
-		
+
 		for (int it = 0; it < enws.length; it++) {
 			int damage = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_DAMAGE.id, itemstack) + enws[it].getDamage();
 			enws[it].setDamage(damage);
-		
+
 			int knockback = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_KNOCKBACK.id, itemstack) + enws[it].getKnockback();
 			enws[it].setKnockback(knockback);
-		
-			if (EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_FIRE.id, itemstack) > 0)
+
+			if (EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_FIRE.id, itemstack) > 0) {
 				enws[it].setFireTicks(100 + enws[it].getFireTicks());
-		
+			}
+
 			EntityShootBowEvent event = CraftEventFactory.callEntityShootBowEvent(entityhuman, itemstack, enws[it], f);
-	    	if (event.isCancelled()) {
-	      		event.getProjectile().remove();
-	      		return;
-	    	}
-	    
-	    	if (event.getProjectile() == enws[it].getBukkitEntity()) {
-	        	world.addEntity(enws[it]);      
-	    	}
+			if (event.isCancelled()) {
+				event.getProjectile().remove();
+				return;
+			}
+
+			if (event.getProjectile() == enws[it].getBukkitEntity()) {
+				world.addEntity(enws[it]);      
+			}
 		}
-			
-	    itemstack.damage(1, entityhuman);
+
+		itemstack.damage(1, entityhuman);
 		p.getInventory().setItem(slot, is);
-	    world.makeSound(entityhuman, "random.bow", 1.0F, 1.0F / (d.nextFloat() * 0.4F + 1.2F) + f * 0.5F);	
+		world.makeSound(entityhuman, "random.bow", 1.0F, 1.0F / (d.nextFloat() * 0.4F + 1.2F) + f * 0.5F);	
 	}
-	
+
 	@Override
 	public ItemStack b(ItemStack itemstack, World world, EntityHuman entityhuman) {
 		return itemstack;
 	}
-	
+
 	@Override
 	public int c_(ItemStack itemstack) {
 		return 72000;
@@ -173,16 +175,16 @@ public class CustomItemBow extends Item {
 	public EnumAnimation b_(ItemStack itemstack) {	
 		return EnumAnimation.e;
 	}
-	
+
 	@Override
 	public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
 		SpoutPlayer p = SpoutManager.getPlayer((Player) entityhuman.getBukkitEntity());
-		
+
 		int slot = this.getFirstArrow(p);
 		if (slot != -1) {
 			entityhuman.a(itemstack, this.c_(itemstack));
 		}
-		
+
 		return itemstack;
 	}
 

@@ -38,7 +38,7 @@ public class IceArrow extends CustomArrowItem {
 
 	public IceArrow(Plugin plugin, String name, String texture) {
 		super(plugin, name, texture);
-		
+
 		this.addConfigData("EffectDuration", 70);
 	}
 
@@ -61,7 +61,7 @@ public class IceArrow extends CustomArrowItem {
 
 	@Override
 	public void onShoot(Player shooter, ArrowEntity arrow) {
-		
+
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class IceArrow extends CustomArrowItem {
 		Arrow a = (Arrow) arrow.getBukkitEntity();
 		new IceParticle(a.getLocation(), 0.17);
 	}
-	
+
 	public class IceParticle extends Particle {
 
 		public IceParticle(Location location, double duration) { 

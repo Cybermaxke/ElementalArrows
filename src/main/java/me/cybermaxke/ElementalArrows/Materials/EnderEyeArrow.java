@@ -45,41 +45,39 @@ public class EnderEyeArrow extends CustomArrowItem {
 	@Override
 	public void registerRecipes() {
 		SpoutItemStack i = new SpoutItemStack(this, 4);
-		
+
 		SpoutShapedRecipe r = new SpoutShapedRecipe(i);
 		r.shape("A", "B", "C");
 		r.setIngredient('A', MaterialData.eyeOfEnder);
 		r.setIngredient('B', MaterialData.stick);
 		r.setIngredient('C', MaterialData.feather);
-		
+
 		SpoutManager.getMaterialManager().registerSpoutRecipe(r);
 	}
 
 	@Override
 	public void onHit(Player shooter, LivingEntity entity, ArrowEntity arrow) {
-		
+
 	}
 
 	@Override
 	public void onHit(Player shooter, ArrowEntity arrow) {
 		Arrow a = (Arrow) arrow.getBukkitEntity();
-		
 		shooter.teleport(a.getLocation());
 		a.remove();
 	}
 
 	@Override
 	public void onShoot(Player shooter, ArrowEntity arrow) {
-	
+
 	}
 
 	@Override
 	public void onTick(Player shooter, ArrowEntity arrow) {
 		Arrow a = (Arrow) arrow.getBukkitEntity();
-		
 		new EnderParticle(a.getLocation(), 0.18);
 	}
-	
+
 	public class EnderParticle extends Particle {
 
 		public EnderParticle(Location location, double duration) { 

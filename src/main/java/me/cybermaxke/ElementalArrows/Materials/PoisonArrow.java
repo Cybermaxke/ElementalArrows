@@ -38,20 +38,20 @@ public class PoisonArrow extends CustomArrowItem {
 
 	public PoisonArrow(Plugin plugin, String name, String texture) {
 		super(plugin, name, texture);
-		
+
 		this.addConfigData("EffectDuration", 70);
 	}
-	
+
 	@Override
 	public void registerRecipes() {
 		SpoutItemStack i = new SpoutItemStack(this, 4);
-		
+
 		SpoutShapedRecipe r = new SpoutShapedRecipe(i);
 		r.shape("A", "B", "C");
 		r.setIngredient('A', MaterialData.spiderEye);
 		r.setIngredient('B', MaterialData.stick);
 		r.setIngredient('C', MaterialData.feather);
-		
+
 		SpoutManager.getMaterialManager().registerSpoutRecipe(r);
 	}
 
@@ -62,16 +62,16 @@ public class PoisonArrow extends CustomArrowItem {
 
 	@Override
 	public void onHit(Player shooter, ArrowEntity arrow) {
-		
+
 	}
 
 	@Override
 	public void onShoot(Player shooter, ArrowEntity arrow) {
-		
+
 	}
 
 	@Override
 	public void onTick(Player shooter, ArrowEntity arrow) {
-	
+
 	}
 }

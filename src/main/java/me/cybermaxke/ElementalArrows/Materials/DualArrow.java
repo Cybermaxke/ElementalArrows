@@ -41,14 +41,14 @@ public class DualArrow extends CustomArrowItem {
 		this.setMultiplePerShot(2);
 		this.setArrowDrop(new ItemStack(Material.ARROW));
 	}
-	
+
 	@Override
 	public void registerRecipes() {
 		SpoutItemStack i = new SpoutItemStack(this, 1);
-		
+
 		SpoutShapelessRecipe r = new SpoutShapelessRecipe(i);
 		r.addIngredient(2, MaterialData.arrow);
-		
+
 		SpoutManager.getMaterialManager().registerSpoutRecipe(r);
 	}
 
@@ -59,16 +59,16 @@ public class DualArrow extends CustomArrowItem {
 
 	@Override
 	public void onHit(Player shooter, ArrowEntity arrow) {
-	
+
 	}
 
 	@Override
 	public void onShoot(Player shooter, ArrowEntity arrow) {
-		
+
 	}
 
 	@Override
 	public void onTick(Player shooter, ArrowEntity arrow) {
-	
+
 	}
 }
