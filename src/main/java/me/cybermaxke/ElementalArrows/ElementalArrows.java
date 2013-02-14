@@ -65,7 +65,7 @@ public class ElementalArrows extends JavaPlugin {
 		
 		this.getLogger().log(Level.INFO, "Plugin enabled.");
 	}
-	
+
 	@Override
 	public void onDisable() {
 		

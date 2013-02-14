@@ -22,9 +22,13 @@
 package me.cybermaxke.ElementalArrows.Materials;
 
 import java.io.File;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.List;
 
 import me.cybermaxke.ElementalArrows.ArrowEntity;
+import net.jzx7.regios.RegiosPlugin;
+import net.jzx7.regiosapi.regions.Region;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -33,22 +37,24 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.permissions.Permission;
+import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.plugin.Plugin;
 
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
+import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.material.item.GenericCustomItem;
+import org.getspout.spoutapi.material.item.GenericItem;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 import com.massivecraft.factions.Board;
 import com.massivecraft.factions.FLocation;
-import com.massivecraft.factions.Faction;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.flags.DefaultFlag;
 
 public abstract class CustomArrowItem extends GenericCustomItem {
-	
 	private File file;
 	private YamlConfiguration config;
 	
@@ -68,8 +74,21 @@ public abstract class CustomArrowItem extends GenericCustomItem {
 	public CustomArrowItem(Plugin plugin, String name, String texture) {
 		super(plugin, name, texture);
 		
+		try {
+			Field f = GenericItem.class.getDeclaredField("id");
+			f.setAccessible(true);
+			
+			Field mf = Field.class.getDeclaredField("modifiers");
+			mf.setAccessible(true);
+		    mf.setInt(f, f.getModifiers() & ~Modifier.FINAL);
+		    
+		    f.set(this, MaterialData.arrow.getRawId());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		this.file = new File(plugin.getDataFolder() + File.separator + "Arrows", this.getClass().getSimpleName() + ".yml");
-		this.permission = "ElementalArrows." + this.getClass().getSimpleName() + ".Use";
+		this.permission = plugin.getName() + "." + this.getClass().getSimpleName() + ".Use";
 		
 		if (!this.file.exists()) {
 			this.config = new YamlConfiguration();
@@ -94,20 +113,20 @@ public abstract class CustomArrowItem extends GenericCustomItem {
 		SpoutManager.getFileManager().addToCache(plugin, this.getTexture());
 		this.registerRecipes();
 		this.drop = new SpoutItemStack(this);
+		
+		MaterialData.addCustomItem(this);
 	}
 	
 	public boolean hasPermission(SpoutPlayer player) {
-		if (player.isOp() || player.hasPermission("ElementalArrows.*") || player.hasPermission(this.permission))
-			return true;
-		
-		return false;
+		return player.hasPermission(new Permission(this.permission, PermissionDefault.OP));
 	}
-	
+
 	public void setUsePermission(String permission) {
-		if (permission != null)
+		if (permission != null) {
 			this.permission = permission;
-		else
+		} else {
 			throw new NullPointerException("The permission can't be null!");
+		}
 	}
 	
 	public String getUsePermission() {
@@ -119,13 +138,7 @@ public abstract class CustomArrowItem extends GenericCustomItem {
 	}
 	
 	public boolean isBlackListWorld(String world) {
-		
-		if (this.blackListWorlds != null) {
-			if (this.blackListWorlds.contains(world))
-				return true;
-		}
-		
-		return false;
+		return this.blackListWorlds != null && this.blackListWorlds.contains(world) ? true : false;
 	}
 	
 	private void saveConfig() {
@@ -137,47 +150,58 @@ public abstract class CustomArrowItem extends GenericCustomItem {
 	}
 	
 	public void addConfigData(String name, Object data) {
-		if (!this.config.contains(name))
+		if (!this.config.contains(name)) {
 			this.config.set(name, data);
+		}
 		
 		this.saveConfig();
 	}
 	
 	public Object getConfigData(String name) {
-		if (this.config.contains(name))
+		if (this.config.contains(name)) {
 			return this.config.get(name);
+		}
 		
 		return null;
 	}
 	
 	public boolean isFactionProtected(Location location) {
-		
-		if (Bukkit.getServer().getPluginManager().isPluginEnabled("Factions")) {
-		      Faction f = Board.getFactionAt(new FLocation(location));
-		      
-		      if (!f.isNone())
-		    	  return true;
-		}
-		
-		return false;
+		return Bukkit.getServer().getPluginManager().isPluginEnabled("Factions") && !Board.getFactionAt(new FLocation(location)).isNone() ? true : false;
 	}
 	
 	public boolean isWorldGuardProtected(Location location) {
 		
 		if (Bukkit.getServer().getPluginManager().isPluginEnabled("WorldGuard")) {
 			WorldGuardPlugin worldguard = (WorldGuardPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldGuard");
-			
  			return worldguard.getRegionManager(location.getWorld()).getApplicableRegions(location).allows(DefaultFlag.TNT);
 		}
 		
 		return false;
 	}
 	
+	public boolean isRegionsProtected(Location location) {
+		
+		if (Bukkit.getServer().getPluginManager().isPluginEnabled("Regios")) {
+			RegiosPlugin r = (RegiosPlugin) Bukkit.getServer().getPluginManager().getPlugin("Regios");
+			
+			if (r.isInRegion(location)) {
+				Region reg = r.getRegion(location);
+				
+				if (reg.isExplosionsEnabled()) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+	
 	public void setMultiplePerShot(int amount) {
-		if (amount > 0)
+		if (amount > 0) {
 			this.amountpershot = amount;
-		else 
+		} else {
 			throw new IllegalArgumentException("The amount can't be 0!");
+		}
 	}
 	
 	public int getMultiplePerShot() {
@@ -217,10 +241,11 @@ public abstract class CustomArrowItem extends GenericCustomItem {
 	}
 	
 	public void setArrowDrop(ItemStack itemstack) {
-		if (itemstack != null)
+		if (itemstack != null) {
 			this.drop = itemstack;
-		else
+		} else {
 			throw new NullPointerException("The arrow drop can't be null!");
+		}
 	}
 	
 	public ItemStack getArrowDrop() {

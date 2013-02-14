@@ -81,8 +81,10 @@ public class ArrowEntity extends EntityArrow {
 	}
 	 
 	public void setDamage(int amount) {
-		if (amount > 0)
+		if (amount > 0) {
 			this.b(this.c() + (double) amount * 0.5D + 0.5D);
+		}
+		
 		this.damage = amount;
 	}
 	
@@ -91,8 +93,10 @@ public class ArrowEntity extends EntityArrow {
 	}
 	
 	public void setKnockback(int amount) {
-		if (amount > 0)
+		if (amount > 0) {
 			this.a(amount);
+		}
+		
 		this.knockback = amount;
 	}
 	
@@ -101,8 +105,10 @@ public class ArrowEntity extends EntityArrow {
 	}
 	
 	public void setFireTicks(int amount) {
-		if (amount > 0)
+		if (amount > 0) {
 			this.setOnFire(amount);
+		}
+		
 		this.fireticks = amount;
 	}
 	
@@ -111,22 +117,19 @@ public class ArrowEntity extends EntityArrow {
 	}
 	
 	public boolean inGround() {
-		boolean inGround = false;
-		
 		try {
 			Field f = EntityArrow.class.getDeclaredField("inGround");
 			f.setAccessible(true);		
-			inGround = (Boolean) f.get(this);
+			return (Boolean) f.get(this);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	
 
-		return inGround;		
+		return false;		
 	}
 
 	@Override
 	public void j_() {
-		
 		if (this.arrow != null) {
 			Arrow a = (Arrow) this.getBukkitEntity();
 			this.arrow.onTick((Player) a.getShooter(), this);
@@ -141,8 +144,7 @@ public class ArrowEntity extends EntityArrow {
 			return;
 
 	    if ((!this.world.isStatic) && (this.inGround()) && (this.shake <= 0)) {	
-	    	ItemStack ist = new ItemStack(Item.ARROW);
-	      		
+	    	ItemStack ist = new ItemStack(Item.ARROW);      		
 	    	org.bukkit.inventory.ItemStack is = null;
 	      
 	    	if (this.arrow != null) {
@@ -171,7 +173,7 @@ public class ArrowEntity extends EntityArrow {
 	    	  		this.world.makeSound(this, "random.pop", 0.2F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
 	    	  		entityhuman.receive(this, 1);
 	        		this.die();
-	      		}
-	    	}
-	  }
+	      	}
+		}
+	}
 }

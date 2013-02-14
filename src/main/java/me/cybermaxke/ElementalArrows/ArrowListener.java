@@ -41,19 +41,22 @@ public class ArrowListener implements Listener {
 
 	@EventHandler
 	public void onPlayerArrowHit(ProjectileHitEvent e) {
-		if (!(e.getEntity() instanceof Arrow))
+		if (!(e.getEntity() instanceof Arrow)) {
 			return;
+		}
 		
 		Arrow a = (Arrow) e.getEntity();
 		
-		if (!(a.getShooter() instanceof Player))
+		if (!(a.getShooter() instanceof Player)) {
 			return;
+		}
 		
 		SpoutPlayer p = SpoutManager.getPlayer((Player) a.getShooter());
 		EntityArrow en = ((CraftArrow) a).getHandle();
 			
-		if (!(en instanceof ArrowEntity))
+		if (!(en instanceof ArrowEntity)) {
 			return;
+		}
 		
 		ArrowEntity ea = (ArrowEntity) en;
 		if (ea.getArrow() != null) {
@@ -65,23 +68,27 @@ public class ArrowListener implements Listener {
 	
 	@EventHandler
 	public void onPlayerArrowDamage(EntityDamageByEntityEvent e) {
-		if (!(e.getDamager() instanceof Arrow))
+		if (!(e.getDamager() instanceof Arrow)) {
 			return;
+		}
 		
-		if (!(e.getEntity() instanceof LivingEntity))
+		if (!(e.getEntity() instanceof LivingEntity)) {
 			return;
+		}
 		
 		Arrow a = (Arrow) e.getDamager();
 		LivingEntity ent = (LivingEntity) e.getEntity();
 		
-		if (!(a.getShooter() instanceof Player))
+		if (!(a.getShooter() instanceof Player)) {
 			return;
+		}
 		
 		SpoutPlayer p = SpoutManager.getPlayer((Player) a.getShooter());		
 		EntityArrow en = ((CraftArrow) a).getHandle();
-			
-		if (!(en instanceof ArrowEntity))
+	
+		if (!(en instanceof ArrowEntity)) {
 			return;
+		}
 		
 		ArrowEntity ea = (ArrowEntity) en;
 		if (ea.getArrow() != null) {

@@ -50,14 +50,17 @@ public class CustomItemBow extends Item {
 		for (int i = 0; i < p.getInventory().getSize(); i++) {
 			if (p.getInventory().getItem(i) != null) {
 				SpoutItemStack is = new SpoutItemStack(p.getInventory().getItem(i));
-			
-				if (is.getType().equals(Material.ARROW))
+
+				if (is.getType().equals(Material.ARROW)) {
 					return i;
-			
+				}
+
 				if (is.isCustomItem() && is.getMaterial() instanceof CustomArrowItem) {
 					CustomArrowItem ai = (CustomArrowItem) is.getMaterial();
-					if (!ai.isBlackListWorld(p.getWorld()) && ai.hasPermission(p))
+					
+					if (!ai.isBlackListWorld(p.getWorld()) && ai.hasPermission(p)) {
 						return i;
+					}
 				}
 			}
 		}
@@ -68,11 +71,12 @@ public class CustomItemBow extends Item {
 	@Override
 	public void a(ItemStack itemstack, World world, EntityHuman entityhuman, int i) {
 		SpoutPlayer p = SpoutManager.getPlayer((Player) entityhuman.getBukkitEntity());
-		
+
 		int slot = this.getFirstArrow(p);
-		if (slot == -1)
+		if (slot == -1) {
 			return;
-		
+		}
+
 		int j = this.c_(itemstack) - i;
         float f = (float) j / 20.0F;
 
@@ -94,12 +98,13 @@ public class CustomItemBow extends Item {
 			
 		SpoutItemStack is = new SpoutItemStack(p.getInventory().getItem(slot));
 		if (is.getType().equals(Material.ARROW) && !is.isCustomItem()) {
-			if (is.getAmount() == 1)
+			if (is.getAmount() == 1) {
 				is = null;
-			else 
+			} else {
 				is.setAmount(is.getAmount() - 1);
+			}
 		}
-			
+
 		if (is != null) {
 			if (is.isCustomItem() && is.getMaterial() instanceof CustomArrowItem) {
 				CustomArrowItem ai = (CustomArrowItem) is.getMaterial();

@@ -1,0 +1,109 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>cybermaxke</groupId>
+	<artifactId>elementalarrows</artifactId>
+	<version>1.7</version>
+	<name>ElementalArrows</name>
+	
+	<properties>
+		<BukkitVersion>1.4.7-R1.0</BukkitVersion>
+		<SpoutVersion>1.4.7-R0.2-SNAPSHOT</SpoutVersion>
+		<WorldEditVersion>5.5.2-SNAPSHOT</WorldEditVersion>
+		<WorldGuardVersion>5.7.2-SNAPSHOT</WorldGuardVersion>
+		<MainClass>me.cybermaxke.elementalarrows.ElementalArrows</MainClass>
+		<Author>Cybermaxke</Author>
+	</properties>
+	
+	<!-- Repositories -->
+	<repositories>
+		<repository>
+			<id>bukkit-repo</id>
+			<url>http://repo.bukkit.org/content/groups/public/</url>
+		</repository>
+		
+		<repository>
+			<id>spout-repo</id>
+			<url>http://repo.spout.org</url>
+		</repository>
+		
+		<repository>
+			<id>sk89q-repo</id>
+			<url>http://maven.sk89q.com/repo/</url>
+		</repository>
+	</repositories>
+	
+	<!-- Dependencies -->
+	<dependencies>
+		<dependency>
+			<groupId>org.bukkit</groupId>
+			<artifactId>craftbukkit</artifactId>
+			<version>${BukkitVersion}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.getspout</groupId>
+			<artifactId>spoutplugin</artifactId>
+			<version>${SpoutVersion}</version>
+		</dependency>
+		
+		<dependency>
+            <groupId>com.sk89q</groupId>
+            <artifactId>worldedit</artifactId>
+            <version>${WorldEditVersion}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.sk89q</groupId>
+            <artifactId>worldguard</artifactId>
+            <version>${WorldGuardVersion}</version>
+        </dependency>
+	</dependencies>
+	
+	<!-- Issue Management -->
+	<issueManagement>
+		<system>GitHub</system>
+		<url>https://github.com/Cybermaxke/ElementalArrows/issues</url>
+	</issueManagement>
+  
+	<!-- Build configuration -->
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+		
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.6</version>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}</outputDirectory>
+							<resources>          
+								<resource>
+									<directory>${basedir}/src/main/resources</directory>
+									<filtering>true</filtering>
+									<excludes>
+										<exclude>**/*.max</exclude>
+										<exclude>**/*.psd</exclude>
+									</excludes>
+								</resource>
+							</resources>              
+						</configuration>            
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
