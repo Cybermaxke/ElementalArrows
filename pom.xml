@@ -2,15 +2,16 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>cybermaxke</groupId>
 	<artifactId>elementalarrows</artifactId>
-	<version>1.7</version>
+	<version>1.8</version>
 	<name>ElementalArrows</name>
+	<description>Adds new arrows to your bukkit server.</description>
 	
 	<properties>
-		<BukkitVersion>1.4.7-R1.0</BukkitVersion>
-		<SpoutVersion>1.4.7-R0.2-SNAPSHOT</SpoutVersion>
+		<BukkitVersion>1.5.1-R0.2-SNAPSHOT</BukkitVersion>
+		<SpoutVersion>1.5.1-R0.2-SNAPSHOT</SpoutVersion>
 		<WorldEditVersion>5.5.2-SNAPSHOT</WorldEditVersion>
 		<WorldGuardVersion>5.7.2-SNAPSHOT</WorldGuardVersion>
-		<MainClass>me.cybermaxke.elementalarrows.ElementalArrows</MainClass>
+		<MainClass>me.cybermaxke.ElementalArrows.ElementalArrows</MainClass>
 		<Author>Cybermaxke</Author>
 	</properties>
 	
@@ -47,16 +48,16 @@
 		</dependency>
 		
 		<dependency>
-            <groupId>com.sk89q</groupId>
-            <artifactId>worldedit</artifactId>
-            <version>${WorldEditVersion}</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>com.sk89q</groupId>
-            <artifactId>worldguard</artifactId>
-            <version>${WorldGuardVersion}</version>
-        </dependency>
+			<groupId>com.sk89q</groupId>
+			<artifactId>worldedit</artifactId>
+			<version>${WorldEditVersion}</version>
+		</dependency>
+		
+ 		<dependency>
+			<groupId>com.sk89q</groupId>
+			<artifactId>worldguard</artifactId>
+			<version>${WorldGuardVersion}</version>
+		</dependency>
 	</dependencies>
 	
 	<!-- Issue Management -->
@@ -84,7 +85,7 @@
 				<executions>
 					<execution>
 						<id>copy-resources</id>
-						<phase>validate</phase>
+						<phase>compile</phase>
 						<goals>
 							<goal>copy-resources</goal>
 						</goals>
@@ -94,15 +95,27 @@
 								<resource>
 									<directory>${basedir}/src/main/resources</directory>
 									<filtering>true</filtering>
-									<excludes>
-										<exclude>**/*.max</exclude>
-										<exclude>**/*.psd</exclude>
-									</excludes>
 								</resource>
 							</resources>              
 						</configuration>            
 					</execution>
 				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+						</manifest>
+						<manifestEntries>
+							<Class-Path>.</Class-Path>
+						</manifestEntries>
+					</archive>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

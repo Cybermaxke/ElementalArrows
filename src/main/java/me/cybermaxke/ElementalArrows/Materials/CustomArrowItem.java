@@ -39,7 +39,6 @@ import org.bukkit.plugin.Plugin;
 
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
-import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.material.item.GenericCustomItem;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
@@ -90,7 +89,7 @@ public abstract class CustomArrowItem extends GenericCustomItem {
 
 			this.config.set("Name", name);
 			this.config.set("Texture", texture);
-			this.config.set("Permission", this.permission);
+			this.config.set("Permission", this.permission.getName());
 
 			this.saveConfig();	
 		} else {
@@ -105,11 +104,9 @@ public abstract class CustomArrowItem extends GenericCustomItem {
 			}
 		}
 
-		SpoutManager.getFileManager().addToCache(plugin, this.getTexture());
+		SpoutManager.getFileManager().addToPreLoginCache(plugin, texture);
 		this.registerRecipes();
 		this.drop = new SpoutItemStack(this);
-
-		MaterialData.addCustomItem(this);
 	}
 
 	public boolean hasUsePermission(SpoutPlayer player) {

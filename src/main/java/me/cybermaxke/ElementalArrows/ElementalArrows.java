@@ -24,6 +24,7 @@ package me.cybermaxke.ElementalArrows;
 import java.lang.reflect.Method;
 import java.util.logging.Level;
 
+import me.cybermaxke.ElementalArrows.Materials.CustomArrowItem;
 import me.cybermaxke.ElementalArrows.Materials.DazingArrow;
 import me.cybermaxke.ElementalArrows.Materials.DirtArrow;
 import me.cybermaxke.ElementalArrows.Materials.DualArrow;
@@ -35,9 +36,11 @@ import me.cybermaxke.ElementalArrows.Materials.IceArrow;
 import me.cybermaxke.ElementalArrows.Materials.LightningArrow;
 import me.cybermaxke.ElementalArrows.Materials.PoisonArrow;
 import me.cybermaxke.ElementalArrows.Materials.RazorArrow;
+import me.cybermaxke.ElementalArrows.Materials.VampireArrow;
+import me.cybermaxke.ElementalArrows.Materials.VollyArrow;
 import me.cybermaxke.ElementalArrows.Utils.Metrics;
 
-import net.minecraft.server.v1_4_R1.*;
+import net.minecraft.server.v1_5_R2.*;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -45,6 +48,21 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.getspout.spoutapi.material.MaterialData;
 
 public class ElementalArrows extends JavaPlugin {
+	public static CustomArrowItem EGG_ARROW;
+	public static CustomArrowItem EXPLOSION_ARROW;
+	public static CustomArrowItem FIRE_ARROW;
+	public static CustomArrowItem LIGHTNING_ARROW;
+	public static CustomArrowItem DIRT_ARROW;
+	public static CustomArrowItem POISON_ARROW;
+	public static CustomArrowItem RAZOR_ARROW;
+	public static CustomArrowItem DUAL_ARROW;
+	public static CustomArrowItem ICE_ARROW;
+	public static CustomArrowItem ENDER_EYE_ARROW;
+	public static CustomArrowItem DAZING_ARROW;
+	public static CustomArrowItem VOLLY_ARROW;
+	public static CustomArrowItem VAMPIRE_ARROW;
+	public static CustomArrowItem PULL_ARROW;
+	public static CustomArrowItem BLINDNESS_ARROW;
 
 	@Override
 	public void onEnable() {	
@@ -72,17 +90,21 @@ public class ElementalArrows extends JavaPlugin {
 	}
 
 	private void registerArrows() {
-		new EggArrow(this, "Egg Arrow", "http://dl.dropbox.com/u/104060836/LegendsOfCubeCraft/Arrows/EggArrow.png");
-		new ExplosionArrow(this, "Explosion Arrow", "http://dl.dropbox.com/u/104060836/LegendsOfCubeCraft/Arrows/ExplosionArrow.png");
-		new FireArrow(this, "Fire Arrow", "http://dl.dropbox.com/u/104060836/LegendsOfCubeCraft/Arrows/FireArrow.png");
-		new LightningArrow(this, "Lightning Arrow", "http://dl.dropbox.com/u/104060836/LegendsOfCubeCraft/Arrows/LightningArrow.png");
-		new DirtArrow(this, "Dirt Arrow", "http://dl.dropbox.com/u/104060836/LegendsOfCubeCraft/Arrows/DirtArrow.png");
-		new PoisonArrow(this, "Poison Arrow", "http://dl.dropbox.com/u/104060836/LegendsOfCubeCraft/Arrows/PoisonArrow.png");
-		new RazorArrow(this, "Razor Arrow", "http://dl.dropbox.com/u/104060836/LegendsOfCubeCraft/Arrows/RazorArrow.png");
-		new DualArrow(this, "Dual Arrow", "http://dl.dropbox.com/u/104060836/LegendsOfCubeCraft/Arrows/DualArrow.png");
-		new IceArrow(this, "Ice Arrow", "http://dl.dropbox.com/u/104060836/LegendsOfCubeCraft/Arrows/IceArrow.png");
-		new EnderEyeArrow(this, "EnderEye Arrow", "http://dl.dropbox.com/u/104060836/LegendsOfCubeCraft/Arrows/EnderEyeArrow.png");
-		new DazingArrow(this, "Dazing Arrow", "http://dl.dropbox.com/u/104060836/LegendsOfCubeCraft/Arrows/DazingArrow.png");
+		EGG_ARROW = new EggArrow(this, "Egg Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/EggArrow.png");
+		EXPLOSION_ARROW = new ExplosionArrow(this, "Explosion Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/ExplosionArrow.png");
+		FIRE_ARROW = new FireArrow(this, "Fire Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/FireArrow.png");
+		LIGHTNING_ARROW = new LightningArrow(this, "Lightning Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/LightningArrow.png");
+		DIRT_ARROW = new DirtArrow(this, "Dirt Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/DirtArrow.png");
+		POISON_ARROW = new PoisonArrow(this, "Poison Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/PoisonArrow.png");
+		RAZOR_ARROW = new RazorArrow(this, "Razor Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/RazorArrow.png");
+		DUAL_ARROW = new DualArrow(this, "Dual Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/DualArrow.png");
+		ICE_ARROW = new IceArrow(this, "Ice Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/IceArrow.png");
+		ENDER_EYE_ARROW = new EnderEyeArrow(this, "EnderEye Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/EnderEyeArrow.png");
+		DAZING_ARROW = new DazingArrow(this, "Dazing Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/DazingArrow.png");
+		VOLLY_ARROW = new VollyArrow(this, "Volly Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/VollyArrow.png");
+		VAMPIRE_ARROW = new VampireArrow(this, "Vampiric Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/VampireArrow.png");
+		//PULL_ARROW = new PullArrow(this, "Pull Arrow", null);
+		//BLINDNESS_ARROW = new BlindnessArrow(this, "Blindness Arrow", null);
 	}
 
 	private void updateBows() {
@@ -97,7 +119,7 @@ public class ElementalArrows extends JavaPlugin {
 			Method a = EntityTypes.class.getDeclaredMethod("a", args);
 			a.setAccessible(true);
 
-			a.invoke(a, ArrowEntity.class, "Arrow", 10);
+			a.invoke(a, ArrowEntity.class, "ElementalArrow", 10);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

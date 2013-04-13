@@ -23,15 +23,17 @@ package me.cybermaxke.ElementalArrows;
 
 import java.lang.reflect.Field;
 
-import org.bukkit.craftbukkit.v1_4_R1.entity.*;
-import org.bukkit.craftbukkit.v1_4_R1.inventory.*;
+import org.bukkit.craftbukkit.v1_5_R2.entity.*;
+import org.bukkit.craftbukkit.v1_5_R2.inventory.*;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerPickupItemEvent;
+import org.getspout.spoutapi.material.CustomItem;
+import org.getspout.spoutapi.material.MaterialData;
 
 import me.cybermaxke.ElementalArrows.Materials.CustomArrowItem;
 
-import net.minecraft.server.v1_4_R1.*;
+import net.minecraft.server.v1_5_R2.*;
 
 public class ArrowEntity extends EntityArrow {
 	private CustomArrowItem arrow;
@@ -52,10 +54,6 @@ public class ArrowEntity extends EntityArrow {
 
 	public boolean canPickup() {
 		return this.canPickup;
-	}
-
-	public ArrowEntity(World world) {
-		super(world);
 	}
 
 	public float getPower() {
@@ -119,17 +117,34 @@ public class ArrowEntity extends EntityArrow {
 	}
 
 	@Override
-	public void j_() {
+	public void b(NBTTagCompound tag) {
+		super.b(tag);
+		if (this.arrow != null) {
+			tag.setInt("CustomArrowId", this.arrow.getCustomId());
+		}
+	}
+
+	@Override
+	public void a(NBTTagCompound tag) {
+		super.a(tag);
+		if (tag.hasKey("CustomArrowId")) {
+			CustomItem item = MaterialData.getCustomItem(tag.getInt("CustomArrowId"));
+			this.arrow = (CustomArrowItem) (item instanceof CustomArrowItem ? item : null);
+		}
+	}
+
+	@Override
+	public void l_() {
 		if (this.arrow != null) {
 			Arrow a = (Arrow) this.getBukkitEntity();
 			this.arrow.onTick((Player) a.getShooter(), this);
 		}
 
-		super.j_();
+		super.l_();
 	}
 
 	@Override
-	public void c_(EntityHuman entityhuman) {
+	public void b_(EntityHuman entityhuman) {
 		if (!this.canPickup) {
 			return;
 		}

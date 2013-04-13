@@ -23,9 +23,9 @@ package me.cybermaxke.ElementalArrows;
 
 import me.cybermaxke.ElementalArrows.Materials.CustomArrowItem;
 
-import net.minecraft.server.v1_4_R1.*;
+import net.minecraft.server.v1_5_R2.*;
 
-import org.bukkit.craftbukkit.v1_4_R1.entity.*;
+import org.bukkit.craftbukkit.v1_5_R2.entity.*;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;

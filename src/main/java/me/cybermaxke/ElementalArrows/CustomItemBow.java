@@ -23,10 +23,9 @@ package me.cybermaxke.ElementalArrows;
 
 import me.cybermaxke.ElementalArrows.Materials.CustomArrowItem;
 
-import net.minecraft.server.v1_4_R1.*;
+import net.minecraft.server.v1_5_R2.*;
 
-import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_4_R1.event.*;
+import org.bukkit.craftbukkit.v1_5_R2.event.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityShootBowEvent;
 
@@ -35,25 +34,17 @@ import org.getspout.spoutapi.inventory.SpoutItemStack;
 import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-public class CustomItemBow extends Item {
+public class CustomItemBow extends ItemBow {
 
 	public CustomItemBow() {
 		super(MaterialData.bow.getRawId());
-	    this.maxStackSize = 1;
-	    this.setMaxDurability(384);
-	    this.a(CreativeModeTab.j);
-	    this.b(5, 1);
-	    this.b("bow");
+		this.b("bow");
 	}
 
 	private int getFirstArrow(SpoutPlayer p) {
 		for (int i = 0; i < p.getInventory().getSize(); i++) {
 			if (p.getInventory().getItem(i) != null) {
 				SpoutItemStack is = new SpoutItemStack(p.getInventory().getItem(i));
-
-				if (is.getType().equals(Material.ARROW)) {
-					return i;
-				}
 
 				if (is.isCustomItem() && is.getMaterial() instanceof CustomArrowItem) {
 					CustomArrowItem ai = (CustomArrowItem) is.getMaterial();
@@ -70,10 +61,12 @@ public class CustomItemBow extends Item {
 
 	@Override
 	public void a(ItemStack itemstack, World world, EntityHuman entityhuman, int i) {
+		boolean flag = (entityhuman.abilities.canInstantlyBuild) || (EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_INFINITE.id, itemstack) > 0);
 		SpoutPlayer p = SpoutManager.getPlayer((Player) entityhuman.getBukkitEntity());
 
 		int slot = this.getFirstArrow(p);
 		if (slot == -1) {
+			super.a(itemstack, world, entityhuman, i);
 			return;
 		}
 
@@ -89,76 +82,58 @@ public class CustomItemBow extends Item {
 			f = 1.0F;
 		}
 
-		ArrowEntity[] enws = new ArrowEntity[1];
-		enws[0] = new ArrowEntity(world, entityhuman, f * 2.0F);
-
-		if (f == 1.0F) {
-			enws[0].d(true);
-		}		
-
 		SpoutItemStack is = new SpoutItemStack(p.getInventory().getItem(slot));
-		if (is.getType().equals(Material.ARROW) && !is.isCustomItem()) {
-			if (is.getAmount() == 1) {
-				is = null;
-			} else {
-				is.setAmount(is.getAmount() - 1);
+		CustomArrowItem ai = (CustomArrowItem) is.getMaterial();
+
+		for (int it = 0; it < ai.getMultiplePerShot(); it++) {
+			ArrowEntity a = new ArrowEntity(world, entityhuman, f * 2.0F);
+
+			if (f == 1.0F) {
+				a.a(true);
 			}
-		}
 
-		if (is != null) {
-			if (is.isCustomItem() && is.getMaterial() instanceof CustomArrowItem) {
-				CustomArrowItem ai = (CustomArrowItem) is.getMaterial();
+			a.setArrow(ai);
+			a.setFireTicks(ai.getFireTicks());
+			a.setCanPickup(ai.canPickup());
 
-				enws = new ArrowEntity[ai.getMultiplePerShot()];
-				for (int it = 0; it < enws.length; it++) {
-					enws[it] = new ArrowEntity(world, entityhuman, f * 2.0F);
+			int damage = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_DAMAGE.id, itemstack) + a.getDamage();
+			a.setDamage(damage);
 
-					if (f == 1.0F) {
-						enws[it].d(true);
-					}
-
-					enws[it].setArrow(ai);
-					enws[it].setDamage(ai.getDamage());
-					enws[it].setKnockback(ai.getKnockback());
-					enws[it].setFireTicks(ai.getFireTicks());
-					enws[it].setCanPickup(ai.canPickup());
-
-					ai.onShoot(p, enws[it]);
-				}
-
-				if (is.getAmount() == 1) {
-					is = null;
-				} else {
-					is.setAmount(is.getAmount() - 1);
-				}
-			}
-		}
-
-		for (int it = 0; it < enws.length; it++) {
-			int damage = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_DAMAGE.id, itemstack) + enws[it].getDamage();
-			enws[it].setDamage(damage);
-
-			int knockback = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_KNOCKBACK.id, itemstack) + enws[it].getKnockback();
-			enws[it].setKnockback(knockback);
+			int knockback = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_KNOCKBACK.id, itemstack) + a.getKnockback();
+			a.setKnockback(knockback);
 
 			if (EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_FIRE.id, itemstack) > 0) {
-				enws[it].setFireTicks(100 + enws[it].getFireTicks());
+				a.setFireTicks(100 + a.getFireTicks());
 			}
 
-			EntityShootBowEvent event = CraftEventFactory.callEntityShootBowEvent(entityhuman, itemstack, enws[it], f);
+			EntityShootBowEvent event = CraftEventFactory.callEntityShootBowEvent(entityhuman, itemstack, a, f);
 			if (event.isCancelled()) {
 				event.getProjectile().remove();
 				return;
 			}
 
-			if (event.getProjectile() == enws[it].getBukkitEntity()) {
-				world.addEntity(enws[it]);      
+			if (flag) {
+				a.setCanPickup(false);
 			}
+
+			if (event.getProjectile() == a.getBukkitEntity()) {
+				world.addEntity(a);      
+			}
+
+			ai.onShoot(p, a);
 		}
 
-		itemstack.damage(1, entityhuman);
-		p.getInventory().setItem(slot, is);
-		world.makeSound(entityhuman, "random.bow", 1.0F, 1.0F / (d.nextFloat() * 0.4F + 1.2F) + f * 0.5F);	
+		if (!flag) {
+			if (is.getAmount() <= 1) {
+				is = null;
+			} else {
+				is.setAmount(is.getAmount() - 1);
+			}
+			itemstack.damage(1, entityhuman);
+			p.getInventory().setItem(slot, is);
+		}
+
+		world.makeSound(entityhuman, "random.bow", 1.0F, 1.0F / (e.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
 	}
 
 	@Override
@@ -172,8 +147,8 @@ public class CustomItemBow extends Item {
 	}
 
 	@Override
-	public EnumAnimation b_(ItemStack itemstack) {	
-		return EnumAnimation.e;
+	public EnumAnimation b_(ItemStack itemstack) {
+		return EnumAnimation.BOW;
 	}
 
 	@Override
@@ -181,10 +156,11 @@ public class CustomItemBow extends Item {
 		SpoutPlayer p = SpoutManager.getPlayer((Player) entityhuman.getBukkitEntity());
 
 		int slot = this.getFirstArrow(p);
-		if (slot != -1) {
-			entityhuman.a(itemstack, this.c_(itemstack));
+		if (slot == -1) {
+			return super.a(itemstack, world, entityhuman);
 		}
 
+		entityhuman.a(itemstack, this.c_(itemstack));
 		return itemstack;
 	}
 

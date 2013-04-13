@@ -22,60 +22,55 @@
 package me.cybermaxke.ElementalArrows.Materials;
 
 import me.cybermaxke.ElementalArrows.ArrowEntity;
+import me.cybermaxke.ElementalArrows.ElementalArrows;
 
-import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
-import org.getspout.spoutapi.inventory.SpoutShapedRecipe;
-import org.getspout.spoutapi.material.MaterialData;
+import org.getspout.spoutapi.inventory.SpoutShapelessRecipe;
 
-public class DirtArrow extends CustomArrowItem {
+public class VollyArrow extends CustomArrowItem {
 
-	public DirtArrow(Plugin plugin, String name, String texture) {
+	public VollyArrow(Plugin plugin, String name, String texture) {
 		super(plugin, name, texture);
-
-		this.addConfigData("Knockback", 5);
-		this.addConfigData("BonusDamage", 1);
-
-		this.setKnockback((Integer) this.getConfigData("Knockback"));
-		this.setDamage((Integer) this.getConfigData("BonusDamage"));
+		this.setMultiplePerShot(10);
+		this.setArrowDrop(new ItemStack(Material.ARROW));
 	}
 
 	@Override
 	public void registerRecipes() {
 		SpoutItemStack i = new SpoutItemStack(this, 4);
 
-		SpoutShapedRecipe r = new SpoutShapedRecipe(i);
-		r.shape("A", "B", "C");
-		r.setIngredient('A', MaterialData.dirt);
-		r.setIngredient('B', MaterialData.stick);
-		r.setIngredient('C', MaterialData.feather);
+		SpoutShapelessRecipe r = new SpoutShapelessRecipe(i);
+		for (int j = 0; j < 5; j++) {
+			r.addIngredient(ElementalArrows.DUAL_ARROW);
+		}
 
 		SpoutManager.getMaterialManager().registerSpoutRecipe(r);
 	}
 
 	@Override
 	public void onHit(Player shooter, LivingEntity entity, ArrowEntity arrow) {
-		entity.getWorld().playEffect(arrow.getBukkitEntity().getLocation(), Effect.STEP_SOUND, Material.DIRT.getId());
+
 	}
 
 	@Override
 	public void onHit(Player shooter, ArrowEntity arrow) {
-
+		
 	}
 
 	@Override
 	public void onShoot(Player shooter, ArrowEntity arrow) {
-
+		
 	}
 
 	@Override
 	public void onTick(Player shooter, ArrowEntity arrow) {
-
+		
 	}
 }
