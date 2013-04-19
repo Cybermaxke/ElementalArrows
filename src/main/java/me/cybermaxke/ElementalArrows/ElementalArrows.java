@@ -65,7 +65,7 @@ public class ElementalArrows extends JavaPlugin {
 	public static CustomArrowItem BLINDNESS_ARROW;
 
 	@Override
-	public void onEnable() {	
+	public void onEnable() {
 		Bukkit.getServer().getPluginManager().registerEvents(new ArrowListener(), this);
 
 		this.updateArrows();

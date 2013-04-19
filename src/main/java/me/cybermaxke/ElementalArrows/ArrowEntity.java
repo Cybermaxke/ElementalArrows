@@ -48,6 +48,10 @@ public class ArrowEntity extends EntityArrow {
 		this.power = f;
 	}
 
+	public ArrowEntity(World world) {
+		super(world);
+	}
+
 	public void setCanPickup(boolean pickup) {
 		this.canPickup = pickup;
 	}
