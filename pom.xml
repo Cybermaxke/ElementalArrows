@@ -2,11 +2,13 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>cybermaxke</groupId>
 	<artifactId>elementalarrows</artifactId>
-	<version>1.8</version>
+	<version>1.7</version>
 	<name>ElementalArrows</name>
 	<description>Adds new arrows to your bukkit server.</description>
 
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<LibigotVersion>1.5.1-R0.2-SNAPSHOT</LibigotVersion>
 		<SpoutVersion>1.5.1-R0.2-SNAPSHOT</SpoutVersion>
 		<WorldEditVersion>5.5.2-SNAPSHOT</WorldEditVersion>
@@ -38,7 +40,7 @@
 		<dependency>
 			<groupId>org.libigot</groupId>
 			<artifactId>libigot</artifactId>
-			<version>${SpoutVersion}</version>
+			<version>${LibigotVersion}</version>
 		</dependency>
 
 		<dependency>
@@ -68,6 +70,19 @@
 
 	<!-- Build configuration -->
 	<build>
+		<defaultGoal>clean install</defaultGoal>
+
+		<resources>
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/resources</directory>
+				<targetPath>.</targetPath>
+				<includes>
+					<include>*.yml</include>
+				</includes>
+			</resource>
+		</resources>
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -77,29 +92,6 @@
 					<source>1.6</source>
 					<target>1.6</target>
 				</configuration>
-			</plugin>
-
-			<plugin>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.6</version>
-				<executions>
-					<execution>
-						<id>copy-resources</id>
-						<phase>compile</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${basedir}</outputDirectory>
-							<resources>          
-								<resource>
-									<directory>${basedir}/src/main/resources</directory>
-									<filtering>true</filtering>
-								</resource>
-							</resources>              
-						</configuration>            
-					</execution>
-				</executions>
 			</plugin>
 
 			<plugin>
