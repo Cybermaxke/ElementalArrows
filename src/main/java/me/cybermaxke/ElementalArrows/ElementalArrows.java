@@ -39,8 +39,8 @@ import me.cybermaxke.ElementalArrows.Materials.RazorArrow;
 import me.cybermaxke.ElementalArrows.Materials.VampireArrow;
 import me.cybermaxke.ElementalArrows.Materials.VollyArrow;
 import me.cybermaxke.ElementalArrows.Utils.Metrics;
-
-import net.minecraft.server.v1_5_R2.*;
+import net.minecraft.server.EntityTypes;
+import net.minecraft.server.Item;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -48,6 +48,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.getspout.spoutapi.material.MaterialData;
 
 public class ElementalArrows extends JavaPlugin {
+	private static ElementalArrows instance;
+
 	public static CustomArrowItem EGG_ARROW;
 	public static CustomArrowItem EXPLOSION_ARROW;
 	public static CustomArrowItem FIRE_ARROW;
@@ -66,6 +68,8 @@ public class ElementalArrows extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
+		instance = this;
+
 		Bukkit.getServer().getPluginManager().registerEvents(new ArrowListener(), this);
 
 		this.updateArrows();
@@ -123,5 +127,9 @@ public class ElementalArrows extends JavaPlugin {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static ElementalArrows getInstance() {
+		return instance;
 	}
 }

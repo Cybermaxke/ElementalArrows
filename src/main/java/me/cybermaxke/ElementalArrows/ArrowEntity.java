@@ -23,8 +23,17 @@ package me.cybermaxke.ElementalArrows;
 
 import java.lang.reflect.Field;
 
-import org.bukkit.craftbukkit.v1_5_R2.entity.*;
-import org.bukkit.craftbukkit.v1_5_R2.inventory.*;
+import net.minecraft.server.EntityArrow;
+import net.minecraft.server.EntityHuman;
+import net.minecraft.server.EntityItem;
+import net.minecraft.server.EntityLiving;
+import net.minecraft.server.Item;
+import net.minecraft.server.ItemStack;
+import net.minecraft.server.NBTTagCompound;
+import net.minecraft.server.World;
+
+import org.bukkit.craftbukkit.entity.CraftItem;
+import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerPickupItemEvent;
@@ -32,8 +41,6 @@ import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.MaterialData;
 
 import me.cybermaxke.ElementalArrows.Materials.CustomArrowItem;
-
-import net.minecraft.server.v1_5_R2.*;
 
 public class ArrowEntity extends EntityArrow {
 	private CustomArrowItem arrow;

@@ -23,9 +23,18 @@ package me.cybermaxke.ElementalArrows;
 
 import me.cybermaxke.ElementalArrows.Materials.CustomArrowItem;
 
-import net.minecraft.server.v1_5_R2.*;
+import net.minecraft.server.Enchantment;
+import net.minecraft.server.EnchantmentManager;
+import net.minecraft.server.EntityHuman;
+import net.minecraft.server.EntityPlayer;
+import net.minecraft.server.EnumAnimation;
+import net.minecraft.server.Item;
+import net.minecraft.server.ItemBow;
+import net.minecraft.server.ItemStack;
+import net.minecraft.server.Packet103SetSlot;
+import net.minecraft.server.World;
 
-import org.bukkit.craftbukkit.v1_5_R2.event.*;
+import org.bukkit.craftbukkit.event.CraftEventFactory;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityShootBowEvent;
 
@@ -48,7 +57,7 @@ public class CustomItemBow extends ItemBow {
 
 				if (is.isCustomItem() && is.getMaterial() instanceof CustomArrowItem) {
 					CustomArrowItem ai = (CustomArrowItem) is.getMaterial();
-					
+
 					if (!ai.isBlackListWorld(p.getWorld()) && ai.hasUsePermission(p)) {
 						return i;
 					}
@@ -61,7 +70,7 @@ public class CustomItemBow extends ItemBow {
 
 	@Override
 	public void a(ItemStack itemstack, World world, EntityHuman entityhuman, int i) {
-		boolean flag = (entityhuman.abilities.canInstantlyBuild) || (EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_INFINITE.id, itemstack) > 0);
+		boolean flag = entityhuman.abilities.canInstantlyBuild || EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_INFINITE.id, itemstack) > 0;
 		SpoutPlayer p = SpoutManager.getPlayer((Player) entityhuman.getBukkitEntity());
 
 		int slot = this.getFirstArrow(p);
@@ -152,7 +161,7 @@ public class CustomItemBow extends ItemBow {
 	}
 
 	@Override
-	public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
+	public ItemStack a(ItemStack itemstack, World world, final EntityHuman entityhuman) {
 		SpoutPlayer p = SpoutManager.getPlayer((Player) entityhuman.getBukkitEntity());
 
 		int slot = this.getFirstArrow(p);
@@ -160,6 +169,8 @@ public class CustomItemBow extends ItemBow {
 			return super.a(itemstack, world, entityhuman);
 		}
 
+		Packet103SetSlot packet1 = new Packet103SetSlot(0, 9, new ItemStack(Item.ARROW));
+		((EntityPlayer) entityhuman).playerConnection.sendPacket(packet1);
 		entityhuman.a(itemstack, this.c_(itemstack));
 		return itemstack;
 	}
