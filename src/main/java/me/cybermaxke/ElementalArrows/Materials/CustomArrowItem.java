@@ -66,21 +66,6 @@ public abstract class CustomArrowItem extends GenericCustomItem {
 	public CustomArrowItem(Plugin plugin, String name, String texture) {
 		super(plugin, name, texture);
 
-		/** 
-		 * try {
-		 *	 Field f = GenericItem.class.getDeclaredField("id");
-		 *	 f.setAccessible(true);
-		 *
-		 *   Field mf = Field.class.getDeclaredField("modifiers");
-		 *   mf.setAccessible(true);
-		 *   mf.setInt(f, f.getModifiers() & ~Modifier.FINAL);
-		 *
-		 *   f.set(this, MaterialData.arrow.getRawId());
-		 * }  catch (Exception e) {
-		 *   e.printStackTrace();
-		 * }
-		 */
-
 		this.file = new File(plugin.getDataFolder() + File.separator + "Arrows", this.getClass().getSimpleName() + ".yml");
 		this.permission = new Permission(plugin.getName() + "." + this.getClass().getSimpleName() + ".Use", PermissionDefault.OP);
 

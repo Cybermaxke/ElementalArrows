@@ -103,7 +103,7 @@ public class CustomItemBow extends ItemBow {
 
 			a.setArrow(ai);
 			a.setFireTicks(ai.getFireTicks());
-			a.setCanPickup(ai.canPickup());
+			a.setPickupable(flag ? false : ai.canPickup());
 
 			int damage = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_DAMAGE.id, itemstack) + a.getDamage();
 			a.setDamage(damage);
@@ -119,10 +119,6 @@ public class CustomItemBow extends ItemBow {
 			if (event.isCancelled()) {
 				event.getProjectile().remove();
 				return;
-			}
-
-			if (flag) {
-				a.setCanPickup(false);
 			}
 
 			if (event.getProjectile() == a.getBukkitEntity()) {

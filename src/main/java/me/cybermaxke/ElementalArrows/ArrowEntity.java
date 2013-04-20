@@ -21,8 +21,6 @@
  */
 package me.cybermaxke.ElementalArrows;
 
-import java.lang.reflect.Field;
-
 import net.minecraft.server.EntityArrow;
 import net.minecraft.server.EntityHuman;
 import net.minecraft.server.EntityItem;
@@ -48,7 +46,6 @@ public class ArrowEntity extends EntityArrow {
 	private int damage = 0;
 	private int knockback = 0;
 	private int fireticks = 0;
-	private boolean canPickup = true;
 
 	public ArrowEntity(World world, EntityLiving entityliving, float f) {
 		super(world, entityliving, f);
@@ -59,12 +56,12 @@ public class ArrowEntity extends EntityArrow {
 		super(world);
 	}
 
-	public void setCanPickup(boolean pickup) {
-		this.canPickup = pickup;
+	public void setPickupable(boolean pickup) {
+		this.fromPlayer = pickup ? 1 : 2;
 	}
 
-	public boolean canPickup() {
-		return this.canPickup;
+	public boolean isPickupable() {
+		return this.fromPlayer == 1;
 	}
 
 	public float getPower() {
@@ -115,18 +112,6 @@ public class ArrowEntity extends EntityArrow {
 		return this.fireticks;
 	}
 
-	public boolean inGround() {
-		try {
-			Field f = EntityArrow.class.getDeclaredField("inGround");
-			f.setAccessible(true);
-			return (Boolean) f.get(this);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return false;
-	}
-
 	@Override
 	public void b(NBTTagCompound tag) {
 		super.b(tag);
@@ -156,41 +141,30 @@ public class ArrowEntity extends EntityArrow {
 
 	@Override
 	public void b_(EntityHuman entityhuman) {
-		if (!this.canPickup) {
-			return;
+		if (!this.world.isStatic && this.inGround && this.shake <= 0) {
+			ItemStack is = this.arrow != null ? CraftItemStack.asNMSCopy(this.arrow.getArrowDrop()) : new ItemStack(Item.ARROW);
+
+			if (this.fromPlayer == 1 && entityhuman.inventory.canHold(is) > 0) {
+				EntityItem i = new EntityItem(this.world, this.locX, this.locY, this.locZ, is);
+
+				PlayerPickupItemEvent e = new PlayerPickupItemEvent((Player)entityhuman.getBukkitEntity(), new CraftItem(this.world.getServer(), this, i), 0);
+				this.world.getServer().getPluginManager().callEvent(e);
+
+				if (e.isCancelled()) {
+					return;
+				}
+			}
+
+			boolean flag = this.fromPlayer == 1 || (this.fromPlayer == 2 && entityhuman.abilities.canInstantlyBuild);
+			if (this.fromPlayer == 1 && !entityhuman.inventory.pickup(is)) {
+				flag = false;
+			}
+
+			if (flag) {
+				this.world.makeSound(this, "random.pop", 0.2F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+				entityhuman.receive(this, 1);
+				this.die();
+			}
 		}
-
-		if ((!this.world.isStatic) && (this.inGround()) && (this.shake <= 0)) {
-	    	ItemStack ist = new ItemStack(Item.ARROW);
-	    	org.bukkit.inventory.ItemStack is = null;
-
-	    	if (this.arrow != null) {
-	    		is = this.arrow.getArrowDrop();
-	    		ist = CraftItemStack.asNMSCopy(is);
-	    	}
-
-	    	if ((this.fromPlayer == 1) && (this.shake <= 0) && (entityhuman.inventory.canHold(ist) > 0)) {
-	    		EntityItem i = new EntityItem(this.world, this.locX, this.locY, this.locZ, ist);
-
-	    	  	PlayerPickupItemEvent e = new PlayerPickupItemEvent((Player)entityhuman.getBukkitEntity(), new CraftItem(this.world.getServer(), this, i), 0);
-	        	this.world.getServer().getPluginManager().callEvent(e);
-
-	        	if (e.isCancelled()) {
-	        		return;
-	        	}
-	    	}
-
-	    	boolean flag = (this.fromPlayer == 1) || ((this.fromPlayer == 2) && (entityhuman.abilities.canInstantlyBuild));
-
-	    	if ((this.fromPlayer == 1) && (!entityhuman.inventory.pickup(ist))) {
-	      		flag = false;
-	      	}
-
-	      	if (flag) {
-	      		this.world.makeSound(this, "random.pop", 0.2F, ((this.random.nextFloat() - this.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
-	      		entityhuman.receive(this, 1);
-	      		this.die();
-	      	}
-	    }
 	}
 }
