@@ -26,7 +26,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.inventory.CraftItemEvent;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.Plugin;
+
+import org.getspout.spoutapi.inventory.SpoutItemStack;
 
 public class EventListener implements Listener {
 
@@ -72,6 +76,18 @@ public class EventListener implements Listener {
 		ArrowMaterial m = a.getMaterial();
 		if (m != null) {
 			m.onHit(shooter, ent, a);
+		}
+	}
+
+	@EventHandler
+	public void onCraftItem(CraftItemEvent e) {
+		Recipe r = e.getRecipe();
+		SpoutItemStack is = new SpoutItemStack(r.getResult());
+		if (is.isCustomItem() && is.getMaterial() instanceof ArrowMaterial) {
+			ArrowMaterial m = (ArrowMaterial) is.getMaterial();
+			if (m.hasPermission() && !e.getWhoClicked().hasPermission(m.getPermission())) {
+				e.setCancelled(true);
+			}
 		}
 	}
 }

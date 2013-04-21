@@ -48,4 +48,8 @@ public interface ElementalArrow extends Arrow {
 	public float getSpeed();
 
 	public void setLocation(Location location);
+
+	public boolean isInGround();
+
+	public int getShake();
 }

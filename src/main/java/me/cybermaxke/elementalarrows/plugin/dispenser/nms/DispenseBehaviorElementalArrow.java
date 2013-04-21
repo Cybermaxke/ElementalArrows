@@ -95,7 +95,7 @@ public class DispenseBehaviorElementalArrow extends DispenseBehaviorItem {
 
 		world.addEntity(a);
 		m.onShoot(null, ea, null);
-	    return itemstack;
+		return itemstack;
 	}
 
 	@Override

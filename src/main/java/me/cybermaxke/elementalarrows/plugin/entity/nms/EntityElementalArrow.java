@@ -111,7 +111,7 @@ public class EntityElementalArrow extends EntityArrow {
 			}
 
 			boolean flag = this.fromPlayer == 1 || (this.fromPlayer == 2 && entityhuman.abilities.canInstantlyBuild);
-			if (is == null || (!entityhuman.abilities.canInstantlyBuild && this.fromPlayer == 1 && !entityhuman.inventory.pickup(is))) {
+			if (is == null || (this.fromPlayer == 1 && !entityhuman.inventory.pickup(is))) {
 				flag = false;
 			}
 

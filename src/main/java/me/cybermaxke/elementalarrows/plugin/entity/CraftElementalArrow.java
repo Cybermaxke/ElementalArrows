@@ -66,4 +66,14 @@ public class CraftElementalArrow extends CraftArrow implements ElementalArrow {
 		this.getHandle().setPosition(location.getX(), location.getY(), location.getZ());
 		this.getHandle().setPositionRotation(location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
 	}
+
+	@Override
+	public boolean isInGround() {
+		return this.getHandle().inGround;
+	}
+
+	@Override
+	public int getShake() {
+		return this.getHandle().shake;
+	}
 }
