@@ -55,8 +55,10 @@ public class ArrowEnderEye extends GenericCustomArrow {
 
 	@Override
 	public void onHit(LivingEntity shooter, ElementalArrow arrow) {
-		shooter.teleport(arrow.getLocation());
-		arrow.remove();
+		if (shooter != null) {
+			shooter.teleport(arrow.getLocation());
+			arrow.remove();
+		}
 	}
 
 	@Override

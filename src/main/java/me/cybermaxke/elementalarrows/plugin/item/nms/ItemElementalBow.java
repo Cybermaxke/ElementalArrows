@@ -21,6 +21,7 @@ package me.cybermaxke.elementalarrows.plugin.item.nms;
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.material.ArrowMaterial;
 import me.cybermaxke.elementalarrows.plugin.entity.nms.EntityElementalArrow;
+
 import net.minecraft.server.Enchantment;
 import net.minecraft.server.EnchantmentManager;
 import net.minecraft.server.EntityHuman;
@@ -121,7 +122,7 @@ public class ItemElementalBow extends ItemBow {
 
 		if (l > 0) {
 			a.setKnockbackStrength(Math.round((float) (a.getKnockbackStrength() * m.getKnockbackStrengthMultiplier())));
-		} else if (m.getKnockbackStrengthMultiplier() != 1.0D) {
+		} else if (m.getKnockbackStrengthMultiplier() != 0.0D) {
 			a.setKnockbackStrength(Math.round((float) (1.0D * m.getKnockbackStrengthMultiplier())));
 		}
 

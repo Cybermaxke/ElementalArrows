@@ -64,13 +64,12 @@ public class ArrowEgg extends GenericCustomArrow {
 
 	@Override
 	public Recipe[] getRecipes() {
-		SpoutItemStack i = new SpoutItemStack(this, 4);
+		SpoutItemStack i = new SpoutItemStack(this, 1);
 
 		SpoutShapedRecipe r = new SpoutShapedRecipe(i);
-		r.shape("A", "B", "C");
+		r.shape("A", "B");
 		r.setIngredient('A', MaterialData.egg);
-		r.setIngredient('B', MaterialData.stick);
-		r.setIngredient('C', MaterialData.feather);
+		r.setIngredient('B', MaterialData.arrow);
 
 		return new Recipe[] { r };
 	}

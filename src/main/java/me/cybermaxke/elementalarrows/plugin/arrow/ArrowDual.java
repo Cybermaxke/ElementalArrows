@@ -54,7 +54,7 @@ public class ArrowDual extends GenericCustomArrow {
 
 	@Override
 	public void onShoot(LivingEntity shooter, final ElementalArrow arrow, ItemStack bow) {
-		if (!(shooter instanceof Player)) {
+		if (shooter == null || !(shooter instanceof Player)) {
 			return;
 		}
 

@@ -42,7 +42,7 @@ import org.getspout.spoutapi.material.item.GenericCustomItem;
 public class GenericCustomArrow extends GenericCustomItem implements ArrowMaterial, ConfigHolder {
 	private double damageMulti = 1.0D;
 	private double speedMulti = 1.0D;
-	private double knockbackMulti = 1.0D;
+	private double knockbackMulti = 0.0D;
 
 	private int fireTicks = 0;
 
@@ -71,6 +71,7 @@ public class GenericCustomArrow extends GenericCustomItem implements ArrowMateri
 				SpoutManager.getMaterialManager().registerSpoutRecipe(r);
 			}
 		}
+		SpoutManager.getFileManager().addToCache(plugin, this.getTexture());
 	}
 
 	@Override

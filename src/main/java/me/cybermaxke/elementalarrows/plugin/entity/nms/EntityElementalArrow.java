@@ -47,6 +47,10 @@ public class EntityElementalArrow extends EntityArrow {
 		super(world);
 	}
 
+	public EntityElementalArrow(World world, double x, double y, double z) {
+		super(world, x, y, z);
+	}
+
 	public EntityElementalArrow(World world, EntityLiving entityliving, float f) {
 		super(world, entityliving, f);
 		this.speed = f;
@@ -108,7 +112,7 @@ public class EntityElementalArrow extends EntityArrow {
 			}
 
 			boolean flag = this.fromPlayer == 1 || (this.fromPlayer == 2 && entityhuman.abilities.canInstantlyBuild);
-			if (is == null || (this.fromPlayer == 1 && !entityhuman.inventory.pickup(is))) {
+			if (is == null || (!entityhuman.abilities.canInstantlyBuild && this.fromPlayer == 1 && !entityhuman.inventory.pickup(is))) {
 				flag = false;
 			}
 

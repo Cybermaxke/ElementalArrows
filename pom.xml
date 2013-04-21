@@ -10,7 +10,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<LibigotVersion>1.5.1-R0.3-SNAPSHOT</LibigotVersion>
-		<SpoutVersion>1.5.1-R0.2-SNAPSHOT</SpoutVersion>
+		<SpoutVersion>1.5.1-R0.3-SNAPSHOT</SpoutVersion>
 		<WorldEditVersion>5.5.2-SNAPSHOT</WorldEditVersion>
 		<WorldGuardVersion>5.7.2-SNAPSHOT</WorldGuardVersion>
 		<MainClass>me.cybermaxke.elementalarrows.plugin.ElementalArrows</MainClass>

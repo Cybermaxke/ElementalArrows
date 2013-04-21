@@ -24,12 +24,14 @@ import me.cybermaxke.elementalarrows.api.ElementalArrowsAPI;
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.entity.ElementalPlayer;
 import me.cybermaxke.elementalarrows.plugin.arrow.ArrowManager;
+import me.cybermaxke.elementalarrows.plugin.dispenser.nms.DispenseBehaviorManager;
 import me.cybermaxke.elementalarrows.plugin.entity.CraftElementalPlayer;
 import me.cybermaxke.elementalarrows.plugin.entity.nms.EntityElementalArrow;
 import me.cybermaxke.elementalarrows.plugin.entity.nms.EntityManager;
 import me.cybermaxke.elementalarrows.plugin.item.nms.ItemManager;
 import me.cybermaxke.elementalarrows.plugin.listeners.EventListener;
 import me.cybermaxke.elementalarrows.plugin.utils.Metrics;
+
 import net.minecraft.server.World;
 
 import org.bukkit.Bukkit;
@@ -54,6 +56,7 @@ public class ElementalArrows extends JavaPlugin implements ElementalArrowsAPI {
 	public void onEnable() {
 		new ItemManager();
 		new EntityManager();
+		new DispenseBehaviorManager();
 		new ArrowManager(this);
 		new EventListener(this);
 

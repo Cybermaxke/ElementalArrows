@@ -59,7 +59,9 @@ public class ArrowVampire extends GenericCustomArrow {
 
 	@Override
 	public void onHit(LivingEntity shooter, LivingEntity entity, ElementalArrow arrow) {
-		shooter.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, this.duration, 12));
+		if (shooter != null) {
+			shooter.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, this.duration, 12));
+		}
 		arrow.getWorld().playEffect(arrow.getLocation(), Effect.STEP_SOUND, Material.REDSTONE_BLOCK.getId());
 	}
 }
