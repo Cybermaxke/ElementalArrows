@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>cybermaxke</groupId>
 	<artifactId>elementalarrows</artifactId>
-	<version>1.7</version>
+	<version>2.0</version>
 	<name>ElementalArrows</name>
 	<description>Adds new arrows to your bukkit server.</description>
 
@@ -13,8 +13,9 @@
 		<SpoutVersion>1.5.1-R0.2-SNAPSHOT</SpoutVersion>
 		<WorldEditVersion>5.5.2-SNAPSHOT</WorldEditVersion>
 		<WorldGuardVersion>5.7.2-SNAPSHOT</WorldGuardVersion>
-		<MainClass>me.cybermaxke.ElementalArrows.ElementalArrows</MainClass>
+		<MainClass>me.cybermaxke.elementalarrows.plugin.ElementalArrows</MainClass>
 		<Author>Cybermaxke</Author>
+		<Depends>Spout,WorldEdit,WorldGuard</Depends>
 	</properties>
 
 	<!-- Repositories -->

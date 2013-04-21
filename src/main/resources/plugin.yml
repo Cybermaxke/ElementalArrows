@@ -4,3 +4,4 @@ version: ${project.version}
 description: ${project.description}
 author: ${Author}
 load: startup
+softdepend: [${Depends}]
