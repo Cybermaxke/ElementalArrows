@@ -37,7 +37,7 @@ public class ArrowManager {
 	public static ArrowMaterial ARROW_PULL;
 	public static ArrowMaterial ARROW_RAZOR;
 	public static ArrowMaterial ARROW_VAMPIRE;
-	public static ArrowMaterial ARROW_VOLLY;
+	public static ArrowMaterial ARROW_VOLLEY;
 
 	public ArrowManager(Plugin plugin) {
 		//ARROW_BLINDNESS = new ArrowBlindness(plugin, "Blindness Arrow", "");
@@ -54,6 +54,6 @@ public class ArrowManager {
 		//ARROW_PULL = new ArrowPull(plugin, "Pull Arrow", "");
 		ARROW_RAZOR = new ArrowRazor(plugin, "Razor Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/RazorArrow.png");
 		ARROW_VAMPIRE = new ArrowVampire(plugin, "Vampiric Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/VampireArrow.png");
-		ARROW_VOLLY = new ArrowVolly(plugin, "Volly Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/VollyArrow.png");
+		ARROW_VOLLEY = new ArrowVolley(plugin, "Volley Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/VollyArrow.png");
 	}
 }

@@ -30,11 +30,11 @@ import org.bukkit.util.Vector;
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.material.GenericCustomArrow;
 
-public class ArrowVolly extends GenericCustomArrow {
+public class ArrowVolley extends GenericCustomArrow {
 	private Random random = new Random();
 	private int amount;
 
-	public ArrowVolly(Plugin plugin, String name, String texture) {
+	public ArrowVolley(Plugin plugin, String name, String texture) {
 		super(plugin, name, texture);
 	}
 

@@ -18,6 +18,8 @@
  */
 package me.cybermaxke.elementalarrows.plugin.entity;
 
+import java.util.Random;
+
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.entity.ElementalPlayer;
 import me.cybermaxke.elementalarrows.plugin.entity.nms.EntityElementalArrow;
@@ -28,6 +30,7 @@ import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 public class CraftElementalPlayer extends CraftPlayer implements ElementalPlayer {
+	private Random random = new Random();
 
 	public CraftElementalPlayer(Player player) {
 		super(((CraftPlayer) player).getHandle().world.getServer(), ((CraftPlayer) player).getHandle());
@@ -38,6 +41,7 @@ public class CraftElementalPlayer extends CraftPlayer implements ElementalPlayer
 		EntityPlayer player = this.getHandle();
 		EntityElementalArrow arrow = new EntityElementalArrow(player.world, player, speed);
 		player.world.addEntity(arrow);
+		player.world.makeSound(player, "random.bow", 1.0F, 1.0F / (this.random.nextFloat() * 0.4F + 1.2F) + speed * 0.5F);
 		return arrow.getBukkitEntity();
 	}
 }

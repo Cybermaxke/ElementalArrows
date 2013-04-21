@@ -44,7 +44,7 @@ public class ArrowDual extends GenericCustomArrow {
 
 	@Override
 	public Recipe[] getRecipes() {
-		SpoutItemStack i = new SpoutItemStack(this, 4);
+		SpoutItemStack i = new SpoutItemStack(this, 1);
 
 		SpoutShapelessRecipe r = new SpoutShapelessRecipe(i);
 		r.addIngredient(2, MaterialData.arrow);
