@@ -22,5 +22,5 @@ import org.bukkit.entity.Player;
 
 public interface ElementalPlayer extends Player {
 
-	public ElementalArrow shootElementalArrow(float power);
+	public ElementalArrow shootElementalArrow(float speed);
 }

@@ -22,7 +22,7 @@
 	<repositories>
 		<repository>
 			<id>libigot-repo</id>
-			<url>http://nexus.libigot.org/content/repositories/libigot/</url>
+			<url>http://repo.libigot.org/</url>
 		</repository>
 
 		<repository>
