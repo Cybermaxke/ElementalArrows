@@ -34,7 +34,6 @@ import net.minecraft.server.EntityArrow;
 import net.minecraft.server.EntityHuman;
 import net.minecraft.server.EntityItem;
 import net.minecraft.server.EntityLiving;
-import net.minecraft.server.Item;
 import net.minecraft.server.ItemStack;
 import net.minecraft.server.NBTTagCompound;
 import net.minecraft.server.World;
@@ -75,7 +74,7 @@ public class EntityElementalArrow extends EntityArrow {
 	@Override
 	public void a(NBTTagCompound tag) {
 		super.a(tag);
-		if (tag.hasKey("CustomArrowId")) {
+		if (tag.hasKey("ElementalArrowId")) {
 			CustomItem item = MaterialData.getCustomItem(tag.getInt("ElementalArrowId"));
 			this.arrow = (ArrowMaterial) (item == null ? null : item instanceof ArrowMaterial ? item : null);
 		}
@@ -98,7 +97,7 @@ public class EntityElementalArrow extends EntityArrow {
 		}
 
 		if (!this.world.isStatic && this.inGround && this.shake <= 0) {
-			ItemStack is = this.arrow.getDrop() == null ? null : this.arrow != null ? CraftItemStack.asNMSCopy(this.arrow.getDrop()) : new ItemStack(Item.ARROW);
+			ItemStack is = this.arrow.getDrop() == null ? null : CraftItemStack.asNMSCopy(this.arrow.getDrop());
 
 			if (is != null && this.fromPlayer == 1 && entityhuman.inventory.canHold(is) > 0) {
 				EntityItem i = new EntityItem(this.world, this.locX, this.locY, this.locZ, is);
