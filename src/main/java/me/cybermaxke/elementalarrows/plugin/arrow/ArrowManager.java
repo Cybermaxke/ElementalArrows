@@ -40,7 +40,7 @@ public class ArrowManager {
 	public static ArrowMaterial ARROW_VOLLEY;
 
 	public ArrowManager(Plugin plugin) {
-		//ARROW_BLINDNESS = new ArrowBlindness(plugin, "Blindness Arrow", "");
+		ARROW_BLINDNESS = new ArrowBlindness(plugin, "Blindness Arrow", "https://dl.dropbox.com/u/104060836/ElementalArrows/Resources/BlindnessArrow.png");
 		ARROW_DAZING = new ArrowDazing(plugin, "Dazing Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/DazingArrow.png");
 		ARROW_DIRT = new ArrowDirt(plugin, "Dirt Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/DirtArrow.png");
 		ARROW_DUAL = new ArrowDual(plugin, "Dual Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/DualArrow.png");

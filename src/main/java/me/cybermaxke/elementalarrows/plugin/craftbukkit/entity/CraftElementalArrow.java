@@ -77,27 +77,33 @@ public class CraftElementalArrow extends CraftArrow implements ElementalArrow {
 		return this.getHandle().shake;
 	}
 
+	@Override
 	public double getDamage() {
-        return getHandle().c();
-    }
+		return this.getHandle().c();
+	}
 
-    public void setDamage(double damage) {
-        getHandle().b(damage);
-    }
+	@Override
+	public void setDamage(double damage) {
+		this.getHandle().b(damage);
+	}
 
-    public int getKnockbackStrength() {
-        return this.getHandle().getKnockbackStrength();
-    }
+	@Override
+	public int getKnockbackStrength() {
+		return this.getHandle().getKnockbackStrength();
+	}
 
-    public void setKnockbackStrength(int strength) {
-        getHandle().a(strength);
-    }
+	@Override
+	public void setKnockbackStrength(int strength) {
+		this.getHandle().a(strength);
+	}
 
-    public boolean isCritical() {
-        return getHandle().d();
-    }
+	@Override
+	public boolean isCritical() {
+		return this.getHandle().d();
+	}
 
-    public void setCritical(boolean critical) {
-        getHandle().a(critical);
-    }
+	@Override
+	public void setCritical(boolean critical) {
+		this.getHandle().a(critical);
+	}
 }

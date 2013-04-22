@@ -18,6 +18,9 @@
  */
 package me.cybermaxke.elementalarrows.plugin.arrow;
 
+import java.util.Random;
+
+import org.bukkit.Effect;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.plugin.Plugin;
@@ -28,6 +31,7 @@ import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.material.GenericCustomArrow;
 
 public class ArrowBlindness extends GenericCustomArrow {
+	private Random random = new Random();
 	private int duration;
 
 	public ArrowBlindness(Plugin plugin, String name, String texture) {
@@ -58,5 +62,12 @@ public class ArrowBlindness extends GenericCustomArrow {
 	@Override
 	public void onHit(LivingEntity shooter, LivingEntity entity, ElementalArrow arrow) {
 		entity.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, this.duration, 12));
+	}
+
+	@Override
+	public void onTick(LivingEntity shooter, ElementalArrow arrow) {
+		if (this.random.nextInt(5) <= 1) {
+			arrow.getWorld().playEffect(arrow.getLocation(), Effect.SMOKE, 4);
+		}
 	}
 }
