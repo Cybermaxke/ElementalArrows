@@ -16,12 +16,12 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.plugin.dispenser.nms;
+package me.cybermaxke.elementalarrows.plugin.craftbukkit.dispenser.nms;
+
+import net.minecraft.server.v1_5_R2.BlockDispenser;
+import net.minecraft.server.v1_5_R2.Item;
 
 import org.bukkit.Material;
-
-import net.minecraft.server.BlockDispenser;
-import net.minecraft.server.Item;
 
 public class DispenseBehaviorManager {
 

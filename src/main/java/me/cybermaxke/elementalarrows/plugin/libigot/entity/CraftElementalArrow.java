@@ -16,14 +16,14 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.plugin.entity;
+package me.cybermaxke.elementalarrows.plugin.libigot.entity;
 
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.entity.CraftArrow;
 
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.material.ArrowMaterial;
-import me.cybermaxke.elementalarrows.plugin.entity.nms.EntityElementalArrow;
+import me.cybermaxke.elementalarrows.plugin.libigot.entity.nms.EntityElementalArrow;
 
 public class CraftElementalArrow extends CraftArrow implements ElementalArrow {
 

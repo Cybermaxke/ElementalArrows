@@ -9,17 +9,23 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<BukkitVersion>1.5.1-R0.3-SNAPSHOT</BukkitVersion>
 		<LibigotVersion>1.5.1-R0.3-SNAPSHOT</LibigotVersion>
 		<SpoutVersion>1.5.1-R0.3-SNAPSHOT</SpoutVersion>
 		<WorldEditVersion>5.5.2-SNAPSHOT</WorldEditVersion>
 		<WorldGuardVersion>5.7.2-SNAPSHOT</WorldGuardVersion>
-		<MainClass>me.cybermaxke.elementalarrows.plugin.ElementalArrows</MainClass>
+		<MainClass>me.cybermaxke.elementalarrows.plugin.ElementalArrowsPlugin</MainClass>
 		<Author>Cybermaxke</Author>
 		<Depends>Spout,WorldEdit,WorldGuard</Depends>
 	</properties>
 
 	<!-- Repositories -->
 	<repositories>
+		<repository>
+			<id>bukkit-repo</id>
+			<url>http://repo.bukkit.org/</url>
+		</repository>
+
 		<repository>
 			<id>libigot</id>
 			<url>http://repo.libigot.org/</url>
@@ -38,6 +44,12 @@
 	
 	<!-- Dependencies -->
 	<dependencies>
+		<dependency>
+			<groupId>org.bukkit</groupId>
+			<artifactId>craftbukkit</artifactId>
+			<version>${BukkitVersion}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.libigot</groupId>
 			<artifactId>libigot</artifactId>

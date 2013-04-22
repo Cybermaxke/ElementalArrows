@@ -16,21 +16,16 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.plugin;
-
-import java.util.logging.Level;
+package me.cybermaxke.elementalarrows.plugin.libigot;
 
 import me.cybermaxke.elementalarrows.api.ElementalArrowsAPI;
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.entity.ElementalPlayer;
-import me.cybermaxke.elementalarrows.plugin.arrow.ArrowManager;
-import me.cybermaxke.elementalarrows.plugin.dispenser.nms.DispenseBehaviorManager;
-import me.cybermaxke.elementalarrows.plugin.entity.CraftElementalPlayer;
-import me.cybermaxke.elementalarrows.plugin.entity.nms.EntityElementalArrow;
-import me.cybermaxke.elementalarrows.plugin.entity.nms.EntityManager;
-import me.cybermaxke.elementalarrows.plugin.item.nms.ItemManager;
-import me.cybermaxke.elementalarrows.plugin.listeners.EventListener;
-import me.cybermaxke.elementalarrows.plugin.utils.Metrics;
+import me.cybermaxke.elementalarrows.plugin.libigot.dispenser.nms.DispenseBehaviorManager;
+import me.cybermaxke.elementalarrows.plugin.libigot.entity.CraftElementalPlayer;
+import me.cybermaxke.elementalarrows.plugin.libigot.entity.nms.EntityElementalArrow;
+import me.cybermaxke.elementalarrows.plugin.libigot.entity.nms.EntityManager;
+import me.cybermaxke.elementalarrows.plugin.libigot.item.nms.ItemManager;
 
 import net.minecraft.server.World;
 
@@ -38,50 +33,22 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.flags.DefaultFlag;
 
-public class ElementalArrows extends JavaPlugin implements ElementalArrowsAPI {
-	private static ElementalArrows instance;
+public class ElementalArrows implements ElementalArrowsAPI {
 
-	@Override
-	public void onLoad() {
-		instance = this;
-	}
-
-	@Override
-	public void onEnable() {
+	public ElementalArrows() {
 		new ItemManager();
 		new EntityManager();
 		new DispenseBehaviorManager();
-		new ArrowManager(this);
-		new EventListener(this);
-
-		try {
-			Metrics m = new Metrics(this);
-			m.start();
-			this.getLogger().log(Level.INFO, "Metrics loaded.");
-		} catch (Exception e) {
-			e.printStackTrace();
-			this.getLogger().log(Level.WARNING, "Couldn't load Metrics!");
-		}
-	}
-
-	@Override
-	public void onDisable() {
-
 	}
 
 	@Override
 	public ElementalPlayer getPlayer(Player player) {
 		return new CraftElementalPlayer(player);
-	}
-
-	public static ElementalArrows getInstance() {
-		return instance;
 	}
 
 	@Override

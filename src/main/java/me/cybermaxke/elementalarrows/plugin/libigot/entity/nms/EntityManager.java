@@ -1,4 +1,4 @@
-package me.cybermaxke.elementalarrows.plugin.entity.nms;
+package me.cybermaxke.elementalarrows.plugin.libigot.entity.nms;
 
 import java.lang.reflect.Method;
 

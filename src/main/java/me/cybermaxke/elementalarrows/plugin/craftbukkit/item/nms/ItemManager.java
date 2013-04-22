@@ -16,9 +16,9 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.plugin.item.nms;
+package me.cybermaxke.elementalarrows.plugin.craftbukkit.item.nms;
 
-import net.minecraft.server.Item;
+import net.minecraft.server.v1_5_R2.Item;
 
 public class ItemManager {
 

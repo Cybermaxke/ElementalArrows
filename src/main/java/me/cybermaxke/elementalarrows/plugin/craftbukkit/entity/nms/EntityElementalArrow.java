@@ -16,10 +16,20 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.plugin.entity.nms;
+package me.cybermaxke.elementalarrows.plugin.craftbukkit.entity.nms;
 
-import org.bukkit.craftbukkit.entity.CraftItem;
-import org.bukkit.craftbukkit.inventory.CraftItemStack;
+import java.lang.reflect.Field;
+
+import net.minecraft.server.v1_5_R2.EntityArrow;
+import net.minecraft.server.v1_5_R2.EntityHuman;
+import net.minecraft.server.v1_5_R2.EntityItem;
+import net.minecraft.server.v1_5_R2.EntityLiving;
+import net.minecraft.server.v1_5_R2.ItemStack;
+import net.minecraft.server.v1_5_R2.NBTTagCompound;
+import net.minecraft.server.v1_5_R2.World;
+
+import org.bukkit.craftbukkit.v1_5_R2.entity.CraftItem;
+import org.bukkit.craftbukkit.v1_5_R2.inventory.CraftItemStack;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerPickupItemEvent;
@@ -28,15 +38,7 @@ import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.MaterialData;
 
 import me.cybermaxke.elementalarrows.api.material.ArrowMaterial;
-import me.cybermaxke.elementalarrows.plugin.entity.CraftElementalArrow;
-
-import net.minecraft.server.EntityArrow;
-import net.minecraft.server.EntityHuman;
-import net.minecraft.server.EntityItem;
-import net.minecraft.server.EntityLiving;
-import net.minecraft.server.ItemStack;
-import net.minecraft.server.NBTTagCompound;
-import net.minecraft.server.World;
+import me.cybermaxke.elementalarrows.plugin.craftbukkit.entity.CraftElementalArrow;
 
 public class EntityElementalArrow extends EntityArrow {
 	public ArrowMaterial arrow;
@@ -89,6 +91,26 @@ public class EntityElementalArrow extends EntityArrow {
 		super.l_();
 	}
 
+	public boolean isInGround() {
+		try {
+			Field f = EntityArrow.class.getDeclaredField("inGound");
+			f.setAccessible(true);
+			return f.getBoolean(this);
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public int getKnockbackStrength() {
+		try {
+			Field f = EntityArrow.class.getDeclaredField("aw");
+			f.setAccessible(true);
+			return f.getInt(this);
+		} catch (Exception e) {
+			return 0;
+		}
+	}
+
 	@Override
 	public void b_(EntityHuman entityhuman) {
 		if (this.arrow == null) {
@@ -96,7 +118,7 @@ public class EntityElementalArrow extends EntityArrow {
 			return;
 		}
 
-		if (!this.world.isStatic && this.inGround && this.shake <= 0) {
+		if (!this.world.isStatic && this.isInGround() && this.shake <= 0) {
 			ItemStack is = this.arrow.getDrop() == null ? null : CraftItemStack.asNMSCopy(this.arrow.getDrop());
 
 			if (is != null && this.fromPlayer == 1 && entityhuman.inventory.canHold(is) > 0) {

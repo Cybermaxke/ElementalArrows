@@ -16,11 +16,11 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.plugin.item.nms;
+package me.cybermaxke.elementalarrows.plugin.libigot.item.nms;
 
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.material.ArrowMaterial;
-import me.cybermaxke.elementalarrows.plugin.entity.nms.EntityElementalArrow;
+import me.cybermaxke.elementalarrows.plugin.libigot.entity.nms.EntityElementalArrow;
 
 import net.minecraft.server.Enchantment;
 import net.minecraft.server.EnchantmentManager;

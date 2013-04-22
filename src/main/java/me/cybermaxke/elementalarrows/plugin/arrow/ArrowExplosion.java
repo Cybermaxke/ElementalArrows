@@ -29,7 +29,7 @@ import org.getspout.spoutapi.material.MaterialData;
 
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.material.GenericCustomArrow;
-import me.cybermaxke.elementalarrows.plugin.ElementalArrows;
+import me.cybermaxke.elementalarrows.plugin.ElementalArrowsPlugin;
 
 public class ArrowExplosion extends GenericCustomArrow {
 	private float power;
@@ -74,7 +74,7 @@ public class ArrowExplosion extends GenericCustomArrow {
 
 	@Override
 	public void onHit(LivingEntity shooter, ElementalArrow arrow) {
-		float f = ElementalArrows.getInstance().isRegionProtected(arrow.getLocation()) ? 0.0F : this.power;
+		float f = ElementalArrowsPlugin.getInstance().getAPI().isRegionProtected(arrow.getLocation()) ? 0.0F : this.power;
 		arrow.getWorld().createExplosion(arrow.getLocation(), f);
 		arrow.remove();
 	}
