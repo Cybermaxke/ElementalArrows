@@ -93,7 +93,7 @@ public class EntityElementalArrow extends EntityArrow {
 
 	public boolean isInGround() {
 		try {
-			Field f = EntityArrow.class.getDeclaredField("inGound");
+			Field f = EntityArrow.class.getDeclaredField("inGround");
 			f.setAccessible(true);
 			return f.getBoolean(this);
 		} catch (Exception e) {
