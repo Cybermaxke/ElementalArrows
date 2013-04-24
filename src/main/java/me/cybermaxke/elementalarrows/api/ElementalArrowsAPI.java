@@ -19,6 +19,7 @@
 package me.cybermaxke.elementalarrows.api;
 
 import org.bukkit.Location;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
@@ -30,6 +31,8 @@ public interface ElementalArrowsAPI {
 	public ElementalPlayer getPlayer(Player player);
 
 	public ElementalArrow shootElementalArrow(Location location, Vector vector, float speed, float spread);
+
+	public <T extends Entity> T spawn(Class<T> entity, Location location);
 
 	public boolean isRegionProtected(Location location);
 }

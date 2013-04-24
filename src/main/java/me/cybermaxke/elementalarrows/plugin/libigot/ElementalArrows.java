@@ -21,9 +21,11 @@ package me.cybermaxke.elementalarrows.plugin.libigot;
 import me.cybermaxke.elementalarrows.api.ElementalArrowsAPI;
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.entity.ElementalPlayer;
+import me.cybermaxke.elementalarrows.api.entity.ElementalSkeleton;
 import me.cybermaxke.elementalarrows.plugin.libigot.dispenser.nms.DispenseBehaviorManager;
 import me.cybermaxke.elementalarrows.plugin.libigot.entity.CraftElementalPlayer;
 import me.cybermaxke.elementalarrows.plugin.libigot.entity.nms.EntityElementalArrow;
+import me.cybermaxke.elementalarrows.plugin.libigot.entity.nms.EntityElementalSkeleton;
 import me.cybermaxke.elementalarrows.plugin.libigot.entity.nms.EntityManager;
 import me.cybermaxke.elementalarrows.plugin.libigot.item.nms.ItemManager;
 
@@ -32,6 +34,7 @@ import net.minecraft.server.World;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.CraftWorld;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
@@ -69,5 +72,17 @@ public class ElementalArrows implements ElementalArrowsAPI {
 		a.speed = speed;
 		w.addEntity(a);
 		return a.getBukkitEntity();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <T extends Entity> T spawn(Class<T> entity, Location location) {
+		World w = ((CraftWorld) location.getWorld()).getHandle();
+		if (ElementalSkeleton.class.isAssignableFrom(entity)) {
+			EntityElementalSkeleton ent = new EntityElementalSkeleton(w);
+			ent.setPositionRotation(location.getX(), location.getY(), location.getZ(), location.getPitch(), location.getYaw());
+			return (T) ent.getBukkitEntity();
+		}
+		return location.getWorld().spawn(location, entity);
 	}
 }
