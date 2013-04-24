@@ -19,8 +19,13 @@
 package me.cybermaxke.elementalarrows.plugin.libigot.entity.nms;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Material;
+import org.bukkit.craftbukkit.event.CraftEventFactory;
+
+import org.getspout.spoutapi.inventory.SpoutItemStack;
 import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.MaterialData;
 
@@ -148,6 +153,27 @@ public class EntityElementalSkeleton extends EntitySkeleton {
 
 		this.makeSound("random.bow", 1.0F, 1.0F / (this.aE().nextFloat() * 0.4F + 0.8F));
 		this.world.addEntity(a);
+	}
+
+	@Override
+	public void dropDeathLoot(boolean flag, int i) {
+		List<org.bukkit.inventory.ItemStack> loot = new ArrayList<org.bukkit.inventory.ItemStack>();
+
+		int count = this.random.nextInt(3 + i);
+		if (count > 0) {
+			if (this.arrow != null && this.arrow instanceof CustomItem) {
+				loot.add(new SpoutItemStack((CustomItem) this.arrow, count));
+			} else {
+				loot.add(new org.bukkit.inventory.ItemStack(Material.ARROW, count));
+			}
+		}
+
+		int count2 = this.random.nextInt(3 + i);
+		if (count2 > 0) {
+			loot.add(new org.bukkit.inventory.ItemStack(Material.BONE, count2));
+		}
+
+		CraftEventFactory.callEntityDeathEvent(this, loot);
 	}
 
 	@Override
