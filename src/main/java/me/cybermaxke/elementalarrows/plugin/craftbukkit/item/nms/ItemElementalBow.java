@@ -120,10 +120,11 @@ public class ItemElementalBow extends ItemBow {
 			a.setDamage(a.getDamage() * m.getDamageMultiplier());
 		}
 
+		double d = m.getKnockbackStrengthMultiplier();
 		if (l > 0) {
-			a.setKnockbackStrength(Math.round((float) (a.getKnockbackStrength() * m.getKnockbackStrengthMultiplier())));
+			a.setKnockbackStrength(Math.round((float) (l * (d == 0.0D ? 1.0D : d))));
 		} else if (m.getKnockbackStrengthMultiplier() != 0.0D) {
-			a.setKnockbackStrength(Math.round((float) (1.0D * m.getKnockbackStrengthMultiplier())));
+			a.setKnockbackStrength(Math.round((float) (1.0D * d)));
 		}
 
 		if (n > 0) {

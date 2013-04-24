@@ -57,6 +57,11 @@ public class EntityElementalArrow extends EntityArrow {
 		this.speed = f;
 	}
 
+	public EntityElementalArrow(World world, EntityLiving entityliving, EntityLiving entityliving1, float f, float f1) {
+		super(world, entityliving, entityliving1, f, f1);
+		this.speed = f;
+	}
+
 	@Override
 	public CraftElementalArrow getBukkitEntity() {
 		if (this.bukkitEntity == null || !(this.bukkitEntity instanceof CraftElementalArrow)) {

@@ -18,6 +18,11 @@
  */
 package me.cybermaxke.elementalarrows.plugin.arrow;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import me.cybermaxke.elementalarrows.api.material.ArrowMaterial;
 
 import org.bukkit.plugin.Plugin;
@@ -55,5 +60,19 @@ public class ArrowManager {
 		ARROW_RAZOR = new ArrowRazor(plugin, "Razor Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/RazorArrow.png");
 		ARROW_VAMPIRE = new ArrowVampire(plugin, "Vampiric Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/VampireArrow.png");
 		ARROW_VOLLEY = new ArrowVolley(plugin, "Volley Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/VollyArrow.png");
+	}
+
+	public static ArrowMaterial getRandomArrow() {
+		List<ArrowMaterial> m = new ArrayList<ArrowMaterial>();
+		for (Field f : ArrowManager.class.getFields()) {
+			try {
+				Object o = f.get(null);
+				if (o != null && o instanceof ArrowMaterial) {
+					m.add((ArrowMaterial) o);
+				}
+			} catch (Exception e) {}
+		}
+
+		return m.size() > 0 ? m.get(new Random().nextInt(m.size())) : null;
 	}
 }
