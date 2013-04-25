@@ -18,9 +18,13 @@
  */
 package me.cybermaxke.elementalarrows.plugin.arrow;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
@@ -30,6 +34,7 @@ import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.material.GenericCustomArrow;
 
 public class ArrowVampire extends GenericCustomArrow {
+	private List<EntityType> invalidTypes;
 	private int duration;
 
 	public ArrowVampire(Plugin plugin, String name, String texture) {
@@ -39,6 +44,11 @@ public class ArrowVampire extends GenericCustomArrow {
 	@Override
 	public void onInit() {
 		this.duration = 40;
+		this.invalidTypes = new ArrayList<EntityType>();
+		this.invalidTypes.add(EntityType.SKELETON);
+		this.invalidTypes.add(EntityType.ZOMBIE);
+		this.invalidTypes.add(EntityType.PIG_ZOMBIE);
+		this.invalidTypes.add(EntityType.WITHER);
 	}
 
 	@Override
@@ -46,6 +56,16 @@ public class ArrowVampire extends GenericCustomArrow {
 		super.onLoad(config);
 		if (config.contains("EffectDuration")) {
 			this.duration = config.getInt("EffectDuration");
+		}
+		if (config.contains("InvalidTypes")) {
+			this.invalidTypes.clear();
+			List<String> types = config.getStringList("InvalidTypes");
+			for (String t : types) {
+				EntityType type = this.getEntitType(t);
+				if (type != null) {
+					this.invalidTypes.add(type);
+				}
+			}
 		}
 	}
 
@@ -55,13 +75,31 @@ public class ArrowVampire extends GenericCustomArrow {
 		if (!config.contains("EffectDuration")) {
 			config.set("EffectDuration", this.duration);
 		}
+		if (!config.contains("InvalidTypes")) {
+			List<String> types = new ArrayList<String>();
+			for (EntityType t : this.invalidTypes) {
+				types.add(t.toString());
+			}
+			config.set("InvalidTypes", types);
+		}
 	}
 
 	@Override
 	public void onHit(LivingEntity shooter, LivingEntity entity, ElementalArrow arrow) {
+		if (this.invalidTypes.contains(entity.getType())) {
+			return;
+		}
 		if (shooter != null) {
 			shooter.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, this.duration, 12));
 		}
 		arrow.getWorld().playEffect(arrow.getLocation(), Effect.STEP_SOUND, Material.REDSTONE_BLOCK.getId());
+	}
+
+	private EntityType getEntitType(String s) {
+		try {
+			return EntityType.valueOf(s.toUpperCase());
+		} catch (Exception e) {
+			return null;
+		}
 	}
 }
