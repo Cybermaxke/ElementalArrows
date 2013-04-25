@@ -1,4 +1,4 @@
-[![ElementalArrows](https://dl.dropboxusercontent.com/u/104060836/ElementalArrows/ElementalArrowsTitle.png)]
+[ElementalArrows](https://dl.dropboxusercontent.com/u/104060836/ElementalArrows/ElementalArrowsTitle.png)
 
 This plugin adds new arrows to you minecraft server using the SpoutPlugin and CraftBukkit. It also features an
 API which allows plugin developers to create there own arrows, ect.
@@ -10,4 +10,6 @@ API which allows plugin developers to create there own arrows, ect.
 * Dispensers can dispense the arrows.
 * Easy api to extend it the way you want.
 
-More info is available at the [wiki][https://github.com/Cybermaxke/ElementalArrows/wiki].
+More info is available at the [wiki][Wiki].
+
+[Wiki]: https://github.com/Cybermaxke/ElementalArrows/wiki
