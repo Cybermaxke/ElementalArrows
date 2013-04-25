@@ -18,7 +18,6 @@
  */
 package me.cybermaxke.elementalarrows.plugin.arrow;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -26,6 +25,9 @@ import java.util.Random;
 import me.cybermaxke.elementalarrows.api.material.ArrowMaterial;
 
 import org.bukkit.plugin.Plugin;
+
+import org.getspout.spoutapi.material.CustomItem;
+import org.getspout.spoutapi.material.MaterialData;
 
 public class ArrowManager {
 	public static ArrowMaterial ARROW_BLINDNESS;
@@ -63,16 +65,17 @@ public class ArrowManager {
 	}
 
 	public static ArrowMaterial getRandomArrow() {
-		List<ArrowMaterial> m = new ArrayList<ArrowMaterial>();
-		for (Field f : ArrowManager.class.getFields()) {
-			try {
-				Object o = f.get(null);
-				if (o != null && o instanceof ArrowMaterial) {
-					m.add((ArrowMaterial) o);
-				}
-			} catch (Exception e) {}
-		}
-
+		List<ArrowMaterial> m = getArrows();
 		return m.size() > 0 ? m.get(new Random().nextInt(m.size())) : null;
+	}
+
+	public static List<ArrowMaterial> getArrows() {
+		List<ArrowMaterial> l = new ArrayList<ArrowMaterial>();
+		for (CustomItem i : MaterialData.getCustomItems()) {
+			if (i instanceof ArrowMaterial) {
+				l.add((ArrowMaterial) i);
+			}
+		}
+		return l;
 	}
 }

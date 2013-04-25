@@ -32,6 +32,8 @@ public interface ConfigHolder {
 
 	public boolean load();
 
+	public void reload();
+
 	public void onLoad(YamlConfiguration config);
 
 	public void onSave(YamlConfiguration config);

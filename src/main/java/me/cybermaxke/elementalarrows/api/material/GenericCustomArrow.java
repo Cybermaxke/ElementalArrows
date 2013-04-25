@@ -63,9 +63,7 @@ public class GenericCustomArrow extends GenericCustomItem implements ArrowMateri
 		this.file = new File(this.folder, name + ".yml");
 		this.permission = new Permission((plugin.getName() + ".arrows." + name).toLowerCase().replace(" ", ""), PermissionDefault.OP);
 		this.onInit();
-		this.load();
-		this.save();
-		this.onLoad(this.config);
+		this.reload();
 		if (this.getRecipes() != null) {
 			for (Recipe r : this.getRecipes()) {
 				SpoutManager.getMaterialManager().registerSpoutRecipe(r);
@@ -119,6 +117,13 @@ public class GenericCustomArrow extends GenericCustomItem implements ArrowMateri
 		}
 		this.config = YamlConfiguration.loadConfiguration(this.file);
 		return true;
+	}
+
+	@Override
+	public void reload() {
+		this.load();
+		this.save();
+		this.onLoad(this.config);
 	}
 
 	@Override

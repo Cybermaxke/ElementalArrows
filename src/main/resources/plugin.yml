@@ -5,3 +5,7 @@ description: ${project.description}
 author: ${Author}
 load: startup
 softdepend: [${Depends}]
+commands:
+   ElementalArrows:
+      description: Basic command of ${project.name}
+      usage: /ElementalArrows Help

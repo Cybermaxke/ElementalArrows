@@ -22,6 +22,7 @@ import java.util.logging.Level;
 
 import me.cybermaxke.elementalarrows.api.ElementalArrowsAPI;
 import me.cybermaxke.elementalarrows.plugin.arrow.ArrowManager;
+import me.cybermaxke.elementalarrows.plugin.cmd.Commands;
 import me.cybermaxke.elementalarrows.plugin.listeners.EventListener;
 import me.cybermaxke.elementalarrows.plugin.utils.Metrics;
 
@@ -47,6 +48,7 @@ public class ElementalArrowsPlugin extends JavaPlugin {
 
 		new ArrowManager(this);
 		new EventListener(this);
+		new Commands(this);
 
 		try {
 			Metrics m = new Metrics(this);
