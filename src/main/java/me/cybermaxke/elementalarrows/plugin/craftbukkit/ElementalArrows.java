@@ -58,7 +58,7 @@ public class ElementalArrows implements ElementalArrowsAPI {
 	public boolean isRegionProtected(Location location) {
 		if (Bukkit.getServer().getPluginManager().isPluginEnabled("WorldGuard")) {
 			WorldGuardPlugin worldguard = (WorldGuardPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldGuard");
- 			return worldguard.getRegionManager(location.getWorld()).getApplicableRegions(location).allows(DefaultFlag.TNT);
+ 			return !worldguard.getRegionManager(location.getWorld()).getApplicableRegions(location).allows(DefaultFlag.TNT);
 		}
 		return false;
 	}
