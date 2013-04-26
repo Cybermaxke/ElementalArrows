@@ -1,11 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Project information -->
 	<groupId>cybermaxke</groupId>
 	<artifactId>elementalarrows</artifactId>
 	<version>dev-SNAPSHOT</version>
 	<name>ElementalArrows</name>
 	<description>Adds new arrows to your bukkit server.</description>
 
+	<!-- Build properties -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -18,6 +21,14 @@
 		<Author>Cybermaxke</Author>
 		<Depends>Spout,WorldEdit,WorldGuard</Depends>
 	</properties>
+
+	<!-- Distribution management -->
+	<distributionManagement>
+		<repository>            
+			<id>cybermaxkes-repo</id>                        
+			<url>file:///C:/Dropbox/Public/mvn-repo</url>                      
+		</repository>           
+	</distributionManagement>
 
 	<!-- Repositories -->
 	<repositories>
