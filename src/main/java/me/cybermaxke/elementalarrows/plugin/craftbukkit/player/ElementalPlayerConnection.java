@@ -24,6 +24,7 @@ import java.util.List;
 
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.v1_5_R2.inventory.CraftItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import org.getspout.spout.SpoutPlayerConnection;
 import org.getspout.spoutapi.SpoutManager;
@@ -153,9 +154,16 @@ public class ElementalPlayerConnection extends SpoutPlayerConnection {
 			return is;
 		}
 
-		SpoutItemStack is2 = new SpoutItemStack(m);
-		is2.setAmount(is.count);
-		is2.setItemMeta(CraftItemStack.asCraftMirror(is).getItemMeta());
+		String n = ChatColor.RESET + m.getName();
+		is.id = Item.FLINT.id;
+		SpoutItemStack is2 = new SpoutItemStack(CraftItemStack.asCraftMirror(is));
+		if (is2.hasItemMeta()) {
+			ItemMeta meta = is2.getItemMeta();
+			if (meta.hasDisplayName() && meta.getDisplayName().equals(n)) {
+				meta.setDisplayName(null);
+			}
+			is2.setItemMeta(meta);
+		}
 		return CraftItemStack.asNMSCopy(is2);
 	}
 }
