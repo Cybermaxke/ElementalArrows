@@ -40,6 +40,8 @@ import org.bukkit.event.entity.EntityShootBowEvent;
 
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
+import org.getspout.spoutapi.material.CustomItem;
+import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class ItemElementalBow extends ItemBow {
@@ -49,38 +51,58 @@ public class ItemElementalBow extends ItemBow {
 		this.b("bow");
 	}
 
-	private int getFirstArrow(Player p) {
+	private int getFirstArrowSlot(SpoutPlayer p) {
 		for (int i = 0; i < p.getInventory().getSize(); i++) {
-			org.bukkit.inventory.ItemStack is1 = p.getInventory().getItem(i);
-			if (is1 != null) {
-				SpoutItemStack is2 = new SpoutItemStack(is1);
-
-				if (is1.getType().equals(Material.ARROW)) {
-					return -1;
-				}
-
-				if (is2.isCustomItem() && is2.getMaterial() instanceof ArrowMaterial) {
-					ArrowMaterial ai = (ArrowMaterial) is2.getMaterial();
-
-					if ((ai.hasPermission() && !p.hasPermission(ai.getPermission())) || ai.isBlackListWorld(p.getWorld())) {
-						continue;
-					}
-
-					return i;
-				}
+			org.bukkit.inventory.ItemStack is = p.getInventory().getItem(i);
+			ArrowMaterial m = is == null ? null : this.getMaterial(is);
+			if (is == null) {
+				continue;
+			} else if (m != null) {
+				return i;
+			} else if (is.getType().equals(Material.ARROW)) {
+				return -1;
 			}
 		}
-
 		return -1;
+	}
+
+	private org.bukkit.inventory.ItemStack getFirstArrow(SpoutPlayer p) {
+		int s = this.getFirstArrowSlot(p);
+		return s == -1 ? null : p.getInventory().getItem(s);
+	}
+
+	private ArrowMaterial getMaterial(org.bukkit.inventory.ItemStack item) {
+		if (item == null) {
+			return null;
+		}
+
+		SpoutItemStack i = new SpoutItemStack(item);
+		if (i.isCustomItem()) {
+			return (ArrowMaterial) (i.getMaterial() instanceof ArrowMaterial ? i.getMaterial() : null);
+		}
+
+		org.bukkit.inventory.ItemStack is = item.clone();
+		int d = is.getDurability();
+		if (d < 1000) {
+			return null;
+		}
+
+		CustomItem m = MaterialData.getCustomItem(d);
+		if (m == null || m instanceof ArrowMaterial) {
+			return (ArrowMaterial) m;
+		}
+
+		return null;
 	}
 
 	@Override
 	public void a(ItemStack itemstack, World world, EntityHuman entityhuman, int i) {
 		boolean flag = entityhuman.abilities.canInstantlyBuild || EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_INFINITE.id, itemstack) > 0;
-		Player p = (Player) entityhuman.getBukkitEntity();
+		SpoutPlayer p = SpoutManager.getPlayer((Player) entityhuman.getBukkitEntity());
 
-		int slot = this.getFirstArrow(p);
-		if (slot == -1) {
+		int slot = this.getFirstArrowSlot(p);
+		org.bukkit.inventory.ItemStack is1 = this.getFirstArrow(p);
+		if (is1 == null) {
 			super.a(itemstack, world, entityhuman, i);
 			return;
 		}
@@ -97,8 +119,8 @@ public class ItemElementalBow extends ItemBow {
 			f = 1.0F;
 		}
 
-		SpoutItemStack is = new SpoutItemStack(p.getInventory().getItem(slot));
-		ArrowMaterial m = (ArrowMaterial) is.getMaterial();
+		SpoutItemStack is = new SpoutItemStack(is1);
+		ArrowMaterial m = this.getMaterial(is);
 
 		int k = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_DAMAGE.id, itemstack);
 		int l = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_KNOCKBACK.id, itemstack);
@@ -177,13 +199,15 @@ public class ItemElementalBow extends ItemBow {
 	public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
 		SpoutPlayer p = SpoutManager.getPlayer((Player) entityhuman.getBukkitEntity());
 
-		int slot = this.getFirstArrow(p);
-		if (slot == -1) {
+		if (this.getFirstArrow(p) == null) {
 			return super.a(itemstack, world, entityhuman);
 		}
 
-		Packet103SetSlot packet = new Packet103SetSlot(0, 9, new ItemStack(Item.ARROW));
-		((EntityPlayer) entityhuman).playerConnection.sendPacket(packet);
+		if (p.isSpoutCraftEnabled()) {
+			Packet103SetSlot packet = new Packet103SetSlot(0, 9, new ItemStack(Item.ARROW));
+			((EntityPlayer) entityhuman).playerConnection.sendPacket(packet);
+		}
+
 		entityhuman.a(itemstack, this.c_(itemstack));
 		return itemstack;
 	}
