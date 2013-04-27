@@ -20,6 +20,7 @@ package me.cybermaxke.elementalarrows.plugin.listeners;
 
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.material.ArrowMaterial;
+import me.cybermaxke.elementalarrows.plugin.ElementalArrowsPlugin;
 
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
@@ -27,6 +28,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.Plugin;
 
@@ -36,6 +38,11 @@ public class EventListener implements Listener {
 
 	public EventListener(Plugin plugin) {
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+	}
+
+	@EventHandler
+	public void onPlayerJoin(PlayerJoinEvent e) {
+		ElementalArrowsPlugin.getInstance().getAPI().getPlayer(e.getPlayer());
 	}
 
 	@EventHandler

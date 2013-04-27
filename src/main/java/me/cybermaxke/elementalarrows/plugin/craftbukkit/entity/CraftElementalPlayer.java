@@ -23,8 +23,10 @@ import java.util.Random;
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.entity.ElementalPlayer;
 import me.cybermaxke.elementalarrows.plugin.craftbukkit.entity.nms.EntityElementalArrow;
+import me.cybermaxke.elementalarrows.plugin.craftbukkit.player.ElementalPlayerConnection;
 
 import net.minecraft.server.v1_5_R2.EntityPlayer;
+import net.minecraft.server.v1_5_R2.PlayerConnection;
 
 import org.bukkit.craftbukkit.v1_5_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -34,6 +36,11 @@ public class CraftElementalPlayer extends CraftPlayer implements ElementalPlayer
 
 	public CraftElementalPlayer(Player player) {
 		super(((CraftPlayer) player).getHandle().world.getServer(), ((CraftPlayer) player).getHandle());
+		EntityPlayer ep = ((CraftPlayer) player).getHandle();
+		PlayerConnection pc = ep.playerConnection;
+		if (pc == null || !(pc instanceof ElementalPlayerConnection)) {
+			ep.playerConnection = new ElementalPlayerConnection(ep);
+		}
 	}
 
 	@Override
