@@ -19,6 +19,7 @@
 package me.cybermaxke.elementalarrows.plugin.craftbukkit.player;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.ChatColor;
@@ -28,6 +29,7 @@ import org.getspout.spout.SpoutPlayerConnection;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
 import org.getspout.spoutapi.material.Material;
+import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 import me.cybermaxke.elementalarrows.api.material.ArrowMaterial;
@@ -56,32 +58,32 @@ public class ElementalPlayerConnection extends SpoutPlayerConnection {
 	@Override
 	public void sendPacket(Packet packet) {
 		SpoutPlayer sp = SpoutManager.getPlayer(this.player.getBukkitEntity());
-		if (sp.isSpoutCraftEnabled()) {
-			super.sendPacket(packet);
-			return;
-		}
 
 		if (packet instanceof Packet103SetSlot) {
 			Packet103SetSlot p = (Packet103SetSlot) packet;
-			if (p.c != null) {
-				p.c = this.getUpdatedItemStack(p.c);
-			}
+			ItemStack is = sp.isSpoutCraftEnabled() ? this.getOldItemStack(p.c) : this.getUpdatedItemStack(p.c);
+			Packet103SetSlot p2 = new Packet103SetSlot(p.a, p.b, is);
+			super.sendPacket(p2);
+			return;
 		} else if (packet instanceof Packet104WindowItems) {
 			Packet104WindowItems p = (Packet104WindowItems) packet;
+			List<ItemStack> is = new ArrayList<ItemStack>();
 			for (int i = 0; i < p.b.length; i++) {
-				if (p.b[i] != null) {
-					p.b[i] = this.getUpdatedItemStack(p.b[i]);
-				}
+				is.add(sp.isSpoutCraftEnabled() ? this.getOldItemStack(p.b[i]) : this.getUpdatedItemStack(p.b[i]));
 			}
+			Packet104WindowItems p2 = new Packet104WindowItems(p.a, is);
+			super.sendPacket(p2);
+			return;
 		} else if (packet instanceof Packet5EntityEquipment) {
 			Packet5EntityEquipment p = (Packet5EntityEquipment) packet;
 			try {
 				Field f = Packet5EntityEquipment.class.getDeclaredField("c");
 				f.setAccessible(true);
-				ItemStack is = (ItemStack) f.get(p);
-				if (is != null) {
-					f.set(p, this.getUpdatedItemStack(is));
-				}
+				ItemStack o = (ItemStack) f.get(p);
+				ItemStack is = sp.isSpoutCraftEnabled() ? this.getOldItemStack(o) : this.getUpdatedItemStack(o);
+				Packet5EntityEquipment p2 = new Packet5EntityEquipment(p.a, p.b, is);
+				super.sendPacket(p2);
+				return;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -91,14 +93,23 @@ public class ElementalPlayerConnection extends SpoutPlayerConnection {
 				Field f = Packet40EntityMetadata.class.getDeclaredField("b");
 				f.setAccessible(true);
 				List<WatchableObject> l = (List<WatchableObject>) f.get(p);
+				List<WatchableObject> l2 = new ArrayList<WatchableObject>();
 				if (l != null) {
 					for (int i = 0; i < l.size(); i++) {
-						WatchableObject o = l.get(i);
+						WatchableObject o = l.get(i);		
 						if (o.b() != null && o.b() instanceof ItemStack) {
-							o.a(this.getUpdatedItemStack((ItemStack) o.b()));
+							WatchableObject o2 = new WatchableObject(o.c(), o.a(), sp.isSpoutCraftEnabled() ? this.getOldItemStack((ItemStack) o.b()) : this.getUpdatedItemStack((ItemStack) o.b()));
+							l2.add(o2);
+						} else {
+							l2.add(o);
 						}
 					}
 				}
+				Packet40EntityMetadata p2 = new Packet40EntityMetadata();
+				p2.a = p.a;
+				f.set(p2, l2);
+				super.sendPacket(p2);
+				return;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -108,8 +119,8 @@ public class ElementalPlayerConnection extends SpoutPlayerConnection {
 	}
 
 	private ItemStack getUpdatedItemStack(ItemStack item) {
-		SpoutItemStack is = new SpoutItemStack(CraftItemStack.asCraftMirror(item));
-		if (is.isCustomItem()) {
+		SpoutItemStack is = item == null ? null : new SpoutItemStack(CraftItemStack.asCraftMirror(item));
+		if (is != null && is.isCustomItem()) {
 			Material m = is.getMaterial();
 			if (m instanceof ArrowMaterial) {
 				ItemStack is2 = item.cloneItemStack();
@@ -119,5 +130,32 @@ public class ElementalPlayerConnection extends SpoutPlayerConnection {
 			}
 		}
 		return item;
+	}
+
+	private ItemStack getOldItemStack(ItemStack item) {
+		if (item == null) {
+			return null;
+		}
+
+		SpoutItemStack i = new SpoutItemStack(CraftItemStack.asCraftMirror(item));
+		if (i.isCustomItem()) {
+			return item;
+		}
+
+		ItemStack is = item.cloneItemStack();
+		int d = is.getData();
+		if (d < 1000) {
+			return is;
+		}
+
+		Material m = MaterialData.getCustomItem(d);
+		if (m == null || !(m instanceof ArrowMaterial)) {
+			return is;
+		}
+
+		SpoutItemStack is2 = new SpoutItemStack(m);
+		is2.setAmount(is.count);
+		is2.setItemMeta(CraftItemStack.asCraftMirror(is).getItemMeta());
+		return CraftItemStack.asNMSCopy(is2);
 	}
 }
