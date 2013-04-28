@@ -26,14 +26,19 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import org.getspout.spoutapi.inventory.SpoutItemStack;
+import org.getspout.spoutapi.material.CustomItem;
 
 public class Commands implements CommandExecutor {
 	private final Permission global = new Permission("elementalarrows.cmd", PermissionDefault.OP);
 	private final Permission help = new Permission("elementalarrows.cmd.help", PermissionDefault.OP);
 	private final Permission reload = new Permission("elementalarrows.cmd.reload", PermissionDefault.OP);
+	private final Permission give = new Permission("elementalarrows.cmd.give", PermissionDefault.OP);
 
 	private final JavaPlugin plugin;
 
@@ -61,6 +66,7 @@ public class Commands implements CommandExecutor {
 			sender.sendMessage("---------- " + this.plugin.getName() + " Help ----------");
 			sender.sendMessage("'/ElementalArrows Help' - Show the available commands.");
 			sender.sendMessage("'/ElementalArrows Reload' - Reload all the config files.");
+			sender.sendMessage("'/ElementalArrows Give <Name>' - Gives a stack arrows using the name.");
 			return true;
 		}
 
@@ -76,6 +82,41 @@ public class Commands implements CommandExecutor {
 			}
 
 			sender.sendMessage(this.plugin.getName() + ": The config files are succesfully reloaded.");
+			return true;
+		}
+
+		if (args[0].equalsIgnoreCase("Give")) {
+			if (!this.hasPermission(sender, this.give)) {
+				return true;
+			}
+
+			if (!(sender instanceof Player)) {
+				sender.sendMessage(this.plugin.getName() + ": You have to be a player to perform that command.");
+				return true;
+			}
+
+			StringBuilder b = new StringBuilder();
+			for (int i = 1; i < args.length; i++) {
+				b.append(args[i] + " ");
+			}
+			String name = b.toString().trim();
+			CustomItem material = null;
+
+			for (ArrowMaterial m : ArrowManager.getArrows()) {
+				if (m instanceof CustomItem && ((CustomItem) m).getName().equalsIgnoreCase(name)) {
+					material = (CustomItem) m;
+					break;
+				}
+			}
+
+			if (material == null) {
+				sender.sendMessage(this.plugin.getName() + ": That arrow doesn't exists.");
+				return true;
+			}
+
+			SpoutItemStack is = new SpoutItemStack(material, 64);
+			sender.sendMessage(this.plugin.getName() + ": The itemstack is succesfully given.");
+			((Player) sender).getInventory().addItem(is);
 			return true;
 		}
 

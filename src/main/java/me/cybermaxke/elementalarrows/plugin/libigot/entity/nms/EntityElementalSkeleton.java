@@ -25,9 +25,12 @@ import java.util.List;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.event.CraftEventFactory;
 
+import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
 import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.MaterialData;
+import org.getspout.spoutapi.player.EntitySkinType;
+import org.getspout.spoutapi.player.SpoutPlayer;
 
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.material.ArrowMaterial;
@@ -56,6 +59,7 @@ import net.minecraft.server.World;
 
 public class EntityElementalSkeleton extends EntitySkeleton {
 	public ArrowMaterial arrow;
+	public boolean firstTick;
 
 	public EntityElementalSkeleton(World world) {
 		super(world);
@@ -86,6 +90,16 @@ public class EntityElementalSkeleton extends EntitySkeleton {
 	@Override
 	public void l_() {
 		super.l_();
+
+		if (!this.firstTick) {
+			this.firstTick = true;
+			if (this.arrow != null && this.arrow.getSkeletonSkin() != null) {
+				for (SpoutPlayer p : SpoutManager.getOnlinePlayers()) {
+					p.setEntitySkin(this.getBukkitEntity(), this.arrow.getSkeletonSkin(), EntitySkinType.DEFAULT);
+				}
+			}
+		}
+
 		if (this.arrow == null || this.getEquipment(0) == null || EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_DAMAGE.id, this.getEquipment(0)) > 1) {
 			return;
 		}

@@ -40,6 +40,14 @@ public class ElementalArrowsPlugin extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		try {
+			Class.forName("org.getspout.spout.Spout");
+		} catch (Exception e) {
+			this.getLogger().warning("You need to install the SpoutPlugin before you can use this.");
+			this.setEnabled(false);
+			return;
+		}
+
+		try {
 			Class.forName("org.libigot.Libigot");
 			this.api = new me.cybermaxke.elementalarrows.plugin.libigot.ElementalArrows();
 		} catch (Exception e) {

@@ -19,6 +19,9 @@
 package me.cybermaxke.elementalarrows.plugin.craftbukkit.entity;
 
 import org.bukkit.craftbukkit.v1_5_R2.entity.CraftSkeleton;
+import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.player.EntitySkinType;
+import org.getspout.spoutapi.player.SpoutPlayer;
 
 import me.cybermaxke.elementalarrows.api.entity.ElementalSkeleton;
 import me.cybermaxke.elementalarrows.api.material.ArrowMaterial;
@@ -43,5 +46,14 @@ public class CraftElementalSkeleton extends CraftSkeleton implements ElementalSk
 	@Override
 	public void setArrowMaterial(ArrowMaterial material) {
 		this.getHandle().arrow = material;
+		if (material != null && material.getSkeletonSkin() != null) {
+			for (SpoutPlayer p : SpoutManager.getOnlinePlayers()) {
+				p.setEntitySkin(this, material.getSkeletonSkin(), EntitySkinType.DEFAULT);
+			}
+		} else {
+			for (SpoutPlayer p : SpoutManager.getOnlinePlayers()) {
+				p.resetEntitySkin(this);
+			}
+		}
 	}
 }

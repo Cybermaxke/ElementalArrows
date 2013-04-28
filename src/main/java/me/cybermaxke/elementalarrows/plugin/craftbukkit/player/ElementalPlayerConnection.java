@@ -97,7 +97,7 @@ public class ElementalPlayerConnection extends SpoutPlayerConnection {
 				List<WatchableObject> l2 = new ArrayList<WatchableObject>();
 				if (l != null) {
 					for (int i = 0; i < l.size(); i++) {
-						WatchableObject o = l.get(i);		
+						WatchableObject o = l.get(i);
 						if (o.b() != null && o.b() instanceof ItemStack) {
 							WatchableObject o2 = new WatchableObject(o.c(), o.a(), sp.isSpoutCraftEnabled() ? this.getOldItemStack((ItemStack) o.b()) : this.getUpdatedItemStack((ItemStack) o.b()));
 							l2.add(o2);

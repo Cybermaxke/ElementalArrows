@@ -48,10 +48,13 @@ public class GenericCustomArrow extends GenericCustomItem implements ArrowMateri
 
 	private boolean pickup = true;
 
+	private String skeletonTexture;
+
 	private List<String> bWorlds = new ArrayList<String>();
 	private Permission permission;
 	private ItemStack drop;
 	private YamlConfiguration config;
+
 
 	private File file;
 	private File folder;
@@ -70,6 +73,9 @@ public class GenericCustomArrow extends GenericCustomItem implements ArrowMateri
 			}
 		}
 		SpoutManager.getFileManager().addToCache(plugin, this.getTexture());
+		if (this.skeletonTexture != null) {
+			SpoutManager.getFileManager().addToCache(plugin, this.skeletonTexture);
+		}
 	}
 
 	@Override
@@ -224,6 +230,16 @@ public class GenericCustomArrow extends GenericCustomItem implements ArrowMateri
 	}
 
 	@Override
+	public String getSkeletonSkin() {
+		return this.skeletonTexture;
+	}
+
+	@Override
+	public void setSkeletonSkin(String texture) {
+		this.skeletonTexture = texture;
+	}
+
+	@Override
 	public void onInit() {
 
 	}
@@ -243,6 +259,12 @@ public class GenericCustomArrow extends GenericCustomItem implements ArrowMateri
 		}
 		if (config.contains("Name")) {
 			this.setName(config.getString("Name"));
+		}
+		if (config.contains("SkeletonTexture")) {
+			String texture = config.getString("SkeletonTexture");
+			if (texture.length() > 0) {
+				this.skeletonTexture = texture;
+			}
 		}
 	}
 
@@ -271,6 +293,9 @@ public class GenericCustomArrow extends GenericCustomItem implements ArrowMateri
 		}
 		if (!config.contains("Name")) {
 			config.set("Name", this.getName());
+		}
+		if (!config.contains("SkeletonTexture")) {
+			config.set("SkeletonTexture", this.skeletonTexture == null ? "" : this.skeletonTexture);
 		}
 	}
 

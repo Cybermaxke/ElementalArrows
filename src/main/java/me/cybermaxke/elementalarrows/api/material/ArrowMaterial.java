@@ -66,6 +66,10 @@ public interface ArrowMaterial {
 
 	public void addBlackListWorld(World world);
 
+	public String getSkeletonSkin();
+
+	public void setSkeletonSkin(String texture);
+
 	public void onInit();
 
 	public Recipe[] getRecipes();
