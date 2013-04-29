@@ -37,6 +37,7 @@ import org.getspout.spoutapi.inventory.SpoutItemStack;
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.material.ArrowMaterial;
 import me.cybermaxke.elementalarrows.plugin.craftbukkit.entity.nms.EntityElementalArrow;
+import me.cybermaxke.elementalarrows.plugin.craftbukkit.item.nms.ItemManager;
 
 public class DispenseBehaviorElementalArrow extends DispenseBehaviorItem {
 
@@ -47,12 +48,8 @@ public class DispenseBehaviorElementalArrow extends DispenseBehaviorItem {
 		EnumFacing enumfacing = BlockDispenser.j_(isourceblock.h());
 
 		SpoutItemStack is = new SpoutItemStack(CraftItemStack.asCraftMirror(itemstack));
-		if (!is.isCustomItem() || !(is.getMaterial() instanceof ArrowMaterial)) {
-			return super.b(isourceblock, itemstack);
-		}
-
-		ArrowMaterial m = (ArrowMaterial) is.getMaterial();
-		if (m.isBlackListWorld(world.getWorld())) {
+		ArrowMaterial m = ItemManager.getMaterial(is);
+		if (m == null || m.isBlackListWorld(world.getWorld())) {
 			return super.b(isourceblock, itemstack);
 		}
 

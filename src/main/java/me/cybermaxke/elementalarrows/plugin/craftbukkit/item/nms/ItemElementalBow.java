@@ -40,8 +40,6 @@ import org.bukkit.event.entity.EntityShootBowEvent;
 
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
-import org.getspout.spoutapi.material.CustomItem;
-import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class ItemElementalBow extends ItemBow {
@@ -54,7 +52,7 @@ public class ItemElementalBow extends ItemBow {
 	private int getFirstArrowSlot(SpoutPlayer p) {
 		for (int i = 0; i < p.getInventory().getSize(); i++) {
 			org.bukkit.inventory.ItemStack is = p.getInventory().getItem(i);
-			ArrowMaterial m = is == null ? null : this.getMaterial(is);
+			ArrowMaterial m = is == null ? null : ItemManager.getMaterial(is);
 			if (is == null) {
 				continue;
 			} else if (m != null) {
@@ -69,30 +67,6 @@ public class ItemElementalBow extends ItemBow {
 	private org.bukkit.inventory.ItemStack getFirstArrow(SpoutPlayer p) {
 		int s = this.getFirstArrowSlot(p);
 		return s == -1 ? null : p.getInventory().getItem(s);
-	}
-
-	private ArrowMaterial getMaterial(org.bukkit.inventory.ItemStack item) {
-		if (item == null) {
-			return null;
-		}
-
-		SpoutItemStack i = new SpoutItemStack(item);
-		if (i.isCustomItem()) {
-			return (ArrowMaterial) (i.getMaterial() instanceof ArrowMaterial ? i.getMaterial() : null);
-		}
-
-		org.bukkit.inventory.ItemStack is = item.clone();
-		int d = is.getDurability();
-		if (d < 1000) {
-			return null;
-		}
-
-		CustomItem m = MaterialData.getCustomItem(d);
-		if (m == null || m instanceof ArrowMaterial) {
-			return (ArrowMaterial) m;
-		}
-
-		return null;
 	}
 
 	@Override
@@ -120,7 +94,7 @@ public class ItemElementalBow extends ItemBow {
 		}
 
 		SpoutItemStack is = new SpoutItemStack(is1);
-		ArrowMaterial m = this.getMaterial(is);
+		ArrowMaterial m = ItemManager.getMaterial(is);
 
 		int k = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_DAMAGE.id, itemstack);
 		int l = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_KNOCKBACK.id, itemstack);

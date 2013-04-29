@@ -18,6 +18,14 @@
  */
 package me.cybermaxke.elementalarrows.plugin.craftbukkit.item.nms;
 
+import org.bukkit.inventory.ItemStack;
+
+import org.getspout.spoutapi.inventory.SpoutItemStack;
+import org.getspout.spoutapi.material.CustomItem;
+import org.getspout.spoutapi.material.MaterialData;
+
+import me.cybermaxke.elementalarrows.api.material.ArrowMaterial;
+
 import net.minecraft.server.v1_5_R2.Item;
 
 public class ItemManager {
@@ -26,5 +34,29 @@ public class ItemManager {
 		int id = Item.BOW.id;
 		Item.byId[id] = null;
 		Item.byId[id] = new ItemElementalBow(5);
+	}
+
+	public static ArrowMaterial getMaterial(ItemStack item) {
+		if (item == null) {
+			return null;
+		}
+
+		SpoutItemStack i = new SpoutItemStack(item);
+		if (i.isCustomItem()) {
+			return (ArrowMaterial) (i.getMaterial() instanceof ArrowMaterial ? i.getMaterial() : null);
+		}
+
+		org.bukkit.inventory.ItemStack is = item.clone();
+		int d = is.getDurability();
+		if (d < 1000) {
+			return null;
+		}
+
+		CustomItem m = MaterialData.getCustomItem(d);
+		if (m == null || m instanceof ArrowMaterial) {
+			return (ArrowMaterial) m;
+		}
+
+		return null;
 	}
 }
