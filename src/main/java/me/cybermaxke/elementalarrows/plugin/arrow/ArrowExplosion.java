@@ -74,7 +74,7 @@ public class ArrowExplosion extends GenericCustomArrow {
 
 	@Override
 	public void onHit(LivingEntity shooter, ElementalArrow arrow) {
-		float f = ElementalArrowsPlugin.getInstance().getAPI().isRegionProtected(arrow.getLocation()) ? 0.0F : this.power;
+		float f = ElementalArrowsPlugin.getInstance().isRegionProtected(arrow.getLocation()) ? 0.0F : this.power;
 		arrow.getWorld().createExplosion(arrow.getLocation(), f);
 		arrow.remove();
 	}

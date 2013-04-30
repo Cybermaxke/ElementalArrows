@@ -42,7 +42,7 @@ public class EventListener implements Listener {
 
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
-		ElementalArrowsPlugin.getInstance().getAPI().getPlayer(e.getPlayer());
+		ElementalArrowsPlugin.getInstance().getPlayer(e.getPlayer());
 	}
 
 	@EventHandler

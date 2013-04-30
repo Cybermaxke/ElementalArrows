@@ -21,14 +21,24 @@ package me.cybermaxke.elementalarrows.plugin;
 import java.util.logging.Level;
 
 import me.cybermaxke.elementalarrows.api.ElementalArrowsAPI;
+import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
+import me.cybermaxke.elementalarrows.api.entity.ElementalPlayer;
 import me.cybermaxke.elementalarrows.plugin.arrow.ArrowManager;
 import me.cybermaxke.elementalarrows.plugin.cmd.Commands;
 import me.cybermaxke.elementalarrows.plugin.listeners.EventListener;
 import me.cybermaxke.elementalarrows.plugin.utils.Metrics;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.util.Vector;
 
-public class ElementalArrowsPlugin extends JavaPlugin {
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import com.sk89q.worldguard.protection.flags.DefaultFlag;
+
+public class ElementalArrowsPlugin extends JavaPlugin implements ElementalArrowsAPI {
 	private static ElementalArrowsPlugin instance;
 	private ElementalArrowsAPI api;
 
@@ -73,11 +83,31 @@ public class ElementalArrowsPlugin extends JavaPlugin {
 
 	}
 
-	public ElementalArrowsAPI getAPI() {
-		return this.api;
-	}
-
 	public static ElementalArrowsPlugin getInstance() {
 		return instance;
+	}
+
+	@Override
+	public ElementalPlayer getPlayer(Player player) {
+		return this.api.getPlayer(player);
+	}
+
+	@Override
+	public ElementalArrow shootElementalArrow(Location location, Vector vector, float speed, float spread) {
+		return this.api.shootElementalArrow(location, vector, speed, spread);
+	}
+
+	@Override
+	public <T extends Entity> T spawn(Class<T> entity, Location location) {
+		return this.api.spawn(entity, location);
+	}
+
+	@Override
+	public boolean isRegionProtected(Location location) {
+		if (Bukkit.getServer().getPluginManager().isPluginEnabled("WorldGuard")) {
+			WorldGuardPlugin worldguard = (WorldGuardPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldGuard");
+ 			return !worldguard.getRegionManager(location.getWorld()).getApplicableRegions(location).allows(DefaultFlag.TNT);
+		}
+		return false;
 	}
 }

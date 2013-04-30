@@ -20,15 +20,11 @@ package me.cybermaxke.elementalarrows.plugin.craftbukkit;
 
 import net.minecraft.server.v1_5_R2.World;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_5_R2.CraftWorld;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
-
-import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
-import com.sk89q.worldguard.protection.flags.DefaultFlag;
 
 import me.cybermaxke.elementalarrows.api.ElementalArrowsAPI;
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
@@ -56,10 +52,6 @@ public class ElementalArrows implements ElementalArrowsAPI {
 
 	@Override
 	public boolean isRegionProtected(Location location) {
-		if (Bukkit.getServer().getPluginManager().isPluginEnabled("WorldGuard")) {
-			WorldGuardPlugin worldguard = (WorldGuardPlugin) Bukkit.getServer().getPluginManager().getPlugin("WorldGuard");
- 			return !worldguard.getRegionManager(location.getWorld()).getApplicableRegions(location).allows(DefaultFlag.TNT);
-		}
 		return false;
 	}
 

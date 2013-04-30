@@ -155,7 +155,7 @@ public class ElementalPlayerConnection extends SpoutPlayerConnection {
 		}
 
 		String n = ChatColor.RESET + m.getName();
-		is.id = Item.FLINT.id;
+		is.id = m.getRawId();
 		SpoutItemStack is2 = new SpoutItemStack(CraftItemStack.asCraftMirror(is));
 		if (is2.hasItemMeta()) {
 			ItemMeta meta = is2.getItemMeta();

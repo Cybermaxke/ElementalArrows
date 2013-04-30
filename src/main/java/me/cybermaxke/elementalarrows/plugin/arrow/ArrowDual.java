@@ -58,7 +58,7 @@ public class ArrowDual extends GenericCustomArrow {
 			return;
 		}
 
-		final ElementalPlayer ep = ElementalArrowsPlugin.getInstance().getAPI().getPlayer((Player) shooter);
+		final ElementalPlayer ep = ElementalArrowsPlugin.getInstance().getPlayer((Player) shooter);
 		new BukkitRunnable() {
 
 			@Override
