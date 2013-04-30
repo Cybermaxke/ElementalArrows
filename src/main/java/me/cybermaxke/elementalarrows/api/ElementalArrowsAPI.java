@@ -28,11 +28,35 @@ import me.cybermaxke.elementalarrows.api.entity.ElementalPlayer;
 
 public interface ElementalArrowsAPI {
 
+	/**
+	 * Gets a elemental player for the player.
+	 * @param player
+	 * @return elemental player
+	 */
 	public ElementalPlayer getPlayer(Player player);
 
+	/**
+	 * Shoots a new arrow with the args.
+	 * @param location
+	 * @param vector
+	 * @param speed
+	 * @param spread
+	 * @return arrow
+	 */
 	public ElementalArrow shootElementalArrow(Location location, Vector vector, float speed, float spread);
 
+	/**
+	 * Spawn and returns a entity with the class.
+	 * @param entity
+	 * @param location
+	 * @return entity
+	 */
 	public <T extends Entity> T spawn(Class<T> entity, Location location);
 
+	/**
+	 * Gets if the region is protected.
+	 * @param location
+	 * @return protected
+	 */
 	public boolean isRegionProtected(Location location);
 }

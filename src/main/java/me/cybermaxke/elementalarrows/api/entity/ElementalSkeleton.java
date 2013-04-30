@@ -24,7 +24,15 @@ import org.bukkit.entity.Skeleton;
 
 public interface ElementalSkeleton extends Skeleton {
 
+	/**
+	 * Gets the material of the arrow the skeleton is using.
+	 * @return material
+	 */
 	public ArrowMaterial getArrowMaterial();
 
+	/**
+	 * Sets the material of the arrow the skeleton will use.
+	 * @param material
+	 */
 	public void setArrowMaterial(ArrowMaterial material);
 }

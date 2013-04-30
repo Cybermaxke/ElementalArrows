@@ -24,17 +24,44 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 public interface ConfigHolder {
 
+	/**
+	 * Gets the configuration file.
+	 * @return config
+	 */
 	public YamlConfiguration getConfig();
 
+	/**
+	 * Gets the file.
+	 * @return file
+	 */
 	public File getFile();
 
+	/**
+	 * Saves and returns if the save was a succes.
+	 * @return succes
+	 */
 	public boolean save();
 
+	/**
+	 * Loads and returns if the load was a succes.
+	 * @return succes
+	 */
 	public boolean load();
 
+	/**
+	 * Reloads the config file.
+	 */
 	public void reload();
 
+	/**
+	 * Called when the config file is getting loaded.
+	 * @param config
+	 */
 	public void onLoad(YamlConfiguration config);
 
+	/**
+	 * Called when the config file is getting saved.
+	 * @param config
+	 */
 	public void onSave(YamlConfiguration config);
 }

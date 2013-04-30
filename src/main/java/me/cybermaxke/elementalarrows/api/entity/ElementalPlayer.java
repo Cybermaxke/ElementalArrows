@@ -22,5 +22,10 @@ import org.bukkit.entity.Player;
 
 public interface ElementalPlayer extends Player {
 
+	/**
+	 * Gets a arrow that will be shot with the speed.
+	 * @param speed
+	 * @return arrow
+	 */
 	public ElementalArrow shootElementalArrow(float speed);
 }

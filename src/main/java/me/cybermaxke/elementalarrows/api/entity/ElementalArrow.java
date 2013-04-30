@@ -25,31 +25,87 @@ import org.bukkit.entity.Arrow;
 
 public interface ElementalArrow extends Arrow {
 
+	/**
+	 * Gets the damage of the arrow, by default based on speed and enchantments.
+	 * @return damage
+	 */
 	public double getDamage();
 
+	/**
+	 * Sets the damage of the arrow.
+	 * @param damage
+	 */
 	public void setDamage(double damage);
 
+	/**
+	 * Gets the knockback that the arrow applies when it hits a mob.
+	 * @return knockback
+	 */
 	public int getKnockbackStrength();
 
+	/**
+	 * Sets the knockback that the arrow will apply when it hits a mob.
+	 * @param strength
+	 */
 	public void setKnockbackStrength(int strength);
 
+	/**
+	 * Gets if the arrow has a critical shot, default when the bow is fully charged. (Particle effect.)
+	 * @return critical
+	 */
 	public boolean isCritical();
 
+	/**
+	 * Sets if the arrow has a critical shot. (Particle effect.)
+	 * @param critical
+	 */
 	public void setCritical(boolean critical);
 
+	/**
+	 * Gets if the arrow is pickupable by a player.
+	 * @return pickupable
+	 */
 	public boolean isPickupable();
 
+	/**
+	 * Sets if the arrow is pickupable by a player.
+	 * @param pickup
+	 */
 	public void setPickupable(boolean pickup);
 
+	/**
+	 * Gets the material applied to this arrow, null if it doesn't exists.
+	 * @return material
+	 */
 	public ArrowMaterial getMaterial();
 
+	/**
+	 * Sets the material applied to this arrow.
+	 * @param material
+	 */
 	public void setMaterial(ArrowMaterial material);
 
+	/**
+	 * Gets the speed the arrow is shot.
+	 * @return speed
+	 */
 	public float getSpeed();
 
+	/**
+	 * Sets the location of the arrow.
+	 * @param location
+	 */
 	public void setLocation(Location location);
 
+	/**
+	 * Gets if the arrow is in the ground
+	 * @return inGround
+	 */
 	public boolean isInGround();
 
+	/**
+	 * Gets the shake on this arrow. The arrow will shake after it hits the ground.
+	 * @return shake
+	 */
 	public int getShake();
 }

@@ -24,6 +24,10 @@ import org.bukkit.plugin.Plugin;
 public class ElementalArrows {
 	public static final String PLUGIN_NAME = "ElementalArrows";
 
+	/**
+	 * Gets the api on a save way.
+	 * @return api
+	 */
 	public static ElementalArrowsAPI getAPI() {
 		if (!Bukkit.getPluginManager().isPluginEnabled(PLUGIN_NAME)) {
 			return null;

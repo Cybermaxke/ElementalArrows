@@ -30,55 +30,165 @@ import org.bukkit.permissions.Permission;
 
 public interface ArrowMaterial {
 
+	/**
+	 * Gets the damage multiplier of this material.
+	 * @return multiplier
+	 */
 	public double getDamageMultiplier();
 
+	/**
+	 * Sets the damage multiplier of this material.
+	 * @param multiplier
+	 */
 	public void setDamageMultiplier(double multiplier);
 
+	/**
+	 * Gets the speed multiplier of this material.
+	 * @return multiplier
+	 */
 	public double getSpeedMutiplier();
 
+	/**
+	 * Sets the speed multiplier of this material.
+	 * @param multiplier
+	 */
 	public void setSpeedMultiplier(double multiplier);
 
+	/**
+	 * Gets the knockback multiplier of this material.
+	 * @return multiplier
+	 */
 	public double getKnockbackStrengthMultiplier();
 
+	/**
+	 * Sets the knockback multiplier of this material.
+	 * @param multiplier
+	 */
 	public void setKnockbackStrengthMultiplier(double multiplier);
 
+	/**
+	 * Gets if this material is pickupable.
+	 * @return pickup
+	 */
 	public boolean isPickupable();
 
+	/**
+	 * Sets if this material is pickupable.
+	 * @param pickup
+	 */
 	public void setPickupable(boolean pickup);
 
+	/**
+	 * Gets the permission used by this material.
+	 * @return permission
+	 */
 	public Permission getPermission();
 
+	/**
+	 * Gets if this material is using a permission.
+	 * @return permission
+	 */
 	public boolean hasPermission();
 
+	/**
+	 * Sets the permission used by this material.
+	 * @param permission
+	 */
 	public void setPermission(Permission permission);
 
+	/**
+	 * Gets the fire ticks of this material.
+	 * @return fireTicks
+	 */
 	public int getFireTicks();
 
-	public void setFireTicks(int amount);
+	/**
+	 * Sets the fire ticks of this material.
+	 * @param ticks
+	 */
+	public void setFireTicks(int ticks);
 
+	/**
+	 * Gets the item drop of this material.
+	 * @return item
+	 */
 	public ItemStack getDrop();
 
-	public void setDrop(ItemStack itemstack);
+	/**
+	 * Sets the item drop of this material.
+	 * @param item
+	 */
+	public void setDrop(ItemStack item);
 
+	/**
+	 * Gets all the worlds this material is blacklisted.
+	 * @return worlds
+	 */
 	public List<World> getBlackListWorlds();
 
+	/**
+	 * Gets if this material is blacklisted for the world.
+	 * @param world
+	 * @return blacklisted
+	 */
 	public boolean isBlackListWorld(World world);
 
+	/**
+	 * Adds a new blacklist world.
+	 * @param world
+	 */
 	public void addBlackListWorld(World world);
 
+	/**
+	 * Gets the skeleton skin of this material.
+	 * @return skin
+	 */
 	public String getSkeletonSkin();
 
-	public void setSkeletonSkin(String texture);
+	/**
+	 * Sets the skeleton skin of this material.
+	 * @param skin
+	 */
+	public void setSkeletonSkin(String skin);
 
+	/**
+	 * Called when you intialize your material, before the config files are saved and loaded.
+	 */
 	public void onInit();
 
+	/**
+	 * Gets all the recipes used by this material.
+	 * @return recipes
+	 */
 	public Recipe[] getRecipes();
 
+	/**
+	 * Called when the arrow is shot by a player or from a dispenser.
+	 * @param shooter
+	 * @param arrow
+	 * @param bow
+	 */
 	public void onShoot(LivingEntity shooter, ElementalArrow arrow, ItemStack bow);
 
+	/**
+	 * Called when the arrow hits the entity.
+	 * @param shooter
+	 * @param entity
+	 * @param arrow
+	 */
 	public void onHit(LivingEntity shooter, LivingEntity entity, ElementalArrow arrow);
 
+	/**
+	 * Called when the entity hits the ground or a entity.
+	 * @param shooter
+	 * @param arrow
+	 */
 	public void onHit(LivingEntity shooter, ElementalArrow arrow);
 
+	/**
+	 * Called every tick.
+	 * @param shooter
+	 * @param arrow
+	 */
 	public void onTick(LivingEntity shooter, ElementalArrow arrow);
 }
