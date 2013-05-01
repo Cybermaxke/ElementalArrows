@@ -33,7 +33,6 @@ import org.getspout.spoutapi.material.Material;
 import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
-import me.cybermaxke.elementalarrows.api.material.ArrowMaterial;
 import me.cybermaxke.elementalarrows.api.material.CustomItem;
 
 import net.minecraft.server.v1_5_R2.EntityPlayer;
@@ -150,7 +149,7 @@ public class ElementalPlayerConnection extends SpoutPlayerConnection {
 		}
 
 		Material m = MaterialData.getCustomItem(d);
-		if (m == null || !(m instanceof ArrowMaterial)) {
+		if (m == null || !(m instanceof CustomItem)) {
 			return is;
 		}
 
