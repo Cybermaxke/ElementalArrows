@@ -36,7 +36,7 @@ import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.MaterialData;
 
 public class Commands implements CommandExecutor {
-	private final Permission global = new Permission("elementalarrows.cmd", PermissionDefault.OP);
+	private final Permission global = new Permission("elementalarrows.cmd.use", PermissionDefault.OP);
 	private final Permission help = new Permission("elementalarrows.cmd.help", PermissionDefault.OP);
 	private final Permission reload = new Permission("elementalarrows.cmd.reload", PermissionDefault.OP);
 	private final Permission give = new Permission("elementalarrows.cmd.give", PermissionDefault.OP);

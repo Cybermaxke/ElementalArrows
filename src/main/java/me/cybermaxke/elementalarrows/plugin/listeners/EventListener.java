@@ -26,7 +26,6 @@ import me.cybermaxke.elementalarrows.api.material.SpawnEggMaterial;
 import me.cybermaxke.elementalarrows.plugin.ElementalArrowsPlugin;
 
 import org.bukkit.ChatColor;
-import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
@@ -122,11 +121,11 @@ public class EventListener implements Listener {
 		SpawnEggMaterial m = (SpawnEggMaterial) is.getMaterial();
 		Class<? extends Entity> entity = m.getEntity();
 
-		if (entity == null || e.getClickedBlock().getRelative(BlockFace.UP).getType().isSolid()) {
+		if (entity == null) {
 			return;
 		}
 
-		Entity ent = ElementalArrows.getAPI().spawn(entity, e.getClickedBlock().getLocation().add(0, 1, 0), SpawnReason.SPAWNER_EGG);
+		Entity ent = ElementalArrows.getAPI().spawn(entity, e.getClickedBlock().getRelative(e.getBlockFace()).getLocation(), SpawnReason.SPAWNER_EGG);
 		if (ent instanceof LivingEntity) {
 			String n = ChatColor.RESET + ((CustomItem) m).getName();
 			if (is.hasItemMeta() && is.getItemMeta().hasDisplayName()) {
