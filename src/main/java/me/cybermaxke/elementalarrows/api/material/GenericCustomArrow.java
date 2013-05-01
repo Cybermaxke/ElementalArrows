@@ -26,6 +26,7 @@ import me.cybermaxke.elementalarrows.api.config.ConfigHolder;
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.LivingEntity;
@@ -37,7 +38,6 @@ import org.bukkit.plugin.Plugin;
 
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
-import org.getspout.spoutapi.material.item.GenericCustomItem;
 
 public class GenericCustomArrow extends GenericCustomItem implements ArrowMaterial, ConfigHolder {
 	private double damageMulti = 1.0D;
@@ -55,12 +55,12 @@ public class GenericCustomArrow extends GenericCustomItem implements ArrowMateri
 	private ItemStack drop;
 	private YamlConfiguration config;
 
-
 	private File file;
 	private File folder;
 
 	public GenericCustomArrow(Plugin plugin, String name, String texture) {
 		super(plugin, name, texture);
+		this.setId(Material.ARROW.getId());
 		this.drop = new SpoutItemStack(this);
 		this.folder = new File(plugin.getDataFolder() + File.separator + "Arrows");
 		this.file = new File(this.folder, name + ".yml");

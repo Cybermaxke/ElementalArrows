@@ -48,7 +48,7 @@ public class ItemManager {
 
 		org.bukkit.inventory.ItemStack is = item.clone();
 		int d = is.getDurability();
-		if (d < 1000) {
+		if (d < 1024) {
 			return null;
 		}
 

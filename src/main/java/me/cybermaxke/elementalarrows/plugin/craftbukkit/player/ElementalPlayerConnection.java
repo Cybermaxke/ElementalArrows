@@ -34,9 +34,9 @@ import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 import me.cybermaxke.elementalarrows.api.material.ArrowMaterial;
+import me.cybermaxke.elementalarrows.api.material.CustomItem;
 
 import net.minecraft.server.v1_5_R2.EntityPlayer;
-import net.minecraft.server.v1_5_R2.Item;
 import net.minecraft.server.v1_5_R2.ItemStack;
 import net.minecraft.server.v1_5_R2.MinecraftServer;
 import net.minecraft.server.v1_5_R2.Packet;
@@ -123,9 +123,9 @@ public class ElementalPlayerConnection extends SpoutPlayerConnection {
 		SpoutItemStack is = item == null ? null : new SpoutItemStack(CraftItemStack.asCraftMirror(item));
 		if (is != null && is.isCustomItem()) {
 			Material m = is.getMaterial();
-			if (m instanceof ArrowMaterial) {
+			if (m instanceof CustomItem) {
 				ItemStack is2 = item.cloneItemStack();
-				is2.id = Item.ARROW.id;
+				is2.id = ((CustomItem) m).getId();
 				is2.c(ChatColor.RESET + (is.hasItemMeta() && is.getItemMeta().hasDisplayName() ? is.getItemMeta().getDisplayName() : m.getName()));
 				return is2;
 			}
@@ -145,7 +145,7 @@ public class ElementalPlayerConnection extends SpoutPlayerConnection {
 
 		ItemStack is = item.cloneItemStack();
 		int d = is.getData();
-		if (d < 1000) {
+		if (d < 1024) {
 			return is;
 		}
 
