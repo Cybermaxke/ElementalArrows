@@ -20,7 +20,7 @@ package me.cybermaxke.elementalarrows.plugin.cmd;
 
 import me.cybermaxke.elementalarrows.api.config.ConfigHolder;
 import me.cybermaxke.elementalarrows.api.material.ArrowMaterial;
-import me.cybermaxke.elementalarrows.plugin.arrow.ArrowManager;
+import me.cybermaxke.elementalarrows.plugin.material.arrow.ArrowManager;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -33,6 +33,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import org.getspout.spoutapi.inventory.SpoutItemStack;
 import org.getspout.spoutapi.material.CustomItem;
+import org.getspout.spoutapi.material.MaterialData;
 
 public class Commands implements CommandExecutor {
 	private final Permission global = new Permission("elementalarrows.cmd", PermissionDefault.OP);
@@ -66,7 +67,7 @@ public class Commands implements CommandExecutor {
 			sender.sendMessage("---------- " + this.plugin.getName() + " Help ----------");
 			sender.sendMessage("'/ElementalArrows Help' - Show the available commands.");
 			sender.sendMessage("'/ElementalArrows Reload' - Reload all the config files.");
-			sender.sendMessage("'/ElementalArrows Give <Name>' - Gives a stack arrows using the name.");
+			sender.sendMessage("'/ElementalArrows Give <Name>' - Gives a stack items using the name.");
 			return true;
 		}
 
@@ -102,9 +103,9 @@ public class Commands implements CommandExecutor {
 			String name = b.toString().trim();
 			CustomItem material = null;
 
-			for (ArrowMaterial m : ArrowManager.getArrows()) {
-				if (m instanceof CustomItem && ((CustomItem) m).getName().equalsIgnoreCase(name)) {
-					material = (CustomItem) m;
+			for (CustomItem m : MaterialData.getCustomItems()) {
+				if (m instanceof me.cybermaxke.elementalarrows.api.material.CustomItem && ((CustomItem) m).getName().equalsIgnoreCase(name)) {
+					material = m;
 					break;
 				}
 			}

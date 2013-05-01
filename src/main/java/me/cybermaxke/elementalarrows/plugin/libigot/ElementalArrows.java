@@ -35,6 +35,7 @@ import org.bukkit.Location;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.util.Vector;
 
 public class ElementalArrows implements ElementalArrowsAPI {
@@ -68,13 +69,19 @@ public class ElementalArrows implements ElementalArrowsAPI {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <T extends Entity> T spawn(Class<T> entity, Location location) {
+	public <T extends Entity> T spawn(Class<T> entity, Location location, SpawnReason reason) {
 		World w = ((CraftWorld) location.getWorld()).getHandle();
 		if (ElementalSkeleton.class.isAssignableFrom(entity)) {
 			EntityElementalSkeleton ent = new EntityElementalSkeleton(w);
 			ent.setPositionRotation(location.getX(), location.getY(), location.getZ(), location.getPitch(), location.getYaw());
+			w.addEntity(ent, reason);
 			return (T) ent.getBukkitEntity();
 		}
 		return location.getWorld().spawn(location, entity);
+	}
+
+	@Override
+	public <T extends Entity> T spawn(Class<T> entity, Location location) {
+		return this.spawn(entity, location, SpawnReason.CUSTOM);
 	}
 }

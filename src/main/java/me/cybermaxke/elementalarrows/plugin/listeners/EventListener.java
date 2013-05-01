@@ -18,21 +18,31 @@
  */
 package me.cybermaxke.elementalarrows.plugin.listeners;
 
+import me.cybermaxke.elementalarrows.api.ElementalArrows;
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
+import me.cybermaxke.elementalarrows.api.inventory.ElementalItemStack;
 import me.cybermaxke.elementalarrows.api.material.ArrowMaterial;
+import me.cybermaxke.elementalarrows.api.material.SpawnEggMaterial;
 import me.cybermaxke.elementalarrows.plugin.ElementalArrowsPlugin;
 
+import org.bukkit.ChatColor;
+import org.bukkit.block.BlockFace;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.Plugin;
 
 import org.getspout.spoutapi.inventory.SpoutItemStack;
+import org.getspout.spoutapi.material.CustomItem;
 
 public class EventListener implements Listener {
 
@@ -94,6 +104,36 @@ public class EventListener implements Listener {
 			ArrowMaterial m = (ArrowMaterial) is.getMaterial();
 			if (m.hasPermission() && !e.getWhoClicked().hasPermission(m.getPermission())) {
 				e.setCancelled(true);
+			}
+		}
+	}
+
+	@EventHandler
+	public void onPlayerInteract(PlayerInteractEvent e) {
+		if (!e.hasItem() || !e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+			return;
+		}
+
+		ElementalItemStack is = new ElementalItemStack(e.getItem());
+		if (!is.isCustomItem() || !(is.getMaterial() instanceof SpawnEggMaterial)) {
+			return;
+		}
+
+		SpawnEggMaterial m = (SpawnEggMaterial) is.getMaterial();
+		Class<? extends Entity> entity = m.getEntity();
+
+		if (entity == null || e.getClickedBlock().getRelative(BlockFace.UP).getType().isSolid()) {
+			return;
+		}
+
+		Entity ent = ElementalArrows.getAPI().spawn(entity, e.getClickedBlock().getLocation().add(0, 1, 0), SpawnReason.SPAWNER_EGG);
+		if (ent instanceof LivingEntity) {
+			String n = ChatColor.RESET + ((CustomItem) m).getName();
+			if (is.hasItemMeta() && is.getItemMeta().hasDisplayName()) {
+				String n2 = is.getItemMeta().getDisplayName();
+				if (!n.equals(n2)) {
+					((LivingEntity) ent).setCustomName(n2);
+				}
 			}
 		}
 	}

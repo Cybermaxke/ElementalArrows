@@ -54,6 +54,11 @@ public interface ConfigHolder {
 	public void reload();
 
 	/**
+	 * Called when you intialize your material, before the config files are saved and loaded.
+	 */
+	public void onInit();
+
+	/**
 	 * Called when the config file is getting loaded.
 	 * @param config
 	 */

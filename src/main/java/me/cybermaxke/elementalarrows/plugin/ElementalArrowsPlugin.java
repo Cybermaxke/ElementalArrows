@@ -23,15 +23,16 @@ import java.util.logging.Level;
 import me.cybermaxke.elementalarrows.api.ElementalArrowsAPI;
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.entity.ElementalPlayer;
-import me.cybermaxke.elementalarrows.plugin.arrow.ArrowManager;
 import me.cybermaxke.elementalarrows.plugin.cmd.Commands;
 import me.cybermaxke.elementalarrows.plugin.listeners.EventListener;
+import me.cybermaxke.elementalarrows.plugin.material.MaterialManager;
 import me.cybermaxke.elementalarrows.plugin.utils.Metrics;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
 
@@ -64,7 +65,7 @@ public class ElementalArrowsPlugin extends JavaPlugin implements ElementalArrows
 			this.api = new me.cybermaxke.elementalarrows.plugin.craftbukkit.ElementalArrows();
 		}
 
-		new ArrowManager(this);
+		new MaterialManager(this);
 		new EventListener(this);
 		new Commands(this);
 
@@ -95,6 +96,11 @@ public class ElementalArrowsPlugin extends JavaPlugin implements ElementalArrows
 	@Override
 	public ElementalArrow shootElementalArrow(Location location, Vector vector, float speed, float spread) {
 		return this.api.shootElementalArrow(location, vector, speed, spread);
+	}
+
+	@Override
+	public <T extends Entity> T spawn(Class<T> entity, Location location, SpawnReason reason) {
+		return this.api.spawn(entity, location, reason);
 	}
 
 	@Override

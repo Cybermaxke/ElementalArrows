@@ -16,69 +16,63 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.plugin.arrow;
+package me.cybermaxke.elementalarrows.plugin.material.arrow;
 
 import org.bukkit.Material;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Chicken;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import org.getspout.spoutapi.inventory.SpoutItemStack;
-import org.getspout.spoutapi.inventory.SpoutShapedRecipe;
+import org.getspout.spoutapi.inventory.SpoutShapelessRecipe;
 import org.getspout.spoutapi.material.MaterialData;
 
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
+import me.cybermaxke.elementalarrows.api.entity.ElementalPlayer;
 import me.cybermaxke.elementalarrows.api.material.GenericCustomArrow;
+import me.cybermaxke.elementalarrows.plugin.ElementalArrowsPlugin;
 
-public class ArrowEgg extends GenericCustomArrow {
-	private boolean baby;
+public class ArrowDual extends GenericCustomArrow {
 
-	public ArrowEgg(Plugin plugin, String name, String texture) {
+	public ArrowDual(Plugin plugin, String name, String texture) {
 		super(plugin, name, texture);
 		this.setDrop(new ItemStack(Material.ARROW));
-	}
-
-	@Override
-	public void onInit() {
-		this.baby = true;
-	}
-
-	@Override
-	public void onLoad(YamlConfiguration config) {
-		super.onLoad(config);
-		if (config.contains("BabyChicken")) {
-			this.baby = config.getBoolean("BabyChicken");
-		}
-	}
-
-	@Override
-	public void onSave(YamlConfiguration config) {
-		super.onSave(config);
-		if (!config.contains("BabyChicken")) {
-			config.set("BabyChicken", this.baby);
-		}
 	}
 
 	@Override
 	public Recipe[] getRecipes() {
 		SpoutItemStack i = new SpoutItemStack(this, 1);
 
-		SpoutShapedRecipe r = new SpoutShapedRecipe(i);
-		r.shape("A", "B");
-		r.setIngredient('A', MaterialData.egg);
-		r.setIngredient('B', MaterialData.arrow);
+		SpoutShapelessRecipe r = new SpoutShapelessRecipe(i);
+		r.addIngredient(2, MaterialData.arrow);
 
 		return new Recipe[] { r };
 	}
 
 	@Override
-	public void onHit(LivingEntity shooter, ElementalArrow arrow) {
-		Chicken c = arrow.getWorld().spawn(arrow.getLocation(), Chicken.class);
-		if (this.baby) {
-			c.setBaby();
+	public void onShoot(LivingEntity shooter, final ElementalArrow arrow, ItemStack bow) {
+		if (shooter == null || !(shooter instanceof Player)) {
+			return;
 		}
+
+		final ElementalPlayer ep = ElementalArrowsPlugin.getInstance().getPlayer((Player) shooter);
+		new BukkitRunnable() {
+
+			@Override
+			public void run() {
+				ElementalArrow a = ep.shootElementalArrow(arrow.getSpeed());
+				a.setShooter(ep);
+				a.setDamage(arrow.getDamage());
+				a.setMaterial(arrow.getMaterial());
+				a.setCritical(arrow.isCritical());
+				a.setFireTicks(arrow.getFireTicks());
+				a.setPickupable(arrow.isPickupable());
+				a.setKnockbackStrength(arrow.getKnockbackStrength());
+			}
+
+		}.runTaskLater(ElementalArrowsPlugin.getInstance(), 14);
 	}
 }

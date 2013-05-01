@@ -54,8 +54,8 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.material.ArrowMaterial;
-import me.cybermaxke.elementalarrows.plugin.arrow.ArrowManager;
 import me.cybermaxke.elementalarrows.plugin.craftbukkit.entity.CraftElementalSkeleton;
+import me.cybermaxke.elementalarrows.plugin.material.arrow.ArrowManager;
 
 public class EntityElementalSkeleton extends EntitySkeleton {
 	public ArrowMaterial arrow;
@@ -70,10 +70,6 @@ public class EntityElementalSkeleton extends EntitySkeleton {
 			((List<?>) f.get(this.goalSelector)).clear();
 			((List<?>) f.get(this.targetSelector)).clear();
 		} catch (Exception e) {}
-
-		if (this.random.nextInt(10) < 4) {
-			this.arrow = ArrowManager.getRandomArrow();
-		}
 
 		this.bI = 0.31F;
 		this.goalSelector.a(1, new PathfinderGoalFloat(this));
@@ -99,14 +95,16 @@ public class EntityElementalSkeleton extends EntitySkeleton {
 				}
 			}
 		}
-		
-		if (this.arrow == null || this.getEquipment(0) == null || EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_DAMAGE.id, this.getEquipment(0)) > 1) {
-			return;
+
+		if (this.arrow == null) {
+			this.arrow = ArrowManager.getRandomArrow();
 		}
 
-		ItemStack is = new ItemStack(Item.BOW);
-		is.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
-		this.setEquipment(0, is);
+		if (this.getEquipment(0) == null || EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_DAMAGE.id, this.getEquipment(0)) < 1) {
+			ItemStack is = new ItemStack(Item.BOW);
+			is.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
+			this.setEquipment(0, is);
+		}
 	}
 
 	@Override

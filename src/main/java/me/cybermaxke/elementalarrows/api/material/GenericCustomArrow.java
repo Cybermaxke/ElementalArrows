@@ -18,7 +18,6 @@
  */
 package me.cybermaxke.elementalarrows.api.material;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,20 +52,12 @@ public class GenericCustomArrow extends GenericCustomItem implements ArrowMateri
 	private List<String> bWorlds = new ArrayList<String>();
 	private Permission permission;
 	private ItemStack drop;
-	private YamlConfiguration config;
-
-	private File file;
-	private File folder;
 
 	public GenericCustomArrow(Plugin plugin, String name, String texture) {
 		super(plugin, name, texture);
 		this.setId(Material.ARROW.getId());
 		this.drop = new SpoutItemStack(this);
-		this.folder = new File(plugin.getDataFolder() + File.separator + "Arrows");
-		this.file = new File(this.folder, name + ".yml");
 		this.permission = new Permission((plugin.getName() + ".arrows." + name).toLowerCase().replace(" ", ""), PermissionDefault.OP);
-		this.onInit();
-		this.reload();
 		if (this.getRecipes() != null) {
 			for (Recipe r : this.getRecipes()) {
 				SpoutManager.getMaterialManager().registerSpoutRecipe(r);
@@ -76,60 +67,6 @@ public class GenericCustomArrow extends GenericCustomItem implements ArrowMateri
 		if (this.skeletonTexture != null) {
 			SpoutManager.getFileManager().addToCache(plugin, this.skeletonTexture);
 		}
-	}
-
-	@Override
-	public File getFile() {
-		return this.file;
-	}
-
-	@Override
-	public YamlConfiguration getConfig() {
-		return this.config;
-	}
-
-	@Override
-	public boolean save() {
-		if (!this.file.exists()) {
-			if (!this.folder.exists()) {
-				this.folder.mkdirs();
-			}
-			try {
-				this.file.createNewFile();
-			} catch (Exception e) {
-				return false;
-			}
-		}
-		try {
-			this.onSave(this.config);
-			this.config.save(this.file);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
-	@Override
-	public boolean load() {
-		if (!this.folder.exists() || !this.file.exists()) {
-			if (!this.folder.exists()) {
-				this.folder.mkdirs();
-			}
-			try {
-				this.file.createNewFile();
-			} catch (Exception e) {
-				return false;
-			}
-		}
-		this.config = YamlConfiguration.loadConfiguration(this.file);
-		return true;
-	}
-
-	@Override
-	public void reload() {
-		this.load();
-		this.save();
-		this.onLoad(this.config);
 	}
 
 	@Override
@@ -240,36 +177,23 @@ public class GenericCustomArrow extends GenericCustomItem implements ArrowMateri
 	}
 
 	@Override
-	public void onInit() {
-
-	}
-
-	@Override
 	public void onLoad(YamlConfiguration config) {
-		this.damageMulti = config.contains("DamageMultiplier") ? config.getDouble("DamageMultiplier") : this.damageMulti;
-		this.speedMulti = config.contains("SpeedMultiplier") ? config.getDouble("SpeedMultiplier") : this.speedMulti;
-		this.knockbackMulti = config.contains("KnockbackMultiplier") ? config.getDouble("KnockbackMultiplier") : this.knockbackMulti;
-		this.fireTicks = config.contains("FireTicks") ? config.getInt("FireTicks") : this.fireTicks;
-		this.bWorlds = config.contains("WorldsBlackList") ? config.getStringList("WorldsBlackList") : this.bWorlds;
-		if (config.contains("Permission")) {
-			this.permission = new Permission(config.getString("Permission"), PermissionDefault.OP);
-		}
-		if (config.contains("Texture")) {
-			this.setTexture(config.getString("Texture"));
-		}
-		if (config.contains("Name")) {
-			this.setName(config.getString("Name"));
-		}
-		if (config.contains("SkeletonTexture")) {
-			String texture = config.getString("SkeletonTexture");
-			if (texture.length() > 0) {
-				this.skeletonTexture = texture;
-			}
+		super.onLoad(config);
+		this.damageMulti = config.getDouble("DamageMultiplier");
+		this.speedMulti = config.getDouble("SpeedMultiplier");
+		this.knockbackMulti = config.getDouble("KnockbackMultiplier");
+		this.fireTicks = config.getInt("FireTicks");
+		this.bWorlds = config.getStringList("WorldsBlackList");
+		this.permission = new Permission(config.getString("Permission"), PermissionDefault.OP);
+		String texture = config.getString("SkeletonTexture");
+		if (texture.length() > 0) {
+			this.skeletonTexture = texture;
 		}
 	}
 
 	@Override
 	public void onSave(YamlConfiguration config) {
+		super.onSave(config);
 		if (!config.contains("DamageMultiplier")) {
 			config.set("DamageMultiplier", this.damageMulti);
 		}
@@ -286,13 +210,7 @@ public class GenericCustomArrow extends GenericCustomItem implements ArrowMateri
 			config.set("WorldsBlackList", this.bWorlds);
 		}
 		if (!config.contains("Permission")) {
-			config.set("Permission", this.permission == null ? this.permission : this.permission.getName());
-		}
-		if (!config.contains("Texture")) {
-			config.set("Texture", this.getTexture());
-		}
-		if (!config.contains("Name")) {
-			config.set("Name", this.getName());
+			config.set("Permission", this.permission == null ? "" : this.permission.getName());
 		}
 		if (!config.contains("SkeletonTexture")) {
 			config.set("SkeletonTexture", this.skeletonTexture == null ? "" : this.skeletonTexture);

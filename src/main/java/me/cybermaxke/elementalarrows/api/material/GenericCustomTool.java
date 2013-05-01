@@ -16,21 +16,25 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.plugin.arrow;
+package me.cybermaxke.elementalarrows.api.material;
 
 import org.bukkit.plugin.Plugin;
 
-import me.cybermaxke.elementalarrows.api.material.GenericCustomArrow;
+public class GenericCustomTool extends org.getspout.spoutapi.material.item.GenericCustomTool implements CustomItem {
+	private int id;
 
-public class ArrowRazor extends GenericCustomArrow {
-
-	public ArrowRazor(Plugin plugin, String name, String texture) {
+	public GenericCustomTool(Plugin plugin, String name, String texture) {
 		super(plugin, name, texture);
+		this.id = this.getRawId();
 	}
 
 	@Override
-	public void onInit() {
-		this.setSpeedMultiplier(1.7D);
-		this.setKnockbackStrengthMultiplier(1.2D);
+	public int getId() {
+		return this.id;
+	}
+
+	@Override
+	public void setId(int id) {
+		this.id = id;
 	}
 }

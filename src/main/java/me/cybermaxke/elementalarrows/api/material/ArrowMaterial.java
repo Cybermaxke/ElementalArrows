@@ -152,11 +152,6 @@ public interface ArrowMaterial {
 	public void setSkeletonSkin(String skin);
 
 	/**
-	 * Called when you intialize your material, before the config files are saved and loaded.
-	 */
-	public void onInit();
-
-	/**
 	 * Gets all the recipes used by this material.
 	 * @return recipes
 	 */

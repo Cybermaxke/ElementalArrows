@@ -16,9 +16,13 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.plugin.arrow;
+package me.cybermaxke.elementalarrows.plugin.material.arrow;
 
+import org.bukkit.Material;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Chicken;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.Plugin;
 
@@ -29,38 +33,52 @@ import org.getspout.spoutapi.material.MaterialData;
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.material.GenericCustomArrow;
 
-public class ArrowFire extends GenericCustomArrow {
+public class ArrowEgg extends GenericCustomArrow {
+	private boolean baby;
 
-	public ArrowFire(Plugin plugin, String name, String texture) {
+	public ArrowEgg(Plugin plugin, String name, String texture) {
 		super(plugin, name, texture);
+		this.setDrop(new ItemStack(Material.ARROW));
 	}
 
 	@Override
 	public void onInit() {
-		this.setFireTicks(100);
+		this.baby = true;
+	}
+
+	@Override
+	public void onLoad(YamlConfiguration config) {
+		super.onLoad(config);
+		if (config.contains("BabyChicken")) {
+			this.baby = config.getBoolean("BabyChicken");
+		}
+	}
+
+	@Override
+	public void onSave(YamlConfiguration config) {
+		super.onSave(config);
+		if (!config.contains("BabyChicken")) {
+			config.set("BabyChicken", this.baby);
+		}
 	}
 
 	@Override
 	public Recipe[] getRecipes() {
-		SpoutItemStack i = new SpoutItemStack(this, 4);
+		SpoutItemStack i = new SpoutItemStack(this, 1);
 
 		SpoutShapedRecipe r = new SpoutShapedRecipe(i);
-		r.shape("A", "B", "C");
-		r.setIngredient('A', MaterialData.coal);
-		r.setIngredient('B', MaterialData.stick);
-		r.setIngredient('C', MaterialData.feather);
-
-		SpoutShapedRecipe r2 = new SpoutShapedRecipe(i);
-		r2.shape("A", "B", "C");
-		r2.setIngredient('A', MaterialData.charcoal);
-		r2.setIngredient('B', MaterialData.stick);
-		r2.setIngredient('C', MaterialData.feather);
+		r.shape("A", "B");
+		r.setIngredient('A', MaterialData.egg);
+		r.setIngredient('B', MaterialData.arrow);
 
 		return new Recipe[] { r };
 	}
 
 	@Override
 	public void onHit(LivingEntity shooter, ElementalArrow arrow) {
-		arrow.remove();
+		Chicken c = arrow.getWorld().spawn(arrow.getLocation(), Chicken.class);
+		if (this.baby) {
+			c.setBaby();
+		}
 	}
 }

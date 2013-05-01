@@ -21,6 +21,7 @@ package me.cybermaxke.elementalarrows.api;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.util.Vector;
 
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
@@ -52,6 +53,15 @@ public interface ElementalArrowsAPI {
 	 * @return entity
 	 */
 	public <T extends Entity> T spawn(Class<T> entity, Location location);
+
+	/**
+	 * Spawn and returns a entity with the class.
+	 * @param entity
+	 * @param location
+	 * @param reason
+	 * @return entity
+	 */
+	public <T extends Entity> T spawn(Class<T> entity, Location location, SpawnReason reason);
 
 	/**
 	 * Gets if the region is protected.

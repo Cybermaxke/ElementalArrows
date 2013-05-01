@@ -16,7 +16,7 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.plugin.arrow;
+package me.cybermaxke.elementalarrows.plugin.material.arrow;
 
 import java.util.ArrayList;
 import java.util.List;

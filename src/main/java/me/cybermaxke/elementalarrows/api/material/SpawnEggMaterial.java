@@ -16,24 +16,21 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.plugin.arrow;
+package me.cybermaxke.elementalarrows.api.material;
 
-import org.bukkit.Location;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.plugin.Plugin;
+import org.bukkit.entity.Entity;
 
-import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
-import me.cybermaxke.elementalarrows.api.material.GenericCustomArrow;
+public interface SpawnEggMaterial {
 
-public class ArrowPull extends GenericCustomArrow {
+	/**
+	 * Gets the entity this spawn egg will spawn.
+	 * @return entity
+	 */
+	public Class<? extends Entity> getEntity();
 
-	public ArrowPull(Plugin plugin, String name, String texture) {
-		super(plugin, name, texture);
-	}
-
-	@Override
-	public void onHit(LivingEntity shooter, LivingEntity entity, ElementalArrow arrow) {
-		Location l = shooter.getTargetBlock(null, 2).getLocation();
-		entity.setVelocity(l.subtract(entity.getLocation()).toVector().normalize().multiply(0.6F));
-	}
+	/**
+	 * Sets the entity this spawn egg will spawn.
+	 * @param entity
+	 */
+	public void setEntity(Class<? extends Entity> entity);
 }

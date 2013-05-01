@@ -16,9 +16,10 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.plugin.arrow;
+package me.cybermaxke.elementalarrows.plugin.material.arrow;
 
-import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.Effect;
+import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.Plugin;
@@ -29,34 +30,17 @@ import org.getspout.spoutapi.material.MaterialData;
 
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.material.GenericCustomArrow;
-import me.cybermaxke.elementalarrows.plugin.ElementalArrowsPlugin;
 
-public class ArrowExplosion extends GenericCustomArrow {
-	private float power;
+public class ArrowDirt extends GenericCustomArrow {
 
-	public ArrowExplosion(Plugin plugin, String name, String texture) {
+	public ArrowDirt(Plugin plugin, String name, String texture) {
 		super(plugin, name, texture);
 	}
 
 	@Override
 	public void onInit() {
-		this.power = 4.0F;
-	}
-
-	@Override
-	public void onLoad(YamlConfiguration config) {
-		super.onLoad(config);
-		if (config.contains("ExplosionPower")) {
-			this.power = (float) config.getDouble("ExplosionPower");
-		}
-	}
-
-	@Override
-	public void onSave(YamlConfiguration config) {
-		super.onSave(config);
-		if (!config.contains("ExplosionPower")) {
-			config.set("ExplosionPower", this.power);
-		}
+		this.setKnockbackStrengthMultiplier(2.0D);
+		this.setDamageMultiplier(1.3D);
 	}
 
 	@Override
@@ -65,7 +49,7 @@ public class ArrowExplosion extends GenericCustomArrow {
 
 		SpoutShapedRecipe r = new SpoutShapedRecipe(i);
 		r.shape("A", "B", "C");
-		r.setIngredient('A', MaterialData.gunpowder);
+		r.setIngredient('A', MaterialData.dirt);
 		r.setIngredient('B', MaterialData.stick);
 		r.setIngredient('C', MaterialData.feather);
 
@@ -74,8 +58,6 @@ public class ArrowExplosion extends GenericCustomArrow {
 
 	@Override
 	public void onHit(LivingEntity shooter, ElementalArrow arrow) {
-		float f = ElementalArrowsPlugin.getInstance().isRegionProtected(arrow.getLocation()) ? 0.0F : this.power;
-		arrow.getWorld().createExplosion(arrow.getLocation(), f);
-		arrow.remove();
+		arrow.getWorld().playEffect(arrow.getLocation(), Effect.STEP_SOUND, Material.DIRT.getId());
 	}
 }

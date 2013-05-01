@@ -22,6 +22,7 @@ public class EntityManager {
 
 			m.invoke(m, EntityElementalArrow.class, "ElementalArrow", 10);
 			m.invoke(m, EntityElementalSkeleton.class, "ElementalSkeleton", 51);
+			m.invoke(m, EntitySkeleton.class, "Skeleton", 51);
 		} catch (Exception e) {}
 
 		for (Biome b : getBiomes(EntitySkeleton.class)) {

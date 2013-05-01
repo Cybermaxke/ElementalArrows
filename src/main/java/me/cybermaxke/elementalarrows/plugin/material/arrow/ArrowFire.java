@@ -16,10 +16,8 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.plugin.arrow;
+package me.cybermaxke.elementalarrows.plugin.material.arrow;
 
-import org.bukkit.Effect;
-import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.Plugin;
@@ -31,16 +29,15 @@ import org.getspout.spoutapi.material.MaterialData;
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.material.GenericCustomArrow;
 
-public class ArrowDirt extends GenericCustomArrow {
+public class ArrowFire extends GenericCustomArrow {
 
-	public ArrowDirt(Plugin plugin, String name, String texture) {
+	public ArrowFire(Plugin plugin, String name, String texture) {
 		super(plugin, name, texture);
 	}
 
 	@Override
 	public void onInit() {
-		this.setKnockbackStrengthMultiplier(2.0D);
-		this.setDamageMultiplier(1.3D);
+		this.setFireTicks(100);
 	}
 
 	@Override
@@ -49,15 +46,21 @@ public class ArrowDirt extends GenericCustomArrow {
 
 		SpoutShapedRecipe r = new SpoutShapedRecipe(i);
 		r.shape("A", "B", "C");
-		r.setIngredient('A', MaterialData.dirt);
+		r.setIngredient('A', MaterialData.coal);
 		r.setIngredient('B', MaterialData.stick);
 		r.setIngredient('C', MaterialData.feather);
+
+		SpoutShapedRecipe r2 = new SpoutShapedRecipe(i);
+		r2.shape("A", "B", "C");
+		r2.setIngredient('A', MaterialData.charcoal);
+		r2.setIngredient('B', MaterialData.stick);
+		r2.setIngredient('C', MaterialData.feather);
 
 		return new Recipe[] { r };
 	}
 
 	@Override
 	public void onHit(LivingEntity shooter, ElementalArrow arrow) {
-		arrow.getWorld().playEffect(arrow.getLocation(), Effect.STEP_SOUND, Material.DIRT.getId());
+		arrow.remove();
 	}
 }
