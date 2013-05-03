@@ -18,13 +18,12 @@
  */
 package me.cybermaxke.elementalarrows.api.inventory;
 
-import me.cybermaxke.elementalarrows.api.material.CustomItem;
-
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import org.getspout.spoutapi.inventory.SpoutItemStack;
 import org.getspout.spoutapi.material.CustomBlock;
+import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.Material;
 import org.getspout.spoutapi.material.MaterialData;
 
@@ -82,12 +81,12 @@ public class ElementalItemStack extends SpoutItemStack {
 			return super.getMaterial();
 		}
 
-		org.getspout.spoutapi.material.CustomItem i = MaterialData.getCustomItem(d);
+		CustomItem i = MaterialData.getCustomItem(d);
 		return i == null ? super.getMaterial() : i;
 	}
 
 	@Override
 	public boolean isCustomItem() {
-		return this.getMaterial() instanceof org.getspout.spoutapi.material.CustomItem;
+		return this.getMaterial() instanceof CustomItem;
 	}
 }

@@ -125,7 +125,7 @@ public class EventListener implements Listener {
 			return;
 		}
 
-		Entity ent = ElementalArrows.getAPI().spawn(entity, e.getClickedBlock().getRelative(e.getBlockFace()).getLocation(), SpawnReason.SPAWNER_EGG);
+		Entity ent = ElementalArrows.getAPI().spawn(entity, e.getClickedBlock().getRelative(e.getBlockFace()).getLocation().add(0.5D, 0.2D, 0.5D), SpawnReason.SPAWNER_EGG);
 		if (ent instanceof LivingEntity) {
 			String n = ChatColor.RESET + ((CustomItem) m).getName();
 			if (is.hasItemMeta() && is.getItemMeta().hasDisplayName()) {

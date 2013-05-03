@@ -21,7 +21,6 @@ package me.cybermaxke.elementalarrows.api.material;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.cybermaxke.elementalarrows.api.config.ConfigHolder;
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 
 import org.bukkit.Bukkit;
@@ -38,7 +37,7 @@ import org.bukkit.plugin.Plugin;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
 
-public class GenericCustomArrow extends GenericCustomItem implements ArrowMaterial, ConfigHolder {
+public class GenericCustomArrow extends GenericCustomItem implements ArrowMaterial {
 	private double damageMulti = 1.0D;
 	private double speedMulti = 1.0D;
 	private double knockbackMulti = 0.0D;

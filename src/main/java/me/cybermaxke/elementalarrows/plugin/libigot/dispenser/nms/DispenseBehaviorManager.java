@@ -26,6 +26,6 @@ import net.minecraft.server.Item;
 public class DispenseBehaviorManager {
 
 	public DispenseBehaviorManager() {
-		BlockDispenser.a.a(Item.byId[Material.FLINT.getId()], new DispenseBehaviorElementalArrow());
+		BlockDispenser.a.a(Item.byId[Material.FLINT.getId()], new DispenseBehaviorCustomItem());
 	}
 }

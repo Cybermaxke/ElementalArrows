@@ -19,13 +19,9 @@
 package me.cybermaxke.elementalarrows.api.material;
 
 import org.bukkit.Material;
-import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Pig;
 import org.bukkit.plugin.Plugin;
-
-import org.getspout.spoutapi.block.SpoutBlock;
-import org.getspout.spoutapi.player.SpoutPlayer;
 
 public class GenericCustomSpawnEgg extends GenericCustomItem implements SpawnEggMaterial {
 	private Class<? extends Entity> entity;
@@ -38,11 +34,6 @@ public class GenericCustomSpawnEgg extends GenericCustomItem implements SpawnEgg
 
 	public GenericCustomSpawnEgg(Plugin plugin, String name, String texture) {
 		this(plugin, name, texture, Pig.class);
-	}
-
-	@Override
-	public boolean onItemInteract(SpoutPlayer player, SpoutBlock block, BlockFace face) {
-		return true;
 	}
 
 	@Override

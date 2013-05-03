@@ -27,19 +27,22 @@ import net.minecraft.server.v1_5_R2.ISourceBlock;
 import net.minecraft.server.v1_5_R2.ItemStack;
 import net.minecraft.server.v1_5_R2.World;
 
+import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_5_R2.inventory.CraftItemStack;
 import org.bukkit.event.block.BlockDispenseEvent;
 import org.bukkit.util.Vector;
 
-import org.getspout.spoutapi.inventory.SpoutItemStack;
+import org.getspout.spoutapi.material.Material;
 
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
+import me.cybermaxke.elementalarrows.api.inventory.ElementalItemStack;
 import me.cybermaxke.elementalarrows.api.material.ArrowMaterial;
+import me.cybermaxke.elementalarrows.api.material.SpawnEggMaterial;
+import me.cybermaxke.elementalarrows.plugin.ElementalArrowsPlugin;
 import me.cybermaxke.elementalarrows.plugin.craftbukkit.entity.nms.EntityElementalArrow;
-import me.cybermaxke.elementalarrows.plugin.craftbukkit.item.nms.ItemManager;
 
-public class DispenseBehaviorElementalArrow extends DispenseBehaviorItem {
+public class DispenseBehaviorCustomItem extends DispenseBehaviorItem {
 
 	@Override
 	public ItemStack b(ISourceBlock isourceblock, ItemStack itemstack) {
@@ -47,9 +50,23 @@ public class DispenseBehaviorElementalArrow extends DispenseBehaviorItem {
 		IPosition iposition = BlockDispenser.a(isourceblock);
 		EnumFacing enumfacing = BlockDispenser.j_(isourceblock.h());
 
-		SpoutItemStack is = new SpoutItemStack(CraftItemStack.asCraftMirror(itemstack));
-		ArrowMaterial m = ItemManager.getMaterial(is);
-		if (m == null || m.isBlackListWorld(world.getWorld())) {
+		ElementalItemStack is = new ElementalItemStack(CraftItemStack.asCraftMirror(itemstack));
+		Material m = is.getMaterial();
+
+		Vector v = null;
+		if (m instanceof ArrowMaterial) {
+			if (((ArrowMaterial) m).isBlackListWorld(world.getWorld())) {
+				return super.b(isourceblock, itemstack);
+			}
+
+			v = new Vector(enumfacing.c(), enumfacing.d() + 0.1F, enumfacing.e());
+		} else if (m instanceof SpawnEggMaterial) {
+			double d0 = isourceblock.getX() + enumfacing.c();
+			double d1 = isourceblock.getBlockY() + 0.2F;
+			double d2 = isourceblock.getZ() + enumfacing.e();
+
+			v = new Vector(d0, d1, d2);
+		} else {
 			return super.b(isourceblock, itemstack);
 		}
 
@@ -57,11 +74,12 @@ public class DispenseBehaviorElementalArrow extends DispenseBehaviorItem {
 		Block block = world.getWorld().getBlockAt(isourceblock.getBlockX(), isourceblock.getBlockY(), isourceblock.getBlockZ());
 		CraftItemStack craftItem = CraftItemStack.asCraftMirror(itemstack1);
 
-		BlockDispenseEvent event = new BlockDispenseEvent(block, craftItem.clone(), new Vector(enumfacing.c(), enumfacing.d() + 0.1F, enumfacing.e()));
+		BlockDispenseEvent event = new BlockDispenseEvent(block, craftItem.clone(), v);
 		if (!BlockDispenser.eventFired) {
 			world.getServer().getPluginManager().callEvent(event);
 		}
 
+		v = event.getVelocity();
 		if (event.isCancelled()) {
 			itemstack.count += 1;
 			return itemstack;
@@ -72,26 +90,37 @@ public class DispenseBehaviorElementalArrow extends DispenseBehaviorItem {
 
 			ItemStack eventStack = CraftItemStack.asNMSCopy(event.getItem());
 			IDispenseBehavior idispensebehavior = (IDispenseBehavior) BlockDispenser.a.a(eventStack.getItem());
-			if ((idispensebehavior != IDispenseBehavior.a) && (idispensebehavior != this)) {
+			if (idispensebehavior != IDispenseBehavior.a && idispensebehavior != this) {
 				idispensebehavior.a(isourceblock, eventStack);
 				return itemstack;
 			}
 		}
 
-		EntityElementalArrow a = new EntityElementalArrow(world, iposition.getX(), iposition.getY(), iposition.getZ());
-		a.shoot(event.getVelocity().getX(), event.getVelocity().getY(), event.getVelocity().getZ(), this.b() * (float) m.getSpeedMutiplier(), this.a());
+		if (m instanceof ArrowMaterial) {
+			ArrowMaterial am = (ArrowMaterial) m;
+			EntityElementalArrow a = new EntityElementalArrow(world, iposition.getX(), iposition.getY(), iposition.getZ());
+			a.shoot(v.getX(), v.getY(), v.getZ(), this.b() * (float) am.getSpeedMutiplier(), this.a());
 
-		ElementalArrow ea = a.getBukkitEntity();
-		ea.setMaterial(m);
-		ea.setFireTicks(m.getFireTicks());
-		ea.setDamage(ea.getDamage() * m.getDamageMultiplier());
-		ea.setPickupable(true);
-		if (m.getKnockbackStrengthMultiplier() != 0.0D) {
-			ea.setKnockbackStrength(Math.round((float) (1.0D * m.getKnockbackStrengthMultiplier())));
+			ElementalArrow ea = a.getBukkitEntity();
+			ea.setMaterial(am);
+			ea.setFireTicks(am.getFireTicks());
+			ea.setDamage(ea.getDamage() * am.getDamageMultiplier());
+			ea.setPickupable(true);
+			if (am.getKnockbackStrengthMultiplier() != 0.0D) {
+				ea.setKnockbackStrength(Math.round((float) (1.0D * am.getKnockbackStrengthMultiplier())));
+			}
+
+			world.addEntity(a);
+			am.onShoot(null, ea, null);
+		} else if (m instanceof SpawnEggMaterial) {
+			SpawnEggMaterial sm = (SpawnEggMaterial) m;
+			if (sm.getEntity() == null) {
+				return itemstack;
+			}
+
+			Location l = new Location(world.getWorld(), v.getX(), v.getY(), v.getZ());
+			ElementalArrowsPlugin.getInstance().spawn(sm.getEntity(), l);
 		}
-
-		world.addEntity(a);
-		m.onShoot(null, ea, null);
 		return itemstack;
 	}
 
