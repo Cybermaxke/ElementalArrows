@@ -39,6 +39,7 @@ public class ArrowDirt extends GenericCustomArrow {
 
 	@Override
 	public void onInit() {
+		super.onInit();
 		this.setKnockbackStrengthMultiplier(2.0D);
 		this.setDamageMultiplier(1.3D);
 	}

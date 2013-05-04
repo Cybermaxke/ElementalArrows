@@ -38,16 +38,13 @@ import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
 
 public class GenericCustomArrow extends GenericCustomItem implements ArrowMaterial {
-	private double damageMulti = 1.0D;
-	private double speedMulti = 1.0D;
-	private double knockbackMulti = 0.0D;
-
-	private int fireTicks = 0;
-
+	private double damageMulti;
+	private double speedMulti;
+	private double knockbackMulti;
+	private int fireTicks;
 	private boolean pickup = true;
 
 	private String skeletonTexture;
-
 	private List<String> bWorlds = new ArrayList<String>();
 	private Permission permission;
 	private ItemStack drop;
@@ -56,7 +53,6 @@ public class GenericCustomArrow extends GenericCustomItem implements ArrowMateri
 		super(plugin, name, texture);
 		this.setId(Material.ARROW.getId());
 		this.drop = new SpoutItemStack(this);
-		this.permission = new Permission((plugin.getName() + ".arrows." + name).toLowerCase().replace(" ", ""), PermissionDefault.OP);
 		if (this.getRecipes() != null) {
 			for (Recipe r : this.getRecipes()) {
 				SpoutManager.getMaterialManager().registerSpoutRecipe(r);
@@ -66,6 +62,15 @@ public class GenericCustomArrow extends GenericCustomItem implements ArrowMateri
 		if (this.skeletonTexture != null) {
 			SpoutManager.getFileManager().addToCache(plugin, this.skeletonTexture);
 		}
+	}
+
+	@Override
+	public void onInit() {
+		this.permission = new Permission((this.getPlugin().getName() + ".arrows." + this.getName()).toLowerCase().replace(" ", ""), PermissionDefault.OP);
+		this.damageMulti = 1.0D;
+		this.speedMulti = 1.0D;
+		this.knockbackMulti = 0.0D;
+		this.fireTicks = 0;
 	}
 
 	@Override

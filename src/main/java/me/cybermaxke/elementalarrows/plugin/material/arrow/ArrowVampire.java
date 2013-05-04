@@ -43,6 +43,7 @@ public class ArrowVampire extends GenericCustomArrow {
 
 	@Override
 	public void onInit() {
+		super.onInit();
 		this.duration = 40;
 		this.invalidTypes = new ArrayList<EntityType>();
 		this.invalidTypes.add(EntityType.SKELETON);

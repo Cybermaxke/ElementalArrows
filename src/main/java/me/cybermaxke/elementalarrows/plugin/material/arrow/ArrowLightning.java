@@ -37,6 +37,7 @@ public class ArrowLightning extends GenericCustomArrow {
 
 	@Override
 	public void onInit() {
+		super.onInit();
 		this.setDamageMultiplier(1.3D);
 	}
 

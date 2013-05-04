@@ -40,6 +40,7 @@ public class ArrowExplosion extends GenericCustomArrow {
 
 	@Override
 	public void onInit() {
+		super.onInit();
 		this.power = 4.0F;
 	}
 

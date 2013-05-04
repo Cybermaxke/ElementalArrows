@@ -46,6 +46,7 @@ public class ArrowIce extends GenericCustomArrow {
 
 	@Override
 	public void onInit() {
+		super.onInit();
 		this.duration = 70;
 	}
 

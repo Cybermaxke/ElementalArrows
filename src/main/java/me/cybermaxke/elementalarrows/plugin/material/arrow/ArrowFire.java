@@ -37,6 +37,7 @@ public class ArrowFire extends GenericCustomArrow {
 
 	@Override
 	public void onInit() {
+		super.onInit();
 		this.setFireTicks(100);
 	}
 

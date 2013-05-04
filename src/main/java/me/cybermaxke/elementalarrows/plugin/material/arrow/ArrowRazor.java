@@ -30,6 +30,7 @@ public class ArrowRazor extends GenericCustomArrow {
 
 	@Override
 	public void onInit() {
+		super.onInit();
 		this.setSpeedMultiplier(1.7D);
 		this.setKnockbackStrengthMultiplier(1.2D);
 	}

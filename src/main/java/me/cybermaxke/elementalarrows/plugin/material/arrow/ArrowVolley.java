@@ -40,6 +40,7 @@ public class ArrowVolley extends GenericCustomArrow {
 
 	@Override
 	public void onInit() {
+		super.onInit();
 		this.amount = 18;
 	}
 

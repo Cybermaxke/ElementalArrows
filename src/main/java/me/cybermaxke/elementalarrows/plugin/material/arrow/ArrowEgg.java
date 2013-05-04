@@ -43,6 +43,7 @@ public class ArrowEgg extends GenericCustomArrow {
 
 	@Override
 	public void onInit() {
+		super.onInit();
 		this.baby = true;
 	}
 
