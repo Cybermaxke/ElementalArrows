@@ -16,19 +16,19 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.plugin.craftbukkit.entity;
+package me.cybermaxke.elementalarrows.plugin.entity;
 
 import java.util.Random;
 
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.entity.ElementalPlayer;
-import me.cybermaxke.elementalarrows.plugin.craftbukkit.entity.nms.EntityElementalArrow;
-import me.cybermaxke.elementalarrows.plugin.craftbukkit.player.ElementalPlayerConnection;
+import me.cybermaxke.elementalarrows.plugin.entity.nms.EntityElementalArrow;
+import me.cybermaxke.elementalarrows.plugin.player.ElementalPlayerConnection;
 
-import net.minecraft.server.v1_5_R2.EntityPlayer;
-import net.minecraft.server.v1_5_R2.PlayerConnection;
+import net.minecraft.server.v1_5_R3.EntityPlayer;
+import net.minecraft.server.v1_5_R3.PlayerConnection;
 
-import org.bukkit.craftbukkit.v1_5_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_5_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 public class CraftElementalPlayer extends CraftPlayer implements ElementalPlayer {

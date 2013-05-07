@@ -78,11 +78,11 @@ public class ElementalItemStack extends SpoutItemStack {
 
 		int d = this.getDurability();
 		if (d < 1024) {
-			return super.getMaterial();
+			return m;
 		}
 
 		CustomItem i = MaterialData.getCustomItem(d);
-		return i == null ? super.getMaterial() : i;
+		return i == null ? m : i;
 	}
 
 	@Override

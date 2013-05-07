@@ -21,9 +21,14 @@ package me.cybermaxke.elementalarrows.plugin.material.arrow;
 import org.bukkit.Effect;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
+import org.getspout.spoutapi.inventory.SpoutItemStack;
+import org.getspout.spoutapi.inventory.SpoutShapedRecipe;
+import org.getspout.spoutapi.material.MaterialData;
 
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.material.GenericCustomArrow;
@@ -55,6 +60,19 @@ public class ArrowBlindness extends GenericCustomArrow {
 		if (!config.contains("EffectDuration")) {
 			config.set("EffectDuration", this.duration);
 		}
+	}
+
+	@Override
+	public Recipe[] getRecipes() {
+		SpoutItemStack i = new SpoutItemStack(this, 4);
+
+		SpoutShapedRecipe r = new SpoutShapedRecipe(i);
+		r.shape("A", "B", "C");
+		r.setIngredient('A', MaterialData.inkSac);
+		r.setIngredient('B', MaterialData.stick);
+		r.setIngredient('C', MaterialData.feather);
+
+		return new Recipe[] { r };
 	}
 
 	@Override

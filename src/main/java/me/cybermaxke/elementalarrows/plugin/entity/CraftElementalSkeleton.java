@@ -16,17 +16,17 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.plugin.libigot.entity;
+package me.cybermaxke.elementalarrows.plugin.entity;
 
-import me.cybermaxke.elementalarrows.api.entity.ElementalSkeleton;
-import me.cybermaxke.elementalarrows.api.material.ArrowMaterial;
-import me.cybermaxke.elementalarrows.plugin.libigot.entity.nms.EntityElementalSkeleton;
-
-import org.bukkit.craftbukkit.entity.CraftSkeleton;
+import org.bukkit.craftbukkit.v1_5_R3.entity.CraftSkeleton;
 
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.player.EntitySkinType;
 import org.getspout.spoutapi.player.SpoutPlayer;
+
+import me.cybermaxke.elementalarrows.api.entity.ElementalSkeleton;
+import me.cybermaxke.elementalarrows.api.material.ArrowMaterial;
+import me.cybermaxke.elementalarrows.plugin.entity.nms.EntityElementalSkeleton;
 
 public class CraftElementalSkeleton extends CraftSkeleton implements ElementalSkeleton {
 

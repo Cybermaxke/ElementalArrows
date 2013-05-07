@@ -16,34 +16,34 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.plugin.craftbukkit.entity.nms;
+package me.cybermaxke.elementalarrows.plugin.entity.nms;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.server.v1_5_R2.Enchantment;
-import net.minecraft.server.v1_5_R2.EnchantmentManager;
-import net.minecraft.server.v1_5_R2.EntityHuman;
-import net.minecraft.server.v1_5_R2.EntityLiving;
-import net.minecraft.server.v1_5_R2.EntitySkeleton;
-import net.minecraft.server.v1_5_R2.Item;
-import net.minecraft.server.v1_5_R2.ItemStack;
-import net.minecraft.server.v1_5_R2.NBTTagCompound;
-import net.minecraft.server.v1_5_R2.PathfinderGoalArrowAttack;
-import net.minecraft.server.v1_5_R2.PathfinderGoalFleeSun;
-import net.minecraft.server.v1_5_R2.PathfinderGoalFloat;
-import net.minecraft.server.v1_5_R2.PathfinderGoalHurtByTarget;
-import net.minecraft.server.v1_5_R2.PathfinderGoalLookAtPlayer;
-import net.minecraft.server.v1_5_R2.PathfinderGoalNearestAttackableTarget;
-import net.minecraft.server.v1_5_R2.PathfinderGoalRandomLookaround;
-import net.minecraft.server.v1_5_R2.PathfinderGoalRandomStroll;
-import net.minecraft.server.v1_5_R2.PathfinderGoalRestrictSun;
-import net.minecraft.server.v1_5_R2.PathfinderGoalSelector;
-import net.minecraft.server.v1_5_R2.World;
+import net.minecraft.server.v1_5_R3.Enchantment;
+import net.minecraft.server.v1_5_R3.EnchantmentManager;
+import net.minecraft.server.v1_5_R3.EntityHuman;
+import net.minecraft.server.v1_5_R3.EntityLiving;
+import net.minecraft.server.v1_5_R3.EntitySkeleton;
+import net.minecraft.server.v1_5_R3.Item;
+import net.minecraft.server.v1_5_R3.ItemStack;
+import net.minecraft.server.v1_5_R3.NBTTagCompound;
+import net.minecraft.server.v1_5_R3.PathfinderGoalArrowAttack;
+import net.minecraft.server.v1_5_R3.PathfinderGoalFleeSun;
+import net.minecraft.server.v1_5_R3.PathfinderGoalFloat;
+import net.minecraft.server.v1_5_R3.PathfinderGoalHurtByTarget;
+import net.minecraft.server.v1_5_R3.PathfinderGoalLookAtPlayer;
+import net.minecraft.server.v1_5_R3.PathfinderGoalNearestAttackableTarget;
+import net.minecraft.server.v1_5_R3.PathfinderGoalRandomLookaround;
+import net.minecraft.server.v1_5_R3.PathfinderGoalRandomStroll;
+import net.minecraft.server.v1_5_R3.PathfinderGoalRestrictSun;
+import net.minecraft.server.v1_5_R3.PathfinderGoalSelector;
+import net.minecraft.server.v1_5_R3.World;
 
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_5_R2.event.CraftEventFactory;
+import org.bukkit.craftbukkit.v1_5_R3.event.CraftEventFactory;
 
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
@@ -54,7 +54,7 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.material.ArrowMaterial;
-import me.cybermaxke.elementalarrows.plugin.craftbukkit.entity.CraftElementalSkeleton;
+import me.cybermaxke.elementalarrows.plugin.entity.CraftElementalSkeleton;
 import me.cybermaxke.elementalarrows.plugin.material.arrow.ArrowManager;
 
 public class EntityElementalSkeleton extends EntitySkeleton {
@@ -191,5 +191,10 @@ public class EntityElementalSkeleton extends EntitySkeleton {
 	@Override
 	public void m() {
 
+	}
+
+	@Override
+	public String getLocalizedName() {
+		return "Elemental Skeleton";
 	}
 }

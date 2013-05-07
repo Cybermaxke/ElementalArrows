@@ -66,7 +66,7 @@ public class GenericCustomArrow extends GenericCustomItem implements ArrowMateri
 
 	@Override
 	public void onInit() {
-		this.permission = new Permission((this.getPlugin().getName() + ".arrows." + this.getName()).toLowerCase().replace(" ", ""), PermissionDefault.OP);
+		this.permission = new Permission((this.getPlugin().getName() + ".arrows." + this.getName()).toLowerCase().replace(" ", ""), PermissionDefault.TRUE);
 		this.damageMulti = 1.0D;
 		this.speedMulti = 1.0D;
 		this.knockbackMulti = 0.0D;

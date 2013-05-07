@@ -16,25 +16,25 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.plugin.libigot.item.nms;
+package me.cybermaxke.elementalarrows.plugin.item.nms;
 
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.material.ArrowMaterial;
-import me.cybermaxke.elementalarrows.plugin.libigot.entity.nms.EntityElementalArrow;
+import me.cybermaxke.elementalarrows.plugin.entity.nms.EntityElementalArrow;
 
-import net.minecraft.server.Enchantment;
-import net.minecraft.server.EnchantmentManager;
-import net.minecraft.server.EntityHuman;
-import net.minecraft.server.EntityPlayer;
-import net.minecraft.server.EnumAnimation;
-import net.minecraft.server.Item;
-import net.minecraft.server.ItemBow;
-import net.minecraft.server.ItemStack;
-import net.minecraft.server.Packet103SetSlot;
-import net.minecraft.server.World;
+import net.minecraft.server.v1_5_R3.Enchantment;
+import net.minecraft.server.v1_5_R3.EnchantmentManager;
+import net.minecraft.server.v1_5_R3.EntityHuman;
+import net.minecraft.server.v1_5_R3.EntityPlayer;
+import net.minecraft.server.v1_5_R3.EnumAnimation;
+import net.minecraft.server.v1_5_R3.Item;
+import net.minecraft.server.v1_5_R3.ItemBow;
+import net.minecraft.server.v1_5_R3.ItemStack;
+import net.minecraft.server.v1_5_R3.Packet103SetSlot;
+import net.minecraft.server.v1_5_R3.World;
 
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.event.CraftEventFactory;
+import org.bukkit.craftbukkit.v1_5_R3.event.CraftEventFactory;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityShootBowEvent;
 
@@ -49,38 +49,34 @@ public class ItemElementalBow extends ItemBow {
 		this.b("bow");
 	}
 
-	private int getFirstArrow(Player p) {
+	private int getFirstArrowSlot(SpoutPlayer p) {
 		for (int i = 0; i < p.getInventory().getSize(); i++) {
-			org.bukkit.inventory.ItemStack is1 = p.getInventory().getItem(i);
-			if (is1 != null) {
-				SpoutItemStack is2 = new SpoutItemStack(is1);
-
-				if (is1.getType().equals(Material.ARROW)) {
-					return -1;
-				}
-
-				if (is2.isCustomItem() && is2.getMaterial() instanceof ArrowMaterial) {
-					ArrowMaterial ai = (ArrowMaterial) is2.getMaterial();
-
-					if ((ai.hasPermission() && !p.hasPermission(ai.getPermission())) || ai.isBlackListWorld(p.getWorld())) {
-						continue;
-					}
-
-					return i;
-				}
+			org.bukkit.inventory.ItemStack is = p.getInventory().getItem(i);
+			ArrowMaterial m = is == null ? null : ItemManager.getMaterial(is);
+			if (is == null) {
+				continue;
+			} else if (m != null) {
+				return i;
+			} else if (is.getType().equals(Material.ARROW)) {
+				return -1;
 			}
 		}
-
 		return -1;
+	}
+
+	private org.bukkit.inventory.ItemStack getFirstArrow(SpoutPlayer p) {
+		int s = this.getFirstArrowSlot(p);
+		return s == -1 ? null : p.getInventory().getItem(s);
 	}
 
 	@Override
 	public void a(ItemStack itemstack, World world, EntityHuman entityhuman, int i) {
 		boolean flag = entityhuman.abilities.canInstantlyBuild || EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_INFINITE.id, itemstack) > 0;
-		Player p = (Player) entityhuman.getBukkitEntity();
+		SpoutPlayer p = SpoutManager.getPlayer((Player) entityhuman.getBukkitEntity());
 
-		int slot = this.getFirstArrow(p);
-		if (slot == -1) {
+		int slot = this.getFirstArrowSlot(p);
+		org.bukkit.inventory.ItemStack is1 = this.getFirstArrow(p);
+		if (is1 == null) {
 			super.a(itemstack, world, entityhuman, i);
 			return;
 		}
@@ -97,8 +93,8 @@ public class ItemElementalBow extends ItemBow {
 			f = 1.0F;
 		}
 
-		SpoutItemStack is = new SpoutItemStack(p.getInventory().getItem(slot));
-		ArrowMaterial m = (ArrowMaterial) is.getMaterial();
+		SpoutItemStack is = new SpoutItemStack(is1);
+		ArrowMaterial m = ItemManager.getMaterial(is);
 
 		int k = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_DAMAGE.id, itemstack);
 		int l = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_KNOCKBACK.id, itemstack);
@@ -177,13 +173,15 @@ public class ItemElementalBow extends ItemBow {
 	public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
 		SpoutPlayer p = SpoutManager.getPlayer((Player) entityhuman.getBukkitEntity());
 
-		int slot = this.getFirstArrow(p);
-		if (slot == -1) {
+		if (this.getFirstArrow(p) == null) {
 			return super.a(itemstack, world, entityhuman);
 		}
 
-		Packet103SetSlot packet = new Packet103SetSlot(0, 9, new ItemStack(Item.ARROW));
-		((EntityPlayer) entityhuman).playerConnection.sendPacket(packet);
+		if (p.isSpoutCraftEnabled()) {
+			Packet103SetSlot packet = new Packet103SetSlot(0, 9, new ItemStack(Item.ARROW));
+			((EntityPlayer) entityhuman).playerConnection.sendPacket(packet);
+		}
+
 		entityhuman.a(itemstack, this.c_(itemstack));
 		return itemstack;
 	}

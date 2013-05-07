@@ -58,12 +58,7 @@ public class ElementalArrowsPlugin extends JavaPlugin implements ElementalArrows
 			return;
 		}
 
-		try {
-			Class.forName("org.libigot.Libigot");
-			this.api = new me.cybermaxke.elementalarrows.plugin.libigot.ElementalArrows();
-		} catch (Exception e) {
-			this.api = new me.cybermaxke.elementalarrows.plugin.craftbukkit.ElementalArrows();
-		}
+		this.api = new ElementalArrows();
 
 		new MaterialManager(this);
 		new EventListener(this);

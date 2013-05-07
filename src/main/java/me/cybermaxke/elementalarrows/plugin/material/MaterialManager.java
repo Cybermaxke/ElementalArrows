@@ -31,6 +31,6 @@ public class MaterialManager {
 	public MaterialManager(Plugin plugin) {
 		new ArrowManager(plugin);
 
-		EGG_ELEMENTAL_SKELETON = new GenericCustomSpawnEgg(plugin, "Spawn Elemental Skeleton", "https://dl.dropboxusercontent.com/u/104060836/ElementalArrows/Resources/ElementalSkeletonEgg.png", ElementalSkeleton.class);
+		EGG_ELEMENTAL_SKELETON = new GenericCustomSpawnEgg(plugin, "Spawn Elemental Skeleton", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/ElementalSkeletonEgg.png", ElementalSkeleton.class);
 	}
 }

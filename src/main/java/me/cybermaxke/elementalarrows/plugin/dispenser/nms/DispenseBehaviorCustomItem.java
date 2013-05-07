@@ -16,11 +16,20 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.plugin.libigot.dispenser.nms;
+package me.cybermaxke.elementalarrows.plugin.dispenser.nms;
+
+import net.minecraft.server.v1_5_R3.BlockDispenser;
+import net.minecraft.server.v1_5_R3.DispenseBehaviorItem;
+import net.minecraft.server.v1_5_R3.EnumFacing;
+import net.minecraft.server.v1_5_R3.IDispenseBehavior;
+import net.minecraft.server.v1_5_R3.IPosition;
+import net.minecraft.server.v1_5_R3.ISourceBlock;
+import net.minecraft.server.v1_5_R3.ItemStack;
+import net.minecraft.server.v1_5_R3.World;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_5_R3.inventory.CraftItemStack;
 import org.bukkit.event.block.BlockDispenseEvent;
 import org.bukkit.util.Vector;
 
@@ -31,16 +40,7 @@ import me.cybermaxke.elementalarrows.api.inventory.ElementalItemStack;
 import me.cybermaxke.elementalarrows.api.material.ArrowMaterial;
 import me.cybermaxke.elementalarrows.api.material.SpawnEggMaterial;
 import me.cybermaxke.elementalarrows.plugin.ElementalArrowsPlugin;
-import me.cybermaxke.elementalarrows.plugin.libigot.entity.nms.EntityElementalArrow;
-
-import net.minecraft.server.BlockDispenser;
-import net.minecraft.server.DispenseBehaviorItem;
-import net.minecraft.server.EnumFacing;
-import net.minecraft.server.IDispenseBehavior;
-import net.minecraft.server.IPosition;
-import net.minecraft.server.ISourceBlock;
-import net.minecraft.server.ItemStack;
-import net.minecraft.server.World;
+import me.cybermaxke.elementalarrows.plugin.entity.nms.EntityElementalArrow;
 
 public class DispenseBehaviorCustomItem extends DispenseBehaviorItem {
 

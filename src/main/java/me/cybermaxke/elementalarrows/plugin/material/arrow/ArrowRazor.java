@@ -18,7 +18,12 @@
  */
 package me.cybermaxke.elementalarrows.plugin.material.arrow;
 
+import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.Plugin;
+
+import org.getspout.spoutapi.inventory.SpoutItemStack;
+import org.getspout.spoutapi.inventory.SpoutShapedRecipe;
+import org.getspout.spoutapi.material.MaterialData;
 
 import me.cybermaxke.elementalarrows.api.material.GenericCustomArrow;
 
@@ -33,5 +38,18 @@ public class ArrowRazor extends GenericCustomArrow {
 		super.onInit();
 		this.setSpeedMultiplier(1.7D);
 		this.setKnockbackStrengthMultiplier(1.2D);
+	}
+
+	@Override
+	public Recipe[] getRecipes() {
+		SpoutItemStack i = new SpoutItemStack(this, 4);
+
+		SpoutShapedRecipe r = new SpoutShapedRecipe(i);
+		r.shape("A", "B", "C");
+		r.setIngredient('A', MaterialData.ironIngot);
+		r.setIngredient('B', MaterialData.stick);
+		r.setIngredient('C', MaterialData.feather);
+
+		return new Recipe[] { r };
 	}
 }

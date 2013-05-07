@@ -16,12 +16,12 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.plugin.craftbukkit;
+package me.cybermaxke.elementalarrows.plugin;
 
-import net.minecraft.server.v1_5_R2.World;
+import net.minecraft.server.v1_5_R3.World;
 
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_5_R2.CraftWorld;
+import org.bukkit.craftbukkit.v1_5_R3.CraftWorld;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
@@ -31,12 +31,12 @@ import me.cybermaxke.elementalarrows.api.ElementalArrowsAPI;
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.entity.ElementalPlayer;
 import me.cybermaxke.elementalarrows.api.entity.ElementalSkeleton;
-import me.cybermaxke.elementalarrows.plugin.craftbukkit.dispenser.nms.DispenseBehaviorManager;
-import me.cybermaxke.elementalarrows.plugin.craftbukkit.entity.CraftElementalPlayer;
-import me.cybermaxke.elementalarrows.plugin.craftbukkit.entity.nms.EntityElementalArrow;
-import me.cybermaxke.elementalarrows.plugin.craftbukkit.entity.nms.EntityElementalSkeleton;
-import me.cybermaxke.elementalarrows.plugin.craftbukkit.entity.nms.EntityManager;
-import me.cybermaxke.elementalarrows.plugin.craftbukkit.item.nms.ItemManager;
+import me.cybermaxke.elementalarrows.plugin.dispenser.nms.DispenseBehaviorManager;
+import me.cybermaxke.elementalarrows.plugin.entity.CraftElementalPlayer;
+import me.cybermaxke.elementalarrows.plugin.entity.nms.EntityElementalArrow;
+import me.cybermaxke.elementalarrows.plugin.entity.nms.EntityElementalSkeleton;
+import me.cybermaxke.elementalarrows.plugin.entity.nms.EntityManager;
+import me.cybermaxke.elementalarrows.plugin.item.nms.ItemManager;
 
 public class ElementalArrows implements ElementalArrowsAPI {
 

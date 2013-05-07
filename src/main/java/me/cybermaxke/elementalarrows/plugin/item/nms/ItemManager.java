@@ -16,7 +16,7 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.plugin.craftbukkit.item.nms;
+package me.cybermaxke.elementalarrows.plugin.item.nms;
 
 import org.bukkit.inventory.ItemStack;
 
@@ -26,7 +26,7 @@ import org.getspout.spoutapi.material.MaterialData;
 
 import me.cybermaxke.elementalarrows.api.material.ArrowMaterial;
 
-import net.minecraft.server.v1_5_R2.Item;
+import net.minecraft.server.v1_5_R3.Item;
 
 public class ItemManager {
 

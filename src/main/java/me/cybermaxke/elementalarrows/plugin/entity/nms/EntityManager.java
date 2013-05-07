@@ -1,4 +1,4 @@
-package me.cybermaxke.elementalarrows.plugin.craftbukkit.entity.nms;
+package me.cybermaxke.elementalarrows.plugin.entity.nms;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -7,11 +7,11 @@ import java.util.List;
 
 import org.bukkit.block.Biome;
 
-import net.minecraft.server.v1_5_R2.EntitySkeleton;
-import net.minecraft.server.v1_5_R2.BiomeBase;
-import net.minecraft.server.v1_5_R2.BiomeMeta;
-import net.minecraft.server.v1_5_R2.Entity;
-import net.minecraft.server.v1_5_R2.EntityTypes;
+import net.minecraft.server.v1_5_R3.EntitySkeleton;
+import net.minecraft.server.v1_5_R3.BiomeBase;
+import net.minecraft.server.v1_5_R3.BiomeMeta;
+import net.minecraft.server.v1_5_R3.Entity;
+import net.minecraft.server.v1_5_R3.EntityTypes;
 
 public class EntityManager {
 
