@@ -12,8 +12,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<BukkitVersion>1.5.2-R0.1-SNAPSHOT</BukkitVersion>
-		<LibigotVersion>1.5.1-R0.3-SNAPSHOT</LibigotVersion>
+		<BukkitVersion>1.5.2-R0.1</BukkitVersion>
 		<SpoutVersion>1.5.2-R0.1-SNAPSHOT</SpoutVersion>
 		<WorldEditVersion>5.5.2-SNAPSHOT</WorldEditVersion>
 		<WorldGuardVersion>5.7.2-SNAPSHOT</WorldGuardVersion>
@@ -38,11 +37,6 @@
 		</repository>
 
 		<repository>
-			<id>libigot</id>
-			<url>http://repo.libigot.org/</url>
-		</repository>
-
-		<repository>
 			<id>spout-repo</id>
 			<url>http://repo.spout.org</url>
 		</repository>
@@ -59,12 +53,6 @@
 			<groupId>org.bukkit</groupId>
 			<artifactId>craftbukkit</artifactId>
 			<version>${BukkitVersion}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.libigot</groupId>
-			<artifactId>libigot</artifactId>
-			<version>${LibigotVersion}</version>
 		</dependency>
 
 		<dependency>

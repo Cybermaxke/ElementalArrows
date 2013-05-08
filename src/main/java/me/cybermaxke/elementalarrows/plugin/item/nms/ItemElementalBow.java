@@ -52,10 +52,9 @@ public class ItemElementalBow extends ItemBow {
 	private int getFirstArrowSlot(SpoutPlayer p) {
 		for (int i = 0; i < p.getInventory().getSize(); i++) {
 			org.bukkit.inventory.ItemStack is = p.getInventory().getItem(i);
-			ArrowMaterial m = is == null ? null : ItemManager.getMaterial(is);
 			if (is == null) {
 				continue;
-			} else if (m != null) {
+			} else if (ItemManager.getMaterial(is) != null) {
 				return i;
 			} else if (is.getType().equals(Material.ARROW)) {
 				return -1;
