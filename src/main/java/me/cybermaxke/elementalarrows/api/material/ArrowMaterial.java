@@ -85,12 +85,6 @@ public interface ArrowMaterial {
 	public Permission getPermission();
 
 	/**
-	 * Gets if this material is using a permission.
-	 * @return permission
-	 */
-	public boolean hasPermission();
-
-	/**
 	 * Sets the permission used by this material.
 	 * @param permission
 	 */
@@ -150,6 +144,18 @@ public interface ArrowMaterial {
 	 * @param skin
 	 */
 	public void setSkeletonSkin(String skin);
+
+	/**
+	 * Gets the permission the player needs to craft this arrow.
+	 * @return permission
+	 */
+	public Permission getCraftingPermission();
+
+	/**
+	 * Sets the permission the player needs to craft this arrow.
+	 * @param permission
+	 */
+	public void setCraftingPermission(Permission permission);
 
 	/**
 	 * Gets all the recipes used by this material.

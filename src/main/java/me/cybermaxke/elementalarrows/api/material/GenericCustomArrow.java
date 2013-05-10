@@ -47,6 +47,7 @@ public class GenericCustomArrow extends GenericCustomItem implements ArrowMateri
 	private String skeletonTexture;
 	private List<String> bWorlds = new ArrayList<String>();
 	private Permission permission;
+	private Permission craftingPermission;
 	private ItemStack drop;
 
 	public GenericCustomArrow(Plugin plugin, String name, String texture) {
@@ -66,7 +67,8 @@ public class GenericCustomArrow extends GenericCustomItem implements ArrowMateri
 
 	@Override
 	public void onInit() {
-		this.permission = new Permission((this.getPlugin().getName() + ".arrows." + this.getName()).toLowerCase().replace(" ", ""), PermissionDefault.TRUE);
+		this.permission = new Permission((this.getPlugin().getName() + ".arrows." + this.getName()).toLowerCase().replace(" ", "") + ".use", PermissionDefault.TRUE);
+		this.craftingPermission = new Permission((this.getPlugin().getName() + ".arrows." + this.getName()).toLowerCase().replace(" ", "") + ".craft", PermissionDefault.TRUE);
 		this.damageMulti = 1.0D;
 		this.speedMulti = 1.0D;
 		this.knockbackMulti = 0.0D;
@@ -116,11 +118,6 @@ public class GenericCustomArrow extends GenericCustomItem implements ArrowMateri
 	@Override
 	public Permission getPermission() {
 		return this.permission;
-	}
-
-	@Override
-	public boolean hasPermission() {
-		return this.permission != null;
 	}
 
 	@Override
@@ -181,6 +178,16 @@ public class GenericCustomArrow extends GenericCustomItem implements ArrowMateri
 	}
 
 	@Override
+	public Permission getCraftingPermission() {
+		return this.craftingPermission;
+	}
+
+	@Override
+	public void setCraftingPermission(Permission permission) {
+		this.craftingPermission = permission;
+	}
+
+	@Override
 	public void onLoad(YamlConfiguration config) {
 		super.onLoad(config);
 		this.damageMulti = config.getDouble("DamageMultiplier");
@@ -188,7 +195,8 @@ public class GenericCustomArrow extends GenericCustomItem implements ArrowMateri
 		this.knockbackMulti = config.getDouble("KnockbackMultiplier");
 		this.fireTicks = config.getInt("FireTicks");
 		this.bWorlds = config.getStringList("WorldsBlackList");
-		this.permission = new Permission(config.getString("Permission"), PermissionDefault.OP);
+		this.permission = new Permission(config.getString("Permission"), PermissionDefault.TRUE);
+		this.craftingPermission = new Permission(config.getString("CraftingPermission"), PermissionDefault.TRUE);
 		String texture = config.getString("SkeletonTexture");
 		if (texture.length() > 0) {
 			this.skeletonTexture = texture;
@@ -215,6 +223,9 @@ public class GenericCustomArrow extends GenericCustomItem implements ArrowMateri
 		}
 		if (!config.contains("Permission")) {
 			config.set("Permission", this.permission == null ? "" : this.permission.getName());
+		}
+		if (!config.contains("CraftingPermission")) {
+			config.set("CraftingPermission", this.craftingPermission == null ? "" : this.craftingPermission.getName());
 		}
 		if (!config.contains("SkeletonTexture")) {
 			config.set("SkeletonTexture", this.skeletonTexture == null ? "" : this.skeletonTexture);

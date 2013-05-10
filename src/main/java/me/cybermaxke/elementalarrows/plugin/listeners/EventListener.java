@@ -101,7 +101,7 @@ public class EventListener implements Listener {
 		SpoutItemStack is = new SpoutItemStack(r.getResult());
 		if (is.isCustomItem() && is.getMaterial() instanceof ArrowMaterial) {
 			ArrowMaterial m = (ArrowMaterial) is.getMaterial();
-			if (m.hasPermission() && !e.getWhoClicked().hasPermission(m.getPermission())) {
+			if (m.getCraftingPermission() != null && !e.getWhoClicked().hasPermission(m.getCraftingPermission())) {
 				e.setCancelled(true);
 			}
 		}

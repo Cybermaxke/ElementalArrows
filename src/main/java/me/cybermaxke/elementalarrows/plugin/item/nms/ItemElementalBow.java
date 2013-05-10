@@ -53,12 +53,13 @@ public class ItemElementalBow extends ItemBow {
 	private int getFirstArrowSlot(SpoutPlayer p) {
 		for (int i = 0; i < p.getInventory().getSize(); i++) {
 			org.bukkit.inventory.ItemStack is = p.getInventory().getItem(i);
-			if (is == null) {
-				continue;
-			} else if (this.getMaterial(is) != null) {
-				return i;
-			} else if (is.getType().equals(Material.ARROW)) {
-				return -1;
+			if (is != null) {
+				ArrowMaterial m = this.getMaterial(is);
+				if (m != null && (m.getPermission() == null || p.hasPermission(m.getPermission()))) {
+					return i;
+				} else if (is.getType().equals(Material.ARROW)) {
+					return -1;
+				}
 			}
 		}
 		return -1;
