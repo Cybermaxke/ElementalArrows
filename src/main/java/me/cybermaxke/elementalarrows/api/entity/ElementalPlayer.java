@@ -28,4 +28,16 @@ public interface ElementalPlayer extends Player {
 	 * @return arrow
 	 */
 	public ElementalArrow shootElementalArrow(float speed);
+
+	/**
+	 * Gets the amount of arrows that are sticking in the players body.
+	 * @return amount
+	 */
+	public int getArrowsInBody();
+
+	/**
+	 * Sets the amount of arrows that are sticking in the players body.
+	 * @param amount
+	 */
+	public void setArrowsInBody(int amount);
 }

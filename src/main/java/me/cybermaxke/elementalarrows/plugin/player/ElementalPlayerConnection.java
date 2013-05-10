@@ -57,11 +57,9 @@ public class ElementalPlayerConnection extends SpoutPlayerConnection {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void sendPacket(Packet packet) {
-		SpoutPlayer sp = SpoutManager.getPlayer(this.player.getBukkitEntity());
-
 		if (packet instanceof Packet103SetSlot) {
 			Packet103SetSlot p = (Packet103SetSlot) packet;
-			ItemStack is = sp.isSpoutCraftEnabled() ? this.getOldItemStack(p.c) : this.getUpdatedItemStack(p.c);
+			ItemStack is = this.getItemStack(p.c);
 			Packet103SetSlot p2 = new Packet103SetSlot(p.a, p.b, is);
 			super.sendPacket(p2);
 			return;
@@ -69,7 +67,7 @@ public class ElementalPlayerConnection extends SpoutPlayerConnection {
 			Packet104WindowItems p = (Packet104WindowItems) packet;
 			List<ItemStack> is = new ArrayList<ItemStack>();
 			for (int i = 0; i < p.b.length; i++) {
-				is.add(sp.isSpoutCraftEnabled() ? this.getOldItemStack(p.b[i]) : this.getUpdatedItemStack(p.b[i]));
+				is.add(this.getItemStack(p.b[i]));
 			}
 			Packet104WindowItems p2 = new Packet104WindowItems(p.a, is);
 			super.sendPacket(p2);
@@ -80,7 +78,7 @@ public class ElementalPlayerConnection extends SpoutPlayerConnection {
 				Field f = Packet5EntityEquipment.class.getDeclaredField("c");
 				f.setAccessible(true);
 				ItemStack o = (ItemStack) f.get(p);
-				ItemStack is = sp.isSpoutCraftEnabled() ? this.getOldItemStack(o) : this.getUpdatedItemStack(o);
+				ItemStack is = this.getItemStack(o);
 				Packet5EntityEquipment p2 = new Packet5EntityEquipment(p.a, p.b, is);
 				super.sendPacket(p2);
 				return;
@@ -98,7 +96,7 @@ public class ElementalPlayerConnection extends SpoutPlayerConnection {
 					for (int i = 0; i < l.size(); i++) {
 						WatchableObject o = l.get(i);
 						if (o.b() != null && o.b() instanceof ItemStack) {
-							WatchableObject o2 = new WatchableObject(o.c(), o.a(), sp.isSpoutCraftEnabled() ? this.getOldItemStack((ItemStack) o.b()) : this.getUpdatedItemStack((ItemStack) o.b()));
+							WatchableObject o2 = new WatchableObject(o.c(), o.a(), this.getItemStack((ItemStack) o.b()));
 							l2.add(o2);
 						} else {
 							l2.add(o);
@@ -118,17 +116,27 @@ public class ElementalPlayerConnection extends SpoutPlayerConnection {
 		super.sendPacket(packet);
 	}
 
+	private ItemStack getItemStack(ItemStack item) {
+		SpoutPlayer sp = SpoutManager.getPlayer(this.player.getBukkitEntity());
+		return sp.isSpoutCraftEnabled() ? this.getOldItemStack(item) : this.getUpdatedItemStack(item);
+	}
+
 	private ItemStack getUpdatedItemStack(ItemStack item) {
-		SpoutItemStack is = item == null ? null : new SpoutItemStack(CraftItemStack.asCraftMirror(item));
-		if (is != null && is.isCustomItem()) {
+		if (item == null) {
+			return null;
+		}
+
+		SpoutItemStack is = new SpoutItemStack(CraftItemStack.asCraftMirror(item));
+		if (is.isCustomItem()) {
 			Material m = is.getMaterial();
+			ItemStack is2 = item.cloneItemStack();
+			is2.c(ChatColor.RESET + (is.hasItemMeta() && is.getItemMeta().hasDisplayName() ? is.getItemMeta().getDisplayName() : m.getName()));
 			if (m instanceof CustomItem) {
-				ItemStack is2 = item.cloneItemStack();
 				is2.id = ((CustomItem) m).getId();
-				is2.c(ChatColor.RESET + (is.hasItemMeta() && is.getItemMeta().hasDisplayName() ? is.getItemMeta().getDisplayName() : m.getName()));
 				return is2;
 			}
 		}
+
 		return item;
 	}
 

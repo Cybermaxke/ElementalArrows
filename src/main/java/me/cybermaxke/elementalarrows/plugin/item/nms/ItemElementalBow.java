@@ -19,6 +19,7 @@
 package me.cybermaxke.elementalarrows.plugin.item.nms;
 
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
+import me.cybermaxke.elementalarrows.api.inventory.ElementalItemStack;
 import me.cybermaxke.elementalarrows.api.material.ArrowMaterial;
 import me.cybermaxke.elementalarrows.plugin.entity.nms.EntityElementalArrow;
 
@@ -54,7 +55,7 @@ public class ItemElementalBow extends ItemBow {
 			org.bukkit.inventory.ItemStack is = p.getInventory().getItem(i);
 			if (is == null) {
 				continue;
-			} else if (ItemManager.getMaterial(is) != null) {
+			} else if (this.getMaterial(is) != null) {
 				return i;
 			} else if (is.getType().equals(Material.ARROW)) {
 				return -1;
@@ -66,6 +67,15 @@ public class ItemElementalBow extends ItemBow {
 	private org.bukkit.inventory.ItemStack getFirstArrow(SpoutPlayer p) {
 		int s = this.getFirstArrowSlot(p);
 		return s == -1 ? null : p.getInventory().getItem(s);
+	}
+
+	private ArrowMaterial getMaterial(org.bukkit.inventory.ItemStack item) {
+		if (item == null) {
+			return null;
+		}
+
+		ElementalItemStack i = new ElementalItemStack(item);
+		return (ArrowMaterial) (i.isCustomItem() && i.getMaterial() instanceof ArrowMaterial ? i.getMaterial() : null);
 	}
 
 	@Override
@@ -93,7 +103,7 @@ public class ItemElementalBow extends ItemBow {
 		}
 
 		SpoutItemStack is = new SpoutItemStack(is1);
-		ArrowMaterial m = ItemManager.getMaterial(is);
+		ArrowMaterial m = this.getMaterial(is);
 
 		int k = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_DAMAGE.id, itemstack);
 		int l = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_KNOCKBACK.id, itemstack);

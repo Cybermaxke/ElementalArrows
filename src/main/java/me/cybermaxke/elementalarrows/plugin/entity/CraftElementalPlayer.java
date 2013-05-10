@@ -51,4 +51,18 @@ public class CraftElementalPlayer extends CraftPlayer implements ElementalPlayer
 		player.world.makeSound(player, "random.bow", 1.0F, 1.0F / (this.random.nextFloat() * 0.4F + 1.2F) + speed * 0.5F);
 		return arrow.getBukkitEntity();
 	}
+
+	@Override
+	public int getArrowsInBody() {
+		return this.getHandle().getDataWatcher().getByte(10);
+	}
+
+	@Override
+	public void setArrowsInBody(int amount) {
+		try {
+			this.getHandle().getDataWatcher().watch(10, new Byte((byte) amount));
+		} catch (Exception e) {
+			this.getHandle().getDataWatcher().a(10, new Byte((byte) amount));
+		}
+	}
 }
