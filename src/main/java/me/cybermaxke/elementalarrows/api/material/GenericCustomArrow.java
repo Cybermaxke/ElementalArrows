@@ -195,8 +195,10 @@ public class GenericCustomArrow extends GenericCustomItem implements ArrowMateri
 		this.knockbackMulti = config.getDouble("KnockbackMultiplier");
 		this.fireTicks = config.getInt("FireTicks");
 		this.bWorlds = config.getStringList("WorldsBlackList");
-		this.permission = new Permission(config.getString("Permission"), PermissionDefault.TRUE);
-		this.craftingPermission = new Permission(config.getString("CraftingPermission"), PermissionDefault.TRUE);
+		String perm = config.getString("Permission");
+		this.permission = perm.length() > 0 ? new Permission(perm, PermissionDefault.TRUE) : null;
+		String craftPerm = config.getString("CraftingPermission");
+		this.craftingPermission = craftPerm.length() > 0 ? new Permission(craftPerm, PermissionDefault.TRUE) : null;
 		String texture = config.getString("SkeletonTexture");
 		if (texture.length() > 0) {
 			this.skeletonTexture = texture;
