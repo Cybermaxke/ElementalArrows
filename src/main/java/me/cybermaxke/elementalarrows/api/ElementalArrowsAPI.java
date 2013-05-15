@@ -19,6 +19,7 @@
 package me.cybermaxke.elementalarrows.api;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
@@ -69,4 +70,11 @@ public interface ElementalArrowsAPI {
 	 * @return protected
 	 */
 	public boolean isRegionProtected(Location location);
+
+	/**
+	 * Gets if the block is replaceable by a other block.
+	 * @param block
+	 * @return replaceable
+	 */
+	public boolean isReplaceable(Material block);
 }

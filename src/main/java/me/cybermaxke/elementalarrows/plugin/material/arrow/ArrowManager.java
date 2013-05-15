@@ -43,6 +43,7 @@ public class ArrowManager {
 	public static ArrowMaterial ARROW_POISON;
 	public static ArrowMaterial ARROW_PULL;
 	public static ArrowMaterial ARROW_RAZOR;
+	public static ArrowMaterial ARROW_TORCH;
 	public static ArrowMaterial ARROW_VAMPIRE;
 	public static ArrowMaterial ARROW_VOLLEY;
 
@@ -60,6 +61,7 @@ public class ArrowManager {
 		ARROW_POISON = new ArrowPoison(plugin, "Poison Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/PoisonArrow.png");
 		//ARROW_PULL = new ArrowPull(plugin, "Pull Arrow", "");
 		ARROW_RAZOR = new ArrowRazor(plugin, "Razor Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/RazorArrow.png");
+		ARROW_TORCH = new ArrowTorch(plugin, "Torch Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/TorchArrow.png");
 		ARROW_VAMPIRE = new ArrowVampire(plugin, "Vampiric Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/VampireArrow.png");
 		ARROW_VOLLEY = new ArrowVolley(plugin, "Volley Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/VollyArrow.png");
 	}

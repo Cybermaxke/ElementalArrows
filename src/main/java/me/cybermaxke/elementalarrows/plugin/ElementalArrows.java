@@ -18,9 +18,11 @@
  */
 package me.cybermaxke.elementalarrows.plugin;
 
+import net.minecraft.server.v1_5_R3.Block;
 import net.minecraft.server.v1_5_R3.World;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_5_R3.CraftWorld;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -83,5 +85,13 @@ public class ElementalArrows implements ElementalArrowsAPI {
 	@Override
 	public <T extends Entity> T spawn(Class<T> entity, Location location) {
 		return this.spawn(entity, location, SpawnReason.CUSTOM);
+	}
+
+	@Override
+	public boolean isReplaceable(Material block) {
+		if (!block.isBlock()) {
+			return false;
+		}
+		return Block.byId[block.getId()].material.isReplaceable();
 	}
 }

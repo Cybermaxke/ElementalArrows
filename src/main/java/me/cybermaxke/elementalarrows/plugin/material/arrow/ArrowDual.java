@@ -30,10 +30,10 @@ import org.getspout.spoutapi.inventory.SpoutItemStack;
 import org.getspout.spoutapi.inventory.SpoutShapelessRecipe;
 import org.getspout.spoutapi.material.MaterialData;
 
+import me.cybermaxke.elementalarrows.api.ElementalArrows;
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.entity.ElementalPlayer;
 import me.cybermaxke.elementalarrows.api.material.GenericCustomArrow;
-import me.cybermaxke.elementalarrows.plugin.ElementalArrowsPlugin;
 
 public class ArrowDual extends GenericCustomArrow {
 
@@ -58,7 +58,7 @@ public class ArrowDual extends GenericCustomArrow {
 			return;
 		}
 
-		final ElementalPlayer ep = ElementalArrowsPlugin.getInstance().getPlayer((Player) shooter);
+		final ElementalPlayer ep = ElementalArrows.getAPI().getPlayer((Player) shooter);
 		new BukkitRunnable() {
 
 			@Override
@@ -73,6 +73,6 @@ public class ArrowDual extends GenericCustomArrow {
 				a.setKnockbackStrength(arrow.getKnockbackStrength());
 			}
 
-		}.runTaskLater(ElementalArrowsPlugin.getInstance(), 14);
+		}.runTaskLater(this.getPlugin(), 14);
 	}
 }

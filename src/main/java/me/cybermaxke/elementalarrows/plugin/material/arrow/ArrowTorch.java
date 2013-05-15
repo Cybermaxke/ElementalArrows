@@ -18,10 +18,14 @@
  */
 package me.cybermaxke.elementalarrows.plugin.material.arrow;
 
-import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import org.getspout.spoutapi.inventory.SpoutItemStack;
 import org.getspout.spoutapi.inventory.SpoutShapedRecipe;
@@ -31,52 +35,41 @@ import me.cybermaxke.elementalarrows.api.ElementalArrows;
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.material.GenericCustomArrow;
 
-public class ArrowExplosion extends GenericCustomArrow {
-	private float power;
+public class ArrowTorch extends GenericCustomArrow {
 
-	public ArrowExplosion(Plugin plugin, String name, String texture) {
+	public ArrowTorch(Plugin plugin, String name, String texture) {
 		super(plugin, name, texture);
-	}
-
-	@Override
-	public void onInit() {
-		super.onInit();
-		this.power = 4.0F;
-	}
-
-	@Override
-	public void onLoad(YamlConfiguration config) {
-		super.onLoad(config);
-		if (config.contains("ExplosionPower")) {
-			this.power = (float) config.getDouble("ExplosionPower");
-		}
-	}
-
-	@Override
-	public void onSave(YamlConfiguration config) {
-		super.onSave(config);
-		if (!config.contains("ExplosionPower")) {
-			config.set("ExplosionPower", this.power);
-		}
+		this.setDrop(new ItemStack(Material.ARROW));
 	}
 
 	@Override
 	public Recipe[] getRecipes() {
-		SpoutItemStack i = new SpoutItemStack(this, 4);
+		SpoutItemStack i = new SpoutItemStack(this);
 
 		SpoutShapedRecipe r = new SpoutShapedRecipe(i);
-		r.shape("A", "B", "C");
-		r.setIngredient('A', MaterialData.gunpowder);
-		r.setIngredient('B', MaterialData.stick);
-		r.setIngredient('C', MaterialData.feather);
+		r.shape("A", "B");
+		r.setIngredient('A', MaterialData.torch);
+		r.setIngredient('B', MaterialData.arrow);
 
 		return new Recipe[] { r };
 	}
 
 	@Override
-	public void onHit(LivingEntity shooter, ElementalArrow arrow) {
-		float f = ElementalArrows.getAPI().isRegionProtected(arrow.getLocation()) ? 0.0F : this.power;
-		arrow.getWorld().createExplosion(arrow.getLocation(), f);
-		arrow.remove();
+	public void onHit(LivingEntity shooter, final ElementalArrow arrow) {
+		new BukkitRunnable() {
+
+			@Override
+			public void run() {
+				final Location l = arrow.getLocation();
+				final Block b = l.getBlock();
+
+				if (b.isEmpty() || ElementalArrows.getAPI().isReplaceable(b.getType())) {
+					b.setType(Material.TORCH);
+				} else {
+					b.getWorld().dropItem(l, new ItemStack(Material.TORCH));
+				}
+			}
+
+		}.runTaskLater(this.getPlugin(), 6);
 	}
 }

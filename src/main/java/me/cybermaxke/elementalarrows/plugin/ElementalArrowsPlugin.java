@@ -30,6 +30,7 @@ import me.cybermaxke.elementalarrows.plugin.utils.Metrics;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
@@ -110,5 +111,10 @@ public class ElementalArrowsPlugin extends JavaPlugin implements ElementalArrows
  			return !worldguard.getRegionManager(location.getWorld()).getApplicableRegions(location).allows(DefaultFlag.TNT);
 		}
 		return false;
+	}
+
+	@Override
+	public boolean isReplaceable(Material block) {
+		return this.api.isReplaceable(block);
 	}
 }

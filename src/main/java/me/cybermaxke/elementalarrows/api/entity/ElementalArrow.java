@@ -98,7 +98,7 @@ public interface ElementalArrow extends Arrow {
 	public void setLocation(Location location);
 
 	/**
-	 * Gets if the arrow is in the ground
+	 * Gets if the arrow is in the ground.
 	 * @return inGround
 	 */
 	public boolean isInGround();
