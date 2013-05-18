@@ -23,6 +23,7 @@ import java.util.List;
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 
 import org.bukkit.World;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
@@ -170,6 +171,14 @@ public interface ArrowMaterial {
 	 * @param bow
 	 */
 	public void onShoot(LivingEntity shooter, ElementalArrow arrow, ItemStack bow);
+
+	/**
+	 * Called when the arrow hits the entity.
+	 * @param shooter
+	 * @param entity
+	 * @param arrow
+	 */
+	public void onHit(LivingEntity shooter, Entity entity, ElementalArrow arrow);
 
 	/**
 	 * Called when the arrow hits the entity.

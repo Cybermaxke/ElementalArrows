@@ -61,10 +61,6 @@ public class EventListener implements Listener {
 		}
 
 		ElementalArrow a = (ElementalArrow) e.getEntity();
-		if (a.getShooter() != null && !(a.getShooter() instanceof LivingEntity)) {
-			return;
-		}
-
 		LivingEntity shooter = a.getShooter();
 		ArrowMaterial m = a.getMaterial();
 		if (m != null) {
@@ -78,15 +74,8 @@ public class EventListener implements Listener {
 			return;
 		}
 
-		if (!(e.getEntity() instanceof LivingEntity)) {
-			return;
-		}
-
 		ElementalArrow a = (ElementalArrow) e.getDamager();
-		LivingEntity ent = (LivingEntity) e.getEntity();
-		if (a.getShooter() != null && !(a.getShooter() instanceof LivingEntity)) {
-			return;
-		}
+		Entity ent = (Entity) e.getEntity();
 
 		LivingEntity shooter = a.getShooter();
 		ArrowMaterial m = a.getMaterial();

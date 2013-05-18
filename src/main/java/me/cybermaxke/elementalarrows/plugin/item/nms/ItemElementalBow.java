@@ -18,7 +18,9 @@
  */
 package me.cybermaxke.elementalarrows.plugin.item.nms;
 
+import me.cybermaxke.elementalarrows.api.ElementalArrows;
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
+import me.cybermaxke.elementalarrows.api.entity.ElementalPlayer;
 import me.cybermaxke.elementalarrows.api.inventory.ElementalItemStack;
 import me.cybermaxke.elementalarrows.api.material.ArrowMaterial;
 import me.cybermaxke.elementalarrows.plugin.entity.nms.EntityElementalArrow;
@@ -39,10 +41,6 @@ import org.bukkit.craftbukkit.v1_5_R3.event.CraftEventFactory;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityShootBowEvent;
 
-import org.getspout.spoutapi.SpoutManager;
-import org.getspout.spoutapi.inventory.SpoutItemStack;
-import org.getspout.spoutapi.player.SpoutPlayer;
-
 public class ItemElementalBow extends ItemBow {
 
 	public ItemElementalBow(int id) {
@@ -50,7 +48,7 @@ public class ItemElementalBow extends ItemBow {
 		this.b("bow");
 	}
 
-	private int getFirstArrowSlot(SpoutPlayer p) {
+	private int getFirstArrowSlot(Player p) {
 		for (int i = 0; i < p.getInventory().getSize(); i++) {
 			org.bukkit.inventory.ItemStack is = p.getInventory().getItem(i);
 			if (is != null) {
@@ -65,7 +63,7 @@ public class ItemElementalBow extends ItemBow {
 		return -1;
 	}
 
-	private org.bukkit.inventory.ItemStack getFirstArrow(SpoutPlayer p) {
+	private org.bukkit.inventory.ItemStack getFirstArrow(Player p) {
 		int s = this.getFirstArrowSlot(p);
 		return s == -1 ? null : p.getInventory().getItem(s);
 	}
@@ -82,7 +80,7 @@ public class ItemElementalBow extends ItemBow {
 	@Override
 	public void a(ItemStack itemstack, World world, EntityHuman entityhuman, int i) {
 		boolean flag = entityhuman.abilities.canInstantlyBuild || EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_INFINITE.id, itemstack) > 0;
-		SpoutPlayer p = SpoutManager.getPlayer((Player) entityhuman.getBukkitEntity());
+		Player p = (Player) entityhuman.getBukkitEntity();
 
 		int slot = this.getFirstArrowSlot(p);
 		org.bukkit.inventory.ItemStack is1 = this.getFirstArrow(p);
@@ -103,7 +101,7 @@ public class ItemElementalBow extends ItemBow {
 			f = 1.0F;
 		}
 
-		SpoutItemStack is = new SpoutItemStack(is1);
+		ElementalItemStack is = new ElementalItemStack(is1);
 		ArrowMaterial m = this.getMaterial(is);
 
 		int k = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_DAMAGE.id, itemstack);
@@ -181,7 +179,7 @@ public class ItemElementalBow extends ItemBow {
 
 	@Override
 	public ItemStack a(ItemStack itemstack, World world, EntityHuman entityhuman) {
-		SpoutPlayer p = SpoutManager.getPlayer((Player) entityhuman.getBukkitEntity());
+		ElementalPlayer p = ElementalArrows.getAPI().getPlayer((Player) entityhuman.getBukkitEntity());
 
 		if (this.getFirstArrow(p) == null) {
 			return super.a(itemstack, world, entityhuman);

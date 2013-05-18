@@ -60,8 +60,8 @@ public class ArrowTorch extends GenericCustomArrow {
 
 			@Override
 			public void run() {
-				final Location l = arrow.getLocation();
-				final Block b = l.getBlock();
+				Location l = arrow.getLocation();
+				Block b = l.getBlock();
 
 				if (b.isEmpty() || ElementalArrows.getAPI().isReplaceable(b.getType())) {
 					b.setType(Material.TORCH);

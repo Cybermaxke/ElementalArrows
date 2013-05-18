@@ -16,28 +16,22 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.api.entity;
+package me.cybermaxke.elementalarrows.plugin.entity.nms;
 
-import org.getspout.spoutapi.player.SpoutPlayer;
+import me.cybermaxke.elementalarrows.api.entity.target.TargetSelector;
 
-public interface ElementalPlayer extends SpoutPlayer {
+import net.minecraft.server.v1_5_R3.Entity;
+import net.minecraft.server.v1_5_R3.IEntitySelector;
 
-	/**
-	 * Gets a arrow that will be shot with the speed.
-	 * @param speed
-	 * @return arrow
-	 */
-	public ElementalArrow shootElementalArrow(float speed);
+public class EntityTargetSelector implements IEntitySelector {
+	private TargetSelector targetSelector;
 
-	/**
-	 * Gets the amount of arrows that are sticking in the players body.
-	 * @return amount
-	 */
-	public int getArrowsInBody();
+	public EntityTargetSelector(TargetSelector selector) {
+		this.targetSelector = selector;
+	}
 
-	/**
-	 * Sets the amount of arrows that are sticking in the players body.
-	 * @param amount
-	 */
-	public void setArrowsInBody(int amount);
+	@Override
+	public boolean a(Entity entity) {
+		return this.targetSelector.isValidTarget(entity.getBukkitEntity());
+	}
 }

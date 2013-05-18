@@ -16,28 +16,17 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.api.entity;
+package me.cybermaxke.elementalarrows.api.inventory;
 
-import org.getspout.spoutapi.player.SpoutPlayer;
+import me.cybermaxke.elementalarrows.api.entity.ElementalTurret;
 
-public interface ElementalPlayer extends SpoutPlayer {
+import org.bukkit.inventory.Inventory;
 
-	/**
-	 * Gets a arrow that will be shot with the speed.
-	 * @param speed
-	 * @return arrow
-	 */
-	public ElementalArrow shootElementalArrow(float speed);
+public interface TurretInventory extends Inventory {
 
 	/**
-	 * Gets the amount of arrows that are sticking in the players body.
-	 * @return amount
+	 * Gets the turret which holds this inventory.
+	 * @return inventory
 	 */
-	public int getArrowsInBody();
-
-	/**
-	 * Sets the amount of arrows that are sticking in the players body.
-	 * @param amount
-	 */
-	public void setArrowsInBody(int amount);
+	public ElementalTurret getHolder();
 }

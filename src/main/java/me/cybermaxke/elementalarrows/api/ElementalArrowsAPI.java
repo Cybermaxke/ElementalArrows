@@ -18,6 +18,7 @@
  */
 package me.cybermaxke.elementalarrows.api;
 
+import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -77,4 +78,11 @@ public interface ElementalArrowsAPI {
 	 * @return replaceable
 	 */
 	public boolean isReplaceable(Material block);
+
+	/**
+	 * Plays all the firework effects at the location.
+	 * @param location
+	 * @param effects
+	 */
+	public void playFireworkEffect(Location location, FireworkEffect... effects);
 }

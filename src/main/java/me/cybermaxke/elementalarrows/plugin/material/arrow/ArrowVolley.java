@@ -61,8 +61,8 @@ public class ArrowVolley extends GenericCustomArrow {
 	}
 
 	@Override
-	public void onHit(LivingEntity shooter, LivingEntity entity, ElementalArrow arrow) {
-		Location l = entity.getLocation();
+	public void onHit(LivingEntity shooter, ElementalArrow arrow) {
+		Location l = arrow.getLocation();
 		for (int i = 0; i < this.amount; i++) {
 			int x = this.random.nextInt(4);
 			int z = this.random.nextInt(4);
@@ -88,7 +88,7 @@ public class ArrowVolley extends GenericCustomArrow {
 			double Z = Math.cos(pitch);
 
 			Vector v = new Vector(X, Z, Y);
-			Arrow a = shooter.getWorld().spawnArrow(l2, v, 3.0F, 0.0F);
+			Arrow a = arrow.getWorld().spawnArrow(l2, v, 3.0F, 0.0F);
 			a.setShooter(shooter);
 		}
 	}

@@ -29,6 +29,7 @@ import me.cybermaxke.elementalarrows.plugin.material.MaterialManager;
 import me.cybermaxke.elementalarrows.plugin.utils.Metrics;
 
 import org.bukkit.Bukkit;
+import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -116,5 +117,10 @@ public class ElementalArrowsPlugin extends JavaPlugin implements ElementalArrows
 	@Override
 	public boolean isReplaceable(Material block) {
 		return this.api.isReplaceable(block);
+	}
+
+	@Override
+	public void playFireworkEffect(Location location, FireworkEffect... effects) {
+		this.api.playFireworkEffect(location, effects);
 	}
 }

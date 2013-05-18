@@ -21,22 +21,28 @@ package me.cybermaxke.elementalarrows.plugin;
 import net.minecraft.server.v1_5_R3.Block;
 import net.minecraft.server.v1_5_R3.World;
 
+import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_5_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_5_R3.entity.CraftEntity;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
+import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.util.Vector;
 
 import me.cybermaxke.elementalarrows.api.ElementalArrowsAPI;
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.entity.ElementalPlayer;
 import me.cybermaxke.elementalarrows.api.entity.ElementalSkeleton;
+import me.cybermaxke.elementalarrows.api.entity.ElementalTurret;
 import me.cybermaxke.elementalarrows.plugin.dispenser.nms.DispenseBehaviorManager;
 import me.cybermaxke.elementalarrows.plugin.entity.CraftElementalPlayer;
 import me.cybermaxke.elementalarrows.plugin.entity.nms.EntityElementalArrow;
 import me.cybermaxke.elementalarrows.plugin.entity.nms.EntityElementalSkeleton;
+import me.cybermaxke.elementalarrows.plugin.entity.nms.EntityElementalTurret;
 import me.cybermaxke.elementalarrows.plugin.entity.nms.EntityManager;
 import me.cybermaxke.elementalarrows.plugin.item.nms.ItemManager;
 
@@ -78,6 +84,11 @@ public class ElementalArrows implements ElementalArrowsAPI {
 			ent.setPositionRotation(location.getX(), location.getY(), location.getZ(), location.getPitch(), location.getYaw());
 			w.addEntity(ent, reason);
 			return (T) ent.getBukkitEntity();
+		} else if (ElementalTurret.class.isAssignableFrom(entity)) {
+			EntityElementalTurret ent = new EntityElementalTurret(w);
+			ent.setPositionRotation(location.getX(), location.getY(), location.getZ(), location.getPitch(), location.getYaw());
+			w.addEntity(ent, reason);
+			return (T) ent.getBukkitEntity();
 		}
 		return location.getWorld().spawn(location, entity);
 	}
@@ -93,5 +104,18 @@ public class ElementalArrows implements ElementalArrowsAPI {
 			return false;
 		}
 		return Block.byId[block.getId()].material.isReplaceable();
+	}
+
+	@Override
+	public void playFireworkEffect(Location location, FireworkEffect... effects) {
+		World w = ((CraftWorld) location.getWorld()).getHandle();
+		Firework f = this.spawn(Firework.class, location);
+		FireworkMeta m = f.getFireworkMeta();
+		m.clearEffects();
+		m.setPower(1);
+		m.addEffects(effects);
+		f.setFireworkMeta(m);
+		w.broadcastEntityEffect(((CraftEntity) f).getHandle(), (byte) 17);
+		f.remove();
 	}
 }

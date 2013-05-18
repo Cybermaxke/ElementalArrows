@@ -19,6 +19,7 @@
 package me.cybermaxke.elementalarrows.plugin.material;
 
 import me.cybermaxke.elementalarrows.api.entity.ElementalSkeleton;
+import me.cybermaxke.elementalarrows.api.entity.ElementalTurret;
 import me.cybermaxke.elementalarrows.api.material.GenericCustomSpawnEgg;
 import me.cybermaxke.elementalarrows.api.material.SpawnEggMaterial;
 import me.cybermaxke.elementalarrows.plugin.material.arrow.ArrowManager;
@@ -27,10 +28,12 @@ import org.bukkit.plugin.Plugin;
 
 public class MaterialManager {
 	public static SpawnEggMaterial EGG_ELEMENTAL_SKELETON;
+	public static SpawnEggMaterial EGG_ELEMENTAL_TURRET;
 
 	public MaterialManager(Plugin plugin) {
 		new ArrowManager(plugin);
 
 		EGG_ELEMENTAL_SKELETON = new GenericCustomSpawnEgg(plugin, "Spawn Elemental Skeleton", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/ElementalSkeletonEgg.png", ElementalSkeleton.class);
+		EGG_ELEMENTAL_TURRET = new GenericCustomSpawnEgg(plugin, "Spawn Elemental Turret", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/ElementalSkeletonEgg.png", ElementalTurret.class);
 	}
 }
