@@ -85,4 +85,22 @@ public interface ElementalArrowsAPI {
 	 * @param effects
 	 */
 	public void playFireworkEffect(Location location, FireworkEffect... effects);
+
+	/**
+	 * Gets the height of the entity.
+	 * @return height
+	 */
+	public float getEntityHeight(Entity entity);
+
+	/**
+	 * Gets the length of the entity.
+	 * @return length
+	 */
+	public float getEntityLength(Entity entity);
+
+	/**
+	 * Gets the width of the entity.
+	 * @return width
+	 */
+	public float getEntityWidth(Entity entity);
 }

@@ -118,4 +118,19 @@ public class ElementalArrows implements ElementalArrowsAPI {
 		w.broadcastEntityEffect(((CraftEntity) f).getHandle(), (byte) 17);
 		f.remove();
 	}
+
+	@Override
+	public float getEntityHeight(Entity entity) {
+		return ((CraftEntity) entity).getHandle().height;
+	}
+
+	@Override
+	public float getEntityLength(Entity entity) {
+		return ((CraftEntity) entity).getHandle().length;
+	}
+
+	@Override
+	public float getEntityWidth(Entity entity) {
+		return ((CraftEntity) entity).getHandle().width;
+	}
 }

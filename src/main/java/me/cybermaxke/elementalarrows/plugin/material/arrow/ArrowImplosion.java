@@ -20,11 +20,13 @@ package me.cybermaxke.elementalarrows.plugin.material.arrow;
 
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
+import org.bukkit.Location;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import me.cybermaxke.elementalarrows.api.ElementalArrows;
+import me.cybermaxke.elementalarrows.api.ElementalArrowsAPI;
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.material.GenericCustomArrow;
 
@@ -35,11 +37,20 @@ public class ArrowImplosion extends GenericCustomArrow {
 	}
 
 	@Override
+	public void onInit() {
+		super.onInit();
+		this.setDamageMultiplier(1.7D);
+	}
+
+	@Override
 	public void onHit(LivingEntity shooter, LivingEntity entity, ElementalArrow arrow) {
-		FireworkEffect e = FireworkEffect.builder().with(FireworkEffect.Type.BALL).withColor(Color.RED).build();
-		ElementalArrows.getAPI().playFireworkEffect(entity.getLocation(), e);
+		ElementalArrowsAPI api = ElementalArrows.getAPI();
+		Location l = entity.getLocation().add(0, api.getEntityLength(entity) / 2, 0);
+		FireworkEffect e = FireworkEffect.builder().with(FireworkEffect.Type.BALL).withColor(Color.WHITE, Color.GRAY).build();
+		l.getWorld().createExplosion(l, 0.0F);
+		api.playFireworkEffect(l, e);
 		if (entity instanceof Player) {
-			ElementalArrows.getAPI().getPlayer((Player) entity).setArrowsInBody(64);
+			api.getPlayer((Player) entity).setArrowsInBody(64);
 		}
 	}
 }

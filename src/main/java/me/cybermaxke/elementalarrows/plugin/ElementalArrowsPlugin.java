@@ -123,4 +123,19 @@ public class ElementalArrowsPlugin extends JavaPlugin implements ElementalArrows
 	public void playFireworkEffect(Location location, FireworkEffect... effects) {
 		this.api.playFireworkEffect(location, effects);
 	}
+
+	@Override
+	public float getEntityHeight(Entity entity) {
+		return this.api.getEntityHeight(entity);
+	}
+
+	@Override
+	public float getEntityLength(Entity entity) {
+		return this.api.getEntityLength(entity);
+	}
+
+	@Override
+	public float getEntityWidth(Entity entity) {
+		return this.getEntityWidth(entity);
+	}
 }

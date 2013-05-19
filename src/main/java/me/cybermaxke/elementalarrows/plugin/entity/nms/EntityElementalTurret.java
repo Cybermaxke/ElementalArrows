@@ -77,6 +77,7 @@ public class EntityElementalTurret extends EntityEnderCrystal {
 		this.range = 8.0F;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void l_() {
 		this.lastX = this.locX;
@@ -89,6 +90,14 @@ public class EntityElementalTurret extends EntityEnderCrystal {
 			this.target = this.getValidTarget();
 		}
 
+		if (this.a % 2 == 0) {
+			List<Entity> e = this.world.getEntities(this, this.boundingBox.grow(0.25D, this.length, 0.25D));
+			e.addAll(this.findNearbyPlayers(3.0D));
+			for (Entity ent : e) {
+				this.collide(ent);
+			}
+		}
+
 		if (this.target == null) {
 			this.attackTimer = 0;
 		} else {
@@ -99,8 +108,9 @@ public class EntityElementalTurret extends EntityEnderCrystal {
 				return;
 			}
 
-			for (Entity ent : this.getValidtargets()) {
-				if (this.e(ent) <= 3.0D) {
+			List<Entity> e2 = this.getValidTargets();
+			for (Entity ent : e2) {
+				if (this.e(ent) <= 5.0D) {
 					double d0 = ent.locX - this.locX;
 					double d1 = ent.locZ - this.locZ;
 					double d2 = MathHelper.a(d0, d1);
@@ -110,8 +120,8 @@ public class EntityElementalTurret extends EntityEnderCrystal {
 					d1 /= d2;
 					double d3 = 1.0D / d2;
 
-					d0 *= d3 * 0.85D;
-					d1 *= d3 * 0.85D;
+					d0 *= d3 * 0.95D;
+					d1 *= d3 * 0.95D;
 					ent.g(d0, 0.1D, d1);
 
 					if (ent == this.target) {
@@ -183,6 +193,24 @@ public class EntityElementalTurret extends EntityEnderCrystal {
 		return super.a_(human);
 	}
 
+	private List<EntityHuman> findNearbyPlayers(double d3) {
+		List<EntityHuman> l = new ArrayList<EntityHuman>();
+
+		for (int i = 0; i < this.world.players.size(); i++) {
+			EntityHuman h = (EntityHuman) this.world.players.get(i);
+
+			if (h == null || h.dead) {
+				continue;
+			}
+
+			if (this.e(h) <= d3) {
+				l.add(h);
+			}
+		}
+
+		return l;
+	}
+
 	private int getFirstArrowSlot() {
 		for (int i = 0; i < this.inventory.getSize(); i++) {
 			ItemStack is = this.inventory.getItem(i);
@@ -201,12 +229,12 @@ public class EntityElementalTurret extends EntityEnderCrystal {
 	}
 
 	private Entity getValidTarget() {
-		List<Entity> l = this.getValidtargets();
+		List<Entity> l = this.getValidTargets();
 		return l.size() > 0 ? l.get(0) : null;
 	}
 
 	@SuppressWarnings("unchecked")
-	private List<Entity> getValidtargets() {
+	private List<Entity> getValidTargets() {
 		if (this.selector == null) {
 			return new ArrayList<Entity>();
 		}
