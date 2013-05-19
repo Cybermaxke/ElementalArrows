@@ -30,8 +30,8 @@ import org.bukkit.util.Vector;
 
 import me.cybermaxke.elementalarrows.api.ElementalArrows;
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
-import me.cybermaxke.elementalarrows.api.entity.target.TargetSelector;
-import me.cybermaxke.elementalarrows.api.entity.target.TargetSelectorMonster;
+import me.cybermaxke.elementalarrows.api.entity.selector.TargetSelector;
+import me.cybermaxke.elementalarrows.api.entity.selector.TargetSelectorMonster;
 import me.cybermaxke.elementalarrows.api.inventory.ElementalItemStack;
 import me.cybermaxke.elementalarrows.api.material.ArrowMaterial;
 import me.cybermaxke.elementalarrows.plugin.container.ContainerTurret;

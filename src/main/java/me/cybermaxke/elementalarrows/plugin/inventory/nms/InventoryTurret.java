@@ -126,7 +126,6 @@ public class InventoryTurret implements IInventory {
 			if (this.items[i].count <= j) {
 				ItemStack is = this.items[i];
 				this.items[i] = null;
-				this.update();
 				return is;
 			}
 
@@ -135,7 +134,6 @@ public class InventoryTurret implements IInventory {
 				this.items[i] = null;
 			}
 
-			this.update();
 			return is;
 		}
 

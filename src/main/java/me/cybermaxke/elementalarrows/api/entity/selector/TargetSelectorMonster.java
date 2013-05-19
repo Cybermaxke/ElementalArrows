@@ -16,22 +16,15 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.plugin.entity.nms;
+package me.cybermaxke.elementalarrows.api.entity.selector;
 
-import me.cybermaxke.elementalarrows.api.entity.selector.TargetSelector;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Monster;
 
-import net.minecraft.server.v1_5_R3.Entity;
-import net.minecraft.server.v1_5_R3.IEntitySelector;
-
-public class EntityTargetSelector implements IEntitySelector {
-	private TargetSelector targetSelector;
-
-	public EntityTargetSelector(TargetSelector selector) {
-		this.targetSelector = selector;
-	}
+public class TargetSelectorMonster implements TargetSelector {
 
 	@Override
-	public boolean a(Entity entity) {
-		return this.targetSelector.isValidTarget(entity.getBukkitEntity());
+	public boolean isValidTarget(Entity entity) {
+		return entity instanceof Monster;
 	}
 }

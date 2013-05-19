@@ -18,7 +18,7 @@
  */
 package me.cybermaxke.elementalarrows.api.entity;
 
-import me.cybermaxke.elementalarrows.api.entity.target.TargetSelector;
+import me.cybermaxke.elementalarrows.api.entity.selector.TargetSelector;
 import me.cybermaxke.elementalarrows.api.inventory.TurretInventory;
 
 import org.bukkit.entity.Entity;

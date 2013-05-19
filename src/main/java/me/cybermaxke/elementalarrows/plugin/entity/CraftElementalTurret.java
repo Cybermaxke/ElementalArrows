@@ -19,7 +19,7 @@
 package me.cybermaxke.elementalarrows.plugin.entity;
 
 import me.cybermaxke.elementalarrows.api.entity.ElementalTurret;
-import me.cybermaxke.elementalarrows.api.entity.target.TargetSelector;
+import me.cybermaxke.elementalarrows.api.entity.selector.TargetSelector;
 import me.cybermaxke.elementalarrows.api.inventory.TurretInventory;
 import me.cybermaxke.elementalarrows.plugin.entity.nms.EntityElementalTurret;
 import me.cybermaxke.elementalarrows.plugin.inventory.CraftTurretInventory;
