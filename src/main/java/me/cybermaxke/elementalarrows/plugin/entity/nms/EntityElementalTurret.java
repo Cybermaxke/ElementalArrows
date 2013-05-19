@@ -28,7 +28,9 @@ import org.bukkit.craftbukkit.v1_5_R3.inventory.CraftItemStack;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.util.Vector;
 
+import me.cybermaxke.elementalarrows.api.EffectType;
 import me.cybermaxke.elementalarrows.api.ElementalArrows;
+import me.cybermaxke.elementalarrows.api.ElementalArrowsAPI;
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.entity.selector.TargetSelector;
 import me.cybermaxke.elementalarrows.api.entity.selector.TargetSelectorMonster;
@@ -91,7 +93,7 @@ public class EntityElementalTurret extends EntityEnderCrystal {
 		}
 
 		if (this.a % 2 == 0) {
-			List<Entity> e = this.world.getEntities(this, this.boundingBox.grow(0.25D, this.length, 0.25D));
+			List<Entity> e = this.world.getEntities(this, this.boundingBox.grow(0.5D, this.length, 0.5D));
 			e.addAll(this.findNearbyPlayers(3.0D));
 			for (Entity ent : e) {
 				this.collide(ent);
@@ -109,8 +111,9 @@ public class EntityElementalTurret extends EntityEnderCrystal {
 			}
 
 			List<Entity> e2 = this.getValidTargets();
+			boolean stop = false;
 			for (Entity ent : e2) {
-				if (this.e(ent) <= 5.0D) {
+				if (this.e(ent) <= 8.0D) {
 					double d0 = ent.locX - this.locX;
 					double d1 = ent.locZ - this.locZ;
 					double d2 = MathHelper.a(d0, d1);
@@ -125,9 +128,13 @@ public class EntityElementalTurret extends EntityEnderCrystal {
 					ent.g(d0, 0.1D, d1);
 
 					if (ent == this.target) {
-						return;
+						stop = true;
 					}
 				}
+			}
+
+			if (stop) {
+				return;
 			}
 
 			int i = this.getFirstArrowSlot();
@@ -160,7 +167,8 @@ public class EntityElementalTurret extends EntityEnderCrystal {
 					speedMulti = m.getSpeedMutiplier();
 				}
 
-				ElementalArrow a = ElementalArrows.getAPI().shootElementalArrow(l, v, (float) (1.4F * speedMulti), 3.0F);
+				ElementalArrowsAPI api = ElementalArrows.getAPI();
+				ElementalArrow a = api.shootElementalArrow(l, v, (float) (1.4F * speedMulti), 3.0F);
 				a.setCritical(true);
 				a.setPickupable(true);
 
@@ -172,6 +180,7 @@ public class EntityElementalTurret extends EntityEnderCrystal {
 				}
 
 				this.world.a((EntityHuman) null, 1014, (int) this.locX, (int) this.locY, (int) this.locZ, 0);
+				api.playEffect(this.getBukkitEntity().getLocation().add(0, 0.4D, 0), EffectType.MAGIC);
 			}
 		}
 	}
@@ -263,7 +272,7 @@ public class EntityElementalTurret extends EntityEnderCrystal {
 			if (j >= 0 && j < this.inventory.getSize()) {
 				this.inventory.setItem(j, ItemStack.createStack(s));
 			}
-	    }
+		}
 
 		if (tag.hasKey("CustomName")) {
 			this.name = tag.getString("CustomName");

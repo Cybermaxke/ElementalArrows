@@ -20,6 +20,7 @@ package me.cybermaxke.elementalarrows.plugin;
 
 import java.util.logging.Level;
 
+import me.cybermaxke.elementalarrows.api.EffectType;
 import me.cybermaxke.elementalarrows.api.ElementalArrowsAPI;
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.entity.ElementalPlayer;
@@ -122,6 +123,11 @@ public class ElementalArrowsPlugin extends JavaPlugin implements ElementalArrows
 	@Override
 	public void playFireworkEffect(Location location, FireworkEffect... effects) {
 		this.api.playFireworkEffect(location, effects);
+	}
+
+	@Override
+	public void playEffect(Location location, EffectType effect) {
+		this.api.playEffect(location, effect);
 	}
 
 	@Override

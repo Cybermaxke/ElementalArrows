@@ -87,6 +87,13 @@ public interface ElementalArrowsAPI {
 	public void playFireworkEffect(Location location, FireworkEffect... effects);
 
 	/**
+	 * Plays the effect at the location.
+	 * @param location
+	 * @param effect
+	 */
+	public void playEffect(Location location, EffectType effect);
+
+	/**
 	 * Gets the height of the entity.
 	 * @return height
 	 */

@@ -19,6 +19,9 @@
 package me.cybermaxke.elementalarrows.plugin;
 
 import net.minecraft.server.v1_5_R3.Block;
+import net.minecraft.server.v1_5_R3.EntityLiving;
+import net.minecraft.server.v1_5_R3.EntityVillager;
+import net.minecraft.server.v1_5_R3.EntityWitch;
 import net.minecraft.server.v1_5_R3.World;
 
 import org.bukkit.FireworkEffect;
@@ -33,6 +36,7 @@ import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.util.Vector;
 
+import me.cybermaxke.elementalarrows.api.EffectType;
 import me.cybermaxke.elementalarrows.api.ElementalArrowsAPI;
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.entity.ElementalPlayer;
@@ -117,6 +121,32 @@ public class ElementalArrows implements ElementalArrowsAPI {
 		f.setFireworkMeta(m);
 		w.broadcastEntityEffect(((CraftEntity) f).getHandle(), (byte) 17);
 		f.remove();
+	}
+
+	@Override
+	public void playEffect(Location location, EffectType effect) {
+		World w = ((CraftWorld) location.getWorld()).getHandle();
+		EntityLiving ent = effect.equals(EffectType.MAGIC) ? new EntityWitch(w) : new EntityVillager(w);
+		ent.setPosition(location.getX(), location.getY(), location.getZ());
+		ent.setInvisible(true);
+		w.addEntity(ent);
+		w.broadcastEntityEffect(ent, (byte) this.getEffectId(effect));
+		w.removeEntity(ent);
+	}
+
+	private int getEffectId(EffectType type) {
+		switch (type) {
+			case ANGRY:
+				return 13;
+			case HAPPY:
+				return 14;
+			case HEARTH:
+				return 12;
+			case MAGIC:
+				return 15;
+			default:
+				return 0;
+		}
 	}
 
 	@Override
