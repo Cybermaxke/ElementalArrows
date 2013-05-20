@@ -110,7 +110,7 @@ public class EntityElementalTurret extends EntityEnderCrystal {
 				return;
 			}
 
-			List<Entity> e2 = this.getValidTargets();
+			List<Entity> e2 = this.getNearbyTargets();
 			boolean stop = false;
 			for (Entity ent : e2) {
 				if (this.e(ent) <= 8.0D) {
@@ -191,6 +191,10 @@ public class EntityElementalTurret extends EntityEnderCrystal {
 		return super.a_(human);
 	}
 
+	private boolean canSee(Entity ent) {
+		return this.world.a(this.world.getVec3DPool().create(this.locX, this.locY + this.getHeadHeight(), this.locZ), this.world.getVec3DPool().create(ent.locX, ent.locY + ent.getHeadHeight(), ent.locZ)) == null;
+	}
+
 	private List<EntityHuman> findNearbyPlayers(double d3) {
 		List<EntityHuman> l = new ArrayList<EntityHuman>();
 
@@ -247,8 +251,19 @@ public class EntityElementalTurret extends EntityEnderCrystal {
 		return l.size() > 0 ? l.get(0) : null;
 	}
 
-	@SuppressWarnings("unchecked")
 	private List<Entity> getValidTargets() {
+		List<Entity> l = new ArrayList<Entity>();
+		List<Entity> l2 = this.getNearbyTargets();
+		for (Entity e : l2) {
+			if (this.canSee(e)) {
+				l.add(e);
+			}
+		}
+		return l;
+	}
+
+	@SuppressWarnings("unchecked")
+	private List<Entity> getNearbyTargets() {
 		if (this.selector == null) {
 			return new ArrayList<Entity>();
 		}
