@@ -137,30 +137,19 @@ public class EntityElementalTurret extends EntityEnderCrystal {
 				return;
 			}
 
-			int i = this.getFirstArrowSlot();
-			if (i != -1) {
+			Integer[] i = this.getArrowSlots();
+			if (i.length > 0) {
 				Location l = this.getBukkitEntity().getLocation().add(0.0D, this.length + 0.4D, 0.0D);
 				Location l2 = this.target.getBukkitEntity().getLocation().add(0, this.target.length, 0);
 
-				double dX = l.getX() - l2.getX();
-				double dY = l.getY() - l2.getY();
-				double dZ = l.getZ() - l2.getZ();
-
-				double yaw = Math.atan2(dZ, dX);
-				double pitch = Math.atan2(Math.sqrt(dZ * dZ + dX * dX), dY) + Math.PI;
-
-				double X = Math.sin(pitch) * Math.cos(yaw);
-				double Y = Math.sin(pitch) * Math.sin(yaw);
-				double Z = Math.cos(pitch);
-
-				Vector v = new Vector(X, Z, Y);
-
+				Vector v = this.getVector(l, l2);
 				double speedMulti = 1.0D;
 
-				ItemStack is = this.inventory.getItem(i);
+				int s = i[this.random.nextInt(i.length)];
+				ItemStack is = this.inventory.getItem(s);
 				ItemStack is2 = is.cloneItemStack();
 				is2.count--;
-				this.inventory.setItem(i, is2.count <= 0 ? null : is2);
+				this.inventory.setItem(s, is2.count <= 0 ? null : is2);
 
 				ArrowMaterial m = this.getMaterial(is);
 				if (m != null) {
@@ -220,16 +209,32 @@ public class EntityElementalTurret extends EntityEnderCrystal {
 		return l;
 	}
 
-	private int getFirstArrowSlot() {
+	private Integer[] getArrowSlots() {
+		List<Integer> l = new ArrayList<Integer>();
 		for (int i = 0; i < this.inventory.getSize(); i++) {
 			ItemStack is = this.inventory.getItem(i);
 			if (is != null) {
 				if (this.getMaterial(is) != null || is.id == Item.ARROW.id) {
-					return i;
+					l.add(i);
 				}
 			}
 		}
-		return -1;
+		return l.toArray(new Integer[] {});
+	}
+
+	private Vector getVector(Location start, Location end) {
+		double dX = start.getX() - end.getX();
+		double dY = start.getY() - end.getY();
+		double dZ = start.getZ() - end.getZ();
+
+		double yaw = Math.atan2(dZ, dX);
+		double pitch = Math.atan2(Math.sqrt(dZ * dZ + dX * dX), dY) + Math.PI;
+
+		double X = Math.sin(pitch) * Math.cos(yaw);
+		double Y = Math.sin(pitch) * Math.sin(yaw);
+		double Z = Math.cos(pitch);
+
+		return new Vector(X, Z, Y);
 	}
 
 	private ArrowMaterial getMaterial(ItemStack item) {
@@ -320,22 +325,27 @@ public class EntityElementalTurret extends EntityEnderCrystal {
 		if (!this.dead) {
 			this.health -= i;
 			if (this.health <= 0) {
-				ItemStack[] is = this.inventory.getContents();
-				for (HumanEntity h : this.inventory.getViewers()) {
-					h.closeInventory();
-				}
 				this.die();
-				this.world.createExplosion(this, this.locX, this.locY, this.locZ, 3.0F, false, false);
-				for (ItemStack is2 : is) {
-					if (is2 != null) {
-						EntityItem ent = new EntityItem(this.world, this.locX, this.locY, this.locZ, is2);
-						this.world.addEntity(ent);
-					}
-				}
 			}
 		}
 
 		return true;
+	}
+
+	@Override
+	public void die() {
+		ItemStack[] is = this.inventory.getContents();
+		for (HumanEntity h : this.inventory.getViewers()) {
+			h.closeInventory();
+		}
+		super.die();
+		this.world.createExplosion(this, this.locX, this.locY, this.locZ, 3.0F, false, false);
+		for (ItemStack is2 : is) {
+			if (is2 != null) {
+				EntityItem ent = new EntityItem(this.world, this.locX, this.locY, this.locZ, is2);
+				this.world.addEntity(ent);
+			}
+		}
 	}
 
 	@Override
