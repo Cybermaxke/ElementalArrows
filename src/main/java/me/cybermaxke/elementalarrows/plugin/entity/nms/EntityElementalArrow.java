@@ -39,8 +39,10 @@ import org.getspout.spoutapi.material.MaterialData;
 
 import me.cybermaxke.elementalarrows.api.material.ArrowMaterial;
 import me.cybermaxke.elementalarrows.plugin.entity.CraftElementalArrow;
+import me.cybermaxke.elementalarrows.plugin.entity.CraftElementalTurretArrow;
 
 public class EntityElementalArrow extends EntityArrow {
+	public EntityElementalTurret turret;
 	public ArrowMaterial arrow;
 	public float speed = 0.0F;
 
@@ -64,9 +66,12 @@ public class EntityElementalArrow extends EntityArrow {
 
 	@Override
 	public CraftElementalArrow getBukkitEntity() {
-		if (this.bukkitEntity == null || !(this.bukkitEntity instanceof CraftElementalArrow)) {
+		if (this.turret != null && (this.bukkitEntity == null || !(this.bukkitEntity instanceof CraftElementalTurretArrow))) {
+			this.bukkitEntity = new CraftElementalTurretArrow(this);
+		} else if (this.bukkitEntity == null || !(this.bukkitEntity instanceof CraftElementalArrow)) {
 			this.bukkitEntity = new CraftElementalArrow(this);
 		}
+			
 		return (CraftElementalArrow) this.bukkitEntity;
 	}
 
