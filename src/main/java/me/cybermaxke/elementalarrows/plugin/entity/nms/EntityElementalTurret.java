@@ -38,6 +38,7 @@ import me.cybermaxke.elementalarrows.api.inventory.ElementalItemStack;
 import me.cybermaxke.elementalarrows.api.material.ArrowMaterial;
 import me.cybermaxke.elementalarrows.plugin.container.ContainerTurret;
 import me.cybermaxke.elementalarrows.plugin.entity.CraftElementalTurret;
+import me.cybermaxke.elementalarrows.plugin.entity.CraftElementalArrow;
 import me.cybermaxke.elementalarrows.plugin.inventory.nms.InventoryTurret;
 
 import net.minecraft.server.v1_5_R3.Container;
@@ -158,6 +159,7 @@ public class EntityElementalTurret extends EntityEnderCrystal {
 
 				ElementalArrowsAPI api = ElementalArrows.getAPI();
 				ElementalArrow a = api.shootElementalArrow(l, v, (float) (1.4F * speedMulti), 3.0F);
+				((CraftElementalArrow) a).getHandle().turret = this;
 				a.setCritical(true);
 				a.setPickupable(true);
 
