@@ -60,7 +60,7 @@ public class ElementalArrows implements ElementalArrowsAPI {
 
 	@Override
 	public ElementalPlayer getPlayer(Player player) {
-		return new CraftElementalPlayer(player);
+		return CraftElementalPlayer.getPlayer(player);
 	}
 
 	@Override

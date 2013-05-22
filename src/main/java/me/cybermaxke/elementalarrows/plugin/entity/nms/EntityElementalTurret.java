@@ -168,6 +168,7 @@ public class EntityElementalTurret extends EntityEnderCrystal {
 					a.setMaterial(m);
 					a.setKnockbackStrength(Math.round((float) (d == 0.0D ? 1.0D : d)));
 					a.setDamage(1.2D * a.getDamage() + this.random.nextGaussian() * 0.22D * m.getDamageMultiplier() + this.world.difficulty * 0.09F);
+					m.onShoot(null, a, null);
 				}
 
 				this.world.a((EntityHuman) null, 1014, (int) this.locX, (int) this.locY, (int) this.locZ, 0);

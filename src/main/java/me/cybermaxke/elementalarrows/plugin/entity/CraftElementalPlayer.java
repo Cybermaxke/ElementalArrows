@@ -18,6 +18,7 @@
  */
 package me.cybermaxke.elementalarrows.plugin.entity;
 
+import java.lang.reflect.Field;
 import java.util.Random;
 
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
@@ -30,11 +31,10 @@ import me.cybermaxke.elementalarrows.plugin.inventory.nms.InventoryTurret;
 import me.cybermaxke.elementalarrows.plugin.player.ElementalPlayerConnection;
 
 import net.minecraft.server.v1_5_R3.Container;
+import net.minecraft.server.v1_5_R3.Entity;
 import net.minecraft.server.v1_5_R3.EntityPlayer;
 import net.minecraft.server.v1_5_R3.Packet100OpenWindow;
-import net.minecraft.server.v1_5_R3.PlayerConnection;
 
-import org.bukkit.craftbukkit.v1_5_R3.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_5_R3.event.CraftEventFactory;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -45,13 +45,9 @@ import org.getspout.spout.player.SpoutCraftPlayer;
 public class CraftElementalPlayer extends SpoutCraftPlayer implements ElementalPlayer {
 	private Random random = new Random();
 
-	public CraftElementalPlayer(Player player) {
-		super(((CraftPlayer) player).getHandle().world.getServer(), ((CraftPlayer) player).getHandle());
-		EntityPlayer ep = ((CraftPlayer) player).getHandle();
-		PlayerConnection pc = ep.playerConnection;
-		if (pc == null || !(pc instanceof ElementalPlayerConnection)) {
-			ep.playerConnection = new ElementalPlayerConnection(ep);
-		}
+	public CraftElementalPlayer(EntityPlayer player) {
+		super(player.world.getServer(), player);
+		this.getPlayerConnection();
 	}
 
 	@Override
@@ -96,5 +92,40 @@ public class CraftElementalPlayer extends SpoutCraftPlayer implements ElementalP
 			return container.getBukkitView();
 		}
 		return super.openInventory(inventory);
+	}
+
+	@Override
+	public ElementalPlayerConnection getPlayerConnection() {
+		if (!(this.getHandle().playerConnection instanceof ElementalPlayerConnection)) {
+			this.getHandle().playerConnection = new ElementalPlayerConnection(this.getHandle());
+		}
+		return (ElementalPlayerConnection) this.getHandle().playerConnection;
+	}
+
+	public static CraftElementalPlayer getPlayer(Player player) {
+		SpoutCraftPlayer p = (SpoutCraftPlayer) SpoutCraftPlayer.getPlayer(player);
+		if (p instanceof CraftElementalPlayer) {
+			p.getPlayerConnection();
+			return (CraftElementalPlayer) p;
+		}
+
+		CraftElementalPlayer p2 = new CraftElementalPlayer(p.getHandle());
+		for (Field f : SpoutCraftPlayer.class.getDeclaredFields()) {
+			f.setAccessible(true);
+			try {
+				f.set(p2, f.get(p));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		try {
+			Field f = Entity.class.getDeclaredField("bukkitEntity");
+			f.setAccessible(true);
+			f.set(p.getHandle(), p2);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return p2;
 	}
 }

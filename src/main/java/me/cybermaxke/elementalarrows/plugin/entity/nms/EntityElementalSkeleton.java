@@ -87,6 +87,10 @@ public class EntityElementalSkeleton extends EntitySkeleton {
 	public void l_() {
 		super.l_();
 
+		if (this.target != null && this.target.dead) {
+			this.target = null;
+		}
+
 		if (!this.firstTick) {
 			this.firstTick = true;
 			if (this.arrow != null && this.arrow.getSkeletonSkin() != null) {
