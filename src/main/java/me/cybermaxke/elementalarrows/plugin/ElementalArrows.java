@@ -277,6 +277,4 @@ public class ElementalArrows implements ElementalArrowsAPI {
 			e.printStackTrace();
 		}
 	}
-
-	
 }
