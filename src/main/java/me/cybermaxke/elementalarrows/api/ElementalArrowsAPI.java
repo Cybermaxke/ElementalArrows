@@ -87,13 +87,6 @@ public interface ElementalArrowsAPI {
 	public void playFireworkEffect(Location location, FireworkEffect... effects);
 
 	/**
-	 * Plays the effect at the location.
-	 * @param location
-	 * @param effect
-	 */
-	public void playEffect(Location location, EffectType effect);
-
-	/**
 	 * Gets the height of the entity.
 	 * @return height
 	 */
@@ -110,4 +103,28 @@ public interface ElementalArrowsAPI {
 	 * @return width
 	 */
 	public float getEntityWidth(Entity entity);
+
+	/**
+	 * Plays a particle effect at the location.
+	 * @param location
+	 * @param effect
+	 * @param offsetX
+	 * @param offsetY
+	 * @param offsetZ
+	 * @param count
+	 * @param data
+	 */
+	public void playEffect(Location location, ParticleEffect effect,  float offsetX, float offsetY, float offsetZ, int count, Object... data);
+
+	/**
+	 * Plays a particle effect at the location for a specific player.
+	 * @param location
+	 * @param effect
+	 * @param offsetX
+	 * @param offsetY
+	 * @param offsetZ
+	 * @param count
+	 * @param data
+	 */
+	public void playEffect(Player player, Location location, ParticleEffect effect,  float offsetX, float offsetY, float offsetZ, int count, Object... data);
 }

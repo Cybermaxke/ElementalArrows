@@ -28,9 +28,9 @@ import org.bukkit.craftbukkit.v1_5_R3.inventory.CraftItemStack;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.util.Vector;
 
-import me.cybermaxke.elementalarrows.api.EffectType;
 import me.cybermaxke.elementalarrows.api.ElementalArrows;
 import me.cybermaxke.elementalarrows.api.ElementalArrowsAPI;
+import me.cybermaxke.elementalarrows.api.ParticleEffect;
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.entity.selector.TargetSelector;
 import me.cybermaxke.elementalarrows.api.entity.selector.TargetSelectorMonster;
@@ -172,7 +172,7 @@ public class EntityElementalTurret extends EntityEnderCrystal {
 				}
 
 				this.world.a((EntityHuman) null, 1014, (int) this.locX, (int) this.locY, (int) this.locZ, 0);
-				api.playEffect(this.getBukkitEntity().getLocation().add(0, 0.4D, 0), EffectType.MAGIC);
+				api.playEffect(this.getBukkitEntity().getLocation().add(0, 0.9D, 0), ParticleEffect.WITCH_MAGIC, 0F, 0F, 0F, 70, 0.1F);
 			}
 		}
 	}

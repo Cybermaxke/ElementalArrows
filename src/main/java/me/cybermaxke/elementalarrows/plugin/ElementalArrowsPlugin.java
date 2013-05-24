@@ -20,8 +20,8 @@ package me.cybermaxke.elementalarrows.plugin;
 
 import java.util.logging.Level;
 
-import me.cybermaxke.elementalarrows.api.EffectType;
 import me.cybermaxke.elementalarrows.api.ElementalArrowsAPI;
+import me.cybermaxke.elementalarrows.api.ParticleEffect;
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.entity.ElementalPlayer;
 import me.cybermaxke.elementalarrows.plugin.cmd.Commands;
@@ -126,11 +126,6 @@ public class ElementalArrowsPlugin extends JavaPlugin implements ElementalArrows
 	}
 
 	@Override
-	public void playEffect(Location location, EffectType effect) {
-		this.api.playEffect(location, effect);
-	}
-
-	@Override
 	public float getEntityHeight(Entity entity) {
 		return this.api.getEntityHeight(entity);
 	}
@@ -143,5 +138,15 @@ public class ElementalArrowsPlugin extends JavaPlugin implements ElementalArrows
 	@Override
 	public float getEntityWidth(Entity entity) {
 		return this.getEntityWidth(entity);
+	}
+
+	@Override
+	public void playEffect(Location location, ParticleEffect effect, float offsetX, float offsetY, float offsetZ, int count, Object... data) {
+		this.api.playEffect(location, effect, offsetX, offsetY, offsetZ, count, data);
+	}
+
+	@Override
+	public void playEffect(Player player, Location location, ParticleEffect effect, float offsetX, float offsetY, float offsetZ, int count, Object... data) {
+		this.api.playEffect(player, location, effect, offsetX, offsetY, offsetZ, count, data);
 	}
 }

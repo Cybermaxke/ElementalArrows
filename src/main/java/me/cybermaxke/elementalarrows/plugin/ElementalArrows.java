@@ -18,10 +18,10 @@
  */
 package me.cybermaxke.elementalarrows.plugin;
 
+import java.lang.reflect.Field;
+
 import net.minecraft.server.v1_5_R3.Block;
-import net.minecraft.server.v1_5_R3.EntityLiving;
-import net.minecraft.server.v1_5_R3.EntityVillager;
-import net.minecraft.server.v1_5_R3.EntityWitch;
+import net.minecraft.server.v1_5_R3.Packet63WorldParticles;
 import net.minecraft.server.v1_5_R3.World;
 
 import org.bukkit.FireworkEffect;
@@ -29,6 +29,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_5_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_5_R3.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_5_R3.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
@@ -36,8 +37,8 @@ import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.util.Vector;
 
-import me.cybermaxke.elementalarrows.api.EffectType;
 import me.cybermaxke.elementalarrows.api.ElementalArrowsAPI;
+import me.cybermaxke.elementalarrows.api.ParticleEffect;
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.entity.ElementalPlayer;
 import me.cybermaxke.elementalarrows.api.entity.ElementalSkeleton;
@@ -124,32 +125,6 @@ public class ElementalArrows implements ElementalArrowsAPI {
 	}
 
 	@Override
-	public void playEffect(Location location, EffectType effect) {
-		World w = ((CraftWorld) location.getWorld()).getHandle();
-		EntityLiving ent = effect.equals(EffectType.MAGIC) ? new EntityWitch(w) : new EntityVillager(w);
-		ent.setPosition(location.getX(), location.getY(), location.getZ());
-		ent.setInvisible(true);
-		w.addEntity(ent);
-		w.broadcastEntityEffect(ent, (byte) this.getEffectId(effect));
-		w.removeEntity(ent);
-	}
-
-	private int getEffectId(EffectType type) {
-		switch (type) {
-			case ANGRY:
-				return 13;
-			case HAPPY:
-				return 14;
-			case HEARTH:
-				return 12;
-			case MAGIC:
-				return 15;
-			default:
-				return 0;
-		}
-	}
-
-	@Override
 	public float getEntityHeight(Entity entity) {
 		return ((CraftEntity) entity).getHandle().height;
 	}
@@ -163,4 +138,145 @@ public class ElementalArrows implements ElementalArrowsAPI {
 	public float getEntityWidth(Entity entity) {
 		return ((CraftEntity) entity).getHandle().width;
 	}
+
+	@Override
+	public void playEffect(Player player, Location location, ParticleEffect effect, float offsetX, float offsetY, float offsetZ, int count, Object... data) {
+		Packet63WorldParticles packet = this.getParticlePacket(location, effect, offsetX, offsetY, offsetZ, count, data);
+		((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
+	}
+
+	@Override
+	public void playEffect(Location location, ParticleEffect effect, float offsetX, float offsetY, float offsetZ, int count, Object... data) {
+		Packet63WorldParticles packet = this.getParticlePacket(location, effect, offsetX, offsetY, offsetZ, count, data);
+		for (Player player : location.getWorld().getPlayers()) {
+			((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
+		}
+	}
+
+	private Packet63WorldParticles getParticlePacket(Location location, ParticleEffect effect, float offsetX, float offsetY, float offsetZ, int count, Object... data) {
+		String n = this.getId(effect);
+		float d = (Float) (data != null && data.length > 0 && float.class.isInstance(data[0]) ? data[0] : 0F);
+		switch (effect) {
+			case ICONCRACK:
+				if (data == null || data.length < 1) {
+					throw new IllegalArgumentException("Missing data values for a icon effect, id is required.");
+				} else if (data.length > 1) {
+					throw new IllegalArgumentException("Too many data values.");
+				}
+				n = n + data[0];
+				break;
+			case TILECRACK:
+				if (data == null || data.length < 2) {
+					throw new IllegalArgumentException("Missing data values for a tilecrack effect, id and data are required.");
+				} else if (data.length > 2) {
+					throw new IllegalArgumentException("Too many data values.");
+				}
+				n = n + data[0] + "_" + data[1];
+				break;
+			default:
+				break;
+		}
+
+		Packet63WorldParticles packet = new Packet63WorldParticles();
+		this.setField(Packet63WorldParticles.class, "a", packet, n);
+		this.setField(Packet63WorldParticles.class, "b", packet, (float) location.getX());
+		this.setField(Packet63WorldParticles.class, "c", packet, (float) location.getY());
+		this.setField(Packet63WorldParticles.class, "d", packet, (float) location.getZ());
+		this.setField(Packet63WorldParticles.class, "e", packet, offsetX);
+		this.setField(Packet63WorldParticles.class, "f", packet, offsetY);
+		this.setField(Packet63WorldParticles.class, "g", packet, offsetZ);
+		this.setField(Packet63WorldParticles.class, "h", packet, d);
+		this.setField(Packet63WorldParticles.class, "i", packet, count);
+
+		return packet;
+	}
+
+	private String getId(ParticleEffect effect) {
+		switch (effect) {
+			case ANGRY_VILLAGER:
+				return "angryVillager";
+			case BUBBLE:
+				return "bubble";
+			case CLOUD:
+				return "cloud";
+			case CRITICAL:
+				return "crit";
+			case DEPTH_SUSPEND:
+				return "depthSuspend";
+			case DRIP_LAVA:
+				return "dripLava";
+			case DRIP_WATER:
+				return "dripWater";
+			case ENCHANTMENT_TABLE:
+				return "enchantmenttable";
+			case EXPLOSION:
+				return "explode";
+			case FIREWORKS_SPARK:
+				return "fireworksSpark";
+			case FLAME:
+				return "flame";
+			case FOOTSTEP:
+				return "footstep";
+			case HAPPY_VILLAGER:
+				return "happyVillager";
+			case HEART:
+				return "heart";
+			case HUGE_EXPLOSION:
+				return "hugeexplosion";
+			case ICONCRACK:
+				return "iconcrack_";
+			case INSTANT_SPELL:
+				return "instantSpell";
+			case LARGE_EXPLOSION:
+				return "largeexplode";
+			case LARGE_SMOKE:
+				return "largesmoke";
+			case LAVA:
+				return "lava";
+			case MAGIC_CRITICAL:
+				return "magicCrit";
+			case MOB_SPELL:
+				return "mobSpell";
+			case MOB_SPELL_AMBIENT:
+				return "mobSpellAmbient";
+			case NOTE:
+				return "note";
+			case PORTAL:
+				return "portal";
+			case REDSTONE_DUST:
+				return "reddust";
+			case SLIME:
+				return "slime";
+			case SNOWBALL_POOF:
+				return "snowballpoof";
+			case SNOW_SHOVEL:
+				return "snowshovel";
+			case SPELL:
+				return "spell";
+			case SPLASH:
+				return "splash";
+			case SUSPEND:
+				return "suspend";
+			case TILECRACK:
+				return "tilecrack_";
+			case TOWN_AURA:
+				return "townaura";
+			case WITCH_MAGIC:
+				return "witchMagic";
+			default:
+				return "heart";
+		}
+	}
+
+	private void setField(Class<?> clazz, String field, Object target, Object object) {
+		try {
+			Field f = clazz.getDeclaredField(field);
+			f.setAccessible(true);
+			f.set(target, object);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	
 }
