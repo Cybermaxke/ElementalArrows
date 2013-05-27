@@ -147,6 +147,18 @@ public interface ArrowMaterial {
 	public void setSkeletonSkin(String skin);
 
 	/**
+	 * Gets if this material could be used by a elemental skeleton.
+	 * @return usable
+	 */
+	public boolean isSkeletonUsable();
+
+	/**
+	 * Sets if this material could be used by a elemental skeleton.
+	 * @param usable
+	 */
+	public void setSkeletonUsable(boolean usable);
+
+	/**
 	 * Gets the permission the player needs to craft this arrow.
 	 * @return permission
 	 */

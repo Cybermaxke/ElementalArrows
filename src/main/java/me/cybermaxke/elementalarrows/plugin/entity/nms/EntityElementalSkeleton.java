@@ -91,6 +91,10 @@ public class EntityElementalSkeleton extends EntitySkeleton {
 			this.target = null;
 		}
 
+		if (this.arrow == null) {
+			this.arrow = ArrowManager.getRandomSkeletonArrow();
+		}
+
 		if (!this.firstTick) {
 			this.firstTick = true;
 			if (this.arrow != null && this.arrow.getSkeletonSkin() != null) {
@@ -98,10 +102,6 @@ public class EntityElementalSkeleton extends EntitySkeleton {
 					p.setEntitySkin(this.getBukkitEntity(), this.arrow.getSkeletonSkin(), EntitySkinType.DEFAULT);
 				}
 			}
-		}
-
-		if (this.arrow == null) {
-			this.arrow = ArrowManager.getRandomArrow();
 		}
 
 		if (this.getEquipment(0) == null || EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_DAMAGE.id, this.getEquipment(0)) < 1) {

@@ -44,6 +44,7 @@ public class GenericCustomArrow extends GenericCustomItem implements ArrowMateri
 	private double knockbackMulti;
 	private int fireTicks;
 	private boolean pickup = true;
+	private boolean skeletonUsable = true;
 
 	private String skeletonTexture;
 	private List<String> bWorlds = new ArrayList<String>();
@@ -179,6 +180,16 @@ public class GenericCustomArrow extends GenericCustomItem implements ArrowMateri
 	}
 
 	@Override
+	public boolean isSkeletonUsable() {
+		return this.skeletonUsable;
+	}
+
+	@Override
+	public void setSkeletonUsable(boolean usable) {
+		this.skeletonUsable = usable;
+	}
+
+	@Override
 	public Permission getCraftingPermission() {
 		return this.craftingPermission;
 	}
@@ -195,6 +206,7 @@ public class GenericCustomArrow extends GenericCustomItem implements ArrowMateri
 		this.speedMulti = config.getDouble("SpeedMultiplier");
 		this.knockbackMulti = config.getDouble("KnockbackMultiplier");
 		this.fireTicks = config.getInt("FireTicks");
+		this.skeletonUsable = config.getBoolean("SkeletonUsable");
 		this.bWorlds = config.getStringList("WorldsBlackList");
 		String perm = config.getString("Permission");
 		this.permission = perm.length() > 0 ? new Permission(perm, PermissionDefault.TRUE) : null;
@@ -220,6 +232,9 @@ public class GenericCustomArrow extends GenericCustomItem implements ArrowMateri
 		}
 		if (!config.contains("FireTicks")) {
 			config.set("FireTicks", this.fireTicks);
+		}
+		if (!config.contains("SkeletonUsable")) {
+			config.set("SkeletonUsable", this.skeletonUsable);
 		}
 		if (!config.contains("WorldsBlackList")) {
 			config.set("WorldsBlackList", this.bWorlds);

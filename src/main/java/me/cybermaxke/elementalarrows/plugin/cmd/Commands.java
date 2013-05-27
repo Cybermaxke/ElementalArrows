@@ -20,6 +20,7 @@ package me.cybermaxke.elementalarrows.plugin.cmd;
 
 import me.cybermaxke.elementalarrows.api.config.ConfigHolder;
 import me.cybermaxke.elementalarrows.api.material.ArrowMaterial;
+import me.cybermaxke.elementalarrows.plugin.ElementalArrowsPlugin;
 import me.cybermaxke.elementalarrows.plugin.material.arrow.ArrowManager;
 
 import org.bukkit.ChatColor;
@@ -82,6 +83,7 @@ public class Commands implements CommandExecutor {
 				}
 			}
 
+			ElementalArrowsPlugin.getInstance().getConfigFile().reload();
 			sender.sendMessage(this.plugin.getName() + ": The config files are succesfully reloaded.");
 			return true;
 		}

@@ -25,6 +25,7 @@ import java.util.List;
 
 import org.bukkit.block.Biome;
 
+import me.cybermaxke.elementalarrows.plugin.config.ElementalConfigFile;
 import net.minecraft.server.v1_5_R3.EntitySkeleton;
 import net.minecraft.server.v1_5_R3.BiomeBase;
 import net.minecraft.server.v1_5_R3.BiomeMeta;
@@ -44,8 +45,10 @@ public class EntityManager {
 			m.invoke(m, EntitySkeleton.class, "Skeleton", 51);
 		} catch (Exception e) {}
 
-		for (Biome b : getBiomes(EntitySkeleton.class)) {
-			addToBiome(EntityElementalSkeleton.class, b, 10, 4, 4);
+		if (ElementalConfigFile.ENABLE_ELEMENTAL_SKELETON_SPAWNING) {
+			for (Biome b : getBiomes(EntitySkeleton.class)) {
+				addToBiome(EntityElementalSkeleton.class, b, 10, 4, 4);
+			}
 		}
 	}
 

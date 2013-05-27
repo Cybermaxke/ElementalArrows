@@ -68,9 +68,24 @@ public class ArrowManager {
 		ARROW_VOLLEY = new ArrowVolley(plugin, "Volley Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/VollyArrow.png");
 	}
 
+	public static ArrowMaterial getRandomSkeletonArrow() {
+		List<ArrowMaterial> m = getSkeletonArrows();
+		return m.size() > 0 ? m.get(new Random().nextInt(m.size())) : null;
+	}
+
 	public static ArrowMaterial getRandomArrow() {
 		List<ArrowMaterial> m = getArrows();
 		return m.size() > 0 ? m.get(new Random().nextInt(m.size())) : null;
+	}
+
+	public static List<ArrowMaterial> getSkeletonArrows() {
+		List<ArrowMaterial> l = new ArrayList<ArrowMaterial>();
+		for (CustomItem i : MaterialData.getCustomItems()) {
+			if (i instanceof ArrowMaterial && ((ArrowMaterial) i).isSkeletonUsable()) {
+				l.add((ArrowMaterial) i);
+			}
+		}
+		return l;
 	}
 
 	public static List<ArrowMaterial> getArrows() {

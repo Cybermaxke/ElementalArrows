@@ -25,6 +25,7 @@ import me.cybermaxke.elementalarrows.api.ParticleEffect;
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.entity.ElementalPlayer;
 import me.cybermaxke.elementalarrows.plugin.cmd.Commands;
+import me.cybermaxke.elementalarrows.plugin.config.ElementalConfigFile;
 import me.cybermaxke.elementalarrows.plugin.listeners.EventListener;
 import me.cybermaxke.elementalarrows.plugin.material.MaterialManager;
 import me.cybermaxke.elementalarrows.plugin.utils.Metrics;
@@ -44,7 +45,9 @@ import com.sk89q.worldguard.protection.flags.DefaultFlag;
 
 public class ElementalArrowsPlugin extends JavaPlugin implements ElementalArrowsAPI {
 	private static ElementalArrowsPlugin instance;
+
 	private ElementalArrowsAPI api;
+	private ElementalConfigFile config;
 
 	@Override
 	public void onLoad() {
@@ -61,6 +64,7 @@ public class ElementalArrowsPlugin extends JavaPlugin implements ElementalArrows
 			return;
 		}
 
+		this.config = new ElementalConfigFile(this);
 		this.api = new ElementalArrows();
 
 		new MaterialManager(this);
@@ -80,6 +84,10 @@ public class ElementalArrowsPlugin extends JavaPlugin implements ElementalArrows
 	@Override
 	public void onDisable() {
 
+	}
+
+	public ElementalConfigFile getConfigFile() {
+		return this.config;
 	}
 
 	public static ElementalArrowsPlugin getInstance() {
