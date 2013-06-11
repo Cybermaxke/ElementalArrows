@@ -1,10 +1,12 @@
 name: ${project.name}
-main: ${MainClass}
 version: ${project.version}
 description: ${project.description}
-author: ${Author}
+author: ${author}
+
+main: ${bukkit.mainclass}
+softdepend: [${bukkit.depends}]
 load: startup
-softdepend: [${Depends}]
+
 commands:
    ElementalArrows:
       description: Basic command of ${project.name}

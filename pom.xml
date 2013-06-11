@@ -12,13 +12,11 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<BukkitVersion>1.5.2-R0.1</BukkitVersion>
-		<SpoutVersion>1.5.2-R0.1-SNAPSHOT</SpoutVersion>
-		<WorldEditVersion>5.5.2-SNAPSHOT</WorldEditVersion>
-		<WorldGuardVersion>5.7.2-SNAPSHOT</WorldGuardVersion>
-		<MainClass>me.cybermaxke.elementalarrows.plugin.ElementalArrowsPlugin</MainClass>
-		<Author>Cybermaxke</Author>
-		<Depends>Spout,WorldEdit,WorldGuard</Depends>
+		<bukkit.mainclass>me.cybermaxke.elementalarrows.plugin.ElementalArrowsPlugin</bukkit.mainclass>
+		<bukkit.depends>Spout,WorldEdit,WorldGuard</bukkit.depends>
+		<spout.mainclass>me.cybermaxke.elementalarrows.spout.plugin.ElementalArrowsPlugin</spout.mainclass>
+		<spout.depends>Vanilla</spout.depends>
+		<author>Cybermaxke</author>
 	</properties>
 
 	<!-- Distribution management -->
@@ -52,25 +50,37 @@
 		<dependency>
 			<groupId>org.bukkit</groupId>
 			<artifactId>craftbukkit</artifactId>
-			<version>${BukkitVersion}</version>
+			<version>1.5.2-R0.1</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.getspout</groupId>
 			<artifactId>spoutplugin</artifactId>
-			<version>${SpoutVersion}</version>
+			<version>1.5.2-R0.1-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.sk89q</groupId>
 			<artifactId>worldedit</artifactId>
-			<version>${WorldEditVersion}</version>
+			<version>5.5.2-SNAPSHOT</version>
 		</dependency>
 
  		<dependency>
 			<groupId>com.sk89q</groupId>
 			<artifactId>worldguard</artifactId>
-			<version>${WorldGuardVersion}</version>
+			<version>5.7.2-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.spout</groupId>
+			<artifactId>spoutapi</artifactId>
+			<version>dev-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.spout</groupId>
+			<artifactId>vanilla</artifactId>
+			<version>1.5.2-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 
