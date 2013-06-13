@@ -18,6 +18,7 @@
  */
 package me.cybermaxke.elementalarrows.spout.api.component.entity;
 
+import java.lang.reflect.Method;
 import java.util.Random;
 
 import me.cybermaxke.elementalarrows.spout.api.data.ElementalData;
@@ -103,9 +104,13 @@ public class ElementalArrow extends Substance implements Projectile {
 		float yaw = r.getYaw();
 		float pitch = r.getPitch();
 
-		locX -= Math.cos(yaw / 180.0F * Math.PI) * 0.16F;
-		locY -= 0.1000000014901161D;
-		locZ -= Math.sin(yaw / 180.0F * Math.PI) * 0.16F;
+		locX -= Math.cos(-yaw / 180.0F * Math.PI) * 0.16F;
+		locY -= 0.1000000014901161F;
+		locZ -= Math.sin(-yaw / 180.0F * Math.PI) * 0.16F;
+
+		if (shooter.get(EntityHead.class) != null) {
+			locY += shooter.get(EntityHead.class).getHeight();
+		}
 
 		scene1.setPosition(new Point(p.getWorld(), locX, locY, locZ));
 		scene1.setRotation(QuaternionMath.rotation(pitch, yaw, 0.0F));
@@ -137,9 +142,12 @@ public class ElementalArrow extends Substance implements Projectile {
 
 		SceneComponent scene = this.getOwner().getScene();
 
-		scene.setMovementVelocity(new Vector3(motX, motY, motZ));
 		this.velocity = new Vector3(motX, motY, motZ);
+
+		scene.setMovementVelocity(this.velocity);	
 		scene.setRotation(QuaternionMath.rotation(pitch, yaw, 0.0F));
+
+		this.updateSnapshotPosition(scene);
 	}
 
 	@Override
@@ -178,9 +186,10 @@ public class ElementalArrow extends Substance implements Projectile {
 		motZ *= f;
 		motY -= 0.05F;
 
-		scene.setPosition(new Point(p.getWorld(), locX, locY, locZ));
-		scene.setMovementVelocity(new Vector3(motX, motY, motZ));
 		this.velocity = new Vector3(motX, motY, motZ);
+
+		scene.setMovementVelocity(this.velocity);
+		scene.setPosition(new Point(p.getWorld(), locX, locY, locZ));
 		scene.setRotation(QuaternionMath.rotation(pitch, yaw, 0.0F));
 	}
 
@@ -209,5 +218,21 @@ public class ElementalArrow extends Substance implements Projectile {
 	public void setCritical(boolean critical) {
 		this.getDatatable().put(ElementalData.CRITICAL, critical);
 		this.setMetadata(new Parameter<Byte>(Parameter.TYPE_BYTE, 16, (byte) (critical ? 1 : 0)));
+	}
+
+	/**
+	 * Directly updating the position.
+	 * @param scene
+	 */
+	protected void updateSnapshotPosition(SceneComponent scene) {
+		try {
+			Class<?> clazz = scene.getClass();
+
+			Method method = clazz.getDeclaredMethod("copySnapshot", new Class[] {});
+			method.setAccessible(true);
+			method.invoke(scene, new Object[] {});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

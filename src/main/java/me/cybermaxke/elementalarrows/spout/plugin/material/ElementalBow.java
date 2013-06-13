@@ -43,7 +43,7 @@ public class ElementalBow extends ElementalItemMaterial {
 	public void onInteract(Entity entity, Block block, Action type, BlockFace clickedface) {
 		super.onInteract(entity, block, type, clickedface);
 		if (type.equals(Action.RIGHT_CLICK)) {
-			this.shootArrow(entity, 0.7F);
+			this.shootArrow(entity, 0.8F);
 		}
 	}
 
@@ -51,7 +51,7 @@ public class ElementalBow extends ElementalItemMaterial {
 	public void onInteract(Entity entity, Entity other, Action type) {
 		super.onInteract(entity, other, type);
 		if (type.equals(Action.RIGHT_CLICK)) {
-			this.shootArrow(entity, 0.7F);
+			this.shootArrow(entity, 0.8F);
 		}
 	}
 
@@ -59,7 +59,7 @@ public class ElementalBow extends ElementalItemMaterial {
 	public void onInteract(Entity entity, Action type) {
 		super.onInteract(entity, type);
 		if (type.equals(Action.RIGHT_CLICK)) {
-			this.shootArrow(entity, 0.7F);
+			this.shootArrow(entity, 0.8F);
 		}
 	}
 

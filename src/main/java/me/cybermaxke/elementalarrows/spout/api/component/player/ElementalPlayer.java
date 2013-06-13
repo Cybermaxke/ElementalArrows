@@ -24,6 +24,7 @@ import me.cybermaxke.elementalarrows.spout.api.data.ElementalData;
 
 import org.spout.api.component.entity.EntityComponent;
 import org.spout.api.util.Parameter;
+
 import org.spout.vanilla.component.entity.VanillaEntityComponent;
 import org.spout.vanilla.component.entity.living.Human;
 
