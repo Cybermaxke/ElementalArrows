@@ -100,10 +100,7 @@ public class ElementalArrow extends Substance implements Projectile {
 		float locY = p.getY();
 		float locZ = p.getZ();
 
-		/**
-		 * The yaw is acting a bit weird, but multiplying with -1 seems to work.
-		 */
-		float yaw = -r.getYaw();
+		float yaw = r.getYaw();
 		float pitch = r.getPitch();
 
 		locX -= Math.cos(yaw / 180.0F * Math.PI) * 0.16F;
@@ -113,7 +110,7 @@ public class ElementalArrow extends Substance implements Projectile {
 		scene1.setPosition(new Point(p.getWorld(), locX, locY, locZ));
 		scene1.setRotation(QuaternionMath.rotation(pitch, yaw, 0.0F));
 
-		float motX = (float) (-Math.sin(yaw / 180.0F * Math.PI) * Math.cos(pitch / 180.0F * Math.PI));
+		float motX = (float) (Math.sin(yaw / 180.0F * Math.PI) * Math.cos(pitch / 180.0F * Math.PI));
 		float motZ = (float) (Math.cos(yaw / 180.0F * Math.PI) * Math.cos(pitch / 180.0F * Math.PI));
 		float motY = (float) -Math.sin(pitch / 180.0F * Math.PI);
 
