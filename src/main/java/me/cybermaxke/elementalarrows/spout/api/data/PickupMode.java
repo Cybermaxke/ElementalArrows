@@ -16,42 +16,10 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.spout.api;
+package me.cybermaxke.elementalarrows.spout.api.data;
 
-public enum ElementalParticleEffect {
-	HUGE_EXPLOSION,
-	LARGE_EXPLOSION,
-	FIREWORKS_SPARK,
-	BUBBLE,
-	SUSPEND,
-	DEPTH_SUSPEND,
-	TOWN_AURA,
-	CRITICAL,
-	MAGIC_CRITICAL,
-	MOB_SPELL,
-	MOB_SPELL_AMBIENT,
-	SPELL,
-	INSTANT_SPELL,
-	WITCH_MAGIC,
-	NOTE,
-	PORTAL,
-	ENCHANTMENT_TABLE,
-	EXPLOSION,
-	FLAME,
-	LAVA,
-	FOOTSTEP,
-	SPLASH,
-	LARGE_SMOKE,
-	CLOUD,
-	REDSTONE_DUST,
-	SNOWBALL_POOF,
-	DRIP_WATER,
-	DRIP_LAVA,
-	SNOW_SHOVEL,
-	SLIME,
-	HEART,
-	ANGRY_VILLAGER,
-	HAPPY_VILLAGER,
-	ICONCRACK,
-	TILECRACK;
+public enum PickupMode {
+	NORMAL,
+	CREATIVE,
+	UNABLE
 }

@@ -18,7 +18,7 @@
  */
 package me.cybermaxke.elementalarrows.spout.api.material;
 
-import me.cybermaxke.elementalarrows.spout.api.component.ElementalArrow;
+import me.cybermaxke.elementalarrows.spout.api.component.entity.ElementalArrow;
 
 public interface ArrowMaterial {
 

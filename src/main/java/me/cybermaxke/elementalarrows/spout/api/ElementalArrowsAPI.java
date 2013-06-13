@@ -18,6 +18,8 @@
  */
 package me.cybermaxke.elementalarrows.spout.api;
 
+import me.cybermaxke.elementalarrows.spout.api.data.ParticleEffect;
+
 import org.spout.api.entity.Player;
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.math.Vector3;
@@ -32,7 +34,7 @@ public interface ElementalArrowsAPI {
 	 * @param velocity
 	 * @param count
 	 */
-	public void playEffect(ElementalParticleEffect effect, Point position, Vector3 offset, float velocity, int count);
+	public void playEffect(ParticleEffect effect, Point position, Vector3 offset, float velocity, int count);
 
 	/**
 	 * Plays a particle effect at the position.
@@ -43,7 +45,7 @@ public interface ElementalArrowsAPI {
 	 * @param count
 	 * @param data
 	 */
-	public void playEffect(ElementalParticleEffect effect, Point position, Vector3 offset, float velocity, int count, Object... data);
+	public void playEffect(ParticleEffect effect, Point position, Vector3 offset, float velocity, int count, Object... data);
 
 	/**
 	 * Plays a particle effect at the position, for a specific player.
@@ -54,7 +56,7 @@ public interface ElementalArrowsAPI {
 	 * @param velocity
 	 * @param count
 	 */
-	public void playEffect(Player player, ElementalParticleEffect effect, Point position, Vector3 offset, float velocity, int count);
+	public void playEffect(Player player, ParticleEffect effect, Point position, Vector3 offset, float velocity, int count);
 
 	/**
 	 * Plays a particle effect at the position, for a specific player.
@@ -66,5 +68,5 @@ public interface ElementalArrowsAPI {
 	 * @param count
 	 * @param data
 	 */
-	public void playEffect(Player player, ElementalParticleEffect effect, Point position, Vector3 offset, float velocity, int count, Object... data);
+	public void playEffect(Player player, ParticleEffect effect, Point position, Vector3 offset, float velocity, int count, Object... data);
 }

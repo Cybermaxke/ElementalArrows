@@ -20,30 +20,38 @@ package me.cybermaxke.elementalarrows.spout.plugin;
 
 import me.cybermaxke.elementalarrows.spout.api.ElementalArrows;
 import me.cybermaxke.elementalarrows.spout.api.ElementalArrowsAPI;
-import me.cybermaxke.elementalarrows.spout.api.ElementalParticleEffect;
+import me.cybermaxke.elementalarrows.spout.api.data.ParticleEffect;
+import me.cybermaxke.elementalarrows.spout.plugin.listener.ElementalPlayerListener;
+import me.cybermaxke.elementalarrows.spout.plugin.material.ElementalBow;
 import me.cybermaxke.elementalarrows.spout.plugin.material.ElementalMaterialUtils;
 
 import org.spout.api.UnsafeMethod;
 import org.spout.api.entity.Player;
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.math.Vector3;
-import org.spout.api.plugin.CommonPlugin;
+import org.spout.api.plugin.Plugin;
 import org.spout.api.protocol.reposition.RepositionManager;
 
 import org.spout.vanilla.material.VanillaMaterials;
 import org.spout.vanilla.protocol.msg.world.ParticleEffectMessage;
 import org.spout.vanilla.protocol.reposition.VanillaRepositionManager;
 
-public class ElementalArrowsPlugin extends CommonPlugin implements ElementalArrowsAPI {
+public class ElementalArrowsPlugin extends Plugin implements ElementalArrowsAPI {
 	private RepositionManager repositionManager;
+
+	public static ElementalBow BOW;
 
 	@Override
 	@UnsafeMethod
 	public void onEnable() {
 		ElementalArrows.setAPI(this);
-		ElementalMaterialUtils.setDataMask(VanillaMaterials.ARROW, (short) 0x7);
+		ElementalMaterialUtils.setDataMask(VanillaMaterials.ARROW, (short) 0x7F);
+		ElementalMaterialUtils.setDataMask(VanillaMaterials.BOW, (short) 0x7F);
 
 		this.repositionManager = new VanillaRepositionManager();
+		new ElementalPlayerListener(this);
+
+		BOW = new ElementalBow("Elemental Bow");
 	}
 
 	@Override
@@ -53,12 +61,12 @@ public class ElementalArrowsPlugin extends CommonPlugin implements ElementalArro
 	}
 
 	@Override
-	public void playEffect(ElementalParticleEffect effect, Point position, Vector3 offset, float velocity, int count) {
+	public void playEffect(ParticleEffect effect, Point position, Vector3 offset, float velocity, int count) {
 		this.playEffect(effect, position, offset, velocity, count, new Object[] {});
 	}
 
 	@Override
-	public void playEffect(ElementalParticleEffect effect, Point position, Vector3 offset, float velocity, int count, Object... data) {
+	public void playEffect(ParticleEffect effect, Point position, Vector3 offset, float velocity, int count, Object... data) {
 		ParticleEffectMessage message = this.getParticleMessage(effect, position, offset, velocity, count, data);
 		for (Player player : position.getWorld().getPlayers()) {
 			player.getSession().send(false, message);
@@ -66,16 +74,16 @@ public class ElementalArrowsPlugin extends CommonPlugin implements ElementalArro
 	}
 
 	@Override
-	public void playEffect(Player player, ElementalParticleEffect effect, Point position, Vector3 offset, float velocity, int count) {
+	public void playEffect(Player player, ParticleEffect effect, Point position, Vector3 offset, float velocity, int count) {
 		this.playEffect(player, effect, position, offset, velocity, count, new Object[] {});
 	}
 
 	@Override
-	public void playEffect(Player player, ElementalParticleEffect effect, Point position, Vector3 offset, float velocity, int count, Object... data) {
+	public void playEffect(Player player, ParticleEffect effect, Point position, Vector3 offset, float velocity, int count, Object... data) {
 		player.getSession().send(false, this.getParticleMessage(effect, position, offset, velocity, count, data));
 	}
 
-	protected ParticleEffectMessage getParticleMessage(ElementalParticleEffect effect, Point position, Vector3 offset, float velocity, int count, Object... data) {
+	protected ParticleEffectMessage getParticleMessage(ParticleEffect effect, Point position, Vector3 offset, float velocity, int count, Object... data) {
 		String name = this.getParticleName(effect);
 		switch (effect) {
 			case ICONCRACK:
@@ -90,7 +98,7 @@ public class ElementalArrowsPlugin extends CommonPlugin implements ElementalArro
 		return new ParticleEffectMessage(name, position, offset, velocity, count, this.repositionManager);
 	}
 
-	protected String getParticleName(ElementalParticleEffect effect) {
+	protected String getParticleName(ParticleEffect effect) {
 		switch (effect) {
 			case ANGRY_VILLAGER:
 				return "angryVillager";

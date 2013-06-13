@@ -20,7 +20,7 @@ package me.cybermaxke.elementalarrows.spout.api.protocol;
 
 import java.util.List;
 
-import me.cybermaxke.elementalarrows.spout.api.component.ElementalArrow;
+import me.cybermaxke.elementalarrows.spout.api.component.entity.ElementalArrow;
 
 import org.spout.api.entity.Entity;
 import org.spout.api.util.Parameter;
@@ -41,8 +41,7 @@ public class ElementalArrowProtocol extends ObjectEntityProtocol {
 	@Override
 	public List<Parameter<?>> getSpawnParameters(Entity entity) {
 		List<Parameter<?>> params = super.getSpawnParameters(entity);
-		byte critical = (byte) (0 | (entity.add(ElementalArrow.class).isCritical() ? 1 : 0) << 1);
-		params.add(new Parameter<Byte>(Parameter.TYPE_BYTE, CRITICAL_INDEX, critical));
+		params.add(new Parameter<Byte>(Parameter.TYPE_BYTE, CRITICAL_INDEX, (byte) (entity.add(ElementalArrow.class).isCritical() ? 1 : 0)));
 		return params;
 	}
 }

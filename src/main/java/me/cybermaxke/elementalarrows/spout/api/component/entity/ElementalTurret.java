@@ -16,22 +16,29 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.spout.api.material;
+package me.cybermaxke.elementalarrows.spout.api.component.entity;
 
-import me.cybermaxke.elementalarrows.spout.api.component.entity.ElementalArrow;
+import org.spout.vanilla.VanillaPlugin;
+import org.spout.vanilla.component.entity.substance.Substance;
+import org.spout.vanilla.protocol.entity.object.ObjectEntityProtocol;
+import org.spout.vanilla.protocol.entity.object.ObjectType;
 
-import org.spout.vanilla.material.VanillaMaterials;
+public class ElementalTurret extends Substance {
 
-public class ElementalArrowMaterial extends ElementalItemMaterial implements ArrowMaterial {
-	private Class<? extends ElementalArrow> arrow;
-
-	public ElementalArrowMaterial(String name, int data, Class<? extends ElementalArrow> arrow) {
-		super(name, VanillaMaterials.ARROW, data);
-		this.arrow = arrow;
+	@Override
+	public void onAttached() {
+		this.getOwner().getNetwork().setEntityProtocol(VanillaPlugin.VANILLA_PROTOCOL_ID, new ObjectEntityProtocol(ObjectType.ENDER_CRYSTAL));
+		super.onAttached();
 	}
 
 	@Override
-	public Class<? extends ElementalArrow> getArrow() {
-		return this.arrow;
+	public void onDetached() {
+		super.onDetached();
+	}
+
+	@Override
+	public void onTick(float dt) {
+		super.onTick(dt);
+		//TODO: Targetting and shooting arrows.
 	}
 }

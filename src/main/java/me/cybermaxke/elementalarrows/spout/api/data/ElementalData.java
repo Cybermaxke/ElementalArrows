@@ -22,5 +22,14 @@ import org.spout.api.map.DefaultedKey;
 import org.spout.api.map.DefaultedKeyImpl;
 
 public class ElementalData {
+	/**
+	 * Data keys for the arrows.
+	 */
 	public static final DefaultedKey<Boolean> CRITICAL = new DefaultedKeyImpl<Boolean>("critical", false);
+	public static final DefaultedKey<PickupMode> PICKUP_MODE = new DefaultedKeyImpl<PickupMode>("pickup_mode", PickupMode.UNABLE);
+
+	/**
+	 * Data keys for humans.
+	 */
+	public static final DefaultedKey<Byte> ARROWS_IN_BODY = new DefaultedKeyImpl<Byte>("arrows_in_body", (byte) 0);
 }

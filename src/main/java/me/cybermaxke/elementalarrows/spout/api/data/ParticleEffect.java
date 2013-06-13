@@ -16,28 +16,42 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.spout.api.component;
+package me.cybermaxke.elementalarrows.spout.api.data;
 
-import org.spout.vanilla.component.entity.living.hostile.Skeleton;
-
-public class ElementalSkeleton extends Skeleton {
-	private Class<? extends ElementalArrow> arrow;
-
-	@Override
-	public void onAttached() {
-		super.onAttached();
-	}
-
-	@Override
-	public void onDetached() {
-		super.onDetached();
-	}
-
-	public Class<? extends ElementalArrow> getArrow() {
-		return this.arrow;
-	}
-
-	public void setArrow(Class<? extends ElementalArrow> arrow) {
-		this.arrow = arrow;
-	}
+public enum ParticleEffect {
+	HUGE_EXPLOSION,
+	LARGE_EXPLOSION,
+	FIREWORKS_SPARK,
+	BUBBLE,
+	SUSPEND,
+	DEPTH_SUSPEND,
+	TOWN_AURA,
+	CRITICAL,
+	MAGIC_CRITICAL,
+	MOB_SPELL,
+	MOB_SPELL_AMBIENT,
+	SPELL,
+	INSTANT_SPELL,
+	WITCH_MAGIC,
+	NOTE,
+	PORTAL,
+	ENCHANTMENT_TABLE,
+	EXPLOSION,
+	FLAME,
+	LAVA,
+	FOOTSTEP,
+	SPLASH,
+	LARGE_SMOKE,
+	CLOUD,
+	REDSTONE_DUST,
+	SNOWBALL_POOF,
+	DRIP_WATER,
+	DRIP_LAVA,
+	SNOW_SHOVEL,
+	SLIME,
+	HEART,
+	ANGRY_VILLAGER,
+	HAPPY_VILLAGER,
+	ICONCRACK,
+	TILECRACK
 }
