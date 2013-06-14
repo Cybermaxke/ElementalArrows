@@ -31,6 +31,16 @@ import org.spout.vanilla.component.entity.living.Human;
 public class ElementPlayer extends ElementalPlayer {
 
 	@Override
+	public void onAttached() {
+		super.onAttached();
+	}
+
+	@Override
+	public void onDetached() {
+		super.onDetached();
+	}
+
+	@Override
 	public byte getArrowsInBody() {
 		return this.getDatatable().get(ElementalData.ARROWS_IN_BODY);
 	}

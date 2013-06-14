@@ -20,6 +20,7 @@ package me.cybermaxke.elementalarrows.plugin.listeners;
 
 import me.cybermaxke.elementalarrows.api.ElementalArrows;
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
+import me.cybermaxke.elementalarrows.api.entity.ElementalPlayer;
 import me.cybermaxke.elementalarrows.api.inventory.ElementalItemStack;
 import me.cybermaxke.elementalarrows.api.material.ArrowMaterial;
 import me.cybermaxke.elementalarrows.api.material.SpawnEggMaterial;
@@ -29,6 +30,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
@@ -39,7 +42,12 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.RegisteredListener;
 
+import org.getspout.spout.Spout;
+import org.getspout.spout.listeners.SpoutPlayerListener;
+import org.getspout.spout.player.SimplePlayerChunkMap;
+import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
 import org.getspout.spoutapi.material.CustomItem;
 
@@ -47,11 +55,25 @@ public class EventListener implements Listener {
 
 	public EventListener(Plugin plugin) {
 		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+
+		for (RegisteredListener l : HandlerList.getRegisteredListeners(Spout.getInstance())) {
+			if (l.getListener() instanceof SpoutPlayerListener) {
+				PlayerJoinEvent.getHandlerList().unregister(l);
+			}
+		}
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerJoin(PlayerJoinEvent e) {
-		ElementalArrowsPlugin.getInstance().getPlayer(e.getPlayer());
+		ElementalPlayer player = ElementalArrowsPlugin.getInstance().getPlayer(e.getPlayer());
+		Spout.getInstance().authenticate(player);
+
+		SimplePlayerChunkMap cm = (SimplePlayerChunkMap) SpoutManager.getPlayerChunkMap();
+		cm.onPlayerJoin(player);
+
+		synchronized(Spout.getInstance().getOnlinePlayers()) {
+			Spout.getInstance().getOnlinePlayers().add(player);
+		}
 	}
 
 	@EventHandler

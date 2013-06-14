@@ -18,8 +18,8 @@
  */
 package me.cybermaxke.elementalarrows.spout.plugin.listener;
 
-import me.cybermaxke.elementalarrows.spout.api.component.player.ElementalPlayer;
 import me.cybermaxke.elementalarrows.spout.plugin.ElementalArrowsPlugin;
+import me.cybermaxke.elementalarrows.spout.plugin.component.player.ElementPlayer;
 
 import org.spout.api.entity.Player;
 import org.spout.api.event.EventHandler;
@@ -40,8 +40,7 @@ public class ElementPlayerListener implements Listener {
 	@EventHandler(order = Order.LATE)
 	public void onPlayerJoin(PlayerJoinEvent e) {
 		Player p = e.getPlayer();
-
-		p.add(ElementalPlayer.class);
+		p.add(ElementPlayer.class);
 
 		/**
 		 * Adding the test bow ad fireworks to the players inventory.
