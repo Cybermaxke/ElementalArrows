@@ -32,7 +32,14 @@ public interface ElementalArrowsAPI {
 	 * @param effect
 	 * @param position
 	 */
-	public void playEffect(FireworkEffect effect, Point position);
+	public void playEffect(Point position, FireworkEffect effect);
+
+	/**
+	 * Plays the firework effects at the position.
+	 * @param effects
+	 * @param position
+	 */
+	public void playEffects(Point position, FireworkEffect... effects);
 
 	/**
 	 * Plays a particle effect at the position.

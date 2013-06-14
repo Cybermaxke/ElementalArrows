@@ -31,9 +31,9 @@ import org.spout.api.plugin.Plugin;
 
 import org.spout.vanilla.component.entity.inventory.PlayerInventory;
 
-public class ElementalPlayerListener implements Listener {
+public class ElementPlayerListener implements Listener {
 
-	public ElementalPlayerListener(Plugin plugin) {
+	public ElementPlayerListener(Plugin plugin) {
 		plugin.getEngine().getEventManager().registerEvents(this, plugin);
 	}
 

@@ -23,7 +23,7 @@ public class ElementalArrows {
 
 	/**
 	 * Gets the api instance, 'null' if it is disabled.
-	 * @return
+	 * @return api
 	 */
 	public static ElementalArrowsAPI getAPI() {
 		return instance;

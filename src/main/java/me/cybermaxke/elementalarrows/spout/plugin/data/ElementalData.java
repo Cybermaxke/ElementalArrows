@@ -16,7 +16,9 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.spout.api.data;
+package me.cybermaxke.elementalarrows.spout.plugin.data;
+
+import me.cybermaxke.elementalarrows.spout.api.data.PickupMode;
 
 import org.spout.api.inventory.ItemStack;
 import org.spout.api.map.DefaultedKey;

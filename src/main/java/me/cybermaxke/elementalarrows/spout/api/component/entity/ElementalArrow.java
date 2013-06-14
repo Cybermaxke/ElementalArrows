@@ -18,221 +18,74 @@
  */
 package me.cybermaxke.elementalarrows.spout.api.component.entity;
 
-import java.lang.reflect.Method;
-import java.util.Random;
-
-import me.cybermaxke.elementalarrows.spout.api.data.ElementalData;
 import me.cybermaxke.elementalarrows.spout.api.data.PickupMode;
-import me.cybermaxke.elementalarrows.spout.api.protocol.ElementalArrowProtocol;
 
-import org.spout.api.component.entity.SceneComponent;
 import org.spout.api.entity.Entity;
-import org.spout.api.entity.Player;
-import org.spout.api.geo.cuboid.Block;
-import org.spout.api.geo.discrete.Point;
-import org.spout.api.math.Quaternion;
-import org.spout.api.math.QuaternionMath;
 import org.spout.api.math.Vector3;
-import org.spout.api.util.Parameter;
 
-import org.spout.vanilla.VanillaPlugin;
-import org.spout.vanilla.component.entity.living.Human;
-import org.spout.vanilla.component.entity.misc.EntityHead;
-import org.spout.vanilla.component.entity.misc.Health;
 import org.spout.vanilla.component.entity.substance.Substance;
 import org.spout.vanilla.component.entity.substance.projectile.Projectile;
-import org.spout.vanilla.data.GameMode;
-import org.spout.vanilla.material.block.Liquid;
 
-public class ElementalArrow extends Substance implements Projectile {
-	private Random random = new Random();
-	private Entity shooter;
+public abstract class ElementalArrow extends Substance implements Projectile {
 
 	/**
-	 * TODO: Removing this vector once the movement vector will not be resetted.
-	 * (Falling down.)
+	 * Shoots the arrow with the specific speed, and using a vector using the head/body rotation.
+	 * @param shooter
+	 * @param speed
 	 */
-	private Vector3 velocity;
-
-	@Override
-	public void onAttached() {
-		this.getOwner().getNetwork().setEntityProtocol(VanillaPlugin.VANILLA_PROTOCOL_ID, new ElementalArrowProtocol());
-		super.onAttached();
-	}
-
-	@Override
-	public void onDetached() {
-		super.onDetached();
-	}
-
-	@Override
-	public void onCollided(Point point, Entity entity) {
-		if (entity.get(Health.class) != null) {
-			//TODO: Damaging the entity.
-		}
-	}
-
-	@Override
-	public void onCollided(Point point, Block block) {
-		//TODO: Setting the arrow as inGround and allowing players to pick it up.
-	}
-
-	public void shoot(Entity shooter, float speed) {
-		this.shooter = shooter;
-
-		if (shooter instanceof Player && shooter.get(Human.class) != null) {
-			Human h = shooter.get(Human.class);
-			this.setPickupMode(h.getGameMode().equals(GameMode.CREATIVE) ? PickupMode.CREATIVE : PickupMode.NORMAL);
-		}
-
-		SceneComponent scene1 = this.getOwner().getScene();
-		SceneComponent scene2 = shooter.getScene();
-
-		Point p = scene2.getPosition();
-		Quaternion r = null;
-
-		if (shooter.get(EntityHead.class) != null) {
-			r = shooter.get(EntityHead.class).getOrientation();
-		} else {
-			r = scene2.getRotation();
-		}
-
-		float locX = p.getX();
-		float locY = p.getY();
-		float locZ = p.getZ();
-
-		float yaw = r.getYaw();
-		float pitch = r.getPitch();
-
-		locX -= Math.cos(-yaw / 180.0F * Math.PI) * 0.16F;
-		locY -= 0.1000000014901161F;
-		locZ -= Math.sin(-yaw / 180.0F * Math.PI) * 0.16F;
-
-		if (shooter.get(EntityHead.class) != null) {
-			locY += shooter.get(EntityHead.class).getHeight();
-		}
-
-		scene1.setPosition(new Point(p.getWorld(), locX, locY, locZ));
-		scene1.setRotation(QuaternionMath.rotation(pitch, yaw, 0.0F));
-
-		float motX = (float) (Math.sin(yaw / 180.0F * Math.PI) * Math.cos(pitch / 180.0F * Math.PI));
-		float motZ = (float) (Math.cos(yaw / 180.0F * Math.PI) * Math.cos(pitch / 180.0F * Math.PI));
-		float motY = (float) -Math.sin(pitch / 180.0F * Math.PI);
-
-		this.shoot(motX, motY, motZ, speed * 1.5F, 1.0F);
-	}
-
-	public void shoot(float motX, float motY, float motZ, float speed, float spread) {
-		float f = (float) Math.sqrt(motX * motX + motY * motY + motZ * motZ);
-
-		motX /= f;
-		motY /= f;
-		motZ /= f;
-
-		motX += this.random.nextGaussian() * (this.random.nextBoolean() ? -1 : 1) * 0.007499999832361937F * spread;
-		motY += this.random.nextGaussian() * (this.random.nextBoolean() ? -1 : 1) * 0.007499999832361937F * spread;
-		motZ += this.random.nextGaussian() * (this.random.nextBoolean() ? -1 : 1) * 0.007499999832361937F * spread;
-
-		motX *= speed;
-		motY *= speed;
-		motZ *= speed;
-
-		float yaw = (float) (Math.atan2(motX, motZ) * 180.0F / Math.PI);
-		float pitch = (float) (Math.atan2(motY, Math.sqrt(motX * motX + motZ * motZ)) * 180.0F / Math.PI);
-
-		SceneComponent scene = this.getOwner().getScene();
-
-		this.velocity = new Vector3(motX, motY, motZ);
-
-		scene.setMovementVelocity(this.velocity);	
-		scene.setRotation(QuaternionMath.rotation(pitch, yaw, 0.0F));
-
-		this.updateSnapshotPosition(scene);
-	}
-
-	@Override
-	public void onTick(float dt) {
-		SceneComponent scene = this.getOwner().getScene();
-
-		Point p = scene.getPosition();
-		Vector3 v = this.velocity;
-
-		if (v == null) {
-			v = scene.getMovementVelocity();
-		}
-
-		float locX = p.getX();
-		float locY = p.getY();
-		float locZ = p.getZ();
-
-		float motX = v.getX();
-		float motY = v.getY();
-		float motZ = v.getZ();
-
-		locX += motX;
-		locY += motY;
-		locZ += motZ;
-
-		float yaw = (float) (Math.atan2(motX, motZ) * 180.0F / Math.PI);
-		float pitch = (float) (Math.atan2(motY, Math.sqrt(motX * motX + motZ * motZ)) * 180.0F / Math.PI);
-
-		float f = 0.99F;
-		if (this.getOwner().getWorld().getBlock(locX, locY, locZ) instanceof Liquid) {
-			f = 0.8F;
-		}
-
-		motX *= f;
-		motY *= f;
-		motZ *= f;
-		motY -= 0.05F;
-
-		this.velocity = new Vector3(motX, motY, motZ);
-
-		scene.setMovementVelocity(this.velocity);
-		scene.setPosition(new Point(p.getWorld(), locX, locY, locZ));
-		scene.setRotation(QuaternionMath.rotation(pitch, yaw, 0.0F));
-	}
-
-	@Override
-	public Entity getShooter() {
-		return this.shooter;
-	}
-
-	@Override
-	public void setShooter(Entity shooter) {
-		this.shooter = shooter;
-	}
-
-	public PickupMode getPickupMode() {
-		return this.getDatatable().get(ElementalData.PICKUP_MODE);
-	}
-
-	public void setPickupMode(PickupMode mode) {
-		this.getDatatable().put(ElementalData.PICKUP_MODE, mode);
-	}
-
-	public boolean isCritical() {
-		return this.getDatatable().get(ElementalData.CRITICAL);
-	}
-
-	public void setCritical(boolean critical) {
-		this.getDatatable().put(ElementalData.CRITICAL, critical);
-		this.setMetadata(new Parameter<Byte>(Parameter.TYPE_BYTE, 16, (byte) (critical ? 1 : 0)));
-	}
+	public abstract void shoot(Entity shooter, float speed);
 
 	/**
-	 * Directly updating the position.
-	 * @param scene
+	 * Shoots the arrow with the specific speed, spread and motion vector.
+	 * @param vector
+	 * @param speed
+	 * @param spread
 	 */
-	protected void updateSnapshotPosition(SceneComponent scene) {
-		try {
-			Class<?> clazz = scene.getClass();
+	public abstract void shoot(Vector3 vector, float speed, float spread);
 
-			Method method = clazz.getDeclaredMethod("copySnapshot", new Class[] {});
-			method.setAccessible(true);
-			method.invoke(scene, new Object[] {});
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	/**
+	 * Shoots the arrow with the specific speed, spread and motion.
+	 * @param motX
+	 * @param motY
+	 * @param motZ
+	 * @param speed
+	 * @param spread
+	 */
+	public abstract void shoot(float motX, float motY, float motZ, float speed, float spread);
+
+	/**
+	 * Gets the shooter of the arrow.
+	 * @return shooter
+	 */
+	public abstract Entity getShooter();
+
+	/**
+	 * Sets the shooter of the arrow.
+	 * @param shooter
+	 */
+	public abstract void setShooter(Entity shooter);
+
+	/**
+	 * Gets the pickup mode of the arrow.
+	 * @return pickupmode
+	 */
+	public abstract PickupMode getPickupMode();
+
+	/**
+	 * Sets the pickup mode of the arrow.
+	 * @param pickupmode
+	 */
+	public abstract void setPickupMode(PickupMode mode);
+
+	/**
+	 * Gets if the arrow was a critical shot.
+	 * @return critical
+	 */
+	public abstract boolean isCritical();
+
+	/**
+	 * Sets if the arrow was a critical shot.
+	 * @param critical
+	 */
+	public abstract void setCritical(boolean critical);
 }

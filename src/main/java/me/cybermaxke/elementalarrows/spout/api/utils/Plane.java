@@ -16,21 +16,10 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.spout.api.component.player;
+package me.cybermaxke.elementalarrows.spout.api.utils;
 
-import org.spout.api.component.entity.EntityComponent;
-
-public abstract class ElementalPlayer extends EntityComponent {
-
-	/**
-	 * Gets the arrows in the players body.
-	 * @return arrows
-	 */
-	public abstract byte getArrowsInBody();
-
-	/**
-	 * Sets the arrows in the players body.
-	 * @param arrows
-	 */
-	public abstract void setArrowsInBody(byte amount);
+public enum Plane {
+	XY,
+	XZ,
+	YZ;
 }

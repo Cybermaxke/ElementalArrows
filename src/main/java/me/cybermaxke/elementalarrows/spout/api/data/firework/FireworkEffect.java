@@ -22,10 +22,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.spout.nbt.ByteTag;
-import org.spout.nbt.CompoundMap;
-import org.spout.nbt.IntArrayTag;
-
 public class FireworkEffect {
 	private boolean flicker = false;
 	private boolean trail = false;
@@ -39,87 +35,83 @@ public class FireworkEffect {
 		this.type = type;
 	}
 
+	/**
+	 * Gets the type of this effect.
+	 * @return type
+	 */
 	public FireworkType getType() {
 		return this.type;
 	}
 
+	/**
+	 * Sets the type of this effect.
+	 * @param type
+	 */
 	public void setType(FireworkType type) {
 		this.type = type;
 	}
 
+	/**
+	 * Gets if this effect has a flicker effect.
+	 * @return flicker
+	 */
 	public boolean hasFlicker() {
 		return this.flicker;
 	}
 
+	/**
+	 * Sets if this effect has a flicker effect.
+	 * @param flicker
+	 */
 	public void setFlicker(boolean flicker) {
 		this.flicker = flicker;
 	}
 
+	/**
+	 * Gets if this effect has a trail effect.
+	 * @return trail
+	 */
 	public boolean hasTrail() {
 		return this.trail;
 	}
 
+	/**
+	 * Sets if this effect has a trail effect.
+	 * @param trail
+	 */
 	public void setTrail(boolean trail) {
 		this.trail = trail;
 	}
 
+	/**
+	 * Gets the colors of this effect.
+	 * @return colors
+	 */
 	public List<Color> getColors() {
 		return this.colors;
 	}
 
+	/**
+	 * Adds a color to this effect.
+	 * @param color
+	 */
 	public void addColor(Color color) {
 		this.colors.add(color);
 	}
 
+	/**
+	 * Gets the fade colors of this effect.
+	 * @return fadecolors
+	 */
 	public List<Color> getFadeColors() {
 		return this.fadeColors;
 	}
 
+	/**
+	 * Adds a fade color to this effect.
+	 * @param color
+	 */
 	public void addFadeColor(Color color) {
 		this.fadeColors.add(color);
-	}
-
-	public CompoundMap getTag() {
-		CompoundMap map = new CompoundMap();
-
-		int[] colors = new int[this.colors.size()];
-		for (int i = 0; i < colors.length; i++) {
-			colors[i] = this.colors.get(i).getRGB();
-		}
-
-		int[] fadeColors = new int[this.fadeColors.size()];
-		for (int i = 0; i < fadeColors.length; i++) {
-			fadeColors[i] = this.fadeColors.get(i).getRGB();
-		}
-
-		map.put(new ByteTag("Flicker", (byte) (this.flicker ? 1 : 0)));
-		map.put(new ByteTag("Trail", (byte) (this.trail ? 1 : 0)));
-		map.put(new ByteTag("Type", (byte) (this.getType().getId())));
-		map.put(new IntArrayTag("Colors", colors));
-		map.put(new IntArrayTag("FadeColors", fadeColors));
-
-		return map;
-	}
-
-	public static FireworkEffect getEffect(CompoundMap map) {
-		boolean flicker = (Byte) map.get("Flicker").getValue() == 1 ? true : false;
-		boolean trail = (Byte) map.get("Trail").getValue() == 1 ? true : false;
-		FireworkType type = FireworkType.getType((Byte) map.get("Type").getValue());
-		int[] colors = (int[]) map.get("Colors").getValue();
-		int[] fadeColors = (int[]) map.get("FadeColors").getValue();
-
-		FireworkEffect firework = new FireworkEffect(type);
-		firework.setFlicker(flicker);
-		firework.setFlicker(trail);
-
-		for (int color : colors) {
-			firework.addColor(new Color(color));
-		}
-
-		for (int color : fadeColors) {
-			firework.addFadeColor(new Color(color));
-		}
-
-		return firework;
 	}
 }

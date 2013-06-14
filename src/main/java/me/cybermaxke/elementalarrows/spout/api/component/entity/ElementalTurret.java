@@ -18,27 +18,8 @@
  */
 package me.cybermaxke.elementalarrows.spout.api.component.entity;
 
-import org.spout.vanilla.VanillaPlugin;
 import org.spout.vanilla.component.entity.substance.Substance;
-import org.spout.vanilla.protocol.entity.object.ObjectEntityProtocol;
-import org.spout.vanilla.protocol.entity.object.ObjectType;
 
-public class ElementalTurret extends Substance {
+public abstract class ElementalTurret extends Substance {
 
-	@Override
-	public void onAttached() {
-		this.getOwner().getNetwork().setEntityProtocol(VanillaPlugin.VANILLA_PROTOCOL_ID, new ObjectEntityProtocol(ObjectType.ENDER_CRYSTAL));
-		super.onAttached();
-	}
-
-	@Override
-	public void onDetached() {
-		super.onDetached();
-	}
-
-	@Override
-	public void onTick(float dt) {
-		super.onTick(dt);
-		//TODO: Targetting and shooting arrows.
-	}
 }

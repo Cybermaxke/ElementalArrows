@@ -18,27 +18,19 @@
  */
 package me.cybermaxke.elementalarrows.spout.api.component.entity;
 
-
 import org.spout.vanilla.component.entity.living.hostile.Skeleton;
 
-public class ElementalSkeleton extends Skeleton {
-	private Class<? extends ElementalArrow> arrow;
+public abstract class ElementalSkeleton extends Skeleton {
 
-	@Override
-	public void onAttached() {
-		super.onAttached();
-	}
+	/**
+	 * Gets the arrow the skeleton is using.
+	 * @return arrow
+	 */
+	public abstract Class<? extends ElementalArrow> getArrow();
 
-	@Override
-	public void onDetached() {
-		super.onDetached();
-	}
-
-	public Class<? extends ElementalArrow> getArrow() {
-		return this.arrow;
-	}
-
-	public void setArrow(Class<? extends ElementalArrow> arrow) {
-		this.arrow = arrow;
-	}
+	/**
+	 * Sets the arrow the skeleton is using.
+	 * @param arrow
+	 */
+	public abstract void setArrow(Class<? extends ElementalArrow> arrow);
 }
