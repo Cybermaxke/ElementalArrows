@@ -16,24 +16,36 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.api;
+package me.cybermaxke.elementalarrows.spout.api.data.firework;
 
-public class ElementalArrows {
-	public static ElementalArrowsAPI instance;
+import java.util.HashMap;
+import java.util.Map;
 
-	/**
-	 * Gets the api instance, 'null' if it is disabled.
-	 * @return api
-	 */
-	public static ElementalArrowsAPI getAPI() {
-		return instance;
+public enum FireworkType {
+	BALL(0),
+	BALL_LARGE(1),
+	STAR(2),
+	CREEPER(3),
+	BURST(4);
+
+	private static Map<Integer, FireworkType> ids = new HashMap<Integer, FireworkType>();
+
+	private int id;
+	private FireworkType(int id) {
+		this.id = id;
 	}
 
-	/**
-	 * Sets the api instance.
-	 * @param api
-	 */
-	public static void setAPI(ElementalArrowsAPI api) {
-		instance = api;
+	public int getId() {
+		return this.id;
+	}
+
+	public static FireworkType getType(int id) {
+		return ids.get(id);
+	}
+
+	static {
+		for (FireworkType type : FireworkType.values()) {
+			ids.put(type.getId(), type);
+		}
 	}
 }

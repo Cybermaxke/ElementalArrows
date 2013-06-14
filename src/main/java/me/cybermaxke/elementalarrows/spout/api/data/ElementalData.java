@@ -18,8 +18,10 @@
  */
 package me.cybermaxke.elementalarrows.spout.api.data;
 
+import org.spout.api.inventory.ItemStack;
 import org.spout.api.map.DefaultedKey;
 import org.spout.api.map.DefaultedKeyImpl;
+import org.spout.vanilla.material.VanillaMaterials;
 
 public class ElementalData {
 	/**
@@ -32,4 +34,10 @@ public class ElementalData {
 	 * Data keys for humans.
 	 */
 	public static final DefaultedKey<Byte> ARROWS_IN_BODY = new DefaultedKeyImpl<Byte>("arrows_in_body", (byte) 0);
+
+	/**
+	 * Data keys for fireworks.
+	 */
+	public static final DefaultedKey<ItemStack> FIREWORK_EFFECT = new DefaultedKeyImpl<ItemStack>("firework_effect", new ItemStack(VanillaMaterials.FIREWORKS, 1));
+	public static final DefaultedKey<Integer> FIREWORK_POWER = new DefaultedKeyImpl<Integer>("firework_power", 1);
 }

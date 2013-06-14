@@ -44,9 +44,10 @@ public class ElementalPlayerListener implements Listener {
 		p.add(ElementalPlayer.class);
 
 		/**
-		 * Adding the test bow to the players inventory.
+		 * Adding the test bow ad fireworks to the players inventory.
 		 */
 		PlayerInventory inv = p.add(PlayerInventory.class);
 		inv.add(new ItemStack(ElementalArrowsPlugin.BOW, 1));
+		inv.add(new ItemStack(ElementalArrowsPlugin.FIREWORKS, 1));
 	}
 }

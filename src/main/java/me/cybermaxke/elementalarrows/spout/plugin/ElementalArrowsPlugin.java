@@ -20,26 +20,33 @@ package me.cybermaxke.elementalarrows.spout.plugin;
 
 import me.cybermaxke.elementalarrows.spout.api.ElementalArrows;
 import me.cybermaxke.elementalarrows.spout.api.ElementalArrowsAPI;
+import me.cybermaxke.elementalarrows.spout.api.component.entity.ElementalFireworks;
 import me.cybermaxke.elementalarrows.spout.api.data.ParticleEffect;
+import me.cybermaxke.elementalarrows.spout.api.data.firework.FireworkEffect;
 import me.cybermaxke.elementalarrows.spout.plugin.listener.ElementalPlayerListener;
 import me.cybermaxke.elementalarrows.spout.plugin.material.ElementalBow;
+import me.cybermaxke.elementalarrows.spout.plugin.material.ElementalFirework;
 import me.cybermaxke.elementalarrows.spout.plugin.material.ElementalMaterialUtils;
 
 import org.spout.api.UnsafeMethod;
 import org.spout.api.entity.Player;
+import org.spout.api.geo.LoadOption;
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.math.Vector3;
 import org.spout.api.plugin.Plugin;
 import org.spout.api.protocol.reposition.RepositionManager;
 
 import org.spout.vanilla.material.VanillaMaterials;
+import org.spout.vanilla.protocol.msg.entity.EntityStatusMessage;
 import org.spout.vanilla.protocol.msg.world.ParticleEffectMessage;
 import org.spout.vanilla.protocol.reposition.VanillaRepositionManager;
 
+@SuppressWarnings("unchecked")
 public class ElementalArrowsPlugin extends Plugin implements ElementalArrowsAPI {
 	private RepositionManager repositionManager;
 
 	public static ElementalBow BOW;
+	public static ElementalFirework FIREWORKS;
 
 	@Override
 	@UnsafeMethod
@@ -47,17 +54,28 @@ public class ElementalArrowsPlugin extends Plugin implements ElementalArrowsAPI 
 		ElementalArrows.setAPI(this);
 		ElementalMaterialUtils.setDataMask(VanillaMaterials.ARROW, (short) 0x7F);
 		ElementalMaterialUtils.setDataMask(VanillaMaterials.BOW, (short) 0x7F);
+		ElementalMaterialUtils.setDataMask(VanillaMaterials.FIREWORKS, (short) 0x7F);
 
 		this.repositionManager = new VanillaRepositionManager();
 		new ElementalPlayerListener(this);
 
 		BOW = new ElementalBow("Elemental Bow");
+		FIREWORKS = new ElementalFirework("Elemental Fireworks");
 	}
 
 	@Override
 	@UnsafeMethod
 	public void onDisable() {
 
+	}
+
+	@Override
+	public void playEffect(FireworkEffect effect, Point position) {
+		ElementalFireworks fw = position.getWorld().createAndSpawnEntity(position, LoadOption.NO_LOAD, ElementalFireworks.class).add(ElementalFireworks.class);
+		for (Player player : fw.getOwner().getWorld().getPlayers()) {
+			player.getSession().send(false, new EntityStatusMessage(fw.getOwner().getId(), (byte) 17));
+		}
+		fw.getOwner().remove();
 	}
 
 	@Override

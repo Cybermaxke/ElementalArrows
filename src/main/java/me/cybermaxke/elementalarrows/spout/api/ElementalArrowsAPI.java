@@ -19,12 +19,20 @@
 package me.cybermaxke.elementalarrows.spout.api;
 
 import me.cybermaxke.elementalarrows.spout.api.data.ParticleEffect;
+import me.cybermaxke.elementalarrows.spout.api.data.firework.FireworkEffect;
 
 import org.spout.api.entity.Player;
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.math.Vector3;
 
 public interface ElementalArrowsAPI {
+
+	/**
+	 * Plays a firework effect at the position.
+	 * @param effect
+	 * @param position
+	 */
+	public void playEffect(FireworkEffect effect, Point position);
 
 	/**
 	 * Plays a particle effect at the position.
