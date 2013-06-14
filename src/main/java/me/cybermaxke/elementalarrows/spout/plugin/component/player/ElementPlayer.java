@@ -30,10 +30,12 @@ import org.spout.vanilla.component.entity.living.Human;
 
 public class ElementPlayer extends ElementalPlayer {
 
+	@Override
 	public byte getArrowsInBody() {
 		return this.getDatatable().get(ElementalData.ARROWS_IN_BODY);
 	}
 
+	@Override
 	public void setArrowsInBody(byte amount) {
 		this.getDatatable().put(ElementalData.ARROWS_IN_BODY, amount);
 

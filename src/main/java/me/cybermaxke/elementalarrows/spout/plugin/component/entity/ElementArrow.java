@@ -122,7 +122,6 @@ public class ElementArrow extends ElementalArrow {
 		this.shoot(motX, motY, motZ, speed * 1.5F, 1.0F);
 	}
 
-
 	@Override
 	public void shoot(Vector3 vector, float speed, float spread) {
 		this.shoot(vector.getX(), vector.getY(), vector.getZ(), speed, spread);

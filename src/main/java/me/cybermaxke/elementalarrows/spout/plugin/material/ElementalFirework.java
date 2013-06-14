@@ -20,10 +20,10 @@ package me.cybermaxke.elementalarrows.spout.plugin.material;
 
 import java.awt.Color;
 
-import me.cybermaxke.elementalarrows.spout.api.component.entity.ElementalFireworks;
 import me.cybermaxke.elementalarrows.spout.api.data.firework.FireworkEffect;
 import me.cybermaxke.elementalarrows.spout.api.data.firework.FireworkType;
 import me.cybermaxke.elementalarrows.spout.api.material.ElementalItemMaterial;
+import me.cybermaxke.elementalarrows.spout.plugin.component.entity.ElementFireworks;
 
 import org.spout.api.entity.Entity;
 import org.spout.api.event.player.Action;
@@ -49,7 +49,7 @@ public class ElementalFirework extends ElementalItemMaterial {
 		super.onInteract(entity, block, type, clickedface);
 		if (type.equals(Action.RIGHT_CLICK)) {
 			Point position = block.getPosition().add(0.0F, 1.0F, 0.0F);
-			ElementalFireworks fw = block.getWorld().createAndSpawnEntity(position, LoadOption.LOAD_ONLY, ElementalFireworks.class).add(ElementalFireworks.class);
+			ElementFireworks fw = block.getWorld().createAndSpawnEntity(position, LoadOption.LOAD_ONLY, ElementFireworks.class).add(ElementFireworks.class);
 
 			FireworkEffect fwe = new FireworkEffect(FireworkType.BALL);
 			fwe.addColor(Color.BLUE);

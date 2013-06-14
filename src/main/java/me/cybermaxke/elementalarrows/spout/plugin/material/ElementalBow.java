@@ -18,8 +18,8 @@
  */
 package me.cybermaxke.elementalarrows.spout.plugin.material;
 
-import me.cybermaxke.elementalarrows.spout.api.component.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.spout.api.material.ElementalItemMaterial;
+import me.cybermaxke.elementalarrows.spout.plugin.component.entity.ElementArrow;
 
 import org.spout.api.entity.Entity;
 import org.spout.api.event.player.Action;
@@ -64,7 +64,7 @@ public class ElementalBow extends ElementalItemMaterial {
 	}
 
 	protected void shootArrow(Entity entity, float speed) {
-		ElementalArrow arrow = entity.getWorld().createAndSpawnEntity(entity.getScene().getPosition(), LoadOption.LOAD_ONLY, ElementalArrow.class).add(ElementalArrow.class);
+		ElementArrow arrow = entity.getWorld().createAndSpawnEntity(entity.getScene().getPosition(), LoadOption.LOAD_ONLY, ElementArrow.class).add(ElementArrow.class);
 		arrow.shoot(entity, speed);
 		arrow.setCritical(true);
 	}
