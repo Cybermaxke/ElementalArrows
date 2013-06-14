@@ -18,22 +18,22 @@
  */
 package me.cybermaxke.elementalarrows.api;
 
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
-
 public class ElementalArrows {
-	public static final String PLUGIN_NAME = "ElementalArrows";
+	public static ElementalArrowsAPI instance;
 
 	/**
-	 * Gets the api on a save way.
-	 * @return api
+	 * Gets the api instance, 'null' if it is disabled.
+	 * @return
 	 */
 	public static ElementalArrowsAPI getAPI() {
-		if (!Bukkit.getPluginManager().isPluginEnabled(PLUGIN_NAME)) {
-			return null;
-		}
+		return instance;
+	}
 
-		Plugin p = Bukkit.getPluginManager().getPlugin(PLUGIN_NAME);
-		return (ElementalArrowsAPI) (p instanceof ElementalArrowsAPI ? p : null);
+	/**
+	 * Sets the api instance.
+	 * @param api
+	 */
+	public static void setAPI(ElementalArrowsAPI api) {
+		instance = api;
 	}
 }

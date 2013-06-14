@@ -106,25 +106,45 @@ public interface ElementalArrowsAPI {
 
 	/**
 	 * Plays a particle effect at the location.
-	 * @param location
 	 * @param effect
-	 * @param offsetX
-	 * @param offsetY
-	 * @param offsetZ
+	 * @param location
+	 * @param offset
+	 * @param velocity
+	 * @param count
+	 */
+	public void playEffect(ParticleEffect effect, Location location, Vector offset, float velocity, int count);
+
+	/**
+	 * Plays a particle effect at the location.
+	 * @param effect
+	 * @param location
+	 * @param offset
+	 * @param velocity
 	 * @param count
 	 * @param data
 	 */
-	public void playEffect(Location location, ParticleEffect effect,  float offsetX, float offsetY, float offsetZ, int count, Object... data);
+	public void playEffect(ParticleEffect effect, Location location, Vector offset, float velocity, int count, Object... data);
 
 	/**
 	 * Plays a particle effect at the location for a specific player.
-	 * @param location
+	 * @param player
 	 * @param effect
-	 * @param offsetX
-	 * @param offsetY
-	 * @param offsetZ
+	 * @param location
+	 * @param offset
+	 * @param velocity
+	 * @param count
+	 */
+	public void playEffect(Player player, ParticleEffect effect, Location location, Vector offset, float velocity, int count);
+
+	/**
+	 * Plays a particle effect at the location for a specific player.
+	 * @param player
+	 * @param effect
+	 * @param location
+	 * @param offset
+	 * @param velocity
 	 * @param count
 	 * @param data
 	 */
-	public void playEffect(Player player, Location location, ParticleEffect effect,  float offsetX, float offsetY, float offsetZ, int count, Object... data);
+	public void playEffect(Player player, ParticleEffect effect, Location location, Vector offset, float velocity, int count, Object... data);
 }

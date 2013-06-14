@@ -172,7 +172,7 @@ public class EntityElementalTurret extends EntityEnderCrystal {
 				}
 
 				this.world.a((EntityHuman) null, 1014, (int) this.locX, (int) this.locY, (int) this.locZ, 0);
-				api.playEffect(this.getBukkitEntity().getLocation().add(0, 0.9D, 0), ParticleEffect.WITCH_MAGIC, 0F, 0F, 0F, 70, 0.1F);
+				api.playEffect(ParticleEffect.WITCH_MAGIC, this.getBukkitEntity().getLocation().add(0, 0.9D, 0), new Vector(), 0.1F, 70);
 			}
 		}
 	}

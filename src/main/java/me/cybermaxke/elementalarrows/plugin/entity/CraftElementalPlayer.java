@@ -19,6 +19,7 @@
 package me.cybermaxke.elementalarrows.plugin.entity;
 
 import java.lang.reflect.Field;
+import java.util.List;
 import java.util.Random;
 
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
@@ -31,10 +32,16 @@ import me.cybermaxke.elementalarrows.plugin.inventory.nms.InventoryTurret;
 import me.cybermaxke.elementalarrows.plugin.player.ElementalPlayerConnection;
 
 import net.minecraft.server.v1_5_R3.Container;
+import net.minecraft.server.v1_5_R3.DedicatedServer;
 import net.minecraft.server.v1_5_R3.Entity;
 import net.minecraft.server.v1_5_R3.EntityPlayer;
+import net.minecraft.server.v1_5_R3.INetworkManager;
+import net.minecraft.server.v1_5_R3.MinecraftServer;
 import net.minecraft.server.v1_5_R3.Packet100OpenWindow;
+import net.minecraft.server.v1_5_R3.PlayerConnection;
+import net.minecraft.server.v1_5_R3.ServerConnection;
 
+import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_5_R3.event.CraftEventFactory;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -42,6 +49,7 @@ import org.bukkit.inventory.InventoryView;
 
 import org.getspout.spout.player.SpoutCraftPlayer;
 
+@SuppressWarnings("unchecked")
 public class CraftElementalPlayer extends SpoutCraftPlayer implements ElementalPlayer {
 	private Random random = new Random();
 
@@ -97,7 +105,30 @@ public class CraftElementalPlayer extends SpoutCraftPlayer implements ElementalP
 	@Override
 	public ElementalPlayerConnection getPlayerConnection() {
 		if (!(this.getHandle().playerConnection instanceof ElementalPlayerConnection)) {
-			this.getHandle().playerConnection = new ElementalPlayerConnection(this.getHandle());
+			PlayerConnection oldConnection = this.getHandle().playerConnection;
+			PlayerConnection newConnection = new ElementalPlayerConnection(this.getHandle());
+
+			Location loc = this.getLocation();
+			newConnection.a(loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
+
+			INetworkManager nm = oldConnection.networkManager;
+			SpoutCraftPlayer.setPlayerConnection(nm, newConnection);
+
+			this.getHandle().playerConnection = newConnection;
+
+			try {
+				Field hl = ServerConnection.class.getDeclaredField("c");
+				hl.setAccessible(true);
+
+				ServerConnection sc = ((DedicatedServer) MinecraftServer.getServer()).ae();
+				List<PlayerConnection> rhl = (List<PlayerConnection>) hl.get(sc);
+				rhl.remove(oldConnection);
+				rhl.add(newConnection);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			oldConnection.disconnected = true;
 		}
 		return (ElementalPlayerConnection) this.getHandle().playerConnection;
 	}
