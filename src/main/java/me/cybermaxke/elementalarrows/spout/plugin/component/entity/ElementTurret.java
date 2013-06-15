@@ -19,6 +19,8 @@
 package me.cybermaxke.elementalarrows.spout.plugin.component.entity;
 
 import me.cybermaxke.elementalarrows.spout.api.component.entity.ElementalTurret;
+import me.cybermaxke.elementalarrows.spout.api.inventory.TurretInventory;
+import me.cybermaxke.elementalarrows.spout.plugin.data.ElementalData;
 
 import org.spout.vanilla.VanillaPlugin;
 import org.spout.vanilla.protocol.entity.object.ObjectEntityProtocol;
@@ -41,5 +43,10 @@ public class ElementTurret extends ElementalTurret {
 	public void onTick(float dt) {
 		super.onTick(dt);
 		//TODO: Targetting and shooting arrows.
+	}
+
+	@Override
+	public TurretInventory getInventory() {
+		return this.getDatatable().get(ElementalData.TURRET_INVENTORY);
 	}
 }

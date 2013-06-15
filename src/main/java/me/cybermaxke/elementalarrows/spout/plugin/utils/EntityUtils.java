@@ -21,8 +21,12 @@ package me.cybermaxke.elementalarrows.spout.plugin.utils;
 import java.lang.reflect.Method;
 
 import org.spout.api.component.entity.SceneComponent;
+import org.spout.api.util.Parameter;
+
+import org.spout.vanilla.component.entity.VanillaEntityComponent;
 
 public class EntityUtils {
+	private static Method SET_METADATA;
 
 	private EntityUtils() {
 
@@ -41,6 +45,24 @@ public class EntityUtils {
 			method.invoke(scene, new Object[] {});
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	public static void setMetadata(VanillaEntityComponent entity, Parameter<?>... parameters) {
+		try {
+			SET_METADATA.invoke(entity, new Object[] { parameters });
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	static {
+		for (Method m : VanillaEntityComponent.class.getDeclaredMethods()) {
+			m.setAccessible(true);
+
+			if (m.getName().equals("setMetadata")) {
+				SET_METADATA = m;
+			}
 		}
 	}
 }

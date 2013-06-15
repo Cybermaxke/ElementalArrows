@@ -19,6 +19,7 @@
 package me.cybermaxke.elementalarrows.spout.plugin.data;
 
 import me.cybermaxke.elementalarrows.spout.api.data.PickupMode;
+import me.cybermaxke.elementalarrows.spout.api.inventory.TurretInventory;
 
 import org.spout.api.inventory.ItemStack;
 import org.spout.api.map.DefaultedKey;
@@ -26,6 +27,7 @@ import org.spout.api.map.DefaultedKeyImpl;
 import org.spout.vanilla.material.VanillaMaterials;
 
 public class ElementalData {
+
 	/**
 	 * Data keys for the arrows.
 	 */
@@ -42,4 +44,9 @@ public class ElementalData {
 	 */
 	public static final DefaultedKey<ItemStack> FIREWORK_EFFECT = new DefaultedKeyImpl<ItemStack>("firework_effect", new ItemStack(VanillaMaterials.FIREWORKS, 1));
 	public static final DefaultedKey<Integer> FIREWORK_POWER = new DefaultedKeyImpl<Integer>("firework_power", 1);
+
+	/**
+	 * Data keys for turrets.
+	 */
+	public static final DefaultedKey<TurretInventory> TURRET_INVENTORY = new DefaultedKeyImpl<TurretInventory>("turret_inventory", new TurretInventory());
 }
