@@ -30,6 +30,7 @@ import me.cybermaxke.elementalarrows.spout.plugin.protocol.ElementalFireworkProt
 import me.cybermaxke.elementalarrows.spout.plugin.utils.EntityUtils;
 import me.cybermaxke.elementalarrows.spout.plugin.utils.FireworkUtils;
 
+import org.spout.api.collision.BoundingBox;
 import org.spout.api.component.entity.SceneComponent;
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.inventory.ItemStack;
@@ -65,6 +66,7 @@ public class ElementFireworks extends ElementalFireworks {
 
 		SceneComponent scene = this.getOwner().getScene();
 		scene.setMovementVelocity(new Vector3(motX, motY, motZ));
+		scene.activate(new BoundingBox(0.25F, 0.25F, 0.25F), scene.getMass());
 
 		EntityUtils.updateSnapshotPosition(scene);
 	}

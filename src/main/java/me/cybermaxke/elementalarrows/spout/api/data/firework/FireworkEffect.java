@@ -92,6 +92,14 @@ public class FireworkEffect {
 	}
 
 	/**
+	 * Adds the colors to this effect.
+	 * @param color
+	 */
+	public void addColors(List<Color> colors) {
+		this.colors.addAll(colors);
+	}
+
+	/**
 	 * Adds a color to this effect.
 	 * @param color
 	 */
@@ -105,6 +113,14 @@ public class FireworkEffect {
 	 */
 	public List<Color> getFadeColors() {
 		return this.fadeColors;
+	}
+
+	/**
+	 * Adds the fade colors to this effect.
+	 * @param color
+	 */
+	public void addFadeColors(List<Color> colors) {
+		this.fadeColors.addAll(colors);
 	}
 
 	/**

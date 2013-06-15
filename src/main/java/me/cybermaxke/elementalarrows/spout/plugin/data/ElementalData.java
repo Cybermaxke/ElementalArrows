@@ -33,6 +33,8 @@ public class ElementalData {
 	 */
 	public static final DefaultedKey<Boolean> CRITICAL = new DefaultedKeyImpl<Boolean>("critical", false);
 	public static final DefaultedKey<PickupMode> PICKUP_MODE = new DefaultedKeyImpl<PickupMode>("pickup_mode", PickupMode.UNABLE);
+	public static final DefaultedKey<Integer> ARROW_DAMAGE = new DefaultedKeyImpl<Integer>("arrow_damage", 2);
+	public static final DefaultedKey<Integer> FIRE_TICKS = new DefaultedKeyImpl<Integer>("fire_ticks", 0);
 
 	/**
 	 * Data keys for humans.

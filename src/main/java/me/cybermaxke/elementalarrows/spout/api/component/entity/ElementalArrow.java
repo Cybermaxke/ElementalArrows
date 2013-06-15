@@ -88,4 +88,34 @@ public abstract class ElementalArrow extends Substance implements Projectile {
 	 * @param critical
 	 */
 	public abstract void setCritical(boolean critical);
+
+	/**
+	 * Gets the damage of the arrow.
+	 * @return damage
+	 */
+	public abstract int getDamage();
+
+	/**
+	 * Sets the damage of the arrow.
+	 * @param damage
+	 */
+	public abstract void setDamage(int damage);
+
+	/**
+	 * Gets if the arrow is on fire.
+	 * @return fire
+	 */
+	public abstract boolean isOnFire();
+
+	/**
+	 * Gets the fire ticks of the arrow.
+	 * @return ticks
+	 */
+	public abstract int getFireTicks();
+
+	/**
+	 * Sets the fire ticks of the arrow.
+	 * @param ticks
+	 */
+	public abstract void setFireTicks(int ticks);
 }

@@ -30,6 +30,10 @@ import org.spout.vanilla.protocol.entity.object.ObjectType;
 
 public class ElementalArrowProtocol extends ObjectEntityProtocol {
 	/**
+	 * The MC metadata index to determine if the arrow is on fire.
+	 */
+	public final static int FIRE_INDEX = 16;
+	/**
 	 * The MC metadata index to determine if the arrow has the critical effect.
 	 */
 	public final static int CRITICAL_INDEX = 16;
@@ -41,6 +45,7 @@ public class ElementalArrowProtocol extends ObjectEntityProtocol {
 	@Override
 	public List<Parameter<?>> getSpawnParameters(Entity entity) {
 		List<Parameter<?>> params = super.getSpawnParameters(entity);
+		params.add(new Parameter<Byte>(Parameter.TYPE_BYTE, FIRE_INDEX, (byte) (entity.add(ElementArrow.class).isOnFire() ? 1 : 0)));
 		params.add(new Parameter<Byte>(Parameter.TYPE_BYTE, CRITICAL_INDEX, (byte) (entity.add(ElementArrow.class).isCritical() ? 1 : 0)));
 		return params;
 	}

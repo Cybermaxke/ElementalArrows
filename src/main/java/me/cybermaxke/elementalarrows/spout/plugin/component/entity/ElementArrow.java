@@ -26,11 +26,13 @@ import me.cybermaxke.elementalarrows.spout.plugin.data.ElementalData;
 import me.cybermaxke.elementalarrows.spout.plugin.protocol.ElementalArrowProtocol;
 import me.cybermaxke.elementalarrows.spout.plugin.utils.EntityUtils;
 
+import org.spout.api.collision.BoundingBox;
 import org.spout.api.component.entity.SceneComponent;
 import org.spout.api.entity.Entity;
 import org.spout.api.entity.Player;
 import org.spout.api.geo.cuboid.Block;
 import org.spout.api.geo.discrete.Point;
+import org.spout.api.material.BlockMaterial;
 import org.spout.api.math.Quaternion;
 import org.spout.api.math.QuaternionMath;
 import org.spout.api.math.Vector3;
@@ -38,10 +40,16 @@ import org.spout.api.util.Parameter;
 
 import org.spout.vanilla.VanillaPlugin;
 import org.spout.vanilla.component.entity.living.Human;
+import org.spout.vanilla.component.entity.misc.Burn;
 import org.spout.vanilla.component.entity.misc.EntityHead;
 import org.spout.vanilla.component.entity.misc.Health;
 import org.spout.vanilla.data.GameMode;
+import org.spout.vanilla.event.cause.DamageCause.DamageType;
+import org.spout.vanilla.event.cause.EntityDamageCause;
 import org.spout.vanilla.material.block.Liquid;
+import org.spout.vanilla.material.block.liquid.Lava;
+import org.spout.vanilla.material.block.liquid.Water;
+import org.spout.vanilla.material.block.misc.Fire;
 
 public class ElementArrow extends ElementalArrow {
 	private Random random = new Random();
@@ -51,6 +59,11 @@ public class ElementArrow extends ElementalArrow {
 	public void onAttached() {
 		this.getOwner().getNetwork().setEntityProtocol(VanillaPlugin.VANILLA_PROTOCOL_ID, new ElementalArrowProtocol());
 		super.onAttached();
+
+		SceneComponent scene = this.getOwner().getScene();
+		scene.activate(new BoundingBox(0.5F, 0.5F, 0.5F), scene.getMass());
+
+		EntityUtils.updateSnapshotPosition(scene);
 	}
 
 	@Override
@@ -61,13 +74,32 @@ public class ElementArrow extends ElementalArrow {
 	@Override
 	public void onCollided(Point point, Entity entity) {
 		if (entity.get(Health.class) != null) {
-			//TODO: Damaging the entity.
+			Vector3 v = this.getOwner().getScene().getMovementVelocity();
+
+			float motX = v.getX();
+			float motY = v.getY();
+			float motZ = v.getZ();
+
+			float damage = (float) (this.getDamage() * Math.sqrt(motX * motX + motY * motY + motZ * motZ));
+			if (this.isCritical()) {
+				damage += this.random.nextInt(Math.round(damage) / 2 + 2);
+			}
+
+			entity.get(Health.class).damage(Math.round(damage), new EntityDamageCause(this.getOwner(), DamageType.PROJECTILE));
+		}
+		if (entity.get(Burn.class) != null) {
+			entity.get(Burn.class).setOnFire(this.getFireTicks(), true);
 		}
 	}
 
 	@Override
 	public void onCollided(Point point, Block block) {
 		//TODO: Setting the arrow as inGround and allowing players to pick it up.
+
+		SceneComponent scene = this.getOwner().getScene();
+		scene.setMovementVelocity(Vector3.ZERO);
+
+		EntityUtils.updateSnapshotPosition(scene);
 	}
 
 	@Override
@@ -177,7 +209,9 @@ public class ElementArrow extends ElementalArrow {
 		float pitch = (float) (Math.atan2(motY, Math.sqrt(motX * motX + motZ * motZ)) * 180.0F / Math.PI);
 
 		float f = 0.99F;
-		if (this.getOwner().getWorld().getBlock(locX, locY, locZ) instanceof Liquid) {
+
+		BlockMaterial block = this.getOwner().getWorld().getBlock(locX, locY, locZ).getMaterial();
+		if (block instanceof Liquid) {
 			f = 0.8F;
 		}
 
@@ -189,6 +223,16 @@ public class ElementArrow extends ElementalArrow {
 		scene.setMovementVelocity(new Vector3(motX, motY, motZ));
 		scene.setPosition(new Point(p.getWorld(), locX, locY, locZ));
 		scene.setRotation(QuaternionMath.rotation(pitch, yaw, 0.0F));
+
+		if (this.isOnFire()) {
+			this.setFireTicks(this.getFireTicks() - 1);
+		}
+
+		if (block instanceof Lava || block instanceof Fire) {
+			this.setFireTicks(this.getFireTicks() + 100);
+		} else if (block instanceof Water) {
+			this.setFireTicks(0);
+		}
 	}
 
 	@Override
@@ -220,5 +264,31 @@ public class ElementArrow extends ElementalArrow {
 	public void setCritical(boolean critical) {
 		this.getDatatable().put(ElementalData.CRITICAL, critical);
 		this.setMetadata(new Parameter<Byte>(Parameter.TYPE_BYTE, 16, (byte) (critical ? 1 : 0)));
+	}
+
+	@Override
+	public int getDamage() {
+		return this.getDatatable().get(ElementalData.ARROW_DAMAGE);
+	}
+
+	@Override
+	public void setDamage(int damage) {
+		this.getDatatable().put(ElementalData.ARROW_DAMAGE, damage);
+	}
+
+	@Override
+	public boolean isOnFire() {
+		return this.getFireTicks() > 0;
+	}
+
+	@Override
+	public int getFireTicks() {
+		return this.getDatatable().get(ElementalData.FIRE_TICKS);
+	}
+
+	@Override
+	public void setFireTicks(int ticks) {
+		this.getDatatable().put(ElementalData.FIRE_TICKS, ticks);
+		this.setMetadata(new Parameter<Byte>(Parameter.TYPE_BYTE, 0, (byte) (ticks > 0 ? 1 : 0)));
 	}
 }

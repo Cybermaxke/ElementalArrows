@@ -67,5 +67,6 @@ public class ElementalBow extends ElementalItemMaterial {
 		ElementArrow arrow = entity.getWorld().createAndSpawnEntity(entity.getScene().getPosition(), LoadOption.LOAD_ONLY, ElementArrow.class).add(ElementArrow.class);
 		arrow.shoot(entity, speed);
 		arrow.setCritical(true);
+		arrow.setFireTicks(200);
 	}
 }
