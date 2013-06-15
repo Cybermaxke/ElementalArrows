@@ -20,7 +20,6 @@ package me.cybermaxke.elementalarrows.spout.plugin.component.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Random;
 
 import me.cybermaxke.elementalarrows.spout.api.component.entity.ElementalFireworks;
@@ -41,7 +40,6 @@ import org.spout.api.util.Parameter;
 import org.spout.nbt.CompoundMap;
 import org.spout.nbt.CompoundTag;
 import org.spout.nbt.ListTag;
-import org.spout.nbt.Tag;
 
 import org.spout.vanilla.VanillaPlugin;
 import org.spout.vanilla.event.entity.EntityStatusEvent;
@@ -126,23 +124,20 @@ public class ElementFireworks extends ElementalFireworks {
 	@Override
 	public List<FireworkEffect> getEffects() {
 		List<FireworkEffect> effects = new ArrayList<FireworkEffect>();
+		CompoundMap map1 = this.getItem().getNBTData();
 
-		if (this.getItem().getNBTData() == null) {
+		if (this.getItem().getNBTData() == null || !map1.containsKey("Fireworks")) {
 			return effects;
 		}
 
-		for (Entry<String, Tag<?>> en1 : this.getItem().getNBTData().entrySet()) {
-			if (en1.getKey().equals("Fireworks")) {
-				CompoundTag tag1 = (CompoundTag) en1.getValue();
-				for (Entry<String, Tag<?>> en2 : tag1.getValue().entrySet()) {
-					if (en2.getKey().equals("Explosions")) {
-						ListTag<CompoundTag> list = (ListTag<CompoundTag>) en2.getValue();
-						for (CompoundTag tag2 : list.getValue()) {
-							effects.add(FireworkUtils.getEffect(tag2.getValue()));
-						}
-					}
-				}
-			}
+		CompoundMap map2 = (CompoundMap) map1.get("Fireworks").getValue();
+		if (!map2.containsKey("Explosions")) {
+			return effects;
+		}
+
+		List<CompoundTag> list = ((ListTag<CompoundTag>) map2.get("Explosions")).getValue();
+		for (CompoundTag tag : list) {
+			effects.add(FireworkUtils.getEffect(tag.getValue()));
 		}
 
 		return effects;
@@ -154,33 +149,18 @@ public class ElementFireworks extends ElementalFireworks {
 	}
 
 	@Override
-	public void addEffects(FireworkEffect... effects) {
-		List<CompoundTag> list = new ArrayList<CompoundTag>();
-
+	public void addEffects(FireworkEffect... effects) {	
 		CompoundMap map1 = this.getItem().getNBTData();
-		CompoundMap map2 = null;
 
-		if (map1 != null) {
-			for (Entry<String, Tag<?>> en1 : map1.entrySet()) {
-				if (en1.getKey().equals("Fireworks")) {
-					map2 = ((CompoundTag) en1.getValue()).getValue();
-
-					for (Entry<String, Tag<?>> en2 : map2.entrySet()) {
-						if (en2.getKey().equals("Explosions")) {
-							list.addAll(((ListTag<CompoundTag>) en2.getValue()).getValue());
-							break;
-						}
-					}
-
-					break;
-				}
-			}
-		} else {
+		if (map1 == null) {
 			map1 = new CompoundMap();
 		}
 
-		if (map2 == null) {
-			map2 = new CompoundMap();
+		List<CompoundTag> list = new ArrayList<CompoundTag>();
+		CompoundMap map2 = (CompoundMap) (map1.containsKey("Fireworks") ? map1.get("Fireworks").getValue() : new CompoundMap());
+
+		if (map2.containsKey("Explosions")) {
+			list.addAll(((ListTag<CompoundTag>) map2.get("Explosions")).getValue());
 		}
 
 		for (FireworkEffect effect : effects) {
