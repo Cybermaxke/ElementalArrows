@@ -32,7 +32,7 @@ public class ElementalArrowProtocol extends ObjectEntityProtocol {
 	/**
 	 * The MC metadata index to determine if the arrow is on fire.
 	 */
-	public final static int FIRE_INDEX = 16;
+	public final static int FIRE_INDEX = 0;
 	/**
 	 * The MC metadata index to determine if the arrow has the critical effect.
 	 */
