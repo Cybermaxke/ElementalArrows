@@ -18,13 +18,13 @@
  */
 package me.cybermaxke.elementalarrows.spout.plugin.component.entity;
 
-import java.lang.reflect.Method;
 import java.util.Random;
 
 import me.cybermaxke.elementalarrows.spout.api.component.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.spout.api.data.PickupMode;
 import me.cybermaxke.elementalarrows.spout.plugin.data.ElementalData;
 import me.cybermaxke.elementalarrows.spout.plugin.protocol.ElementalArrowProtocol;
+import me.cybermaxke.elementalarrows.spout.plugin.utils.EntityUtils;
 
 import org.spout.api.component.entity.SceneComponent;
 import org.spout.api.entity.Entity;
@@ -46,12 +46,6 @@ import org.spout.vanilla.material.block.Liquid;
 public class ElementArrow extends ElementalArrow {
 	private Random random = new Random();
 	private Entity shooter;
-
-	/**
-	 * TODO: Removing this vector once the movement vector will not be resetted.
-	 * (Falling down.)
-	 */
-	private Vector3 velocity;
 
 	@Override
 	public void onAttached() {
@@ -105,7 +99,7 @@ public class ElementArrow extends ElementalArrow {
 		float pitch = r.getPitch();
 
 		locX -= Math.cos(-yaw / 180.0F * Math.PI) * 0.16F;
-		locY -= 0.1000000014901161F;
+		locY -= 0.1F;
 		locZ -= Math.sin(-yaw / 180.0F * Math.PI) * 0.16F;
 
 		if (shooter.get(EntityHead.class) != null) {
@@ -135,9 +129,9 @@ public class ElementArrow extends ElementalArrow {
 		motY /= f;
 		motZ /= f;
 
-		motX += this.random.nextGaussian() * (this.random.nextBoolean() ? -1 : 1) * 0.007499999832361937F * spread;
-		motY += this.random.nextGaussian() * (this.random.nextBoolean() ? -1 : 1) * 0.007499999832361937F * spread;
-		motZ += this.random.nextGaussian() * (this.random.nextBoolean() ? -1 : 1) * 0.007499999832361937F * spread;
+		motX += this.random.nextGaussian() * (this.random.nextBoolean() ? -1 : 1) * 0.0075F * spread;
+		motY += this.random.nextGaussian() * (this.random.nextBoolean() ? -1 : 1) * 0.0075F * spread;
+		motZ += this.random.nextGaussian() * (this.random.nextBoolean() ? -1 : 1) * 0.0075F * spread;
 
 		motX *= speed;
 		motY *= speed;
@@ -148,12 +142,13 @@ public class ElementArrow extends ElementalArrow {
 
 		SceneComponent scene = this.getOwner().getScene();
 
-		this.velocity = new Vector3(motX, motY, motZ);
-
-		scene.setMovementVelocity(this.velocity);	
+		scene.setMovementVelocity(new Vector3(motX, motY, motZ));	
 		scene.setRotation(QuaternionMath.rotation(pitch, yaw, 0.0F));
 
-		this.updateSnapshotPosition(scene);
+		/**
+		 * Without calling this method, the arrow will just fall down.
+		 */
+		EntityUtils.updateSnapshotPosition(scene);
 	}
 
 	@Override
@@ -161,11 +156,7 @@ public class ElementArrow extends ElementalArrow {
 		SceneComponent scene = this.getOwner().getScene();
 
 		Point p = scene.getPosition();
-		Vector3 v = this.velocity;
-
-		if (v == null) {
-			v = scene.getMovementVelocity();
-		}
+		Vector3 v = scene.getMovementVelocity();
 
 		float locX = p.getX();
 		float locY = p.getY();
@@ -179,6 +170,9 @@ public class ElementArrow extends ElementalArrow {
 		locY += motY;
 		locZ += motZ;
 
+		/**
+		 * TODO: Finding out why the arrow is moving glitchy.
+		 */
 		float yaw = (float) (Math.atan2(motX, motZ) * 180.0F / Math.PI);
 		float pitch = (float) (Math.atan2(motY, Math.sqrt(motX * motX + motZ * motZ)) * 180.0F / Math.PI);
 
@@ -192,9 +186,7 @@ public class ElementArrow extends ElementalArrow {
 		motZ *= f;
 		motY -= 0.05F;
 
-		this.velocity = new Vector3(motX, motY, motZ);
-
-		scene.setMovementVelocity(this.velocity);
+		scene.setMovementVelocity(new Vector3(motX, motY, motZ));
 		scene.setPosition(new Point(p.getWorld(), locX, locY, locZ));
 		scene.setRotation(QuaternionMath.rotation(pitch, yaw, 0.0F));
 	}
@@ -228,21 +220,5 @@ public class ElementArrow extends ElementalArrow {
 	public void setCritical(boolean critical) {
 		this.getDatatable().put(ElementalData.CRITICAL, critical);
 		this.setMetadata(new Parameter<Byte>(Parameter.TYPE_BYTE, 16, (byte) (critical ? 1 : 0)));
-	}
-
-	/**
-	 * Directly updating the position.
-	 * @param scene
-	 */
-	protected void updateSnapshotPosition(SceneComponent scene) {
-		try {
-			Class<?> clazz = scene.getClass();
-
-			Method method = clazz.getDeclaredMethod("copySnapshot", new Class[] {});
-			method.setAccessible(true);
-			method.invoke(scene, new Object[] {});
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 }

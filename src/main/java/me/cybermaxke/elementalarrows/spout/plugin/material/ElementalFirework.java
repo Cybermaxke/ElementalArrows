@@ -35,7 +35,7 @@ import org.spout.api.material.block.BlockFace;
 import org.spout.vanilla.material.VanillaMaterials;
 
 /**
- * A bow to test the custom arrow.
+ * A firework to test the firework effects.
  */
 @SuppressWarnings("unchecked")
 public class ElementalFirework extends ElementalItemMaterial {
@@ -51,13 +51,17 @@ public class ElementalFirework extends ElementalItemMaterial {
 			Point position = block.getPosition().add(0.0F, 1.0F, 0.0F);
 			ElementFireworks fw = block.getWorld().createAndSpawnEntity(position, LoadOption.LOAD_ONLY, ElementFireworks.class).add(ElementFireworks.class);
 
-			FireworkEffect fwe = new FireworkEffect(FireworkType.BALL);
-			fwe.addColor(Color.BLUE);
-			fwe.addColor(Color.CYAN);
+			FireworkEffect fwe = new FireworkEffect(FireworkType.STAR);
+			fwe.addColor(Color.YELLOW);
+			fwe.addColor(Color.YELLOW.brighter());
+			fwe.addColor(Color.YELLOW.darker());
+			fwe.addColor(Color.ORANGE);
+			fwe.addColor(Color.ORANGE.brighter());
+			fwe.addColor(Color.ORANGE.darker());
 			fwe.setFlicker(true);
 
 			fw.addEffect(fwe);
-			fw.setPower(1);
+			fw.setPower(2);
 		}
 	}
 }

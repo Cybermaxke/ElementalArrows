@@ -37,7 +37,7 @@ public class ElementPlayerListener implements Listener {
 		plugin.getEngine().getEventManager().registerEvents(this, plugin);
 	}
 
-	@EventHandler(order = Order.LATE)
+	@EventHandler(order = Order.EARLIEST)
 	public void onPlayerJoin(PlayerJoinEvent e) {
 		Player p = e.getPlayer();
 		p.add(ElementPlayer.class);

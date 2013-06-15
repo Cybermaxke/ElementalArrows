@@ -27,6 +27,7 @@ import me.cybermaxke.elementalarrows.spout.api.component.entity.ElementalFirewor
 import me.cybermaxke.elementalarrows.spout.api.data.firework.FireworkEffect;
 import me.cybermaxke.elementalarrows.spout.plugin.data.ElementalData;
 import me.cybermaxke.elementalarrows.spout.plugin.protocol.ElementalFireworkProtocol;
+import me.cybermaxke.elementalarrows.spout.plugin.utils.EntityUtils;
 import me.cybermaxke.elementalarrows.spout.plugin.utils.FireworkUtils;
 
 import org.spout.api.component.entity.SceneComponent;
@@ -51,25 +52,21 @@ public class ElementFireworks extends ElementalFireworks {
 	private int ticksFlown = 0;
 	private int ticksBeforeExplosion = 0;
 
-	/**
-	 * TODO: Removing this vector once the movement vector will not be resetted.
-	 * (Falling down.)
-	 */
-	private Vector3 velocity;
-
 	@Override
 	public void onAttached() {
 		this.getOwner().getNetwork().setEntityProtocol(VanillaPlugin.VANILLA_PROTOCOL_ID, new ElementalFireworkProtocol());
 		super.onAttached();
 
+		this.ticksBeforeExplosion = 10 * this.getPower() + this.random.nextInt(6) + this.random.nextInt(7);
+
 		float motX = (float) (this.random.nextGaussian() * 0.001F);
 		float motZ = (float) (this.random.nextGaussian() * 0.001F);
 		float motY = 0.05F;
 
-		this.velocity = new Vector3(motX, motY, motZ);
-		this.getOwner().getScene().setMovementVelocity(this.velocity);
+		SceneComponent scene = this.getOwner().getScene();
+		scene.setMovementVelocity(new Vector3(motX, motY, motZ));
 
-		this.ticksBeforeExplosion = 10 + this.random.nextInt(6) + this.random.nextInt(7);
+		EntityUtils.updateSnapshotPosition(scene);
 	}
 
 	@Override
@@ -77,7 +74,7 @@ public class ElementFireworks extends ElementalFireworks {
 		SceneComponent scene = this.getOwner().getScene();
 
 		Point p = scene.getPosition();
-		Vector3 v = this.velocity;
+		Vector3 v = scene.getMovementVelocity();
 
 		if (v == null) {
 			v = scene.getMovementVelocity();
@@ -102,9 +99,7 @@ public class ElementFireworks extends ElementalFireworks {
 		float yaw = (float) (Math.atan2(motX, motZ) * 180.0F / Math.PI);
 		float pitch = (float) (Math.atan2(motY, Math.sqrt(motX * motX + motZ * motZ)) * 180.0F / Math.PI);
 
-		this.velocity = new Vector3(motX, motY, motZ);
-
-		scene.setMovementVelocity(this.velocity);
+		scene.setMovementVelocity(new Vector3(motX, motY, motZ));
 		scene.setPosition(new Point(p.getWorld(), locX, locY, locZ));
 		scene.setRotation(QuaternionMath.rotation(pitch, yaw, 0.0F));
 
