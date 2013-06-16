@@ -19,7 +19,7 @@
 package me.cybermaxke.elementalarrows.spout.plugin.material;
 
 import me.cybermaxke.elementalarrows.spout.api.material.ElementalItemMaterial;
-import me.cybermaxke.elementalarrows.spout.plugin.component.entity.ElementArrow;
+import me.cybermaxke.elementalarrows.spout.plugin.entity.ElementArrow;
 
 import org.spout.api.entity.Entity;
 import org.spout.api.event.player.Action;

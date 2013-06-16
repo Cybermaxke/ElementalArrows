@@ -16,14 +16,14 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.spout.plugin.component.entity;
+package me.cybermaxke.elementalarrows.spout.plugin.entity;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import me.cybermaxke.elementalarrows.spout.api.component.entity.ElementalFireworks;
 import me.cybermaxke.elementalarrows.spout.api.data.firework.FireworkEffect;
+import me.cybermaxke.elementalarrows.spout.api.entity.ElementalFireworks;
 import me.cybermaxke.elementalarrows.spout.plugin.data.ElementalData;
 import me.cybermaxke.elementalarrows.spout.plugin.protocol.ElementalFireworkProtocol;
 import me.cybermaxke.elementalarrows.spout.plugin.utils.EntityUtils;
@@ -75,10 +75,6 @@ public class ElementFireworks extends ElementalFireworks {
 
 		Point p = scene.getPosition();
 		Vector3 v = scene.getMovementVelocity();
-
-		if (v == null) {
-			v = scene.getMovementVelocity();
-		}
 
 		float locX = p.getX();
 		float locY = p.getY();

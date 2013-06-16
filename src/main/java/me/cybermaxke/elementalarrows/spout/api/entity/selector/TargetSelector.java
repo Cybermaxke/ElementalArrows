@@ -16,17 +16,16 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.spout.api.component.entity;
+package me.cybermaxke.elementalarrows.spout.api.entity.selector;
 
-import me.cybermaxke.elementalarrows.spout.api.inventory.TurretInventory;
+import org.spout.api.entity.Entity;
 
-import org.spout.vanilla.component.entity.substance.Substance;
-
-public abstract class ElementalTurret extends Substance {
+public interface TargetSelector {
 
 	/**
-	 * Gets the inventory the turret is holding.
-	 * @return inventory
+	 * Gets if the target is valid.
+	 * @param entity
+	 * @return valid
 	 */
-	public abstract TurretInventory getInventory();
+	public boolean isValidTarget(Entity entity);
 }

@@ -20,7 +20,7 @@ package me.cybermaxke.elementalarrows.spout.plugin.protocol;
 
 import java.util.List;
 
-import me.cybermaxke.elementalarrows.spout.plugin.component.entity.ElementFireworks;
+import me.cybermaxke.elementalarrows.spout.plugin.entity.ElementFireworks;
 
 import org.spout.api.entity.Entity;
 import org.spout.api.inventory.ItemStack;

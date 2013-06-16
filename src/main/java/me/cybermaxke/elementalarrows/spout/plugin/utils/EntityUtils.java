@@ -48,6 +48,11 @@ public class EntityUtils {
 		}
 	}
 
+	/**
+	 * Setting entity meta.
+	 * @param entity
+	 * @param parameters
+	 */
 	public static void setMetadata(VanillaEntityComponent entity, Parameter<?>... parameters) {
 		try {
 			SET_METADATA.invoke(entity, new Object[] { parameters });

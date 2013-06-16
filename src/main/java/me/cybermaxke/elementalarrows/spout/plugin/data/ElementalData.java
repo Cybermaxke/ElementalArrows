@@ -51,4 +51,6 @@ public class ElementalData {
 	 * Data keys for turrets.
 	 */
 	public static final DefaultedKey<TurretInventory> TURRET_INVENTORY = new DefaultedKeyImpl<TurretInventory>("turret_inventory", new TurretInventory());
+	public static final DefaultedKey<Integer> TURRET_RANGE = new DefaultedKeyImpl<Integer>("turret_range", 7);
+	public static final DefaultedKey<Integer> TURRET_ATTACK_DELAY = new DefaultedKeyImpl<Integer>("turret_attack_delay", 15);
 }

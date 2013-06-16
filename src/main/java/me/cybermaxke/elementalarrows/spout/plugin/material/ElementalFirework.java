@@ -23,7 +23,7 @@ import java.awt.Color;
 import me.cybermaxke.elementalarrows.spout.api.data.firework.FireworkEffect;
 import me.cybermaxke.elementalarrows.spout.api.data.firework.FireworkType;
 import me.cybermaxke.elementalarrows.spout.api.material.ElementalItemMaterial;
-import me.cybermaxke.elementalarrows.spout.plugin.component.entity.ElementFireworks;
+import me.cybermaxke.elementalarrows.spout.plugin.entity.ElementFireworks;
 
 import org.spout.api.entity.Entity;
 import org.spout.api.event.player.Action;

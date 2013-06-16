@@ -18,7 +18,7 @@
  */
 package me.cybermaxke.elementalarrows.spout.api.material;
 
-import me.cybermaxke.elementalarrows.spout.api.component.entity.ElementalArrow;
+import me.cybermaxke.elementalarrows.spout.api.entity.ElementalArrow;
 
 import org.spout.vanilla.material.VanillaMaterials;
 

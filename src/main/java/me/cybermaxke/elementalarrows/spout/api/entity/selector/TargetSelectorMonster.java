@@ -16,31 +16,17 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.spout.plugin.component.entity;
+package me.cybermaxke.elementalarrows.spout.api.entity.selector;
 
-import me.cybermaxke.elementalarrows.spout.api.component.entity.ElementalArrow;
-import me.cybermaxke.elementalarrows.spout.api.component.entity.ElementalSkeleton;
+import org.spout.api.entity.Entity;
 
-public class ElementSkeleton extends ElementalSkeleton {
-	private Class<? extends ElementalArrow> arrow;
+import org.spout.vanilla.component.entity.living.Hostile;
+import org.spout.vanilla.component.entity.living.Living;
 
-	@Override
-	public void onAttached() {
-		super.onAttached();
-	}
+public class TargetSelectorMonster implements TargetSelector {
 
 	@Override
-	public void onDetached() {
-		super.onDetached();
-	}
-
-	@Override
-	public Class<? extends ElementalArrow> getArrow() {
-		return this.arrow;
-	}
-
-	@Override
-	public void setArrow(Class<? extends ElementalArrow> arrow) {
-		this.arrow = arrow;
+	public boolean isValidTarget(Entity entity) {
+		return entity.get(Living.class) != null && entity.get(Living.class) instanceof Hostile;
 	}
 }

@@ -20,10 +20,10 @@ package me.cybermaxke.elementalarrows.spout.plugin;
 
 import me.cybermaxke.elementalarrows.spout.api.ElementalArrows;
 import me.cybermaxke.elementalarrows.spout.api.ElementalArrowsAPI;
-import me.cybermaxke.elementalarrows.spout.api.component.entity.ElementalFireworks;
 import me.cybermaxke.elementalarrows.spout.api.data.ParticleEffect;
 import me.cybermaxke.elementalarrows.spout.api.data.firework.FireworkEffect;
-import me.cybermaxke.elementalarrows.spout.plugin.listener.ElementPlayerListener;
+import me.cybermaxke.elementalarrows.spout.plugin.entity.ElementFireworks;
+import me.cybermaxke.elementalarrows.spout.plugin.listener.ElementListener;
 import me.cybermaxke.elementalarrows.spout.plugin.material.ElementalBow;
 import me.cybermaxke.elementalarrows.spout.plugin.material.ElementalFirework;
 import me.cybermaxke.elementalarrows.spout.plugin.material.ElementalMaterialUtils;
@@ -57,7 +57,7 @@ public class ElementalArrowsPlugin extends Plugin implements ElementalArrowsAPI 
 		ElementalMaterialUtils.setDataMask(VanillaMaterials.FIREWORKS, (short) 0x7F);
 
 		this.repositionManager = new VanillaRepositionManager();
-		new ElementPlayerListener(this);
+		new ElementListener(this);
 
 		BOW = new ElementalBow("Elemental Bow");
 		FIREWORKS = new ElementalFirework("Elemental Fireworks");
@@ -76,7 +76,7 @@ public class ElementalArrowsPlugin extends Plugin implements ElementalArrowsAPI 
 
 	@Override
 	public void playEffects(Point position, FireworkEffect... effects) {
-		ElementalFireworks fw = position.getWorld().createAndSpawnEntity(position, LoadOption.NO_LOAD, ElementalFireworks.class).add(ElementalFireworks.class);
+		ElementFireworks fw = position.getWorld().createAndSpawnEntity(position, LoadOption.NO_LOAD, ElementFireworks.class).add(ElementFireworks.class);
 		fw.addEffects(effects);
 		fw.getOwner().getNetwork().callProtocolEvent(new EntityStatusEvent(fw.getOwner(), (byte) 17));
 		fw.getOwner().remove();

@@ -16,21 +16,21 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.spout.api.component.player;
+package me.cybermaxke.elementalarrows.spout.api.entity;
 
-import org.spout.api.component.entity.EntityComponent;
+import org.spout.vanilla.component.entity.living.hostile.Skeleton;
 
-public abstract class ElementalPlayer extends EntityComponent {
-
-	/**
-	 * Gets the arrows in the players body.
-	 * @return arrows
-	 */
-	public abstract byte getArrowsInBody();
+public abstract class ElementalSkeleton extends Skeleton {
 
 	/**
-	 * Sets the arrows in the players body.
-	 * @param arrows
+	 * Gets the arrow the skeleton is using.
+	 * @return arrow
 	 */
-	public abstract void setArrowsInBody(byte amount);
+	public abstract Class<? extends ElementalArrow> getArrow();
+
+	/**
+	 * Sets the arrow the skeleton is using.
+	 * @param arrow
+	 */
+	public abstract void setArrow(Class<? extends ElementalArrow> arrow);
 }

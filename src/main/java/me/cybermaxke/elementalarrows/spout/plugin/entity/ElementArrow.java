@@ -16,12 +16,12 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.spout.plugin.component.entity;
+package me.cybermaxke.elementalarrows.spout.plugin.entity;
 
 import java.util.Random;
 
-import me.cybermaxke.elementalarrows.spout.api.component.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.spout.api.data.PickupMode;
+import me.cybermaxke.elementalarrows.spout.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.spout.plugin.data.ElementalData;
 import me.cybermaxke.elementalarrows.spout.plugin.protocol.ElementalArrowProtocol;
 import me.cybermaxke.elementalarrows.spout.plugin.utils.EntityUtils;

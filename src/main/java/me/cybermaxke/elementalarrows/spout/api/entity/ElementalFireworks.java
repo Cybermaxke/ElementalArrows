@@ -16,7 +16,7 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.spout.api.component.entity;
+package me.cybermaxke.elementalarrows.spout.api.entity;
 
 import java.util.List;
 

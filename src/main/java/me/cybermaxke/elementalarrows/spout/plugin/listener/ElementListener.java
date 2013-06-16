@@ -1,26 +1,27 @@
 /**
  * 
- * This software is part of the VigondorsMagic
+ * This software is part of the ElementalArrows
  * 
- * VigondorsMagic is free software: you can redistribute it and/or modify
+ * ElementalArrows is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or 
  * any later version.
  * 
- * VigondorsMagic is distributed in the hope that it will be useful,
+ * ElementalArrows is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License
- * along with VigondorsMagic. If not, see <http://www.gnu.org/licenses/>.
+ * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
 package me.cybermaxke.elementalarrows.spout.plugin.listener;
 
+import me.cybermaxke.elementalarrows.spout.api.inventory.TurretInventory;
 import me.cybermaxke.elementalarrows.spout.plugin.ElementalArrowsPlugin;
-import me.cybermaxke.elementalarrows.spout.plugin.component.entity.ElementTurret;
-import me.cybermaxke.elementalarrows.spout.plugin.component.player.ElementPlayer;
+import me.cybermaxke.elementalarrows.spout.plugin.entity.ElementTurret;
+import me.cybermaxke.elementalarrows.spout.plugin.entity.player.ElementPlayer;
 
 import org.spout.api.entity.Entity;
 import org.spout.api.entity.Player;
@@ -29,15 +30,18 @@ import org.spout.api.event.Listener;
 import org.spout.api.event.Order;
 import org.spout.api.event.player.PlayerInteractEntityEvent;
 import org.spout.api.event.player.PlayerJoinEvent;
+import org.spout.api.geo.discrete.Point;
 import org.spout.api.inventory.ItemStack;
 import org.spout.api.plugin.Plugin;
 
 import org.spout.vanilla.component.entity.inventory.PlayerInventory;
 import org.spout.vanilla.component.entity.living.Human;
+import org.spout.vanilla.component.entity.substance.Item;
+import org.spout.vanilla.event.entity.EntityDeathEvent;
 
-public class ElementPlayerListener implements Listener {
+public class ElementListener implements Listener {
 
-	public ElementPlayerListener(Plugin plugin) {
+	public ElementListener(Plugin plugin) {
 		plugin.getEngine().getEventManager().registerEvents(this, plugin);
 	}
 
@@ -63,12 +67,26 @@ public class ElementPlayerListener implements Listener {
 		if (human != null && turret != null) {
 			//TODO: Opening the inventory.
 		}
+	}
 
-		/**
-		 * Testing the arrows in body method.
-		 */
-		if (human != null) {
-			human.getOwner().add(ElementPlayer.class).setArrowsInBody((byte) 100);
+	@EventHandler(order = Order.LATEST)
+	public void onEntityDeath(EntityDeathEvent e) {
+		if (e.isCancelled()) {
+			return;
+		}
+
+		Entity entity = e.getEntity();
+		ElementTurret turret = entity.get(ElementTurret.class);
+		if (turret != null) {
+			Point position = entity.getScene().getPosition();
+			TurretInventory inv = turret.getInventory();
+			for (ItemStack is : inv.getContents()) {
+				if (is != null) {
+					Item.dropNaturally(position, is);
+				}
+			}
+			inv.clear();
+			inv.updateAll();
 		}
 	}
 }
