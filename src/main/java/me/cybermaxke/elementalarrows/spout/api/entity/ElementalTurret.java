@@ -21,7 +21,8 @@ package me.cybermaxke.elementalarrows.spout.api.entity;
 import me.cybermaxke.elementalarrows.spout.api.entity.selector.TargetSelector;
 import me.cybermaxke.elementalarrows.spout.api.inventory.TurretInventory;
 
-import org.bukkit.entity.Entity;
+import org.spout.api.entity.Entity;
+
 import org.spout.vanilla.component.entity.misc.Health;
 import org.spout.vanilla.component.entity.substance.Substance;
 

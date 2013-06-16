@@ -24,7 +24,8 @@ import me.cybermaxke.elementalarrows.spout.api.entity.selector.TargetSelectorMon
 import me.cybermaxke.elementalarrows.spout.api.inventory.TurretInventory;
 import me.cybermaxke.elementalarrows.spout.plugin.data.ElementalData;
 
-import org.bukkit.entity.Entity;
+import org.spout.api.entity.Entity;
+
 import org.spout.vanilla.VanillaPlugin;
 import org.spout.vanilla.component.entity.misc.Health;
 import org.spout.vanilla.protocol.entity.object.ObjectEntityProtocol;
