@@ -18,9 +18,14 @@
  */
 package me.cybermaxke.elementalarrows.spout.plugin.entity;
 
+import java.util.Collections;
+import java.util.List;
+
+import me.cybermaxke.elementalarrows.spout.api.ElementalArrows;
 import me.cybermaxke.elementalarrows.spout.api.entity.ElementalTurret;
-import me.cybermaxke.elementalarrows.spout.api.entity.selector.TargetSelector;
-import me.cybermaxke.elementalarrows.spout.api.entity.selector.TargetSelectorMonster;
+import me.cybermaxke.elementalarrows.spout.api.entity.comparator.EntityDistanceComparator;
+import me.cybermaxke.elementalarrows.spout.api.entity.selector.EntitySelector;
+import me.cybermaxke.elementalarrows.spout.api.entity.selector.EntitySelectorMonster;
 import me.cybermaxke.elementalarrows.spout.api.inventory.TurretInventory;
 import me.cybermaxke.elementalarrows.spout.plugin.data.ElementalData;
 
@@ -32,7 +37,7 @@ import org.spout.vanilla.protocol.entity.object.ObjectEntityProtocol;
 import org.spout.vanilla.protocol.entity.object.ObjectType;
 
 public class ElementTurret extends ElementalTurret {
-	private TargetSelector targetSelector;
+	private EntitySelector targetSelector;
 	private Health health;
 	private Entity target;
 
@@ -41,7 +46,7 @@ public class ElementTurret extends ElementalTurret {
 		this.getOwner().getNetwork().setEntityProtocol(VanillaPlugin.VANILLA_PROTOCOL_ID, new ObjectEntityProtocol(ObjectType.ENDER_CRYSTAL));
 		super.onAttached();
 
-		this.targetSelector = new TargetSelectorMonster();
+		this.targetSelector = new EntitySelectorMonster();
 		this.health = this.getOwner().add(Health.class);
 	}
 
@@ -53,7 +58,12 @@ public class ElementTurret extends ElementalTurret {
 	@Override
 	public void onTick(float dt) {
 		super.onTick(dt);
-		//TODO: Targetting and shooting arrows.
+
+		if (this.target == null || this.target.isRemoved() || (this.target.get(Health.class) != null && this.target.get(Health.class).isDead())) {
+			this.target = this.getNearbyTarget();
+		}
+
+		//TODO: Shooting arrows.
 	}
 
 	@Override
@@ -62,12 +72,12 @@ public class ElementTurret extends ElementalTurret {
 	}
 
 	@Override
-	public TargetSelector getTargetSelector() {
+	public EntitySelector getTargetSelector() {
 		return this.targetSelector;
 	}
 
 	@Override
-	public void setTargetSelector(TargetSelector selector) {
+	public void setTargetSelector(EntitySelector selector) {
 		this.targetSelector = selector;
 	}
 
@@ -104,5 +114,11 @@ public class ElementTurret extends ElementalTurret {
 	@Override
 	public void setTarget(Entity target) {
 		this.target = target;
+	}
+
+	protected Entity getNearbyTarget() {
+		List<Entity> entities = ElementalArrows.getAPI().getNearbyEntities(this.getOwner(), this.getTargetRange(), this.targetSelector);
+		Collections.sort(entities, new EntityDistanceComparator(this.getOwner()));
+		return entities.size() > 0 ? entities.get(0) : null;
 	}
 }

@@ -18,7 +18,7 @@
  */
 package me.cybermaxke.elementalarrows.spout.api.entity;
 
-import me.cybermaxke.elementalarrows.spout.api.entity.selector.TargetSelector;
+import me.cybermaxke.elementalarrows.spout.api.entity.selector.EntitySelector;
 import me.cybermaxke.elementalarrows.spout.api.inventory.TurretInventory;
 
 import org.spout.api.entity.Entity;
@@ -38,13 +38,13 @@ public abstract class ElementalTurret extends Substance {
 	 * Gets the target selector of the turret.
 	 * @return selector
 	 */
-	public abstract TargetSelector getTargetSelector();
+	public abstract EntitySelector getTargetSelector();
 
 	/**
 	 * Sets the target selector of the turret.
 	 * @param selector
 	 */
-	public abstract void setTargetSelector(TargetSelector selector);
+	public abstract void setTargetSelector(EntitySelector selector);
 
 	/**
 	 * Gets the target range of the turret.

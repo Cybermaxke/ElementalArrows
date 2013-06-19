@@ -16,17 +16,12 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.spout.api.entity.selector;
+package me.cybermaxke.elementalarrows.spout.api.entity.comparator;
+
+import java.util.Comparator;
 
 import org.spout.api.entity.Entity;
 
-import org.spout.vanilla.component.entity.living.Hostile;
-import org.spout.vanilla.component.entity.living.Living;
+public interface EntityComparator extends Comparator<Entity> {
 
-public class TargetSelectorMonster implements TargetSelector {
-
-	@Override
-	public boolean isValidTarget(Entity entity) {
-		return entity.get(Living.class) != null && entity.get(Living.class) instanceof Hostile;
-	}
 }

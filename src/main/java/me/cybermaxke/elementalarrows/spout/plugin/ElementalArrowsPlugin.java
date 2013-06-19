@@ -18,17 +18,21 @@
  */
 package me.cybermaxke.elementalarrows.spout.plugin;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import me.cybermaxke.elementalarrows.spout.api.ElementalArrows;
 import me.cybermaxke.elementalarrows.spout.api.ElementalArrowsAPI;
 import me.cybermaxke.elementalarrows.spout.api.data.ParticleEffect;
 import me.cybermaxke.elementalarrows.spout.api.data.firework.FireworkEffect;
+import me.cybermaxke.elementalarrows.spout.api.entity.selector.EntitySelector;
 import me.cybermaxke.elementalarrows.spout.plugin.entity.ElementFireworks;
 import me.cybermaxke.elementalarrows.spout.plugin.listener.ElementListener;
 import me.cybermaxke.elementalarrows.spout.plugin.material.ElementalBow;
 import me.cybermaxke.elementalarrows.spout.plugin.material.ElementalFirework;
 import me.cybermaxke.elementalarrows.spout.plugin.material.ElementalMaterialUtils;
 
-import org.spout.api.UnsafeMethod;
+import org.spout.api.entity.Entity;
 import org.spout.api.entity.Player;
 import org.spout.api.geo.LoadOption;
 import org.spout.api.geo.discrete.Point;
@@ -49,7 +53,6 @@ public class ElementalArrowsPlugin extends Plugin implements ElementalArrowsAPI 
 	public static ElementalFirework FIREWORKS;
 
 	@Override
-	@UnsafeMethod
 	public void onEnable() {
 		ElementalArrows.setAPI(this);
 		ElementalMaterialUtils.setDataMask(VanillaMaterials.ARROW, (short) 0x7F);
@@ -64,9 +67,29 @@ public class ElementalArrowsPlugin extends Plugin implements ElementalArrowsAPI 
 	}
 
 	@Override
-	@UnsafeMethod
 	public void onDisable() {
 
+	}
+
+	@Override
+	public List<Entity> getNearbyEntities(Entity entity, int range) {
+		return entity.getWorld().getNearbyEntities(entity, range);
+	}
+
+	@Override
+	public List<Entity> getNearbyEntities(Entity entity, int range, EntitySelector selector) {
+		if (selector == null) {
+			return this.getNearbyEntities(entity, range);
+		}
+
+		List<Entity> entities = new ArrayList<Entity>();
+		for (Entity e : this.getNearbyEntities(entity, range)) {
+			if (selector.isValidTarget(e)) {
+				entities.add(e);
+			}
+		}
+
+		return entities;
 	}
 
 	@Override

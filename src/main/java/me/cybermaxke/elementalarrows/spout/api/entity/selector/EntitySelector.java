@@ -20,7 +20,7 @@ package me.cybermaxke.elementalarrows.spout.api.entity.selector;
 
 import org.spout.api.entity.Entity;
 
-public interface TargetSelector {
+public interface EntitySelector {
 
 	/**
 	 * Gets if the target is valid.

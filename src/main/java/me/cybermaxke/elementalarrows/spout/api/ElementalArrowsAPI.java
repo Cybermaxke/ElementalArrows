@@ -18,14 +18,35 @@
  */
 package me.cybermaxke.elementalarrows.spout.api;
 
+import java.util.List;
+
 import me.cybermaxke.elementalarrows.spout.api.data.ParticleEffect;
 import me.cybermaxke.elementalarrows.spout.api.data.firework.FireworkEffect;
+import me.cybermaxke.elementalarrows.spout.api.entity.selector.EntitySelector;
 
+import org.spout.api.entity.Entity;
 import org.spout.api.entity.Player;
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.math.Vector3;
 
 public interface ElementalArrowsAPI {
+
+	/**
+	 * Gets the nearby entities.
+	 * @param entity
+	 * @param range
+	 * @return entities
+	 */
+	public List<Entity> getNearbyEntities(Entity entity, int range);
+
+	/**
+	 * Gets the nearby entities with the entity selector.
+	 * @param entity
+	 * @param range
+	 * @param selector
+	 * @return entities
+	 */
+	public List<Entity> getNearbyEntities(Entity entity, int range, EntitySelector selector);
 
 	/**
 	 * Plays a firework effect at the position.

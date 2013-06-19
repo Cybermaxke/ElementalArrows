@@ -20,17 +20,13 @@ package me.cybermaxke.elementalarrows.spout.api.entity.selector;
 
 import org.spout.api.entity.Entity;
 
-import org.spout.vanilla.component.entity.living.hostile.Skeleton;
-import org.spout.vanilla.component.entity.living.hostile.Wither;
-import org.spout.vanilla.component.entity.living.hostile.WitherSkeleton;
-import org.spout.vanilla.component.entity.living.hostile.Zombie;
-import org.spout.vanilla.component.entity.living.neutral.PigZombie;
+import org.spout.vanilla.component.entity.living.Hostile;
+import org.spout.vanilla.component.entity.living.Living;
 
-public class TargetSelectorUndead implements TargetSelector {
+public class EntitySelectorMonster implements EntitySelector {
 
 	@Override
 	public boolean isValidTarget(Entity entity) {
-		return entity.get(Skeleton.class) != null || entity.get(Zombie.class) != null || entity.get(Wither.class) != null ||
-				entity.get(PigZombie.class) != null || entity.get(WitherSkeleton.class) != null;
+		return entity.get(Living.class) != null && entity.get(Living.class) instanceof Hostile;
 	}
 }
