@@ -24,67 +24,66 @@ import me.cybermaxke.elementalarrows.spout.api.inventory.TurretInventory;
 import org.spout.api.entity.Entity;
 
 import org.spout.vanilla.component.entity.misc.Health;
-import org.spout.vanilla.component.entity.substance.Substance;
 
-public abstract class ElementalTurret extends Substance {
+public interface ElementalTurret extends ElementalEntity {
 
 	/**
 	 * Gets the inventory the turret is holding.
 	 * @return inventory
 	 */
-	public abstract TurretInventory getInventory();
+	public TurretInventory getInventory();
 
 	/**
 	 * Gets the target selector of the turret.
 	 * @return selector
 	 */
-	public abstract EntitySelector getTargetSelector();
+	public EntitySelector getTargetSelector();
 
 	/**
 	 * Sets the target selector of the turret.
 	 * @param selector
 	 */
-	public abstract void setTargetSelector(EntitySelector selector);
+	public void setTargetSelector(EntitySelector selector);
 
 	/**
 	 * Gets the target range of the turret.
 	 * @return range
 	 */
-	public abstract int getTargetRange();
+	public int getTargetRange();
 
 	/**
 	 * Sets the target range of the turret.
 	 * @param range
 	 */
-	public abstract void setTargetRange(int range);
+	public void setTargetRange(int range);
 
 	/**
 	 * Gets the health component of the turret.
 	 * @return health
 	 */
-	public abstract Health getHealth();
+	public Health getHealth();
 
 	/**
 	 * Gets the amount of ticks between every shot.
 	 * @return delay
 	 */
-	public abstract int getAttackDelay();
+	public int getAttackDelay();
 
 	/**
 	 * Sets the amount of ticks between every shot.
 	 * @param delay
 	 */
-	public abstract void setAttackDelay(int delay);
+	public void setAttackDelay(int delay);
 
 	/**
 	 * Gets the target the turret is shooting at.
 	 * @return target
 	 */
-	public abstract Entity getTarget();
+	public Entity getTarget();
 
 	/**
 	 * Sets the target the turret is shooting at.
 	 * @param target
 	 */
-	public abstract void setTarget(Entity target);
+	public void setTarget(Entity target);
 }

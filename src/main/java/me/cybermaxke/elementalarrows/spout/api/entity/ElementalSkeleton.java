@@ -18,19 +18,19 @@
  */
 package me.cybermaxke.elementalarrows.spout.api.entity;
 
-import org.spout.vanilla.component.entity.living.hostile.Skeleton;
+import org.spout.vanilla.component.entity.living.Hostile;
 
-public abstract class ElementalSkeleton extends Skeleton {
+public interface ElementalSkeleton extends ElementalEntity, Hostile {
 
 	/**
 	 * Gets the arrow the skeleton is using.
-	 * @return arrow
+	 * @return components
 	 */
-	public abstract Class<? extends ElementalArrow> getArrow();
+	public Class<? extends ElementalArrow>[] getArrowComponents();
 
 	/**
 	 * Sets the arrow the skeleton is using.
-	 * @param arrow
+	 * @param components
 	 */
-	public abstract void setArrow(Class<? extends ElementalArrow> arrow);
+	public void setArrowComponents(Class<? extends ElementalArrow>... components);
 }

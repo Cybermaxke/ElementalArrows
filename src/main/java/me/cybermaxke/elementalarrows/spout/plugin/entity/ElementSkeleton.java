@@ -18,11 +18,13 @@
  */
 package me.cybermaxke.elementalarrows.spout.plugin.entity;
 
+import org.spout.vanilla.component.entity.living.Living;
+
 import me.cybermaxke.elementalarrows.spout.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.spout.api.entity.ElementalSkeleton;
 
-public class ElementSkeleton extends ElementalSkeleton {
-	private Class<? extends ElementalArrow> arrow;
+public class ElementSkeleton extends Living implements ElementalSkeleton {
+	private Class<? extends ElementalArrow>[] components;
 
 	@Override
 	public void onAttached() {
@@ -35,12 +37,12 @@ public class ElementSkeleton extends ElementalSkeleton {
 	}
 
 	@Override
-	public Class<? extends ElementalArrow> getArrow() {
-		return this.arrow;
+	public Class<? extends ElementalArrow>[] getArrowComponents() {
+		return this.components;
 	}
 
 	@Override
-	public void setArrow(Class<? extends ElementalArrow> arrow) {
-		this.arrow = arrow;
+	public void setArrowComponents(Class<? extends ElementalArrow>... components) {
+		this.components = components;
 	}
 }

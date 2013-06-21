@@ -22,6 +22,8 @@ import java.util.List;
 
 import me.cybermaxke.elementalarrows.spout.api.data.ParticleEffect;
 import me.cybermaxke.elementalarrows.spout.api.data.firework.FireworkEffect;
+import me.cybermaxke.elementalarrows.spout.api.entity.ElementalArrow;
+import me.cybermaxke.elementalarrows.spout.api.entity.component.ArrowComponent;
 import me.cybermaxke.elementalarrows.spout.api.entity.selector.EntitySelector;
 
 import org.spout.api.entity.Entity;
@@ -30,6 +32,14 @@ import org.spout.api.geo.discrete.Point;
 import org.spout.api.math.Vector3;
 
 public interface ElementalArrowsAPI {
+
+	/**
+	 * Spawns a elemental arrow at the position and with the specific components.
+	 * @param position
+	 * @param components
+	 * @return arrow
+	 */
+	public ElementalArrow spawnArrow(Point position, Class<? extends ArrowComponent>... components);
 
 	/**
 	 * Gets the nearby entities.

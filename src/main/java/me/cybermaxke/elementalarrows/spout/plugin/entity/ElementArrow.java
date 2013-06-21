@@ -22,6 +22,7 @@ import java.util.Random;
 
 import me.cybermaxke.elementalarrows.spout.api.data.PickupMode;
 import me.cybermaxke.elementalarrows.spout.api.entity.ElementalArrow;
+import me.cybermaxke.elementalarrows.spout.api.entity.component.ArrowComponent;
 import me.cybermaxke.elementalarrows.spout.plugin.data.ElementalData;
 import me.cybermaxke.elementalarrows.spout.plugin.protocol.ElementalArrowProtocol;
 import me.cybermaxke.elementalarrows.spout.plugin.utils.EntityUtils;
@@ -43,6 +44,7 @@ import org.spout.vanilla.component.entity.living.Human;
 import org.spout.vanilla.component.entity.misc.Burn;
 import org.spout.vanilla.component.entity.misc.EntityHead;
 import org.spout.vanilla.component.entity.misc.Health;
+import org.spout.vanilla.component.entity.substance.Substance;
 import org.spout.vanilla.data.GameMode;
 import org.spout.vanilla.event.cause.DamageCause.DamageType;
 import org.spout.vanilla.event.cause.EntityDamageCause;
@@ -51,7 +53,7 @@ import org.spout.vanilla.material.block.liquid.Lava;
 import org.spout.vanilla.material.block.liquid.Water;
 import org.spout.vanilla.material.block.misc.Fire;
 
-public class ElementArrow extends ElementalArrow {
+public class ElementArrow extends Substance implements ElementalArrow {
 	private Random random = new Random();
 	private Entity shooter;
 
@@ -87,8 +89,13 @@ public class ElementArrow extends ElementalArrow {
 
 			entity.get(Health.class).damage(Math.round(damage), new EntityDamageCause(this.getOwner(), DamageType.PROJECTILE));
 		}
+
 		if (entity.get(Burn.class) != null) {
 			entity.get(Burn.class).setOnFire(this.getFireTicks(), true);
+		}
+
+		for (ArrowComponent component : this.getOwner().getAll(ArrowComponent.class)) {
+			component.onHit(point, entity);
 		}
 	}
 
@@ -100,6 +107,10 @@ public class ElementArrow extends ElementalArrow {
 		scene.setMovementVelocity(Vector3.ZERO);
 
 		EntityUtils.updateSnapshotPosition(scene);
+
+		for (ArrowComponent component : this.getOwner().getAll(ArrowComponent.class)) {
+			component.onHit(point, block);
+		}
 	}
 
 	@Override
@@ -181,6 +192,10 @@ public class ElementArrow extends ElementalArrow {
 		 * Without calling this method, the arrow will just fall down.
 		 */
 		EntityUtils.updateSnapshotPosition(scene);
+
+		for (ArrowComponent component : this.getOwner().getAll(ArrowComponent.class)) {
+			component.onShoot();
+		}
 	}
 
 	@Override
@@ -232,6 +247,10 @@ public class ElementArrow extends ElementalArrow {
 			this.setFireTicks(this.getFireTicks() + 100);
 		} else if (block instanceof Water) {
 			this.setFireTicks(0);
+		}
+
+		for (ArrowComponent component : this.getOwner().getAll(ArrowComponent.class)) {
+			component.onTick();
 		}
 	}
 

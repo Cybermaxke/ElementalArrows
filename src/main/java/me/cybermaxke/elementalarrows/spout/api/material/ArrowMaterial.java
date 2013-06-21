@@ -18,13 +18,13 @@
  */
 package me.cybermaxke.elementalarrows.spout.api.material;
 
-import me.cybermaxke.elementalarrows.spout.api.entity.ElementalArrow;
+import me.cybermaxke.elementalarrows.spout.api.entity.component.ArrowComponent;
 
 public interface ArrowMaterial {
 
 	/**
-	 * Gets the arrow assigned to this arrow.
-	 * @return arrow
+	 * Gets the components assigned to the arrow.
+	 * @return components
 	 */
-	public Class<? extends ElementalArrow> getArrow();
+	public Class<? extends ArrowComponent>[] getArrowComponents();
 }

@@ -25,7 +25,10 @@ import me.cybermaxke.elementalarrows.spout.api.ElementalArrows;
 import me.cybermaxke.elementalarrows.spout.api.ElementalArrowsAPI;
 import me.cybermaxke.elementalarrows.spout.api.data.ParticleEffect;
 import me.cybermaxke.elementalarrows.spout.api.data.firework.FireworkEffect;
+import me.cybermaxke.elementalarrows.spout.api.entity.ElementalArrow;
+import me.cybermaxke.elementalarrows.spout.api.entity.component.ArrowComponent;
 import me.cybermaxke.elementalarrows.spout.api.entity.selector.EntitySelector;
+import me.cybermaxke.elementalarrows.spout.plugin.entity.ElementArrow;
 import me.cybermaxke.elementalarrows.spout.plugin.entity.ElementFireworks;
 import me.cybermaxke.elementalarrows.spout.plugin.listener.ElementListener;
 import me.cybermaxke.elementalarrows.spout.plugin.material.ElementalBow;
@@ -69,6 +72,15 @@ public class ElementalArrowsPlugin extends Plugin implements ElementalArrowsAPI 
 	@Override
 	public void onDisable() {
 
+	}
+
+	@Override
+	public ElementalArrow spawnArrow(Point position, Class<? extends ArrowComponent>... components) {
+		Entity arrow = position.getWorld().createAndSpawnEntity(position, LoadOption.LOAD_ONLY, ElementArrow.class);
+		for (Class<? extends ArrowComponent> component : components) {
+			arrow.add(component);
+		}
+		return arrow.get(ElementArrow.class);
 	}
 
 	@Override

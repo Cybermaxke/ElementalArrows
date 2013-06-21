@@ -23,17 +23,16 @@ import me.cybermaxke.elementalarrows.spout.api.data.PickupMode;
 import org.spout.api.entity.Entity;
 import org.spout.api.math.Vector3;
 
-import org.spout.vanilla.component.entity.substance.Substance;
 import org.spout.vanilla.component.entity.substance.projectile.Projectile;
 
-public abstract class ElementalArrow extends Substance implements Projectile {
+public interface ElementalArrow extends ElementalEntity, Projectile {
 
 	/**
 	 * Shoots the arrow with the specific speed, and using a vector using the head/body rotation.
 	 * @param shooter
 	 * @param speed
 	 */
-	public abstract void shoot(Entity shooter, float speed);
+	public void shoot(Entity shooter, float speed);
 
 	/**
 	 * Shoots the arrow with the specific speed, spread and motion vector.
@@ -41,7 +40,7 @@ public abstract class ElementalArrow extends Substance implements Projectile {
 	 * @param speed
 	 * @param spread
 	 */
-	public abstract void shoot(Vector3 vector, float speed, float spread);
+	public void shoot(Vector3 vector, float speed, float spread);
 
 	/**
 	 * Shoots the arrow with the specific speed, spread and motion.
@@ -51,71 +50,71 @@ public abstract class ElementalArrow extends Substance implements Projectile {
 	 * @param speed
 	 * @param spread
 	 */
-	public abstract void shoot(float motX, float motY, float motZ, float speed, float spread);
+	public void shoot(float motX, float motY, float motZ, float speed, float spread);
 
 	/**
 	 * Gets the shooter of the arrow.
 	 * @return shooter
 	 */
-	public abstract Entity getShooter();
+	public Entity getShooter();
 
 	/**
 	 * Sets the shooter of the arrow.
 	 * @param shooter
 	 */
-	public abstract void setShooter(Entity shooter);
+	public void setShooter(Entity shooter);
 
 	/**
 	 * Gets the pickup mode of the arrow.
 	 * @return pickupmode
 	 */
-	public abstract PickupMode getPickupMode();
+	public PickupMode getPickupMode();
 
 	/**
 	 * Sets the pickup mode of the arrow.
 	 * @param pickupmode
 	 */
-	public abstract void setPickupMode(PickupMode mode);
+	public void setPickupMode(PickupMode mode);
 
 	/**
 	 * Gets if the arrow was a critical shot.
 	 * @return critical
 	 */
-	public abstract boolean isCritical();
+	public boolean isCritical();
 
 	/**
 	 * Sets if the arrow was a critical shot.
 	 * @param critical
 	 */
-	public abstract void setCritical(boolean critical);
+	public void setCritical(boolean critical);
 
 	/**
 	 * Gets the damage of the arrow.
 	 * @return damage
 	 */
-	public abstract int getDamage();
+	public int getDamage();
 
 	/**
 	 * Sets the damage of the arrow.
 	 * @param damage
 	 */
-	public abstract void setDamage(int damage);
+	public void setDamage(int damage);
 
 	/**
 	 * Gets if the arrow is on fire.
 	 * @return fire
 	 */
-	public abstract boolean isOnFire();
+	public boolean isOnFire();
 
 	/**
 	 * Gets the fire ticks of the arrow.
 	 * @return ticks
 	 */
-	public abstract int getFireTicks();
+	public int getFireTicks();
 
 	/**
 	 * Sets the fire ticks of the arrow.
 	 * @param ticks
 	 */
-	public abstract void setFireTicks(int ticks);
+	public void setFireTicks(int ticks);
 }

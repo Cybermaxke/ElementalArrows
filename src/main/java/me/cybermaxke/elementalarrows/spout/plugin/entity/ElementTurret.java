@@ -33,10 +33,11 @@ import org.spout.api.entity.Entity;
 
 import org.spout.vanilla.VanillaPlugin;
 import org.spout.vanilla.component.entity.misc.Health;
+import org.spout.vanilla.component.entity.substance.Substance;
 import org.spout.vanilla.protocol.entity.object.ObjectEntityProtocol;
 import org.spout.vanilla.protocol.entity.object.ObjectType;
 
-public class ElementTurret extends ElementalTurret {
+public class ElementTurret extends Substance implements ElementalTurret {
 	private EntitySelector targetSelector;
 	private Health health;
 	private Entity target;

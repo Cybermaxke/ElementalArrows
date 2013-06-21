@@ -42,10 +42,11 @@ import org.spout.nbt.CompoundTag;
 import org.spout.nbt.ListTag;
 
 import org.spout.vanilla.VanillaPlugin;
+import org.spout.vanilla.component.entity.substance.Substance;
 import org.spout.vanilla.event.entity.EntityStatusEvent;
 
 @SuppressWarnings("unchecked")
-public class ElementFireworks extends ElementalFireworks {
+public class ElementFireworks extends Substance implements ElementalFireworks {
 	private Random random = new Random();
 
 	private int ticksFlown = 0;

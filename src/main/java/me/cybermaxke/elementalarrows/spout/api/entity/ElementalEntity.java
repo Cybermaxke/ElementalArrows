@@ -18,39 +18,6 @@
  */
 package me.cybermaxke.elementalarrows.spout.api.entity;
 
-import java.util.List;
+public interface ElementalEntity {
 
-import me.cybermaxke.elementalarrows.spout.api.data.firework.FireworkEffect;
-
-public interface ElementalFireworks extends ElementalEntity {
-
-	/**
-	 * Gets the power of the firework.
-	 * @return power
-	 */
-	public int getPower();
-
-	/**
-	 * Sets the power of the firework.
-	 * @param power
-	 */
-	public void setPower(int power);
-
-	/**
-	 * Gets all the effects of the firework.
-	 * @return effects
-	 */
-	public List<FireworkEffect> getEffects();
-
-	/**
-	 * Adds a effect to the firework.
-	 * @param effect
-	 */
-	public void addEffect(FireworkEffect effect);
-
-	/**
-	 * Adds multiple effects to the firework.
-	 * @param effects
-	 */
-	public void addEffects(FireworkEffect... effects);
 }
