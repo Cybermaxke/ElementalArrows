@@ -26,15 +26,21 @@ import me.cybermaxke.elementalarrows.spout.api.ElementalArrowsAPI;
 import me.cybermaxke.elementalarrows.spout.api.data.ParticleEffect;
 import me.cybermaxke.elementalarrows.spout.api.data.firework.FireworkEffect;
 import me.cybermaxke.elementalarrows.spout.api.entity.ElementalArrow;
-import me.cybermaxke.elementalarrows.spout.api.entity.component.ArrowComponent;
+import me.cybermaxke.elementalarrows.spout.api.entity.ElementalEntity;
+import me.cybermaxke.elementalarrows.spout.api.entity.ElementalFireworks;
+import me.cybermaxke.elementalarrows.spout.api.entity.ElementalSkeleton;
+import me.cybermaxke.elementalarrows.spout.api.entity.ElementalTurret;
 import me.cybermaxke.elementalarrows.spout.api.entity.selector.EntitySelector;
 import me.cybermaxke.elementalarrows.spout.plugin.entity.ElementArrow;
 import me.cybermaxke.elementalarrows.spout.plugin.entity.ElementFireworks;
+import me.cybermaxke.elementalarrows.spout.plugin.entity.ElementSkeleton;
+import me.cybermaxke.elementalarrows.spout.plugin.entity.ElementTurret;
 import me.cybermaxke.elementalarrows.spout.plugin.listener.ElementListener;
 import me.cybermaxke.elementalarrows.spout.plugin.material.ElementalBow;
 import me.cybermaxke.elementalarrows.spout.plugin.material.ElementalFirework;
 import me.cybermaxke.elementalarrows.spout.plugin.material.ElementalMaterialUtils;
 
+import org.spout.api.component.entity.EntityComponent;
 import org.spout.api.entity.Entity;
 import org.spout.api.entity.Player;
 import org.spout.api.geo.LoadOption;
@@ -75,12 +81,31 @@ public class ElementalArrowsPlugin extends Plugin implements ElementalArrowsAPI 
 	}
 
 	@Override
-	public ElementalArrow spawnArrow(Point position, Class<? extends ArrowComponent>... components) {
-		Entity arrow = position.getWorld().createAndSpawnEntity(position, LoadOption.LOAD_ONLY, ElementArrow.class);
-		for (Class<? extends ArrowComponent> component : components) {
-			arrow.add(component);
+	public <T extends ElementalEntity> T spawn(Point position, Class<T> clazz) {
+		Class<? extends EntityComponent> entity;
+
+		if (ElementalArrow.class.isAssignableFrom(clazz)) {
+			entity = ElementArrow.class;
+		} else if (ElementalFireworks.class.isAssignableFrom(clazz)) {
+			entity = ElementFireworks.class;
+		} else if (ElementalSkeleton.class.isAssignableFrom(clazz)) {
+			entity = ElementSkeleton.class;
+		} else if (ElementalTurret.class.isAssignableFrom(clazz)) {
+			entity = ElementTurret.class;
+		} else {
+			return null;
 		}
-		return arrow.get(ElementArrow.class);
+
+		return (T) position.getWorld().createAndSpawnEntity(position, LoadOption.LOAD_ONLY, entity).get(entity);
+	}
+
+	@Override
+	public <T extends ElementalEntity> T spawn(Point position, Class<T> clazz, Class<? extends EntityComponent>... components) {
+		T entity = this.spawn(position, clazz);
+		for (Class<? extends EntityComponent> component : components) {
+			((EntityComponent) entity).getOwner().add(component);
+		}
+		return entity;
 	}
 
 	@Override
