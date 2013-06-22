@@ -12,7 +12,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<bukkit.mainclass>me.cybermaxke.elementalarrows.plugin.ElementalArrowsPlugin</bukkit.mainclass>
+		<bukkit.mainclass>me.cybermaxke.elementalarrows.bukkit.plugin.ElementalArrowsPlugin</bukkit.mainclass>
 		<bukkit.depends>Spout,WorldEdit,WorldGuard</bukkit.depends>
 		<spout.mainclass>me.cybermaxke.elementalarrows.spout.plugin.ElementalArrowsPlugin</spout.mainclass>
 		<spout.depends>Vanilla</spout.depends>
