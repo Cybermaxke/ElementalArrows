@@ -33,12 +33,12 @@ import me.cybermaxke.elementalarrows.api.ElementalArrowsAPI;
 import me.cybermaxke.elementalarrows.api.ParticleEffect;
 import me.cybermaxke.elementalarrows.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.api.entity.selector.TargetSelector;
-import me.cybermaxke.elementalarrows.api.entity.selector.TargetSelectorMonster;
 import me.cybermaxke.elementalarrows.api.inventory.ElementalItemStack;
 import me.cybermaxke.elementalarrows.api.material.ArrowMaterial;
 import me.cybermaxke.elementalarrows.plugin.container.ContainerTurret;
 import me.cybermaxke.elementalarrows.plugin.entity.CraftElementalTurret;
 import me.cybermaxke.elementalarrows.plugin.entity.CraftElementalArrow;
+import me.cybermaxke.elementalarrows.plugin.entity.nms.selector.TargetSelectorMonster;
 import me.cybermaxke.elementalarrows.plugin.inventory.nms.InventoryTurret;
 
 import net.minecraft.server.v1_5_R3.Container;
