@@ -20,6 +20,7 @@ package me.cybermaxke.elementalarrows.spout.plugin;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 import me.cybermaxke.elementalarrows.spout.api.ElementalArrows;
 import me.cybermaxke.elementalarrows.spout.api.ElementalArrowsAPI;
@@ -39,6 +40,7 @@ import me.cybermaxke.elementalarrows.spout.plugin.listener.ElementListener;
 import me.cybermaxke.elementalarrows.spout.plugin.material.ElementalBow;
 import me.cybermaxke.elementalarrows.spout.plugin.material.ElementalFirework;
 import me.cybermaxke.elementalarrows.spout.plugin.material.ElementalMaterialUtils;
+import me.cybermaxke.elementalarrows.spout.plugin.utils.Metrics;
 
 import org.spout.api.component.entity.EntityComponent;
 import org.spout.api.entity.Entity;
@@ -73,6 +75,14 @@ public class ElementalArrowsPlugin extends Plugin implements ElementalArrowsAPI 
 
 		BOW = new ElementalBow("Elemental Bow");
 		FIREWORKS = new ElementalFirework("Elemental Fireworks");
+
+		try {
+			Metrics metrics = new Metrics(this);
+			metrics.start();
+			this.getLogger().log(Level.INFO, "Metrics are loaded.");
+		} catch (Exception e) {
+			this.getLogger().log(Level.WARNING, "Wasn't able to load metrics!");
+		}
 	}
 
 	@Override
