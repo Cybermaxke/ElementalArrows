@@ -58,7 +58,7 @@ public class ArrowManager {
 		ARROW_EXPLOSION = new ArrowExplosion(plugin, "Explosion Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/ExplosionArrow.png");
 		ARROW_FIRE = new ArrowFire(plugin, "Fire Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/FireArrow.png");
 		ARROW_ICE = new ArrowIce(plugin, "Ice Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/IceArrow.png");
-		ARROW_IMPLOSION = new ArrowImplosion(plugin, "Implosion Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/ExplosionArrow.png");
+		ARROW_IMPLOSION = new ArrowImplosion(plugin, "Implosion Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/ImplosionArrow.png");
 		ARROW_LIGHTNING = new ArrowLightning(plugin, "Lightning Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/LightningArrow.png");
 		ARROW_POISON = new ArrowPoison(plugin, "Poison Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/PoisonArrow.png");
 		//ARROW_PULL = new ArrowPull(plugin, "Pull Arrow", "");

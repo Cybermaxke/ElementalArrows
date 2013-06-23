@@ -71,7 +71,7 @@ public class EventListener implements Listener {
 		SimplePlayerChunkMap cm = (SimplePlayerChunkMap) SpoutManager.getPlayerChunkMap();
 		cm.onPlayerJoin(player);
 
-		synchronized(Spout.getInstance().getOnlinePlayers()) {
+		synchronized (Spout.getInstance().getOnlinePlayers()) {
 			Spout.getInstance().getOnlinePlayers().add(player);
 		}
 	}
