@@ -39,9 +39,9 @@ import org.spout.vanilla.component.entity.living.Human;
 import org.spout.vanilla.component.entity.substance.Item;
 import org.spout.vanilla.event.entity.EntityDeathEvent;
 
-public class ElementListener implements Listener {
+public class ElementalListener implements Listener {
 
-	public ElementListener(Plugin plugin) {
+	public ElementalListener(Plugin plugin) {
 		plugin.getEngine().getEventManager().registerEvents(this, plugin);
 	}
 

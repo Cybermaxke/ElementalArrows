@@ -36,7 +36,7 @@ import me.cybermaxke.elementalarrows.spout.plugin.entity.ElementArrow;
 import me.cybermaxke.elementalarrows.spout.plugin.entity.ElementFireworks;
 import me.cybermaxke.elementalarrows.spout.plugin.entity.ElementSkeleton;
 import me.cybermaxke.elementalarrows.spout.plugin.entity.ElementTurret;
-import me.cybermaxke.elementalarrows.spout.plugin.listener.ElementListener;
+import me.cybermaxke.elementalarrows.spout.plugin.listener.ElementalListener;
 import me.cybermaxke.elementalarrows.spout.plugin.material.ElementalBow;
 import me.cybermaxke.elementalarrows.spout.plugin.material.ElementalFirework;
 import me.cybermaxke.elementalarrows.spout.plugin.material.ElementalMaterialUtils;
@@ -71,7 +71,7 @@ public class ElementalArrowsPlugin extends Plugin implements ElementalArrowsAPI 
 		ElementalMaterialUtils.setDataMask(VanillaMaterials.FIREWORKS, (short) 0x7F);
 
 		this.repositionManager = new VanillaRepositionManager();
-		new ElementListener(this);
+		new ElementalListener(this);
 
 		BOW = new ElementalBow("Elemental Bow");
 		FIREWORKS = new ElementalFirework("Elemental Fireworks");

@@ -5,4 +5,4 @@ author: ${author}
 
 main: ${spout.mainclass}
 softdepend: [${spout.depends}]
-platform: SERVER
+platform: ALL

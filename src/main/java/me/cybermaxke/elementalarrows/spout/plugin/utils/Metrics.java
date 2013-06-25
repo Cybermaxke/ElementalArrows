@@ -55,42 +55,52 @@ public class Metrics {
 	 * The current revision number
 	 */
 	private final static int REVISION = 6;
+
 	/**
 	 * The base url of the metrics domain
 	 */
 	private static final String BASE_URL = "http://mcstats.org";
+
 	/**
 	 * The url used to report a server's status
 	 */
 	private static final String REPORT_URL = "/report/%s";
+
 	/**
 	 * Interval of time to ping (in minutes)
 	 */
 	private final static int PING_INTERVAL = 10;
+
 	/**
 	 * Debug mode
 	 */
 	private final boolean debug;
+
 	/**
 	 * The plugin this metrics submits for
 	 */
 	private final Plugin plugin;
+
 	/**
 	 * The plugin configuration file
 	 */
 	private final YamlConfiguration configuration;
+
 	/**
 	 * The plugin configuration file
 	 */
 	private final File configurationFile;
+
 	/**
 	 * Unique server id
 	 */
 	private final String guid;
+
 	/**
 	 * Lock for synchronization
 	 */
 	private final Object optOutLock = new Object();
+
 	/**
 	 * Id of the scheduled task
 	 */
@@ -128,19 +138,19 @@ public class Metrics {
 	 * @return True if statistics measuring is running, otherwise false.
 	 */
 	public boolean start() {
-		synchronized (optOutLock) {
+		synchronized (this.optOutLock) {
 			// Did we opt out?
 			if (this.isOptOut()) {
 				return false;
 			}
 
 			// Is metrics already running?
-			if (taskId != null) {
+			if (this.taskId != null) {
 				return true;
 			}
 
-			// Begin hitting the server with glorious data
-			taskId = plugin.getEngine().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+			// Begin hitting the server with glorious data.
+			this.taskId = this.plugin.getEngine().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 
 				private boolean firstPost = true;
 

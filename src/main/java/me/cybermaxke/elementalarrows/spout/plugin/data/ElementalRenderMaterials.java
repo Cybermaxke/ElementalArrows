@@ -16,18 +16,20 @@
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  * 
  */
-package me.cybermaxke.elementalarrows.spout.api.material;
+package me.cybermaxke.elementalarrows.spout.plugin.data;
 
-import org.spout.api.math.Vector2;
-import org.spout.vanilla.material.item.VanillaItemMaterial;
+import org.spout.api.Platform;
+import org.spout.api.Spout;
+import org.spout.api.render.RenderMaterial;
 
-public class ElementalItemMaterial extends VanillaItemMaterial {
+public class ElementalRenderMaterials {
+	public static final RenderMaterial ARROWS_MATERIAL;
 
-	public ElementalItemMaterial(String name, VanillaItemMaterial parent, int data) {
-		this(name, parent, data, null);
-	}
-
-	public ElementalItemMaterial(String name, VanillaItemMaterial parent, int data, Vector2 pos) {
-		super(name, parent.getMinecraftId(), data, parent, pos);
+	static {
+		if (Spout.getPlatform().equals(Platform.CLIENT)) {
+			ARROWS_MATERIAL = Spout.getEngine().getFileSystem().getResource("material://ElementalArrows/materials/ArrowsMaterial.smt");
+		} else {
+			ARROWS_MATERIAL = null;
+		}
 	}
 }

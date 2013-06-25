@@ -20,13 +20,18 @@ package me.cybermaxke.elementalarrows.spout.api.material;
 
 import me.cybermaxke.elementalarrows.spout.api.entity.component.ArrowComponent;
 
+import org.spout.api.math.Vector2;
 import org.spout.vanilla.material.VanillaMaterials;
 
 public class ElementalArrowMaterial extends ElementalItemMaterial implements ArrowMaterial {
 	private Class<? extends ArrowComponent>[] components;
 
 	public ElementalArrowMaterial(String name, int data, Class<? extends ArrowComponent>... components) {
-		super(name, VanillaMaterials.ARROW, data);
+		this(name, data, null, components);
+	}
+
+	public ElementalArrowMaterial(String name, int data, Vector2 pos, Class<? extends ArrowComponent>... components) {
+		super(name, VanillaMaterials.ARROW, data, pos);
 		this.components = components;
 	}
 
