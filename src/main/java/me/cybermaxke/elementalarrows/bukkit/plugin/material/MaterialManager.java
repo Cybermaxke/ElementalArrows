@@ -34,6 +34,6 @@ public class MaterialManager {
 		new ArrowManager(plugin);
 
 		EGG_ELEMENTAL_SKELETON = new GenericCustomSpawnEgg(plugin, "Spawn Elemental Skeleton", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/ElementalSkeletonEgg.png", ElementalSkeleton.class);
-		EGG_ELEMENTAL_TURRET = new GenericCustomSpawnEgg(plugin, "Spawn Elemental Turret", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/ElementalSkeletonEgg.png", ElementalTurret.class);
+		EGG_ELEMENTAL_TURRET = new GenericCustomSpawnEgg(plugin, "Spawn Elemental Turret", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/ElementalTurretEgg.png", ElementalTurret.class);
 	}
 }
