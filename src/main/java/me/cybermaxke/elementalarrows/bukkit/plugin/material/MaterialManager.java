@@ -23,6 +23,7 @@ import me.cybermaxke.elementalarrows.bukkit.api.entity.ElementalTurret;
 import me.cybermaxke.elementalarrows.bukkit.api.material.GenericCustomSpawnEgg;
 import me.cybermaxke.elementalarrows.bukkit.api.material.SpawnEggMaterial;
 import me.cybermaxke.elementalarrows.bukkit.plugin.material.arrow.ArrowManager;
+import me.cybermaxke.elementalarrows.bukkit.plugin.textures.TextureManager;
 
 import org.bukkit.plugin.Plugin;
 
@@ -33,7 +34,7 @@ public class MaterialManager {
 	public MaterialManager(Plugin plugin) {
 		new ArrowManager(plugin);
 
-		EGG_ELEMENTAL_SKELETON = new GenericCustomSpawnEgg(plugin, "Spawn Elemental Skeleton", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/ElementalSkeletonEgg.png", ElementalSkeleton.class);
-		EGG_ELEMENTAL_TURRET = new GenericCustomSpawnEgg(plugin, "Spawn Elemental Turret", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/ElementalTurretEgg.png", ElementalTurret.class);
+		EGG_ELEMENTAL_SKELETON = new GenericCustomSpawnEgg(plugin, "Spawn Elemental Skeleton", TextureManager.getTexture("ElementalSkeletonEgg.png"), ElementalSkeleton.class);
+		EGG_ELEMENTAL_TURRET = new GenericCustomSpawnEgg(plugin, "Spawn Elemental Turret", TextureManager.getTexture("ElementalTurretEgg.png"), ElementalTurret.class);
 	}
 }

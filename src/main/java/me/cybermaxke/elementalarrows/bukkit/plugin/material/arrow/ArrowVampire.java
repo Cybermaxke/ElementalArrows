@@ -18,6 +18,7 @@
  */
 package me.cybermaxke.elementalarrows.bukkit.plugin.material.arrow;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class ArrowVampire extends GenericCustomArrow {
 	private List<EntityType> invalidTypes;
 	private int duration;
 
-	public ArrowVampire(Plugin plugin, String name, String texture) {
+	public ArrowVampire(Plugin plugin, String name, File texture) {
 		super(plugin, name, texture);
 	}
 

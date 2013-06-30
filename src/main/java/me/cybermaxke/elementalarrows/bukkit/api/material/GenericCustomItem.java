@@ -32,11 +32,21 @@ public class GenericCustomItem extends org.getspout.spoutapi.material.item.Gener
 	private File file;
 	private File folder;
 
+	public GenericCustomItem(Plugin plugin, String name, File texture) {
+		super(plugin, name);
+		this.setTexture(texture);
+		this.init();
+	}
+
 	public GenericCustomItem(Plugin plugin, String name, String texture) {
 		super(plugin, name, texture);
+		this.init();
+	}
+
+	private void init() {
 		this.id = this.getRawId();
-		this.folder = new File(plugin.getDataFolder() + File.separator + "Materials");
-		this.file = new File(this.folder, name.replace(" ", "") + ".yml");
+		this.folder = new File(this.getPlugin().getDataFolder() + File.separator + "Materials");
+		this.file = new File(this.folder, this.getName().replace(" ", "") + ".yml");
 		this.onInit();
 		this.reload();
 	}

@@ -18,6 +18,8 @@
  */
 package me.cybermaxke.elementalarrows.bukkit.plugin.material.arrow;
 
+import java.io.File;
+
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.Recipe;
@@ -34,7 +36,7 @@ import me.cybermaxke.elementalarrows.bukkit.api.material.GenericCustomArrow;
 public class ArrowExplosion extends GenericCustomArrow {
 	private float power;
 
-	public ArrowExplosion(Plugin plugin, String name, String texture) {
+	public ArrowExplosion(Plugin plugin, String name, File texture) {
 		super(plugin, name, texture);
 	}
 

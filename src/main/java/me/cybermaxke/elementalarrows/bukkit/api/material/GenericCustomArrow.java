@@ -18,6 +18,7 @@
  */
 package me.cybermaxke.elementalarrows.bukkit.api.material;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,8 +53,17 @@ public class GenericCustomArrow extends GenericCustomItem implements ArrowMateri
 	private Permission craftingPermission;
 	private ItemStack drop;
 
+	public GenericCustomArrow(Plugin plugin, String name, File texture) {
+		super(plugin, name, texture);
+		this.init();
+	}
+
 	public GenericCustomArrow(Plugin plugin, String name, String texture) {
 		super(plugin, name, texture);
+		this.init();
+	}
+
+	private void init() {
 		this.setId(Material.ARROW.getId());
 		this.drop = new SpoutItemStack(this);
 		if (this.getRecipes() != null) {
@@ -61,9 +71,8 @@ public class GenericCustomArrow extends GenericCustomItem implements ArrowMateri
 				SpoutManager.getMaterialManager().registerSpoutRecipe(r);
 			}
 		}
-		SpoutManager.getFileManager().addToCache(plugin, this.getTexture());
 		if (this.skeletonTexture != null) {
-			SpoutManager.getFileManager().addToCache(plugin, this.skeletonTexture);
+			SpoutManager.getFileManager().addToCache(this.getPlugin(), this.skeletonTexture);
 		}
 	}
 

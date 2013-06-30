@@ -18,6 +18,8 @@
  */
 package me.cybermaxke.elementalarrows.bukkit.plugin.material.arrow;
 
+import java.io.File;
+
 import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -37,7 +39,7 @@ import me.cybermaxke.elementalarrows.bukkit.api.material.GenericCustomArrow;
 
 public class ArrowDual extends GenericCustomArrow {
 
-	public ArrowDual(Plugin plugin, String name, String texture) {
+	public ArrowDual(Plugin plugin, String name, File texture) {
 		super(plugin, name, texture);
 		this.setDrop(new ItemStack(Material.ARROW));
 	}

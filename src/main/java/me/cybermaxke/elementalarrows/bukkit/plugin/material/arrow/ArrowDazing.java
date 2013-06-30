@@ -18,6 +18,8 @@
  */
 package me.cybermaxke.elementalarrows.bukkit.plugin.material.arrow;
 
+import java.io.File;
+
 import me.cybermaxke.elementalarrows.bukkit.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.bukkit.api.material.GenericCustomArrow;
 
@@ -35,7 +37,7 @@ import org.getspout.spoutapi.material.MaterialData;
 public class ArrowDazing extends GenericCustomArrow {
 	private int duration;
 
-	public ArrowDazing(Plugin plugin, String name, String texture) {
+	public ArrowDazing(Plugin plugin, String name, File texture) {
 		super(plugin, name, texture);
 	}
 

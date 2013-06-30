@@ -18,6 +18,8 @@
  */
 package me.cybermaxke.elementalarrows.bukkit.plugin.material.arrow;
 
+import java.io.File;
+
 import org.bukkit.Location;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.plugin.Plugin;
@@ -27,7 +29,7 @@ import me.cybermaxke.elementalarrows.bukkit.api.material.GenericCustomArrow;
 
 public class ArrowPull extends GenericCustomArrow {
 
-	public ArrowPull(Plugin plugin, String name, String texture) {
+	public ArrowPull(Plugin plugin, String name, File texture) {
 		super(plugin, name, texture);
 	}
 

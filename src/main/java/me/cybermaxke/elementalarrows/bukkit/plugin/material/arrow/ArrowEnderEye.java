@@ -18,6 +18,7 @@
  */
 package me.cybermaxke.elementalarrows.bukkit.plugin.material.arrow;
 
+import java.io.File;
 import java.util.Random;
 
 import org.bukkit.Effect;
@@ -36,7 +37,7 @@ import me.cybermaxke.elementalarrows.bukkit.api.material.GenericCustomArrow;
 public class ArrowEnderEye extends GenericCustomArrow {
 	private Random random = new Random();
 
-	public ArrowEnderEye(Plugin plugin, String name, String texture) {
+	public ArrowEnderEye(Plugin plugin, String name, File texture) {
 		super(plugin, name, texture);
 	}
 

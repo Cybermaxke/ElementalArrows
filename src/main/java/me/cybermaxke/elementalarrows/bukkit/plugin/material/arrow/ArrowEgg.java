@@ -18,6 +18,8 @@
  */
 package me.cybermaxke.elementalarrows.bukkit.plugin.material.arrow;
 
+import java.io.File;
+
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Chicken;
@@ -36,7 +38,7 @@ import me.cybermaxke.elementalarrows.bukkit.api.material.GenericCustomArrow;
 public class ArrowEgg extends GenericCustomArrow {
 	private boolean baby;
 
-	public ArrowEgg(Plugin plugin, String name, String texture) {
+	public ArrowEgg(Plugin plugin, String name, File texture) {
 		super(plugin, name, texture);
 		this.setDrop(new ItemStack(Material.ARROW));
 	}

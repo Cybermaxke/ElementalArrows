@@ -18,6 +18,7 @@
  */
 package me.cybermaxke.elementalarrows.bukkit.plugin.material.arrow;
 
+import java.io.File;
 import java.util.Random;
 
 import org.bukkit.Location;
@@ -34,7 +35,7 @@ public class ArrowVolley extends GenericCustomArrow {
 	private Random random = new Random();
 	private int amount;
 
-	public ArrowVolley(Plugin plugin, String name, String texture) {
+	public ArrowVolley(Plugin plugin, String name, File texture) {
 		super(plugin, name, texture);
 	}
 

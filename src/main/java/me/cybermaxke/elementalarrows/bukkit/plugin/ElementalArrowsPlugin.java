@@ -39,6 +39,7 @@ import me.cybermaxke.elementalarrows.bukkit.plugin.entity.nms.EntityManager;
 import me.cybermaxke.elementalarrows.bukkit.plugin.item.nms.ItemManager;
 import me.cybermaxke.elementalarrows.bukkit.plugin.listeners.EventListener;
 import me.cybermaxke.elementalarrows.bukkit.plugin.material.MaterialManager;
+import me.cybermaxke.elementalarrows.bukkit.plugin.textures.TextureManager;
 import me.cybermaxke.elementalarrows.bukkit.plugin.utils.Metrics;
 
 import net.minecraft.server.v1_5_R3.Block;
@@ -87,6 +88,7 @@ public class ElementalArrowsPlugin extends JavaPlugin implements ElementalArrows
 
 		this.config = new ElementalConfigFile(this);
 
+		new TextureManager(this);
 		new MaterialManager(this);
 		new EventListener(this);
 		new Commands(this);

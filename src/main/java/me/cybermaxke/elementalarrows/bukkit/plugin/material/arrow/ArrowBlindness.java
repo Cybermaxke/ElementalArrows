@@ -18,6 +18,8 @@
  */
 package me.cybermaxke.elementalarrows.bukkit.plugin.material.arrow;
 
+import java.io.File;
+
 import org.bukkit.Effect;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.LivingEntity;
@@ -36,7 +38,7 @@ import me.cybermaxke.elementalarrows.bukkit.api.material.GenericCustomArrow;
 public class ArrowBlindness extends GenericCustomArrow {
 	private int duration;
 
-	public ArrowBlindness(Plugin plugin, String name, String texture) {
+	public ArrowBlindness(Plugin plugin, String name, File texture) {
 		super(plugin, name, texture);
 	}
 

@@ -18,6 +18,7 @@
  */
 package me.cybermaxke.elementalarrows.bukkit.plugin.material.arrow;
 
+import java.io.File;
 import java.util.Random;
 
 import org.bukkit.Effect;
@@ -40,7 +41,7 @@ public class ArrowIce extends GenericCustomArrow {
 	private Random random = new Random();
 	private int duration;
 
-	public ArrowIce(Plugin plugin, String name, String texture) {
+	public ArrowIce(Plugin plugin, String name, File texture) {
 		super(plugin, name, texture);
 	}
 

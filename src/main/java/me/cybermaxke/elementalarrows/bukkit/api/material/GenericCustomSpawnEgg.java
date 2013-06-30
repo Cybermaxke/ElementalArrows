@@ -18,6 +18,8 @@
  */
 package me.cybermaxke.elementalarrows.bukkit.api.material;
 
+import java.io.File;
+
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Pig;
@@ -27,6 +29,12 @@ public class GenericCustomSpawnEgg extends GenericCustomItem implements SpawnEgg
 	private Class<? extends Entity> entity;
 
 	public GenericCustomSpawnEgg(Plugin plugin, String name, String texture, Class<? extends Entity> entity) {
+		super(plugin, name, texture);
+		this.setId(Material.MONSTER_EGG.getId());
+		this.entity = entity;
+	}
+
+	public GenericCustomSpawnEgg(Plugin plugin, String name, File texture, Class<? extends Entity> entity) {
 		super(plugin, name, texture);
 		this.setId(Material.MONSTER_EGG.getId());
 		this.entity = entity;

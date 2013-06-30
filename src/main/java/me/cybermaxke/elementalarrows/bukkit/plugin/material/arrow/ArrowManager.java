@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Random;
 
 import me.cybermaxke.elementalarrows.bukkit.api.material.ArrowMaterial;
+import me.cybermaxke.elementalarrows.bukkit.plugin.textures.TextureManager;
 
 import org.bukkit.plugin.Plugin;
 
@@ -49,23 +50,23 @@ public class ArrowManager {
 	public static ArrowMaterial ARROW_VOLLEY;
 
 	public ArrowManager(Plugin plugin) {
-		ARROW_BLINDNESS = new ArrowBlindness(plugin, "Blindness Arrow", "https://dl.dropbox.com/u/104060836/ElementalArrows/Resources/BlindnessArrow.png");
-		ARROW_DAZING = new ArrowDazing(plugin, "Dazing Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/DazingArrow.png");
-		ARROW_DIRT = new ArrowDirt(plugin, "Dirt Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/DirtArrow.png");
-		ARROW_DUAL = new ArrowDual(plugin, "Dual Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/DualArrow.png");
-		ARROW_EGG = new ArrowEgg(plugin, "Egg Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/EggArrow.png");
-		ARROW_ENDER_EYE = new ArrowEnderEye(plugin, "EnderEye Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/EnderEyeArrow.png");
-		ARROW_EXPLOSION = new ArrowExplosion(plugin, "Explosion Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/ExplosionArrow.png");
-		ARROW_FIRE = new ArrowFire(plugin, "Fire Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/FireArrow.png");
-		ARROW_ICE = new ArrowIce(plugin, "Ice Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/IceArrow.png");
-		ARROW_IMPLOSION = new ArrowImplosion(plugin, "Implosion Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/ImplosionArrow.png");
-		ARROW_LIGHTNING = new ArrowLightning(plugin, "Lightning Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/LightningArrow.png");
-		ARROW_POISON = new ArrowPoison(plugin, "Poison Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/PoisonArrow.png");
-		//ARROW_PULL = new ArrowPull(plugin, "Pull Arrow", "");
-		ARROW_RAZOR = new ArrowRazor(plugin, "Razor Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/RazorArrow.png");
-		ARROW_TORCH = new ArrowTorch(plugin, "Torch Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/TorchArrow.png");
-		ARROW_VAMPIRE = new ArrowVampire(plugin, "Vampiric Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/VampireArrow.png");
-		ARROW_VOLLEY = new ArrowVolley(plugin, "Volley Arrow", "http://dl.dropbox.com/u/104060836/ElementalArrows/Resources/VollyArrow.png");
+		ARROW_BLINDNESS = new ArrowBlindness(plugin, "Blindness Arrow", TextureManager.getTexture("BlindnessArrow.png"));
+		ARROW_DAZING = new ArrowDazing(plugin, "Dazing Arrow", TextureManager.getTexture("DazingArrow.png"));
+		ARROW_DIRT = new ArrowDirt(plugin, "Dirt Arrow", TextureManager.getTexture("DirtArrow.png"));
+		ARROW_DUAL = new ArrowDual(plugin, "Dual Arrow", TextureManager.getTexture("DualArrow.png"));
+		ARROW_EGG = new ArrowEgg(plugin, "Egg Arrow", TextureManager.getTexture("EggArrow.png"));
+		ARROW_ENDER_EYE = new ArrowEnderEye(plugin, "EnderEye Arrow", TextureManager.getTexture("EnderEyeArrow.png"));
+		ARROW_EXPLOSION = new ArrowExplosion(plugin, "Explosion Arrow", TextureManager.getTexture("ExplosionArrow.png"));
+		ARROW_FIRE = new ArrowFire(plugin, "Fire Arrow", TextureManager.getTexture("FireArrow.png"));
+		ARROW_ICE = new ArrowIce(plugin, "Ice Arrow", TextureManager.getTexture("IceArrow.png"));
+		ARROW_IMPLOSION = new ArrowImplosion(plugin, "Implosion Arrow", TextureManager.getTexture("ImplosionArrow.png"));
+		ARROW_LIGHTNING = new ArrowLightning(plugin, "Lightning Arrow", TextureManager.getTexture("LightningArrow.png"));
+		ARROW_POISON = new ArrowPoison(plugin, "Poison Arrow", TextureManager.getTexture("PoisonArrow.png"));
+		//ARROW_PULL = new ArrowPull(plugin, "Pull Arrow", TextureManager.getTexture("PullArrow.png"));
+		ARROW_RAZOR = new ArrowRazor(plugin, "Razor Arrow", TextureManager.getTexture("RazorArrow.png"));
+		ARROW_TORCH = new ArrowTorch(plugin, "Torch Arrow", TextureManager.getTexture("TorchArrow.png"));
+		ARROW_VAMPIRE = new ArrowVampire(plugin, "Vampiric Arrow", TextureManager.getTexture("VampireArrow.png"));
+		ARROW_VOLLEY = new ArrowVolley(plugin, "Volley Arrow", TextureManager.getTexture("VollyArrow.png"));
 	}
 
 	public static ArrowMaterial getRandomSkeletonArrow() {

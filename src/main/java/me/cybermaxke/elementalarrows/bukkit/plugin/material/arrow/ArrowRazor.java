@@ -18,6 +18,8 @@
  */
 package me.cybermaxke.elementalarrows.bukkit.plugin.material.arrow;
 
+import java.io.File;
+
 import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.Plugin;
 
@@ -29,7 +31,7 @@ import me.cybermaxke.elementalarrows.bukkit.api.material.GenericCustomArrow;
 
 public class ArrowRazor extends GenericCustomArrow {
 
-	public ArrowRazor(Plugin plugin, String name, String texture) {
+	public ArrowRazor(Plugin plugin, String name, File texture) {
 		super(plugin, name, texture);
 	}
 
