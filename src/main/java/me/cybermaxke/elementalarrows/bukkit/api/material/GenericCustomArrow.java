@@ -71,9 +71,6 @@ public class GenericCustomArrow extends GenericCustomItem implements ArrowMateri
 				SpoutManager.getMaterialManager().registerSpoutRecipe(r);
 			}
 		}
-		if (this.skeletonTexture != null) {
-			SpoutManager.getFileManager().addToCache(this.getPlugin(), this.skeletonTexture);
-		}
 	}
 
 	@Override

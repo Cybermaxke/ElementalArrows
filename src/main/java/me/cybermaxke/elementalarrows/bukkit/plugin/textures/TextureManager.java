@@ -31,7 +31,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.getspout.spoutapi.SpoutManager;
 
 public class TextureManager {
-	public static File folder;
+	private static final String REGEX = ".*\\.(txt|yml|xml|png|jpg|ogg|midi|wav|zip)$";
+	private static File folder;
 
 	public TextureManager(JavaPlugin plugin) {
 		try {
@@ -61,7 +62,7 @@ public class TextureManager {
 					continue;
 				}
 
-				if (!file.exists() && name.matches(".*\\.(txt|yml|xml|png|jpg|ogg|midi|wav|zip)$")) {
+				if (!file.exists() && name.matches(REGEX)) {
 					InputStream is = jar.getInputStream(entry);
 					FileOutputStream fos = new FileOutputStream(file);
 
@@ -75,7 +76,9 @@ public class TextureManager {
 			}
 
 			for (File file : folder.listFiles()) {
-				SpoutManager.getFileManager().addToCache(plugin, file);
+				if (file.getName().matches(REGEX)) {
+					SpoutManager.getFileManager().addToCache(plugin, file);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
