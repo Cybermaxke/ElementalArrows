@@ -35,6 +35,7 @@ public class ElementalData {
 	public static final DefaultedKey<PickupMode> PICKUP_MODE = new DefaultedKeyImpl<PickupMode>("pickup_mode", PickupMode.UNABLE);
 	public static final DefaultedKey<Integer> ARROW_DAMAGE = new DefaultedKeyImpl<Integer>("arrow_damage", 2);
 	public static final DefaultedKey<Integer> FIRE_TICKS = new DefaultedKeyImpl<Integer>("fire_ticks", 0);
+	public static final DefaultedKey<ItemStack> DROP = new DefaultedKeyImpl<ItemStack>("drop", null);
 
 	/**
 	 * Data keys for humans.

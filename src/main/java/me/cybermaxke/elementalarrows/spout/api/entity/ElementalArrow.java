@@ -21,6 +21,7 @@ package me.cybermaxke.elementalarrows.spout.api.entity;
 import me.cybermaxke.elementalarrows.spout.api.data.PickupMode;
 
 import org.spout.api.entity.Entity;
+import org.spout.api.inventory.ItemStack;
 import org.spout.api.math.Vector3;
 
 import org.spout.vanilla.component.entity.substance.projectile.Projectile;
@@ -75,6 +76,18 @@ public interface ElementalArrow extends ElementalEntity, Projectile {
 	 * @param pickupmode
 	 */
 	public void setPickupMode(PickupMode mode);
+
+	/**
+	 * Gets the item drop of the arrow.
+	 * @return item
+	 */
+	public ItemStack getDrop();
+
+	/**
+	 * Sets the item drop of the arrow.
+	 * @param item
+	 */
+	public void setDrop(ItemStack item);
 
 	/**
 	 * Gets if the arrow was a critical shot.

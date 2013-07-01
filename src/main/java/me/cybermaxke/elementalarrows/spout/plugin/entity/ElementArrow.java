@@ -33,6 +33,7 @@ import org.spout.api.entity.Entity;
 import org.spout.api.entity.Player;
 import org.spout.api.geo.cuboid.Block;
 import org.spout.api.geo.discrete.Point;
+import org.spout.api.inventory.ItemStack;
 import org.spout.api.material.BlockMaterial;
 import org.spout.api.math.Quaternion;
 import org.spout.api.math.QuaternionMath;
@@ -272,6 +273,16 @@ public class ElementArrow extends Substance implements ElementalArrow {
 	@Override
 	public void setPickupMode(PickupMode mode) {
 		this.getDatatable().put(ElementalData.PICKUP_MODE, mode);
+	}
+
+	@Override
+	public ItemStack getDrop() {
+		return this.getDatatable().get(ElementalData.DROP);
+	}
+
+	@Override
+	public void setDrop(ItemStack item) {
+		this.getDatatable().put(ElementalData.DROP, item);
 	}
 
 	@Override

@@ -58,7 +58,7 @@ public class TextureManager {
 				String name = entry.getName();
 
 				File file = new File(dfolder, name);
-				if (!file.getParentFile().equals(folder)) {
+				if (!isInFolder(folder, file)) {
 					continue;
 				}
 
@@ -83,6 +83,17 @@ public class TextureManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	private static boolean isInFolder(File folder, File file) {
+		File parentfolder = file.getParentFile();
+		while (parentfolder != null) {
+			if (parentfolder.equals(folder)) {
+				return true;
+			}
+			parentfolder = parentfolder.getParentFile();
+		}
+		return false;
 	}
 
 	public static File getTexture(String name) {
