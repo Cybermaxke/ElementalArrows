@@ -25,19 +25,19 @@ import me.cybermaxke.elementalarrows.bukkit.api.inventory.ElementalItemStack;
 import me.cybermaxke.elementalarrows.bukkit.api.material.ArrowMaterial;
 import me.cybermaxke.elementalarrows.bukkit.plugin.entity.nms.EntityElementalArrow;
 
-import net.minecraft.server.v1_5_R3.Enchantment;
-import net.minecraft.server.v1_5_R3.EnchantmentManager;
-import net.minecraft.server.v1_5_R3.EntityHuman;
-import net.minecraft.server.v1_5_R3.EntityPlayer;
-import net.minecraft.server.v1_5_R3.EnumAnimation;
-import net.minecraft.server.v1_5_R3.Item;
-import net.minecraft.server.v1_5_R3.ItemBow;
-import net.minecraft.server.v1_5_R3.ItemStack;
-import net.minecraft.server.v1_5_R3.Packet103SetSlot;
-import net.minecraft.server.v1_5_R3.World;
+import net.minecraft.server.v1_6_R1.Enchantment;
+import net.minecraft.server.v1_6_R1.EnchantmentManager;
+import net.minecraft.server.v1_6_R1.EntityHuman;
+import net.minecraft.server.v1_6_R1.EntityPlayer;
+import net.minecraft.server.v1_6_R1.EnumAnimation;
+import net.minecraft.server.v1_6_R1.Item;
+import net.minecraft.server.v1_6_R1.ItemBow;
+import net.minecraft.server.v1_6_R1.ItemStack;
+import net.minecraft.server.v1_6_R1.Packet103SetSlot;
+import net.minecraft.server.v1_6_R1.World;
 
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_5_R3.event.CraftEventFactory;
+import org.bukkit.craftbukkit.v1_6_R1.event.CraftEventFactory;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityShootBowEvent;
 
@@ -89,7 +89,7 @@ public class ItemElementalBow extends ItemBow {
 			return;
 		}
 
-		int j = this.c_(itemstack) - i;
+		int j = this.d_(itemstack) - i;
 		float f = (float) j / 20.0F;
 
 		f = (f * f + f * 2.0F) / 3.0F;
@@ -159,7 +159,7 @@ public class ItemElementalBow extends ItemBow {
 			p.getInventory().setItem(slot, is);
 		}
 
-		world.makeSound(entityhuman, "random.bow", 1.0F, 1.0F / (e.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+		world.makeSound(entityhuman, "random.bow", 1.0F, 1.0F / (Item.f.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
 	}
 
 	@Override
@@ -168,12 +168,12 @@ public class ItemElementalBow extends ItemBow {
 	}
 
 	@Override
-	public int c_(ItemStack itemstack) {
+	public int d_(ItemStack itemstack) {
 		return 72000;
 	}
 
 	@Override
-	public EnumAnimation b_(ItemStack itemstack) {
+	public EnumAnimation c_(ItemStack itemstack) {
 		return EnumAnimation.BOW;
 	}
 
@@ -190,7 +190,7 @@ public class ItemElementalBow extends ItemBow {
 			((EntityPlayer) entityhuman).playerConnection.sendPacket(packet);
 		}
 
-		entityhuman.a(itemstack, this.c_(itemstack));
+		entityhuman.a(itemstack, this.d_(itemstack));
 		return itemstack;
 	}
 

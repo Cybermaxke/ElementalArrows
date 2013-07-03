@@ -26,11 +26,12 @@ import java.util.List;
 import org.bukkit.block.Biome;
 
 import me.cybermaxke.elementalarrows.bukkit.plugin.config.ElementalConfigFile;
-import net.minecraft.server.v1_5_R3.EntitySkeleton;
-import net.minecraft.server.v1_5_R3.BiomeBase;
-import net.minecraft.server.v1_5_R3.BiomeMeta;
-import net.minecraft.server.v1_5_R3.Entity;
-import net.minecraft.server.v1_5_R3.EntityTypes;
+
+import net.minecraft.server.v1_6_R1.EntitySkeleton;
+import net.minecraft.server.v1_6_R1.BiomeBase;
+import net.minecraft.server.v1_6_R1.BiomeMeta;
+import net.minecraft.server.v1_6_R1.Entity;
+import net.minecraft.server.v1_6_R1.EntityTypes;
 
 public class EntityManager {
 

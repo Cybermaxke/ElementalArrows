@@ -22,28 +22,28 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.server.v1_5_R3.Enchantment;
-import net.minecraft.server.v1_5_R3.EnchantmentManager;
-import net.minecraft.server.v1_5_R3.EntityHuman;
-import net.minecraft.server.v1_5_R3.EntityLiving;
-import net.minecraft.server.v1_5_R3.EntitySkeleton;
-import net.minecraft.server.v1_5_R3.Item;
-import net.minecraft.server.v1_5_R3.ItemStack;
-import net.minecraft.server.v1_5_R3.NBTTagCompound;
-import net.minecraft.server.v1_5_R3.PathfinderGoalArrowAttack;
-import net.minecraft.server.v1_5_R3.PathfinderGoalFleeSun;
-import net.minecraft.server.v1_5_R3.PathfinderGoalFloat;
-import net.minecraft.server.v1_5_R3.PathfinderGoalHurtByTarget;
-import net.minecraft.server.v1_5_R3.PathfinderGoalLookAtPlayer;
-import net.minecraft.server.v1_5_R3.PathfinderGoalNearestAttackableTarget;
-import net.minecraft.server.v1_5_R3.PathfinderGoalRandomLookaround;
-import net.minecraft.server.v1_5_R3.PathfinderGoalRandomStroll;
-import net.minecraft.server.v1_5_R3.PathfinderGoalRestrictSun;
-import net.minecraft.server.v1_5_R3.PathfinderGoalSelector;
-import net.minecraft.server.v1_5_R3.World;
+import net.minecraft.server.v1_6_R1.Enchantment;
+import net.minecraft.server.v1_6_R1.EnchantmentManager;
+import net.minecraft.server.v1_6_R1.EntityHuman;
+import net.minecraft.server.v1_6_R1.EntityLiving;
+import net.minecraft.server.v1_6_R1.EntitySkeleton;
+import net.minecraft.server.v1_6_R1.Item;
+import net.minecraft.server.v1_6_R1.ItemStack;
+import net.minecraft.server.v1_6_R1.NBTTagCompound;
+import net.minecraft.server.v1_6_R1.PathfinderGoalArrowAttack;
+import net.minecraft.server.v1_6_R1.PathfinderGoalFleeSun;
+import net.minecraft.server.v1_6_R1.PathfinderGoalFloat;
+import net.minecraft.server.v1_6_R1.PathfinderGoalHurtByTarget;
+import net.minecraft.server.v1_6_R1.PathfinderGoalLookAtPlayer;
+import net.minecraft.server.v1_6_R1.PathfinderGoalNearestAttackableTarget;
+import net.minecraft.server.v1_6_R1.PathfinderGoalRandomLookaround;
+import net.minecraft.server.v1_6_R1.PathfinderGoalRandomStroll;
+import net.minecraft.server.v1_6_R1.PathfinderGoalRestrictSun;
+import net.minecraft.server.v1_6_R1.PathfinderGoalSelector;
+import net.minecraft.server.v1_6_R1.World;
 
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_5_R3.event.CraftEventFactory;
+import org.bukkit.craftbukkit.v1_6_R1.event.CraftEventFactory;
 
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
@@ -71,16 +71,16 @@ public class EntityElementalSkeleton extends EntitySkeleton {
 			((List<?>) f.get(this.targetSelector)).clear();
 		} catch (Exception e) {}
 
-		this.bI = 0.31F;
+		float speed = 0.31F;
 		this.goalSelector.a(1, new PathfinderGoalFloat(this));
 		this.goalSelector.a(2, new PathfinderGoalRestrictSun(this));
-		this.goalSelector.a(3, new PathfinderGoalFleeSun(this, this.bI));
+		this.goalSelector.a(3, new PathfinderGoalFleeSun(this, speed));
 		this.goalSelector.a(4, new PathfinderGoalArrowAttack(this, 0.25F, 20, 60, 15.0F));
-		this.goalSelector.a(5, new PathfinderGoalRandomStroll(this, this.bI));
+		this.goalSelector.a(5, new PathfinderGoalRandomStroll(this, speed));
 		this.goalSelector.a(6, new PathfinderGoalLookAtPlayer(this, EntityHuman.class, 8.0F));
 		this.goalSelector.a(6, new PathfinderGoalRandomLookaround(this));
 		this.targetSelector.a(1, new PathfinderGoalHurtByTarget(this, false));
-		this.targetSelector.a(2, new PathfinderGoalNearestAttackableTarget(this, EntityHuman.class, 16.0F, 0, true));
+		this.targetSelector.a(2, new PathfinderGoalNearestAttackableTarget(this, EntityHuman.class, 0, true));
 	}
 
 	@Override
@@ -147,7 +147,7 @@ public class EntityElementalSkeleton extends EntitySkeleton {
 		ElementalArrow arrow = a.getBukkitEntity();
 		arrow.setMaterial(this.arrow);
 		arrow.setPickupable(false);
-		ItemStack itemstack = this.bG();
+		ItemStack itemstack = this.aV();
 
 		int k = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_DAMAGE.id, itemstack);
 		int l = EnchantmentManager.getEnchantmentLevel(Enchantment.ARROW_KNOCKBACK.id, itemstack);
@@ -167,7 +167,7 @@ public class EntityElementalSkeleton extends EntitySkeleton {
 			arrow.setFireTicks(100 + this.arrow.getFireTicks());
 		}
 
-		this.makeSound("random.bow", 1.0F, 1.0F / (this.aE().nextFloat() * 0.4F + 0.8F));
+		this.makeSound("random.bow", 1.0F, 1.0F / (this.random.nextFloat() * 0.4F + 0.8F));
 		this.world.addEntity(a);
 	}
 
@@ -193,7 +193,7 @@ public class EntityElementalSkeleton extends EntitySkeleton {
 	}
 
 	@Override
-	public void m() {
+	public void bP() {
 
 	}
 

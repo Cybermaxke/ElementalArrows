@@ -18,18 +18,18 @@
  */
 package me.cybermaxke.elementalarrows.bukkit.plugin.dispenser.nms;
 
-import net.minecraft.server.v1_5_R3.BlockDispenser;
-import net.minecraft.server.v1_5_R3.DispenseBehaviorItem;
-import net.minecraft.server.v1_5_R3.EnumFacing;
-import net.minecraft.server.v1_5_R3.IDispenseBehavior;
-import net.minecraft.server.v1_5_R3.IPosition;
-import net.minecraft.server.v1_5_R3.ISourceBlock;
-import net.minecraft.server.v1_5_R3.ItemStack;
-import net.minecraft.server.v1_5_R3.World;
+import net.minecraft.server.v1_6_R1.BlockDispenser;
+import net.minecraft.server.v1_6_R1.DispenseBehaviorItem;
+import net.minecraft.server.v1_6_R1.EnumFacing;
+import net.minecraft.server.v1_6_R1.IDispenseBehavior;
+import net.minecraft.server.v1_6_R1.IPosition;
+import net.minecraft.server.v1_6_R1.ISourceBlock;
+import net.minecraft.server.v1_6_R1.ItemStack;
+import net.minecraft.server.v1_6_R1.World;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_5_R3.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_6_R1.inventory.CraftItemStack;
 import org.bukkit.event.block.BlockDispenseEvent;
 import org.bukkit.util.Vector;
 
@@ -48,7 +48,7 @@ public class DispenseBehaviorCustomItem extends DispenseBehaviorItem {
 	public ItemStack b(ISourceBlock isourceblock, ItemStack itemstack) {
 		World world = isourceblock.k();
 		IPosition iposition = BlockDispenser.a(isourceblock);
-		EnumFacing enumfacing = BlockDispenser.j_(isourceblock.h());
+		EnumFacing enumfacing = BlockDispenser.l_(isourceblock.h());
 
 		ElementalItemStack is = new ElementalItemStack(CraftItemStack.asCraftMirror(itemstack));
 		Material m = is.getMaterial();

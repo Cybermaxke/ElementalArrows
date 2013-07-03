@@ -42,17 +42,17 @@ import me.cybermaxke.elementalarrows.bukkit.plugin.material.MaterialManager;
 import me.cybermaxke.elementalarrows.bukkit.plugin.textures.TextureManager;
 import me.cybermaxke.elementalarrows.bukkit.plugin.utils.Metrics;
 
-import net.minecraft.server.v1_5_R3.Block;
-import net.minecraft.server.v1_5_R3.Packet63WorldParticles;
-import net.minecraft.server.v1_5_R3.World;
+import net.minecraft.server.v1_6_R1.Block;
+import net.minecraft.server.v1_6_R1.Packet63WorldParticles;
+import net.minecraft.server.v1_6_R1.World;
 
 import org.bukkit.Bukkit;
 import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_5_R3.CraftWorld;
-import org.bukkit.craftbukkit.v1_5_R3.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_5_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_6_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_6_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_6_R1.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;

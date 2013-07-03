@@ -22,7 +22,7 @@ import me.cybermaxke.elementalarrows.bukkit.api.entity.ElementalTurret;
 import me.cybermaxke.elementalarrows.bukkit.api.inventory.TurretInventory;
 import me.cybermaxke.elementalarrows.bukkit.plugin.inventory.nms.InventoryTurret;
 
-import org.bukkit.craftbukkit.v1_5_R3.inventory.CraftInventory;
+import org.bukkit.craftbukkit.v1_6_R1.inventory.CraftInventory;
 
 public class CraftTurretInventory extends CraftInventory implements TurretInventory {
 

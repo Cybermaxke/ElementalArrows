@@ -31,18 +31,18 @@ import me.cybermaxke.elementalarrows.bukkit.plugin.inventory.CraftTurretInventor
 import me.cybermaxke.elementalarrows.bukkit.plugin.inventory.nms.InventoryTurret;
 import me.cybermaxke.elementalarrows.bukkit.plugin.player.ElementalPlayerConnection;
 
-import net.minecraft.server.v1_5_R3.Container;
-import net.minecraft.server.v1_5_R3.DedicatedServer;
-import net.minecraft.server.v1_5_R3.Entity;
-import net.minecraft.server.v1_5_R3.EntityPlayer;
-import net.minecraft.server.v1_5_R3.INetworkManager;
-import net.minecraft.server.v1_5_R3.MinecraftServer;
-import net.minecraft.server.v1_5_R3.Packet100OpenWindow;
-import net.minecraft.server.v1_5_R3.PlayerConnection;
-import net.minecraft.server.v1_5_R3.ServerConnection;
+import net.minecraft.server.v1_6_R1.Container;
+import net.minecraft.server.v1_6_R1.DedicatedServer;
+import net.minecraft.server.v1_6_R1.Entity;
+import net.minecraft.server.v1_6_R1.EntityPlayer;
+import net.minecraft.server.v1_6_R1.INetworkManager;
+import net.minecraft.server.v1_6_R1.MinecraftServer;
+import net.minecraft.server.v1_6_R1.Packet100OpenWindow;
+import net.minecraft.server.v1_6_R1.PlayerConnection;
+import net.minecraft.server.v1_6_R1.ServerConnection;
 
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_5_R3.event.CraftEventFactory;
+import org.bukkit.craftbukkit.v1_6_R1.event.CraftEventFactory;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
@@ -120,7 +120,7 @@ public class CraftElementalPlayer extends SpoutCraftPlayer implements ElementalP
 				Field hl = ServerConnection.class.getDeclaredField("c");
 				hl.setAccessible(true);
 
-				ServerConnection sc = ((DedicatedServer) MinecraftServer.getServer()).ae();
+				ServerConnection sc = ((DedicatedServer) MinecraftServer.getServer()).ag();
 				List<PlayerConnection> rhl = (List<PlayerConnection>) hl.get(sc);
 				rhl.remove(oldConnection);
 				rhl.add(newConnection);

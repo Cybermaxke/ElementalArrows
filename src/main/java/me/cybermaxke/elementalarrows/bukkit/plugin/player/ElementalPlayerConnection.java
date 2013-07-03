@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.ChatColor;
-import org.bukkit.craftbukkit.v1_5_R3.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_6_R1.inventory.CraftItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import org.getspout.spout.SpoutPlayerConnection;
@@ -35,15 +35,15 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 
 import me.cybermaxke.elementalarrows.bukkit.api.material.CustomItem;
 
-import net.minecraft.server.v1_5_R3.EntityPlayer;
-import net.minecraft.server.v1_5_R3.ItemStack;
-import net.minecraft.server.v1_5_R3.MinecraftServer;
-import net.minecraft.server.v1_5_R3.Packet;
-import net.minecraft.server.v1_5_R3.Packet103SetSlot;
-import net.minecraft.server.v1_5_R3.Packet104WindowItems;
-import net.minecraft.server.v1_5_R3.Packet40EntityMetadata;
-import net.minecraft.server.v1_5_R3.Packet5EntityEquipment;
-import net.minecraft.server.v1_5_R3.WatchableObject;
+import net.minecraft.server.v1_6_R1.EntityPlayer;
+import net.minecraft.server.v1_6_R1.ItemStack;
+import net.minecraft.server.v1_6_R1.MinecraftServer;
+import net.minecraft.server.v1_6_R1.Packet;
+import net.minecraft.server.v1_6_R1.Packet103SetSlot;
+import net.minecraft.server.v1_6_R1.Packet104WindowItems;
+import net.minecraft.server.v1_6_R1.Packet40EntityMetadata;
+import net.minecraft.server.v1_6_R1.Packet5EntityEquipment;
+import net.minecraft.server.v1_6_R1.WatchableObject;
 
 /**
  * Changing the flint items to normal arrows for the players who aren't using Spoutcraft.

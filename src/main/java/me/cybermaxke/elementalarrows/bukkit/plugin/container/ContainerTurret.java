@@ -18,17 +18,17 @@
  */
 package me.cybermaxke.elementalarrows.bukkit.plugin.container;
 
-import org.bukkit.craftbukkit.v1_5_R3.inventory.CraftInventory;
-import org.bukkit.craftbukkit.v1_5_R3.inventory.CraftInventoryView;
+import org.bukkit.craftbukkit.v1_6_R1.inventory.CraftInventory;
+import org.bukkit.craftbukkit.v1_6_R1.inventory.CraftInventoryView;
 import org.bukkit.inventory.InventoryView;
 
 import me.cybermaxke.elementalarrows.bukkit.plugin.inventory.nms.InventoryTurret;
 
-import net.minecraft.server.v1_5_R3.Container;
-import net.minecraft.server.v1_5_R3.EntityHuman;
-import net.minecraft.server.v1_5_R3.ItemStack;
-import net.minecraft.server.v1_5_R3.PlayerInventory;
-import net.minecraft.server.v1_5_R3.Slot;
+import net.minecraft.server.v1_6_R1.Container;
+import net.minecraft.server.v1_6_R1.EntityHuman;
+import net.minecraft.server.v1_6_R1.ItemStack;
+import net.minecraft.server.v1_6_R1.PlayerInventory;
+import net.minecraft.server.v1_6_R1.Slot;
 
 public class ContainerTurret extends Container {
 	private InventoryView view;
@@ -70,7 +70,7 @@ public class ContainerTurret extends Container {
 		ItemStack itemstack = null;
 		Slot slot = (Slot) this.c.get(i);
 
-		if (slot != null && slot.d()) {
+		if (slot != null && slot.e()) {
 			ItemStack itemstack1 = slot.getItem();
 
 			itemstack = itemstack1.cloneItemStack();
@@ -85,7 +85,7 @@ public class ContainerTurret extends Container {
 			if (itemstack1.count == 0) {
 				slot.set((ItemStack) null);
 			} else {
-				slot.e();
+				slot.f();
 			}
 
 			if (itemstack1.count == itemstack.count) {

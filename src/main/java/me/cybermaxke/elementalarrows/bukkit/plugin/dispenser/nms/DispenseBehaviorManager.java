@@ -18,8 +18,8 @@
  */
 package me.cybermaxke.elementalarrows.bukkit.plugin.dispenser.nms;
 
-import net.minecraft.server.v1_5_R3.BlockDispenser;
-import net.minecraft.server.v1_5_R3.Item;
+import net.minecraft.server.v1_6_R1.BlockDispenser;
+import net.minecraft.server.v1_6_R1.Item;
 
 import org.bukkit.Material;
 

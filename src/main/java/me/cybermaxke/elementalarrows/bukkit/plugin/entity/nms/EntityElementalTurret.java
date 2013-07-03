@@ -23,8 +23,8 @@ import java.util.Collections;
 import java.util.List;
 
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_5_R3.event.CraftEventFactory;
-import org.bukkit.craftbukkit.v1_5_R3.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_6_R1.event.CraftEventFactory;
+import org.bukkit.craftbukkit.v1_6_R1.inventory.CraftItemStack;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.util.Vector;
 
@@ -41,22 +41,22 @@ import me.cybermaxke.elementalarrows.bukkit.plugin.entity.CraftElementalTurret;
 import me.cybermaxke.elementalarrows.bukkit.plugin.entity.nms.selector.TargetSelectorMonster;
 import me.cybermaxke.elementalarrows.bukkit.plugin.inventory.nms.InventoryTurret;
 
-import net.minecraft.server.v1_5_R3.Container;
-import net.minecraft.server.v1_5_R3.DamageSource;
-import net.minecraft.server.v1_5_R3.DistanceComparator;
-import net.minecraft.server.v1_5_R3.Entity;
-import net.minecraft.server.v1_5_R3.EntityArrow;
-import net.minecraft.server.v1_5_R3.EntityEnderCrystal;
-import net.minecraft.server.v1_5_R3.EntityHuman;
-import net.minecraft.server.v1_5_R3.EntityItem;
-import net.minecraft.server.v1_5_R3.EntityPlayer;
-import net.minecraft.server.v1_5_R3.Item;
-import net.minecraft.server.v1_5_R3.ItemStack;
-import net.minecraft.server.v1_5_R3.MathHelper;
-import net.minecraft.server.v1_5_R3.NBTTagCompound;
-import net.minecraft.server.v1_5_R3.NBTTagList;
-import net.minecraft.server.v1_5_R3.Packet100OpenWindow;
-import net.minecraft.server.v1_5_R3.World;
+import net.minecraft.server.v1_6_R1.Container;
+import net.minecraft.server.v1_6_R1.DamageSource;
+import net.minecraft.server.v1_6_R1.DistanceComparator;
+import net.minecraft.server.v1_6_R1.Entity;
+import net.minecraft.server.v1_6_R1.EntityArrow;
+import net.minecraft.server.v1_6_R1.EntityEnderCrystal;
+import net.minecraft.server.v1_6_R1.EntityHuman;
+import net.minecraft.server.v1_6_R1.EntityItem;
+import net.minecraft.server.v1_6_R1.EntityPlayer;
+import net.minecraft.server.v1_6_R1.Item;
+import net.minecraft.server.v1_6_R1.ItemStack;
+import net.minecraft.server.v1_6_R1.MathHelper;
+import net.minecraft.server.v1_6_R1.NBTTagCompound;
+import net.minecraft.server.v1_6_R1.NBTTagList;
+import net.minecraft.server.v1_6_R1.Packet100OpenWindow;
+import net.minecraft.server.v1_6_R1.World;
 
 public class EntityElementalTurret extends EntityEnderCrystal {
 	public TargetSelector selector;
@@ -73,7 +73,7 @@ public class EntityElementalTurret extends EntityEnderCrystal {
 		super(world);
 		this.selector = new TargetSelectorMonster();
 		this.inventory = new InventoryTurret(this);
-		this.h = new DistanceComparator(null, this);
+		this.h = new DistanceComparator(this);
 		this.b = 8;
 		this.health = 8;
 		this.attackDelay = 15;
@@ -178,11 +178,11 @@ public class EntityElementalTurret extends EntityEnderCrystal {
 	}
 
 	@Override
-	public boolean a_(EntityHuman human) {
+	public boolean c(EntityHuman human) {
 		EntityPlayer p = (EntityPlayer) human;
 		Container container = CraftEventFactory.callInventoryOpenEvent(p, new ContainerTurret(p.inventory, this.inventory));
 		if (container == null) {
-			return super.a_(p);
+			return super.c(p);
 		}
 
 		int c = p.nextContainerCounter();
@@ -190,8 +190,7 @@ public class EntityElementalTurret extends EntityEnderCrystal {
 		p.activeContainer = container;
 		p.activeContainer.windowId = c;
 		p.activeContainer.addSlotListener(p);
-
-		return super.a_(human);
+		return true;
 	}
 
 	private boolean canSee(Entity ent) {
@@ -331,17 +330,17 @@ public class EntityElementalTurret extends EntityEnderCrystal {
 	}
 
 	@Override
-	public boolean damageEntity(DamageSource damagesource, int i) {
+	public boolean damageEntity(DamageSource damagesource, float f) {
 		if (this.isInvulnerable()) {
 			return false;
 		}
 
-		if (damagesource.h() != null && damagesource.h() instanceof EntityArrow) {
+		if (damagesource.h() != null && damagesource.h() instanceof EntityArrow && damagesource.h().ticksLived < 7) {
 			return false;
 		}
 
 		if (!this.dead) {
-			this.health -= i;
+			this.health -= f;
 			if (this.health <= 0) {
 				this.die();
 			}

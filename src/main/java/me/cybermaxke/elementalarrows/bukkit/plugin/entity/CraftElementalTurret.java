@@ -24,7 +24,7 @@ import me.cybermaxke.elementalarrows.bukkit.api.inventory.TurretInventory;
 import me.cybermaxke.elementalarrows.bukkit.plugin.entity.nms.EntityElementalTurret;
 import me.cybermaxke.elementalarrows.bukkit.plugin.inventory.CraftTurretInventory;
 
-import org.bukkit.craftbukkit.v1_5_R3.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_6_R1.entity.CraftEntity;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 

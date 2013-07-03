@@ -18,7 +18,7 @@
  */
 package me.cybermaxke.elementalarrows.bukkit.plugin.item.nms;
 
-import net.minecraft.server.v1_5_R3.Item;
+import net.minecraft.server.v1_6_R1.Item;
 
 public class ItemManager {
 
