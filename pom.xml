@@ -14,7 +14,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<bukkit.mainclass>me.cybermaxke.elementalarrows.bukkit.plugin.ElementalArrowsPlugin</bukkit.mainclass>
 		<bukkit.depends>Spout,WorldEdit,WorldGuard</bukkit.depends>
-		<bukkit.nmsversion>v1_6_R1</bukkit.nmsversion>
+		<bukkit.nmsversion>1_6_R1</bukkit.nmsversion>
 		<spout.mainclass>me.cybermaxke.elementalarrows.spout.plugin.ElementalArrowsPlugin</spout.mainclass>
 		<spout.depends>Vanilla</spout.depends>
 		<author>Cybermaxke</author>
@@ -123,6 +123,18 @@
 				<directory>${basedir}/src/main/resources</directory>
 				<includes>
 					<include>*.yml</include>
+				</includes>
+				<excludes>
+					<exclude>maps.yml</exclude>
+				</excludes>
+			</resource>
+
+			<resource>
+				<targetPath>${basedir}/target</targetPath>
+				<filtering>true</filtering>
+				<directory>${basedir}/src/main/resources</directory>
+				<includes>
+					<include>maps.yml</include>
 				</includes>
 			</resource>
 		</resources>

@@ -8,19 +8,11 @@ members:
   "org/bukkit/entity/LivingEntity _INVALID_getLastDamage ()I": getLastDamage
   "org/bukkit/entity/LivingEntity _INVALID_setLastDamage (I)V": setLastDamage
 flags:
-  "me/cybermaxke/elementalarrows/bukkit/entity/CraftElementalSkeleton getHealth ()I": 0x1001
-  "me/cybermaxke/elementalarrows/bukkit/entity/CraftElementalSkeleton getMaxHealth ()I": 0x1001
-  "me/cybermaxke/elementalarrows/bukkit/entity/CraftElementalSkeleton setHealth (I)V": 0x1001
-  "me/cybermaxke/elementalarrows/bukkit/entity/CraftElementalSkeleton setMaxHealth (I)V": 0x1001
-  "me/cybermaxke/elementalarrows/bukkit/entity/CraftElementalSkeleton damage (I)V": 0x1001
-  "me/cybermaxke/elementalarrows/bukkit/entity/CraftElementalSkeleton damage (ILorg/bukkit/entity/Entity;)V": 0x1001
-  "me/cybermaxke/elementalarrows/bukkit/entity/CraftElementalSkeleton getLastDamage ()I": 0x1001
-  "me/cybermaxke/elementalarrows/bukkit/entity/CraftElementalSkeleton setLastDamage (I)V": 0x1001
-  "me/cybermaxke/elementalarrows/bukkit/entity/CraftElementalPlayer getHealth ()I": 0x1001
-  "me/cybermaxke/elementalarrows/bukkit/entity/CraftElementalPlayer getMaxHealth ()I": 0x1001
-  "me/cybermaxke/elementalarrows/bukkit/entity/CraftElementalPlayer setHealth (I)V": 0x1001
-  "me/cybermaxke/elementalarrows/bukkit/entity/CraftElementalPlayer setMaxHealth (I)V": 0x1001
-  "me/cybermaxke/elementalarrows/bukkit/entity/CraftElementalPlayer damage (I)V": 0x1001
-  "me/cybermaxke/elementalarrows/bukkit/entity/CraftElementalPlayer damage (ILorg/bukkit/entity/Entity;)V": 0x1001
-  "me/cybermaxke/elementalarrows/bukkit/entity/CraftElementalPlayer getLastDamage ()I": 0x1001
-  "me/cybermaxke/elementalarrows/bukkit/entity/CraftElementalPlayer setLastDamage (I)V": 0x1001
+  "org/bukkit/craftbukkit/v${bukkit.nmsversion}/entity/CraftLivingEntity getHealth ()I": 0x1001
+  "org/bukkit/craftbukkit/v${bukkit.nmsversion}/entity/CraftLivingEntity getMaxHealth ()I": 0x1001
+  "org/bukkit/craftbukkit/v${bukkit.nmsversion}/entity/CraftLivingEntity setHealth (I)V": 0x1001
+  "org/bukkit/craftbukkit/v${bukkit.nmsversion}/entity/CraftLivingEntity setMaxHealth (I)V": 0x1001
+  "org/bukkit/craftbukkit/v${bukkit.nmsversion}/entity/CraftLivingEntity damage (I)V": 0x1001
+  "org/bukkit/craftbukkit/v${bukkit.nmsversion}/entity/CraftLivingEntity damage (ILorg/bukkit/entity/Entity;)V": 0x1001
+  "org/bukkit/craftbukkit/v${bukkit.nmsversion}/entity/CraftLivingEntity getLastDamage ()I": 0x1001
+  "org/bukkit/craftbukkit/v${bukkit.nmsversion}/entity/CraftLivingEntity setLastDamage (I)V": 0x1001
