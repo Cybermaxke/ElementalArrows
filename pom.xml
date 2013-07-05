@@ -50,14 +50,6 @@
 		</repository>
 	</repositories>
 
-	<!-- Plugin repositories -->
-	<pluginRepositories>
-		<pluginRepository>
-			<id>bukkit-plugins</id>
-			<url>http://repo.bukkit.org/content/groups/public</url>
-		</pluginRepository>
-	</pluginRepositories>
-
 	<!-- Dependencies -->
 	<dependencies>
 		<dependency>
@@ -124,18 +116,6 @@
 				<includes>
 					<include>*.yml</include>
 				</includes>
-				<excludes>
-					<exclude>maps.yml</exclude>
-				</excludes>
-			</resource>
-
-			<resource>
-				<targetPath>${basedir}/target</targetPath>
-				<filtering>true</filtering>
-				<directory>${basedir}/src/main/resources</directory>
-				<includes>
-					<include>maps.yml</include>
-				</includes>
 			</resource>
 		</resources>
 
@@ -148,25 +128,6 @@
 					<source>1.6</source>
 					<target>1.6</target>
 				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>com.wolvereness</groupId>
-				<artifactId>overmapped</artifactId>
-				<version>0.0.2</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>map</goal>
-						</goals>
-						<configuration>
-							<maps>${basedir}/target/maps.yml</maps>
-							<input>${basedir}/target/${project.artifactId}-${project.version}.jar</input>
-							<original>${basedir}/target/unmapped-${project.artifactId}-${project.version}.jar</original>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 
 			<plugin>
