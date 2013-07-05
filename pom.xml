@@ -161,7 +161,7 @@
 							<goal>map</goal>
 						</goals>
 						<configuration>
-							<maps>${basedir}/maps.yml</maps>
+							<maps>${basedir}/target/maps.yml</maps>
 							<input>${basedir}/target/${project.artifactId}-${project.version}.jar</input>
 							<original>${basedir}/target/unmapped-${project.artifactId}-${project.version}.jar</original>
 						</configuration>
