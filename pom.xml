@@ -14,6 +14,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<bukkit.mainclass>me.cybermaxke.elementalarrows.bukkit.plugin.ElementalArrowsPlugin</bukkit.mainclass>
 		<bukkit.depends>Spout,WorldEdit,WorldGuard</bukkit.depends>
+		<bukkit.nmsversion>v1_6_R1</bukkit.nmsversion>
 		<spout.mainclass>me.cybermaxke.elementalarrows.spout.plugin.ElementalArrowsPlugin</spout.mainclass>
 		<spout.depends>Vanilla</spout.depends>
 		<author>Cybermaxke</author>
@@ -48,6 +49,14 @@
 			<url>http://maven.sk89q.com/repo/</url>
 		</repository>
 	</repositories>
+
+	<!-- Plugin repositories -->
+	<pluginRepositories>
+		<pluginRepository>
+			<id>bukkit-plugins</id>
+		<url>http://repo.bukkit.org/content/groups/public</url>
+		</pluginRepository>
+	</pluginRepositories>
 
 	<!-- Dependencies -->
 	<dependencies>
@@ -127,6 +136,25 @@
 					<source>1.6</source>
 					<target>1.6</target>
 				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>com.wolvereness</groupId>
+				<artifactId>overmapped</artifactId>
+				<version>0.0.2</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>map</goal>
+						</goals>
+						<configuration>
+							<maps>${basedir}/maps.yml</maps>
+							<input>${basedir}/target/${project.artifactId}-${project.version}.jar</input>
+							<original>${basedir}/target/unmapped-${project.artifactId}-${project.version}.jar</original>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 
 			<plugin>

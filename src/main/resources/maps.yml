@@ -1,0 +1,18 @@
+members:
+  "org/bukkit/entity/Damageable _INVALID_damage (I)V": damage
+  "org/bukkit/entity/Damageable _INVALID_damage (ILorg/bukkit/entity/Entity;)V": damage
+  "org/bukkit/entity/Damageable _INVALID_getHealth ()I": getHealth
+  "org/bukkit/entity/Damageable _INVALID_setHealth (I)V": setHealth
+  "org/bukkit/entity/Damageable _INVALID_getMaxHealth ()I": getMaxHealth
+  "org/bukkit/entity/Damageable _INVALID_setMaxHealth (I)V": setMaxHealth
+  "org/bukkit/entity/LivingEntity _INVALID_getLastDamage ()I": getLastDamage
+  "org/bukkit/entity/LivingEntity _INVALID_setLastDamage (I)V": setLastDamage
+flags:
+  "org/bukkit/craftbukkit/v${bukkit.nmsversion}/entity/CraftLivingEntity getHealth ()I": 0x1001
+  "org/bukkit/craftbukkit/v${bukkit.nmsversion}/entity/CraftLivingEntity getMaxHealth ()I": 0x1001
+  "org/bukkit/craftbukkit/v${bukkit.nmsversion}/entity/CraftLivingEntity setHealth (I)V": 0x1001
+  "org/bukkit/craftbukkit/v${bukkit.nmsversion}/entity/CraftLivingEntity setMaxHealth (I)V": 0x1001
+  "org/bukkit/craftbukkit/v${bukkit.nmsversion}/entity/CraftLivingEntity damage (I)V": 0x1001
+  "org/bukkit/craftbukkit/v${bukkit.nmsversion}/entity/CraftLivingEntity damage (ILorg/bukkit/entity/Entity;)V": 0x1001
+  "org/bukkit/craftbukkit/v${bukkit.nmsversion}/entity/CraftLivingEntity getLastDamage ()I": 0x1001
+  "org/bukkit/craftbukkit/v${bukkit.nmsversion}/entity/CraftLivingEntity setLastDamage (I)V": 0x1001
