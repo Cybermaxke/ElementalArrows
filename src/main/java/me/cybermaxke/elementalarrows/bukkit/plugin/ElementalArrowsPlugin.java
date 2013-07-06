@@ -18,6 +18,7 @@
  */
 package me.cybermaxke.elementalarrows.bukkit.plugin;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.logging.Level;
 
@@ -68,6 +69,9 @@ public class ElementalArrowsPlugin extends JavaPlugin implements ElementalArrows
 	private static ElementalArrowsPlugin instance;
 
 	private ElementalConfigFile config;
+	private ItemManager itemManager;
+	private EntityManager entityManager;
+	private Metrics metrics;
 
 	@Override
 	public void onLoad() {
@@ -78,10 +82,9 @@ public class ElementalArrowsPlugin extends JavaPlugin implements ElementalArrows
 	public void onEnable() {
 		ElementalArrows.setAPI(this);
 
-		try {
-			Class.forName("org.getspout.spout.Spout");
-		} catch (Exception e) {
-			this.getLogger().warning("You need to install the SpoutPlugin before you can use this.");
+		if (!this.getServer().getPluginManager().isPluginEnabled("Spout")) {
+			this.getLogger().log(Level.WARNING, "You need to install the SpoutPlugin before you can use this!");
+			this.getLogger().log(Level.WARNING, "Disabling...");
 			this.setEnabled(false);
 			return;
 		}
@@ -92,23 +95,41 @@ public class ElementalArrowsPlugin extends JavaPlugin implements ElementalArrows
 		new MaterialManager(this);
 		new EventListener(this);
 		new Commands(this);
-		new ItemManager();
-		new EntityManager();
 		new DispenseBehaviorManager();
 
+		this.itemManager = new ItemManager();
+		this.entityManager = new EntityManager();
+
 		try {
-			Metrics m = new Metrics(this);
-			m.start();
-			this.getLogger().log(Level.INFO, "Metrics loaded.");
+			this.metrics = new Metrics(this);
+			this.metrics.start();
+			this.getLogger().log(Level.INFO, "The metrics are loaded.");
 		} catch (Exception e) {
 			e.printStackTrace();
-			this.getLogger().log(Level.WARNING, "Couldn't load Metrics!");
+			this.getLogger().log(Level.WARNING, "Couldn't load the metrics!");
 		}
+
+		this.getLogger().log(Level.INFO, "The plugin is loaded.");
 	}
 
 	@Override
 	public void onDisable() {
+		if (this.itemManager == null) {
+			return;
+		}
 
+		this.itemManager.reset();
+		this.entityManager.reset();
+
+		try {
+			this.metrics.disable();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public EntityManager getEntityManager() {
+		return this.entityManager;
 	}
 
 	public ElementalConfigFile getConfigFile() {

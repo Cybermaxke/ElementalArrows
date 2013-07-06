@@ -25,6 +25,7 @@ import java.lang.reflect.Method;
 import java.util.Enumeration;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+import java.util.logging.Level;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -35,6 +36,8 @@ public class TextureManager {
 	private static File folder;
 
 	public TextureManager(JavaPlugin plugin) {
+		plugin.getLogger().log(Level.INFO, "Loading the texture files...");
+
 		try {
 			Method m = JavaPlugin.class.getDeclaredMethod("getFile", new Class[] {});
 			m.setAccessible(true);
@@ -63,6 +66,8 @@ public class TextureManager {
 				}
 
 				if (!file.exists() && name.matches(REGEX)) {
+					plugin.getLogger().log(Level.INFO, "Extracting the missing texture: '" + file.getName() + "'");
+
 					InputStream is = jar.getInputStream(entry);
 					FileOutputStream fos = new FileOutputStream(file);
 
@@ -83,6 +88,8 @@ public class TextureManager {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		plugin.getLogger().log(Level.INFO, "The textures files are loaded.");
 	}
 
 	private static boolean isInFolder(File folder, File file) {

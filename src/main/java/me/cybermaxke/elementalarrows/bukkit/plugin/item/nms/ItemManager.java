@@ -25,6 +25,10 @@ public class ItemManager {
 	public ItemManager() {
 		int id = Item.BOW.id;
 		Item.byId[id] = null;
-		Item.byId[id] = new ItemElementalBow(5);
+		Item.byId[id] = new ItemElementalBow(id - 256);
+	}
+
+	public void reset() {
+		Item.byId[Item.BOW.id] = Item.BOW;
 	}
 }

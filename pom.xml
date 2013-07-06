@@ -30,7 +30,7 @@
 	<!-- Repositories -->
 	<repositories>
 		<repository>
-    		<id>cybermaxkes-repo</id>
+			<id>cybermaxkes-repo</id>
 			<url>http://dl.dropbox.com/u/104060836/mvn-repo</url>
 			<snapshots>
 				<enabled>true</enabled>

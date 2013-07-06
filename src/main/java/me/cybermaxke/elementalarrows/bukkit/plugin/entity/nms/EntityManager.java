@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.block.Biome;
+import org.bukkit.craftbukkit.v1_6_R1.block.CraftBlock;
 
 import me.cybermaxke.elementalarrows.bukkit.plugin.config.ElementalConfigFile;
 
@@ -46,10 +47,21 @@ public class EntityManager {
 			m.invoke(m, EntitySkeleton.class, "Skeleton", 51);
 		} catch (Exception e) {}
 
+		this.reload();
+	}
+
+	public void reload() {
+		this.reset();
 		if (ElementalConfigFile.ENABLE_ELEMENTAL_SKELETON_SPAWNING) {
 			for (Biome b : getBiomes(EntitySkeleton.class)) {
 				addToBiome(EntityElementalSkeleton.class, b, 10, 4, 4);
 			}
+		}
+	}
+
+	public void reset() {
+		for (Biome b : getBiomes(EntityElementalSkeleton.class)) {
+			removeFromBiome(EntityElementalSkeleton.class, b);
 		}
 	}
 
@@ -58,7 +70,7 @@ public class EntityManager {
 		List<Biome> biomes = new ArrayList<Biome>();
 		for (Biome b : Biome.values()) {
 			try {
-				BiomeBase bio = BiomeBase.biomes[b.ordinal()];
+				BiomeBase bio = CraftBlock.biomeToBiomeBase(b);
 				Field f = BiomeBase.class.getDeclaredField("J");
 				f.setAccessible(true);
 				List<BiomeMeta> l = new ArrayList<BiomeMeta>();
@@ -79,12 +91,34 @@ public class EntityManager {
 	@SuppressWarnings("unchecked")
 	public static <T extends Entity> void addToBiome(Class<T> entity, Biome biome, int weight, int minGroupCount, int maxGroupCount) {
 		try {
-			BiomeBase b = BiomeBase.biomes[biome.ordinal()];
+			BiomeBase b = CraftBlock.biomeToBiomeBase(biome);
 			Field f = BiomeBase.class.getDeclaredField("J");
 			f.setAccessible(true);
 			((List<BiomeMeta>) f.get(b)).add(new BiomeMeta(entity, weight, minGroupCount, maxGroupCount));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <T extends Entity> boolean removeFromBiome(Class<T> entity, Biome biome) {
+		try {
+			BiomeBase b = CraftBlock.biomeToBiomeBase(biome);
+			Field f = BiomeBase.class.getDeclaredField("J");
+			f.setAccessible(true);
+			List<BiomeMeta> l = new ArrayList<BiomeMeta>();
+			l.addAll((List<BiomeMeta>) f.get(b));
+			for (int i = 0; i < l.size(); i++) {
+				BiomeMeta m = l.get(i);
+				if (entity.equals(m.b)) {
+					l.remove(m);
+					f.set(b, l);
+					return true;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 }

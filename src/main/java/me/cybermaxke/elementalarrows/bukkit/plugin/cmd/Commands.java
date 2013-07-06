@@ -84,6 +84,7 @@ public class Commands implements CommandExecutor {
 			}
 
 			ElementalArrowsPlugin.getInstance().getConfigFile().reload();
+			ElementalArrowsPlugin.getInstance().getEntityManager().reload();
 			sender.sendMessage(this.plugin.getName() + ": The config files are succesfully reloaded.");
 			return true;
 		}
