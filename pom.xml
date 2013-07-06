@@ -14,7 +14,6 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<bukkit.mainclass>me.cybermaxke.elementalarrows.bukkit.plugin.ElementalArrowsPlugin</bukkit.mainclass>
 		<bukkit.depends>Spout,WorldEdit,WorldGuard</bukkit.depends>
-		<bukkit.nmsversion>1_6_R1</bukkit.nmsversion>
 		<spout.mainclass>me.cybermaxke.elementalarrows.spout.plugin.ElementalArrowsPlugin</spout.mainclass>
 		<spout.depends>Vanilla</spout.depends>
 		<author>Cybermaxke</author>
@@ -31,13 +30,8 @@
 	<!-- Repositories -->
 	<repositories>
 		<repository>
-			<id>bukkit-repo</id>
-			<url>http://repo.bukkit.org/content/groups/public</url>
-		</repository>
-
-		<repository>
 			<id>spout-repo</id>
-			<url>http://repo.spout.org</url>
+			<url>http://nexus.spout.org/content/groups/public/</url>
 			<snapshots>
 				<enabled>true</enabled>
 				<updatePolicy>always</updatePolicy>
