@@ -69,7 +69,7 @@ public class ElementTurret extends Substance implements ElementalTurret {
 
 	@Override
 	public TurretInventory getInventory() {
-		return this.getDatatable().get(ElementalData.TURRET_INVENTORY);
+		return this.getData().get(ElementalData.TURRET_INVENTORY);
 	}
 
 	@Override
@@ -84,12 +84,12 @@ public class ElementTurret extends Substance implements ElementalTurret {
 
 	@Override
 	public int getTargetRange() {
-		return this.getDatatable().get(ElementalData.TURRET_RANGE);
+		return this.getData().get(ElementalData.TURRET_RANGE);
 	}
 
 	@Override
 	public void setTargetRange(int range) {
-		this.getDatatable().put(ElementalData.TURRET_RANGE, range);
+		this.getData().put(ElementalData.TURRET_RANGE, range);
 	}
 
 	@Override
@@ -99,12 +99,12 @@ public class ElementTurret extends Substance implements ElementalTurret {
 
 	@Override
 	public int getAttackDelay() {
-		return this.getDatatable().get(ElementalData.TURRET_ATTACK_DELAY);
+		return this.getData().get(ElementalData.TURRET_ATTACK_DELAY);
 	}
 
 	@Override
 	public void setAttackDelay(int delay) {
-		this.getDatatable().put(ElementalData.TURRET_ATTACK_DELAY, delay);
+		this.getData().put(ElementalData.TURRET_ATTACK_DELAY, delay);
 	}
 
 	@Override

@@ -40,12 +40,12 @@ public class ElementPlayer extends ElementalPlayer {
 
 	@Override
 	public byte getArrowsInBody() {
-		return this.getDatatable().get(ElementalData.ARROWS_IN_BODY);
+		return this.getData().get(ElementalData.ARROWS_IN_BODY);
 	}
 
 	@Override
 	public void setArrowsInBody(byte amount) {
-		this.getDatatable().put(ElementalData.ARROWS_IN_BODY, amount);
+		this.getData().put(ElementalData.ARROWS_IN_BODY, amount);
 		EntityUtils.setMetadata(this.getOwner().add(Human.class), new Parameter<Byte>(Parameter.TYPE_BYTE, 10, amount));
 	}
 }

@@ -109,12 +109,12 @@ public class ElementFireworks extends Substance implements ElementalFireworks {
 
 	@Override
 	public int getPower() {
-		return this.getDatatable().get(ElementalData.FIREWORK_POWER);
+		return this.getData().get(ElementalData.FIREWORK_POWER);
 	}
 
 	@Override
 	public void setPower(int power) {
-		this.getDatatable().put(ElementalData.FIREWORK_POWER, power);
+		this.getData().put(ElementalData.FIREWORK_POWER, power);
 		this.ticksBeforeExplosion = 10 * power + this.random.nextInt(6) + this.random.nextInt(7);
 	}
 
@@ -174,11 +174,11 @@ public class ElementFireworks extends Substance implements ElementalFireworks {
 	}
 
 	public ItemStack getItem() {
-		return this.getDatatable().get(ElementalData.FIREWORK_EFFECT);
+		return this.getData().get(ElementalData.FIREWORK_EFFECT);
 	}
 
 	public void setItem(ItemStack itemstack) {
-		this.getDatatable().put(ElementalData.FIREWORK_EFFECT, itemstack);
+		this.getData().put(ElementalData.FIREWORK_EFFECT, itemstack);
 		this.setMetadata(new Parameter<ItemStack>(Parameter.TYPE_ITEM, 8, itemstack));
 	}
 }

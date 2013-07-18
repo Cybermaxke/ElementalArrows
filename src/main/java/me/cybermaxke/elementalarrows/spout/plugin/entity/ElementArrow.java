@@ -267,43 +267,43 @@ public class ElementArrow extends Substance implements ElementalArrow {
 
 	@Override
 	public PickupMode getPickupMode() {
-		return this.getDatatable().get(ElementalData.PICKUP_MODE);
+		return this.getData().get(ElementalData.PICKUP_MODE);
 	}
 
 	@Override
 	public void setPickupMode(PickupMode mode) {
-		this.getDatatable().put(ElementalData.PICKUP_MODE, mode);
+		this.getData().put(ElementalData.PICKUP_MODE, mode);
 	}
 
 	@Override
 	public ItemStack getDrop() {
-		return this.getDatatable().get(ElementalData.DROP);
+		return this.getData().get(ElementalData.DROP);
 	}
 
 	@Override
 	public void setDrop(ItemStack item) {
-		this.getDatatable().put(ElementalData.DROP, item);
+		this.getData().put(ElementalData.DROP, item);
 	}
 
 	@Override
 	public boolean isCritical() {
-		return this.getDatatable().get(ElementalData.CRITICAL);
+		return this.getData().get(ElementalData.CRITICAL);
 	}
 
 	@Override
 	public void setCritical(boolean critical) {
-		this.getDatatable().put(ElementalData.CRITICAL, critical);
+		this.getData().put(ElementalData.CRITICAL, critical);
 		this.setMetadata(new Parameter<Byte>(Parameter.TYPE_BYTE, 16, (byte) (critical ? 1 : 0)));
 	}
 
 	@Override
 	public int getDamage() {
-		return this.getDatatable().get(ElementalData.ARROW_DAMAGE);
+		return this.getData().get(ElementalData.ARROW_DAMAGE);
 	}
 
 	@Override
 	public void setDamage(int damage) {
-		this.getDatatable().put(ElementalData.ARROW_DAMAGE, damage);
+		this.getData().put(ElementalData.ARROW_DAMAGE, damage);
 	}
 
 	@Override
@@ -313,12 +313,12 @@ public class ElementArrow extends Substance implements ElementalArrow {
 
 	@Override
 	public int getFireTicks() {
-		return this.getDatatable().get(ElementalData.FIRE_TICKS);
+		return this.getData().get(ElementalData.FIRE_TICKS);
 	}
 
 	@Override
 	public void setFireTicks(int ticks) {
-		this.getDatatable().put(ElementalData.FIRE_TICKS, ticks);
+		this.getData().put(ElementalData.FIRE_TICKS, ticks);
 		this.setMetadata(new Parameter<Byte>(Parameter.TYPE_BYTE, 0, (byte) (ticks > 0 ? 1 : 0)));
 	}
 }
