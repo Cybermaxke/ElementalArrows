@@ -24,15 +24,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.block.Biome;
-import org.bukkit.craftbukkit.v1_6_R1.block.CraftBlock;
+import org.bukkit.craftbukkit.v1_6_R2.block.CraftBlock;
 
 import me.cybermaxke.elementalarrows.bukkit.plugin.config.ElementalConfigFile;
 
-import net.minecraft.server.v1_6_R1.EntitySkeleton;
-import net.minecraft.server.v1_6_R1.BiomeBase;
-import net.minecraft.server.v1_6_R1.BiomeMeta;
-import net.minecraft.server.v1_6_R1.Entity;
-import net.minecraft.server.v1_6_R1.EntityTypes;
+import net.minecraft.server.v1_6_R2.EntitySkeleton;
+import net.minecraft.server.v1_6_R2.BiomeBase;
+import net.minecraft.server.v1_6_R2.BiomeMeta;
+import net.minecraft.server.v1_6_R2.Entity;
+import net.minecraft.server.v1_6_R2.EntityTypes;
 
 public class EntityManager {
 

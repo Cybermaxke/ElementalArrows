@@ -18,7 +18,7 @@
  */
 package me.cybermaxke.elementalarrows.bukkit.plugin.entity;
 
-import org.bukkit.craftbukkit.v1_6_R1.entity.CraftSkeleton;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftSkeleton;
 
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.player.EntitySkinType;

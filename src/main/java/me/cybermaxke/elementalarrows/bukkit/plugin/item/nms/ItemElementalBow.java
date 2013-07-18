@@ -25,19 +25,19 @@ import me.cybermaxke.elementalarrows.bukkit.api.inventory.ElementalItemStack;
 import me.cybermaxke.elementalarrows.bukkit.api.material.ArrowMaterial;
 import me.cybermaxke.elementalarrows.bukkit.plugin.entity.nms.EntityElementalArrow;
 
-import net.minecraft.server.v1_6_R1.Enchantment;
-import net.minecraft.server.v1_6_R1.EnchantmentManager;
-import net.minecraft.server.v1_6_R1.EntityHuman;
-import net.minecraft.server.v1_6_R1.EntityPlayer;
-import net.minecraft.server.v1_6_R1.EnumAnimation;
-import net.minecraft.server.v1_6_R1.Item;
-import net.minecraft.server.v1_6_R1.ItemBow;
-import net.minecraft.server.v1_6_R1.ItemStack;
-import net.minecraft.server.v1_6_R1.Packet103SetSlot;
-import net.minecraft.server.v1_6_R1.World;
+import net.minecraft.server.v1_6_R2.Enchantment;
+import net.minecraft.server.v1_6_R2.EnchantmentManager;
+import net.minecraft.server.v1_6_R2.EntityHuman;
+import net.minecraft.server.v1_6_R2.EntityPlayer;
+import net.minecraft.server.v1_6_R2.EnumAnimation;
+import net.minecraft.server.v1_6_R2.Item;
+import net.minecraft.server.v1_6_R2.ItemBow;
+import net.minecraft.server.v1_6_R2.ItemStack;
+import net.minecraft.server.v1_6_R2.Packet103SetSlot;
+import net.minecraft.server.v1_6_R2.World;
 
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_6_R1.event.CraftEventFactory;
+import org.bukkit.craftbukkit.v1_6_R2.event.CraftEventFactory;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityShootBowEvent;
 

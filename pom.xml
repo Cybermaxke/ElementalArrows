@@ -6,7 +6,7 @@
 	<artifactId>elementalarrows</artifactId>
 	<version>dev-SNAPSHOT</version>
 	<name>ElementalArrows</name>
-	<description>Adds new arrows to your bukkit server.</description>
+	<description>Adds new arrows to your minecraft server.</description>
 
 	<!-- Build properties -->
 	<properties>
@@ -58,13 +58,13 @@
 		<dependency>
 			<groupId>org.bukkit</groupId>
 			<artifactId>craftbukkit</artifactId>
-			<version>1.6.1-R0.1-SNAPSHOT</version>
+			<version>1.6.2-R0.1-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.getspout</groupId>
 			<artifactId>spoutplugin</artifactId>
-			<version>1.6.1-R0.1-SNAPSHOT</version>
+			<version>1.6.2-R0.1-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>

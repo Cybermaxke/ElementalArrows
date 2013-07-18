@@ -31,18 +31,18 @@ import me.cybermaxke.elementalarrows.bukkit.plugin.inventory.CraftTurretInventor
 import me.cybermaxke.elementalarrows.bukkit.plugin.inventory.nms.InventoryTurret;
 import me.cybermaxke.elementalarrows.bukkit.plugin.player.ElementalPlayerConnection;
 
-import net.minecraft.server.v1_6_R1.Container;
-import net.minecraft.server.v1_6_R1.DedicatedServer;
-import net.minecraft.server.v1_6_R1.Entity;
-import net.minecraft.server.v1_6_R1.EntityPlayer;
-import net.minecraft.server.v1_6_R1.INetworkManager;
-import net.minecraft.server.v1_6_R1.MinecraftServer;
-import net.minecraft.server.v1_6_R1.Packet100OpenWindow;
-import net.minecraft.server.v1_6_R1.PlayerConnection;
-import net.minecraft.server.v1_6_R1.ServerConnection;
+import net.minecraft.server.v1_6_R2.Container;
+import net.minecraft.server.v1_6_R2.DedicatedServer;
+import net.minecraft.server.v1_6_R2.Entity;
+import net.minecraft.server.v1_6_R2.EntityPlayer;
+import net.minecraft.server.v1_6_R2.INetworkManager;
+import net.minecraft.server.v1_6_R2.MinecraftServer;
+import net.minecraft.server.v1_6_R2.Packet100OpenWindow;
+import net.minecraft.server.v1_6_R2.PlayerConnection;
+import net.minecraft.server.v1_6_R2.ServerConnection;
 
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_6_R1.event.CraftEventFactory;
+import org.bukkit.craftbukkit.v1_6_R2.event.CraftEventFactory;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;

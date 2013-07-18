@@ -18,18 +18,18 @@
  */
 package me.cybermaxke.elementalarrows.bukkit.plugin.dispenser.nms;
 
-import net.minecraft.server.v1_6_R1.BlockDispenser;
-import net.minecraft.server.v1_6_R1.DispenseBehaviorItem;
-import net.minecraft.server.v1_6_R1.EnumFacing;
-import net.minecraft.server.v1_6_R1.IDispenseBehavior;
-import net.minecraft.server.v1_6_R1.IPosition;
-import net.minecraft.server.v1_6_R1.ISourceBlock;
-import net.minecraft.server.v1_6_R1.ItemStack;
-import net.minecraft.server.v1_6_R1.World;
+import net.minecraft.server.v1_6_R2.BlockDispenser;
+import net.minecraft.server.v1_6_R2.DispenseBehaviorItem;
+import net.minecraft.server.v1_6_R2.EnumFacing;
+import net.minecraft.server.v1_6_R2.IDispenseBehavior;
+import net.minecraft.server.v1_6_R2.IPosition;
+import net.minecraft.server.v1_6_R2.ISourceBlock;
+import net.minecraft.server.v1_6_R2.ItemStack;
+import net.minecraft.server.v1_6_R2.World;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_6_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_6_R2.inventory.CraftItemStack;
 import org.bukkit.event.block.BlockDispenseEvent;
 import org.bukkit.util.Vector;
 

@@ -18,9 +18,9 @@
  */
 package me.cybermaxke.elementalarrows.bukkit.plugin.entity.nms.selector;
 
-import net.minecraft.server.v1_6_R1.IMonster;
+import net.minecraft.server.v1_6_R2.IMonster;
 
-import org.bukkit.craftbukkit.v1_6_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftEntity;
 import org.bukkit.entity.Entity;
 
 import me.cybermaxke.elementalarrows.bukkit.api.entity.selector.TargetSelector;

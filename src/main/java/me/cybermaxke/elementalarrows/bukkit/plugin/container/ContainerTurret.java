@@ -18,17 +18,17 @@
  */
 package me.cybermaxke.elementalarrows.bukkit.plugin.container;
 
-import org.bukkit.craftbukkit.v1_6_R1.inventory.CraftInventory;
-import org.bukkit.craftbukkit.v1_6_R1.inventory.CraftInventoryView;
+import org.bukkit.craftbukkit.v1_6_R2.inventory.CraftInventory;
+import org.bukkit.craftbukkit.v1_6_R2.inventory.CraftInventoryView;
 import org.bukkit.inventory.InventoryView;
 
 import me.cybermaxke.elementalarrows.bukkit.plugin.inventory.nms.InventoryTurret;
 
-import net.minecraft.server.v1_6_R1.Container;
-import net.minecraft.server.v1_6_R1.EntityHuman;
-import net.minecraft.server.v1_6_R1.ItemStack;
-import net.minecraft.server.v1_6_R1.PlayerInventory;
-import net.minecraft.server.v1_6_R1.Slot;
+import net.minecraft.server.v1_6_R2.Container;
+import net.minecraft.server.v1_6_R2.EntityHuman;
+import net.minecraft.server.v1_6_R2.ItemStack;
+import net.minecraft.server.v1_6_R2.PlayerInventory;
+import net.minecraft.server.v1_6_R2.Slot;
 
 public class ContainerTurret extends Container {
 	private InventoryView view;

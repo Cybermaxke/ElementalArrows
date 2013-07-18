@@ -20,8 +20,8 @@ package me.cybermaxke.elementalarrows.bukkit.plugin.entity.nms;
 
 import me.cybermaxke.elementalarrows.bukkit.api.entity.selector.TargetSelector;
 
-import net.minecraft.server.v1_6_R1.Entity;
-import net.minecraft.server.v1_6_R1.IEntitySelector;
+import net.minecraft.server.v1_6_R2.Entity;
+import net.minecraft.server.v1_6_R2.IEntitySelector;
 
 public class EntityTargetSelector implements IEntitySelector {
 	private TargetSelector targetSelector;

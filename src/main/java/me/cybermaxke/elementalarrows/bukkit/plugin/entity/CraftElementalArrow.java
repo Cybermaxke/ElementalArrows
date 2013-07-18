@@ -19,7 +19,7 @@
 package me.cybermaxke.elementalarrows.bukkit.plugin.entity;
 
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_6_R1.entity.CraftArrow;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftArrow;
 
 import me.cybermaxke.elementalarrows.bukkit.api.entity.ElementalArrow;
 import me.cybermaxke.elementalarrows.bukkit.api.material.ArrowMaterial;

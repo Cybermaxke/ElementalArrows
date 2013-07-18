@@ -42,12 +42,13 @@ import java.util.logging.Level;
 import org.spout.api.Platform;
 import org.spout.api.Spout;
 import org.spout.api.Server;
-import org.spout.api.exception.ConfigurationException;
 import org.spout.api.plugin.Plugin;
 import org.spout.api.plugin.PluginDescriptionFile;
 import org.spout.api.scheduler.Task;
 import org.spout.api.scheduler.TaskPriority;
-import org.spout.api.util.config.yaml.YamlConfiguration;
+
+import org.spout.cereal.config.ConfigurationException;
+import org.spout.cereal.config.yaml.YamlConfiguration;
 
 public class Metrics {
 

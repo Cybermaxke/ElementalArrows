@@ -23,8 +23,8 @@ import java.util.Collections;
 import java.util.List;
 
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_6_R1.event.CraftEventFactory;
-import org.bukkit.craftbukkit.v1_6_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_6_R2.event.CraftEventFactory;
+import org.bukkit.craftbukkit.v1_6_R2.inventory.CraftItemStack;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.util.Vector;
 
@@ -41,22 +41,22 @@ import me.cybermaxke.elementalarrows.bukkit.plugin.entity.CraftElementalTurret;
 import me.cybermaxke.elementalarrows.bukkit.plugin.entity.nms.selector.TargetSelectorMonster;
 import me.cybermaxke.elementalarrows.bukkit.plugin.inventory.nms.InventoryTurret;
 
-import net.minecraft.server.v1_6_R1.Container;
-import net.minecraft.server.v1_6_R1.DamageSource;
-import net.minecraft.server.v1_6_R1.DistanceComparator;
-import net.minecraft.server.v1_6_R1.Entity;
-import net.minecraft.server.v1_6_R1.EntityArrow;
-import net.minecraft.server.v1_6_R1.EntityEnderCrystal;
-import net.minecraft.server.v1_6_R1.EntityHuman;
-import net.minecraft.server.v1_6_R1.EntityItem;
-import net.minecraft.server.v1_6_R1.EntityPlayer;
-import net.minecraft.server.v1_6_R1.Item;
-import net.minecraft.server.v1_6_R1.ItemStack;
-import net.minecraft.server.v1_6_R1.MathHelper;
-import net.minecraft.server.v1_6_R1.NBTTagCompound;
-import net.minecraft.server.v1_6_R1.NBTTagList;
-import net.minecraft.server.v1_6_R1.Packet100OpenWindow;
-import net.minecraft.server.v1_6_R1.World;
+import net.minecraft.server.v1_6_R2.Container;
+import net.minecraft.server.v1_6_R2.DamageSource;
+import net.minecraft.server.v1_6_R2.DistanceComparator;
+import net.minecraft.server.v1_6_R2.Entity;
+import net.minecraft.server.v1_6_R2.EntityArrow;
+import net.minecraft.server.v1_6_R2.EntityEnderCrystal;
+import net.minecraft.server.v1_6_R2.EntityHuman;
+import net.minecraft.server.v1_6_R2.EntityItem;
+import net.minecraft.server.v1_6_R2.EntityPlayer;
+import net.minecraft.server.v1_6_R2.Item;
+import net.minecraft.server.v1_6_R2.ItemStack;
+import net.minecraft.server.v1_6_R2.MathHelper;
+import net.minecraft.server.v1_6_R2.NBTTagCompound;
+import net.minecraft.server.v1_6_R2.NBTTagList;
+import net.minecraft.server.v1_6_R2.Packet100OpenWindow;
+import net.minecraft.server.v1_6_R2.World;
 
 public class EntityElementalTurret extends EntityEnderCrystal {
 	public TargetSelector selector;
