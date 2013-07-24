@@ -20,7 +20,7 @@ package me.cybermaxke.elementalarrows.spout.plugin.utils;
 
 import java.lang.reflect.Method;
 
-import org.spout.api.component.entity.SceneComponent;
+import org.spout.api.component.entity.PhysicsComponent;
 import org.spout.api.util.Parameter;
 
 import org.spout.vanilla.component.entity.VanillaEntityComponent;
@@ -36,13 +36,13 @@ public class EntityUtils {
 	 * Directly updating the position.
 	 * @param scene
 	 */
-	public static void updateSnapshotPosition(SceneComponent scene) {
+	public static void updateSnapshotPosition(PhysicsComponent physics) {
 		try {
-			Class<?> clazz = scene.getClass();
+			Class<?> clazz = physics.getClass();
 
 			Method method = clazz.getDeclaredMethod("copySnapshot", new Class[] {});
 			method.setAccessible(true);
-			method.invoke(scene, new Object[] {});
+			method.invoke(physics, new Object[] {});
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

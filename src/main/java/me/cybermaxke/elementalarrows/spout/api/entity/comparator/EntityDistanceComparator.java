@@ -30,9 +30,9 @@ public class EntityDistanceComparator implements EntityComparator {
 
 	@Override
 	public int compare(Entity entity1, Entity entity2) {
-		Point point = this.entity.getScene().getPosition();
-		Point point1 = entity1.getScene().getPosition();
-		Point point2 = entity2.getScene().getPosition();
+		Point point = this.entity.getPhysics().getPosition();
+		Point point1 = entity1.getPhysics().getPosition();
+		Point point2 = entity2.getPhysics().getPosition();
 
 		double d1 = point.distance(point1);
 		double d2 = point.distance(point2);

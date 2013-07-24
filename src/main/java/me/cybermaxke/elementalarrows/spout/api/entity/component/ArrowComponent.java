@@ -20,10 +20,10 @@ package me.cybermaxke.elementalarrows.spout.api.entity.component;
 
 import me.cybermaxke.elementalarrows.spout.api.entity.ElementalArrow;
 
+import org.spout.api.collision.SpoutContactInfo;
 import org.spout.api.component.entity.EntityComponent;
 import org.spout.api.entity.Entity;
 import org.spout.api.geo.cuboid.Block;
-import org.spout.api.geo.discrete.Point;
 
 import org.spout.vanilla.component.entity.substance.Substance;
 
@@ -58,20 +58,20 @@ public class ArrowComponent extends EntityComponent {
 	}
 
 	/**
-	 * Called when the arrow hits the entity at the point.
-	 * @param point
+	 * Called when the arrow hits the entity with the contact info.
+	 * @param info
 	 * @param entity
 	 */
-	public void onHit(Point point, Entity entity) {
+	public void onHit(SpoutContactInfo info, Entity entity) {
 
 	}
 
 	/**
-	 * Called when the arrow hits the block at the point.
-	 * @param point
+	 * Called when the arrow hits the block with the contact info.
+	 * @param info
 	 * @param block
 	 */
-	public void onHit(Point point, Block block) {
+	public void onHit(SpoutContactInfo info, Block block) {
 
 	}
 }

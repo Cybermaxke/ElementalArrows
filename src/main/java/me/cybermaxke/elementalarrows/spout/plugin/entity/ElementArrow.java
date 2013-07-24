@@ -27,10 +27,10 @@ import me.cybermaxke.elementalarrows.spout.plugin.data.ElementalData;
 import me.cybermaxke.elementalarrows.spout.plugin.protocol.ElementalArrowProtocol;
 import me.cybermaxke.elementalarrows.spout.plugin.utils.EntityUtils;
 
-import org.spout.api.collision.BoundingBox;
-import org.spout.api.component.entity.SceneComponent;
+import org.spout.api.component.entity.PhysicsComponent;
 import org.spout.api.entity.Entity;
 import org.spout.api.entity.Player;
+import org.spout.api.event.entity.EntityCollideEvent;
 import org.spout.api.geo.cuboid.Block;
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.inventory.ItemStack;
@@ -39,6 +39,8 @@ import org.spout.api.math.Quaternion;
 import org.spout.api.math.QuaternionMath;
 import org.spout.api.math.Vector3;
 import org.spout.api.util.Parameter;
+
+import org.spout.physics.collision.shape.BoxShape;
 
 import org.spout.vanilla.VanillaPlugin;
 import org.spout.vanilla.component.entity.living.Human;
@@ -63,10 +65,10 @@ public class ElementArrow extends Substance implements ElementalArrow {
 		this.getOwner().getNetwork().setEntityProtocol(VanillaPlugin.VANILLA_PROTOCOL_ID, new ElementalArrowProtocol());
 		super.onAttached();
 
-		SceneComponent scene = this.getOwner().getScene();
-		scene.activate(new BoundingBox(0.5F, 0.5F, 0.5F), scene.getMass());
+		PhysicsComponent physics = this.getOwner().getPhysics();
+		physics.activate(physics.getMass(), new BoxShape(0.5F, 0.5F, 0.5F), true);
 
-		EntityUtils.updateSnapshotPosition(scene);
+		EntityUtils.updateSnapshotPosition(physics);
 	}
 
 	@Override
@@ -75,42 +77,43 @@ public class ElementArrow extends Substance implements ElementalArrow {
 	}
 
 	@Override
-	public void onCollided(Point point, Entity entity) {
-		if (entity.get(Health.class) != null) {
-			Vector3 v = this.getOwner().getScene().getMovementVelocity();
+	public void onCollided(EntityCollideEvent<?> e) {
+		if (e.getCollided() instanceof Block) {
+			Block block = (Block) e.getCollided();
 
-			float motX = v.getX();
-			float motY = v.getY();
-			float motZ = v.getZ();
+			PhysicsComponent physics = this.getOwner().getPhysics();
+			physics.setMovementVelocity(Vector3.ZERO);
 
-			float damage = (float) (this.getDamage() * Math.sqrt(motX * motX + motY * motY + motZ * motZ));
-			if (this.isCritical()) {
-				damage += this.random.nextInt(Math.round(damage) / 2 + 2);
+			EntityUtils.updateSnapshotPosition(physics);
+
+			for (ArrowComponent component : this.getOwner().getAll(ArrowComponent.class)) {
+				component.onHit(e.getContactInfo(), block);
+			}
+		} else if (e.getCollided() instanceof Entity) {
+			Entity entity = (Entity) e.getCollided();
+
+			if (entity.get(Health.class) != null) {
+				Vector3 v = this.getOwner().getPhysics().getMovementVelocity();
+
+				float motX = v.getX();
+				float motY = v.getY();
+				float motZ = v.getZ();
+
+				float damage = (float) (this.getDamage() * Math.sqrt(motX * motX + motY * motY + motZ * motZ));
+				if (this.isCritical()) {
+					damage += this.random.nextInt(Math.round(damage) / 2 + 2);
+				}
+
+				entity.get(Health.class).damage(Math.round(damage), new EntityDamageCause(this.getOwner(), DamageType.PROJECTILE));
 			}
 
-			entity.get(Health.class).damage(Math.round(damage), new EntityDamageCause(this.getOwner(), DamageType.PROJECTILE));
-		}
+			if (entity.get(Burn.class) != null) {
+				entity.get(Burn.class).setOnFire(this.getFireTicks(), true);
+			}
 
-		if (entity.get(Burn.class) != null) {
-			entity.get(Burn.class).setOnFire(this.getFireTicks(), true);
-		}
-
-		for (ArrowComponent component : this.getOwner().getAll(ArrowComponent.class)) {
-			component.onHit(point, entity);
-		}
-	}
-
-	@Override
-	public void onCollided(Point point, Block block) {
-		//TODO: Setting the arrow as inGround and allowing players to pick it up.
-
-		SceneComponent scene = this.getOwner().getScene();
-		scene.setMovementVelocity(Vector3.ZERO);
-
-		EntityUtils.updateSnapshotPosition(scene);
-
-		for (ArrowComponent component : this.getOwner().getAll(ArrowComponent.class)) {
-			component.onHit(point, block);
+			for (ArrowComponent component : this.getOwner().getAll(ArrowComponent.class)) {
+				component.onHit(e.getContactInfo(), entity);
+			}
 		}
 	}
 
@@ -123,16 +126,16 @@ public class ElementArrow extends Substance implements ElementalArrow {
 			this.setPickupMode(h.getGameMode().equals(GameMode.CREATIVE) ? PickupMode.CREATIVE : PickupMode.NORMAL);
 		}
 
-		SceneComponent scene1 = this.getOwner().getScene();
-		SceneComponent scene2 = shooter.getScene();
+		PhysicsComponent physics1 = this.getOwner().getPhysics();
+		PhysicsComponent physics2 = shooter.getPhysics();
 
-		Point p = scene2.getPosition();
+		Point p = physics2.getPosition();
 		Quaternion r = null;
 
 		if (shooter.get(EntityHead.class) != null) {
 			r = shooter.get(EntityHead.class).getOrientation();
 		} else {
-			r = scene2.getRotation();
+			r = physics2.getRotation();
 		}
 
 		float locX = p.getX();
@@ -150,8 +153,8 @@ public class ElementArrow extends Substance implements ElementalArrow {
 			locY += shooter.get(EntityHead.class).getHeight();
 		}
 
-		scene1.setPosition(new Point(p.getWorld(), locX, locY, locZ));
-		scene1.setRotation(QuaternionMath.rotation(pitch, yaw, 0.0F));
+		physics1.setPosition(new Point(p.getWorld(), locX, locY, locZ));
+		physics1.setRotation(QuaternionMath.rotation(pitch, yaw, 0.0F));
 
 		float motX = (float) (Math.sin(yaw / 180.0F * Math.PI) * Math.cos(pitch / 180.0F * Math.PI));
 		float motZ = (float) (Math.cos(yaw / 180.0F * Math.PI) * Math.cos(pitch / 180.0F * Math.PI));
@@ -184,15 +187,15 @@ public class ElementArrow extends Substance implements ElementalArrow {
 		float yaw = (float) (Math.atan2(motX, motZ) * 180.0F / Math.PI);
 		float pitch = (float) (Math.atan2(motY, Math.sqrt(motX * motX + motZ * motZ)) * 180.0F / Math.PI);
 
-		SceneComponent scene = this.getOwner().getScene();
+		PhysicsComponent physics = this.getOwner().getPhysics();
 
-		scene.setMovementVelocity(new Vector3(motX, motY, motZ));	
-		scene.setRotation(QuaternionMath.rotation(pitch, yaw, 0.0F));
+		physics.setMovementVelocity(new Vector3(motX, motY, motZ));	
+		physics.setRotation(QuaternionMath.rotation(pitch, yaw, 0.0F));
 
 		/**
 		 * Without calling this method, the arrow will just fall down.
 		 */
-		EntityUtils.updateSnapshotPosition(scene);
+		EntityUtils.updateSnapshotPosition(physics);
 
 		for (ArrowComponent component : this.getOwner().getAll(ArrowComponent.class)) {
 			component.onShoot();
@@ -201,10 +204,10 @@ public class ElementArrow extends Substance implements ElementalArrow {
 
 	@Override
 	public void onTick(float dt) {
-		SceneComponent scene = this.getOwner().getScene();
+		PhysicsComponent physics = this.getOwner().getPhysics();
 
-		Point p = scene.getPosition();
-		Vector3 v = scene.getMovementVelocity();
+		Point p = physics.getPosition();
+		Vector3 v = physics.getMovementVelocity();
 
 		float locX = p.getX();
 		float locY = p.getY();
@@ -236,9 +239,9 @@ public class ElementArrow extends Substance implements ElementalArrow {
 		motZ *= f;
 		motY -= 0.05F;
 
-		scene.setMovementVelocity(new Vector3(motX, motY, motZ));
-		scene.setPosition(new Point(p.getWorld(), locX, locY, locZ));
-		scene.setRotation(QuaternionMath.rotation(pitch, yaw, 0.0F));
+		physics.setMovementVelocity(new Vector3(motX, motY, motZ));
+		physics.setPosition(new Point(p.getWorld(), locX, locY, locZ));
+		physics.setRotation(QuaternionMath.rotation(pitch, yaw, 0.0F));
 
 		if (this.isOnFire()) {
 			this.setFireTicks(this.getFireTicks() - 1);

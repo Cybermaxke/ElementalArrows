@@ -29,8 +29,7 @@ import me.cybermaxke.elementalarrows.spout.plugin.protocol.ElementalFireworkProt
 import me.cybermaxke.elementalarrows.spout.plugin.utils.EntityUtils;
 import me.cybermaxke.elementalarrows.spout.plugin.utils.FireworkUtils;
 
-import org.spout.api.collision.BoundingBox;
-import org.spout.api.component.entity.SceneComponent;
+import org.spout.api.component.entity.PhysicsComponent;
 import org.spout.api.geo.discrete.Point;
 import org.spout.api.inventory.ItemStack;
 import org.spout.api.math.QuaternionMath;
@@ -40,6 +39,8 @@ import org.spout.api.util.Parameter;
 import org.spout.nbt.CompoundMap;
 import org.spout.nbt.CompoundTag;
 import org.spout.nbt.ListTag;
+
+import org.spout.physics.collision.shape.BoxShape;
 
 import org.spout.vanilla.VanillaPlugin;
 import org.spout.vanilla.component.entity.substance.Substance;
@@ -63,19 +64,19 @@ public class ElementFireworks extends Substance implements ElementalFireworks {
 		float motZ = (float) (this.random.nextGaussian() * 0.001F);
 		float motY = 0.05F;
 
-		SceneComponent scene = this.getOwner().getScene();
-		scene.setMovementVelocity(new Vector3(motX, motY, motZ));
-		scene.activate(new BoundingBox(0.25F, 0.25F, 0.25F), scene.getMass());
+		PhysicsComponent physics = this.getOwner().getPhysics();
+		physics.setMovementVelocity(new Vector3(motX, motY, motZ));
+		physics.activate(physics.getMass(), new BoxShape(0.25F, 0.25F, 0.25F), true);
 
-		EntityUtils.updateSnapshotPosition(scene);
+		EntityUtils.updateSnapshotPosition(physics);
 	}
 
 	@Override
 	public void onTick(float dt) {
-		SceneComponent scene = this.getOwner().getScene();
+		PhysicsComponent physics = this.getOwner().getPhysics();
 
-		Point p = scene.getPosition();
-		Vector3 v = scene.getMovementVelocity();
+		Point p = physics.getPosition();
+		Vector3 v = physics.getMovementVelocity();
 
 		float locX = p.getX();
 		float locY = p.getY();
@@ -96,9 +97,9 @@ public class ElementFireworks extends Substance implements ElementalFireworks {
 		float yaw = (float) (Math.atan2(motX, motZ) * 180.0F / Math.PI);
 		float pitch = (float) (Math.atan2(motY, Math.sqrt(motX * motX + motZ * motZ)) * 180.0F / Math.PI);
 
-		scene.setMovementVelocity(new Vector3(motX, motY, motZ));
-		scene.setPosition(new Point(p.getWorld(), locX, locY, locZ));
-		scene.setRotation(QuaternionMath.rotation(pitch, yaw, 0.0F));
+		physics.setMovementVelocity(new Vector3(motX, motY, motZ));
+		physics.setPosition(new Point(p.getWorld(), locX, locY, locZ));
+		physics.setRotation(QuaternionMath.rotation(pitch, yaw, 0.0F));
 
 		this.ticksFlown++;
 		if (this.ticksFlown >= this.ticksBeforeExplosion) {

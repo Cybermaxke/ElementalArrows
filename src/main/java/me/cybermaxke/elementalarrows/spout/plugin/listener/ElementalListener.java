@@ -78,7 +78,7 @@ public class ElementalListener implements Listener {
 		Entity entity = e.getEntity();
 		ElementTurret turret = entity.get(ElementTurret.class);
 		if (turret != null) {
-			Point position = entity.getScene().getPosition();
+			Point position = entity.getPhysics().getPosition();
 			TurretInventory inv = turret.getInventory();
 			for (ItemStack is : inv.getContents()) {
 				if (is != null) {
