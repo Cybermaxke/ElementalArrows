@@ -44,7 +44,7 @@ import org.spout.physics.collision.shape.BoxShape;
 
 import org.spout.vanilla.VanillaPlugin;
 import org.spout.vanilla.component.entity.substance.Substance;
-import org.spout.vanilla.event.entity.EntityStatusEvent;
+import org.spout.vanilla.event.entity.network.EntityStatusEvent;
 
 @SuppressWarnings("unchecked")
 public class ElementFireworks extends Substance implements ElementalFireworks {
@@ -66,7 +66,7 @@ public class ElementFireworks extends Substance implements ElementalFireworks {
 
 		PhysicsComponent physics = this.getOwner().getPhysics();
 		physics.setMovementVelocity(new Vector3(motX, motY, motZ));
-		physics.activate(physics.getMass(), new BoxShape(0.25F, 0.25F, 0.25F), true);
+		physics.activate(physics.getMass(), new BoxShape(0.25F, 0.25F, 0.25F), false, true);
 
 		EntityUtils.updateSnapshotPosition(physics);
 	}

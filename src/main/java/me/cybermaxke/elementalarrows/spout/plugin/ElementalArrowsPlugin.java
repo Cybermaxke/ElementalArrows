@@ -51,7 +51,7 @@ import org.spout.api.math.Vector3;
 import org.spout.api.plugin.Plugin;
 import org.spout.api.protocol.reposition.RepositionManager;
 
-import org.spout.vanilla.event.entity.EntityStatusEvent;
+import org.spout.vanilla.event.entity.network.EntityStatusEvent;
 import org.spout.vanilla.material.VanillaMaterials;
 import org.spout.vanilla.protocol.msg.world.ParticleEffectMessage;
 import org.spout.vanilla.protocol.reposition.VanillaRepositionManager;

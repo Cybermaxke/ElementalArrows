@@ -109,7 +109,7 @@ public class MathUtils {
 		for (int i = 0; i < amount; i++) {
 			points.add(new Point(start.getWorld(), k + f1 * i, j + f2 * i, n + f3 * i));
 		}
-	
+
 		return points;
 	}
 

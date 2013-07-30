@@ -66,7 +66,7 @@ public class ElementArrow extends Substance implements ElementalArrow {
 		super.onAttached();
 
 		PhysicsComponent physics = this.getOwner().getPhysics();
-		physics.activate(physics.getMass(), new BoxShape(0.5F, 0.5F, 0.5F), true);
+		physics.activate(physics.getMass(), new BoxShape(0.5F, 0.5F, 0.5F), false, true);
 
 		EntityUtils.updateSnapshotPosition(physics);
 	}
