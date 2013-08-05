@@ -30,12 +30,8 @@
 	<!-- Repositories -->
 	<repositories>
 		<repository>
-			<id>cybermaxkes-repo</id>
-			<url>http://dl.dropbox.com/u/104060836/mvn-repo</url>
-			<snapshots>
-				<enabled>true</enabled>
-				<updatePolicy>always</updatePolicy>
-			</snapshots>
+			<id>bukkit-repo</id>
+			<url>http://repo.bukkit.org/content/groups/public/</url>
 		</repository>
 
 		<repository>
@@ -55,6 +51,12 @@
 
 	<!-- Dependencies -->
 	<dependencies>
+		<dependency>
+			<groupId>org.bukkit</groupId>
+			<artifactId>bukkit</artifactId>
+			<version>1.6.2-R0.1-SNAPSHOT</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.bukkit</groupId>
 			<artifactId>craftbukkit</artifactId>
