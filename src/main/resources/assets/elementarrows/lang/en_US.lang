@@ -1,0 +1,15 @@
+## The archery (arrows) creative tab
+itemGroup.elementArrowsTab=Archery
+
+## The new arrow names
+item.elementArrowsBlindness.name=Blindness Arrow
+item.elementArrowsDazing.name=Dazing Arrow
+item.elementArrowsDirt.name=Dirt Arrow
+item.elementArrowsEgg.name=Egg Arrow
+item.elementArrowsEnderEye.name=EnderEye Arrow
+item.elementArrowsExplosion.name=Explosion Arrow
+item.elementArrowsFire.name=Fire Arrow
+item.elementArrowsLightning.name=Lightning Arrow
+item.elementArrowsPoison.name=Poison Arrow
+item.elementArrowsRazor.name=Razor Arrow
+item.elementArrowsVampiric.name=Vampiric Arrow

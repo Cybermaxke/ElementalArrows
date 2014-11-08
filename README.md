@@ -1,14 +1,7 @@
 [![ElementalArrows][Logo]][Home]
 
-This plugin adds new arrows to you minecraft server using the SpoutPlugin and CraftBukkit. It also features an
-API which allows plugin developers to create there own arrows, ect.
-
-## Features:
-* 14 custom arrows.
-* Pickup used arrows.
-* Skeletons who use the arrows.
-* Dispensers can dispense the arrows.
-* Easy api to extend it the way you want.
+This plugin adds new arrows to you minecraft client and server using the forge. But the client mod isn't
+required to run the mod on the server side, normal players will be able to use the new arrows.
 
 More info is available at the [wiki][Wiki].
 

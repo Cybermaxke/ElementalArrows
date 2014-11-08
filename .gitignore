@@ -1,5 +1,19 @@
-.classpath
-.project
-.settings
-target
-bin
+\.gradle
+\.metadata
+\.classpath
+\.project
+\.settings
+\build
+\bin
+\eclipse
+
+## Client/Server Test Files
+\mods
+\logs
+\config
+\saves
+\resourcepacks
+\eula.txt
+\options.txt
+\server.properties
+\usernamecache.json
