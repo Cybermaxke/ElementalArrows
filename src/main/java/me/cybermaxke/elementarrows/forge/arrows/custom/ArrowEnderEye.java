@@ -18,8 +18,12 @@
  */
 package me.cybermaxke.elementarrows.forge.arrows.custom;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.EffectRenderer;
+import net.minecraft.client.particle.EntityCritFX;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.world.World;
 
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow;
 import me.cybermaxke.elementarrows.forge.entity.EntityElementArrow;
@@ -39,6 +43,30 @@ public final class ArrowEnderEye extends ElementArrow {
 	public void onClientInit(ArrowInitEvent event) {
 		this.icon = "elementArrows:arrowEnderEye";
 		this.texture = "elementArrows:textures/entity/arrowEntityEnderEye.png";
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void onArrowTick(ArrowTickEvent event) {
+		EntityElementArrow arrow = event.arrow;
+
+		if (!arrow.worldObj.isRemote) {
+			return;
+		}
+
+		double mx = arrow.lastMotX;
+		double my = arrow.lastMotX;
+		double mz = arrow.lastMotX;
+
+		double x = arrow.prevPosX;
+		double y = arrow.prevPosY;
+		double z = arrow.prevPosZ;
+
+		EffectRenderer render = Minecraft.getMinecraft().effectRenderer;
+
+		for (int i = 0; i < 4; i++) {
+			render.addEffect(new FXArrowEnderEye(arrow.worldObj, x + mx * i / 4d, y + my * i / 4d, z + mz * i / 4d, -mx * 0.8d, -my * 0.8d, -mz * 0.8d));
+		}
 	}
 
 	@Override
@@ -72,4 +100,21 @@ public final class ArrowEnderEye extends ElementArrow {
 		arrow.setElementData(0);
 	}
 
+	@SideOnly(Side.CLIENT)
+	public static class FXArrowEnderEye extends EntityCritFX {
+
+		public FXArrowEnderEye(World world, double x, double y, double z, double mx, double my, double mz) {
+			super(world, x, y, z, mx, my, mz);
+
+			float f = this.rand.nextFloat() * 0.6f + 0.4f;
+
+			this.particleScale = this.rand.nextFloat() * 0.2f + 0.5f;
+			this.particleRed = f;
+			this.particleGreen = f * 0.3f;
+			this.particleRed = f * 0.9f;
+
+			this.setParticleTextureIndex((int) (Math.random() * 8d));
+		}
+
+	}
 }

@@ -51,7 +51,7 @@ public final class ArrowRazor extends ElementArrow {
 		/**
 		 * Modify the power (speed)
 		 */
-		event.power *= 1.7f;
+		event.power *= 1.5f;
 
 		/**
 		 * Let the underlying method build the arrow.

@@ -6,6 +6,7 @@
 \build
 \bin
 \eclipse
+Thumbs.db
 
 ## Client/Server Test Files
 \mods
@@ -13,6 +14,7 @@
 \config
 \saves
 \resourcepacks
+\crash-reports
 \eula.txt
 \options.txt
 \server.properties

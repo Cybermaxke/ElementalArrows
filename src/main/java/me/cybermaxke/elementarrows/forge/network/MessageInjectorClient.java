@@ -29,9 +29,9 @@ import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S0EPacketSpawnObject;
+
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 
@@ -55,10 +55,8 @@ public final class MessageInjectorClient {
 
 	@SubscribeEvent
 	public void onEntityJoinWorld(EntityJoinWorldEvent event) {
-		if (event.entity instanceof EntityPlayer) {
-			if (event.entity instanceof EntityClientPlayerMP) {
-				this.onJoinWorld((EntityClientPlayerMP) event.entity);
-			}
+		if (event.entity instanceof EntityClientPlayerMP) {
+			this.onJoinWorld((EntityClientPlayerMP) event.entity);
 		}
 	}
 

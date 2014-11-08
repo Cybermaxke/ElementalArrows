@@ -38,6 +38,13 @@ public class EntityElementArrow extends EntityArrow {
 	private boolean lastInGround;
 
 	/**
+	 * The last motion values.
+	 */
+	public double lastMotX;
+	public double lastMotY;
+	public double lastMotZ;
+
+	/**
 	 * The source.
 	 */
 	public Source<?> source;
@@ -101,6 +108,10 @@ public class EntityElementArrow extends EntityArrow {
 
 	@Override
 	public void onUpdate() {
+		this.lastMotX = this.motionX;
+		this.lastMotY = this.motionX;
+		this.lastMotZ = this.motionX;
+
 		super.onUpdate();
 
 		/**
