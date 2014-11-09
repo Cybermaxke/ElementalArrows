@@ -119,7 +119,7 @@ public final class UtilFields {
 	 */
 	public static Field[] findFields(Class<?> target, Class<?> fieldType, int depth) {
 		List<Field> list = new ArrayList<Field>();
-		while (target != null) {
+		while (target != null && target != Object.class) {
 			for (Field field : target.getDeclaredFields()) {
 				field.setAccessible(true);
 				if (field.getType().isAssignableFrom(fieldType)) {

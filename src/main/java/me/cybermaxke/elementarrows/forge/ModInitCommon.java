@@ -114,7 +114,7 @@ public class ModInitCommon {
 		 * Create the new items.
 		 */
 		this.itemArrow = new ItemArrow(this.registry);
-		this.itemBow = new ItemBow(this.registry, this.itemArrow);
+		this.itemBow = new ItemBow(this.registry);
 
 		/**
 		 * Create the arrows tab.

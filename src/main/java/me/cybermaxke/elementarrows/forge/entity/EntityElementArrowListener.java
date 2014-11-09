@@ -26,6 +26,7 @@ import me.cybermaxke.elementarrows.forge.arrows.ElementArrow.ArrowHitEntityEvent
 
 import net.minecraft.entity.Entity;
 import net.minecraft.util.DamageSource;
+
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
 public final class EntityElementArrowListener {

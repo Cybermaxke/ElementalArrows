@@ -92,27 +92,31 @@ public final class MessageInjectorCommon {
 	}
 
 	private static final class Handler extends ChannelDuplexHandler {
+		/**
+		 * ItemStack field cache.
+		 */
 		private final Map<Class<?>, Field[]> fields0 = new HashMap<Class<?>, Field[]>();
 		private final Map<Class<?>, Field[]> fields1 = new HashMap<Class<?>, Field[]>();
-		private final ArrowRegistryCommon registry;
-		private final EPlayers players;
-		private final UUID uniqueId;
-
-		public Handler(ArrowRegistryCommon registry, EPlayers players, UUID uniqueId) {
-			this.registry = registry;
-			this.uniqueId = uniqueId;
-			this.players = players;
-		}
 
 		/**
 		 * The reset color. 
 		 */
 		private final String reset = new StringBuilder().append('\u00A7').append('f').toString();
 
+		private final ArrowRegistryCommon registry;
+		private final EPlayers players;
+		private final UUID uniqueId;
+
 		/**
 		 * The language of the player.
 		 */
 		private String language;
+
+		public Handler(ArrowRegistryCommon registry, EPlayers players, UUID uniqueId) {
+			this.registry = registry;
+			this.uniqueId = uniqueId;
+			this.players = players;
+		}
 
 		@Override
 		public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {

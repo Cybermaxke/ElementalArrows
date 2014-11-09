@@ -33,21 +33,22 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.ArrowNockEvent;
 
 public final class ItemBow extends net.minecraft.item.ItemBow {
 	private ArrowRegistryCommon registry;
-	private ItemArrow arrow;
 	private IIcon[] icons;
 
-	public ItemBow(ArrowRegistryCommon registry, ItemArrow arrow) {
+	public ItemBow(ArrowRegistryCommon registry) {
 		this.registry = registry;
-		this.arrow = arrow;
 		this.setUnlocalizedName("bow");
 		this.setTextureName("bow");
 	}
@@ -129,7 +130,7 @@ public final class ItemBow extends net.minecraft.item.ItemBow {
 			}
 
 			bow.damageItem(1, player);
-			world.playSoundAtEntity(player, "random.bow", 1f, 1f / (itemRand.nextFloat() * 0.4f + 1.2f) + power * 0.5f);
+			world.playSoundAtEntity(player, "random.bow", 1f, 1f / (Item.itemRand.nextFloat() * 0.4f + 1.2f) + power * 0.5f);
 
 			if (flag) {
 				entity.canBePickedUp = 2;
@@ -211,7 +212,7 @@ public final class ItemBow extends net.minecraft.item.ItemBow {
 		ItemStack[] main = inventory.mainInventory;
 
 		for (int i = 0; i < main.length; i++) {
-			if (main[i] != null && main[i].getItem() == this.arrow) {
+			if (main[i] != null && main[i].getItem() == Items.arrow) {
 				return main[i];
 			}
 		}

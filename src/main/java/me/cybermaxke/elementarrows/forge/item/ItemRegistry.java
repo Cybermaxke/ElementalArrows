@@ -129,8 +129,6 @@ public final class ItemRegistry {
 						field2.set(stat, item);
 					}
 				}
-
-				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
