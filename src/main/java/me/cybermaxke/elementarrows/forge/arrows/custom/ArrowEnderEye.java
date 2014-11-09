@@ -18,11 +18,14 @@
  */
 package me.cybermaxke.elementarrows.forge.arrows.custom;
 
+import java.util.Random;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.client.particle.EntityCritFX;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow;
@@ -51,8 +54,8 @@ public final class ArrowEnderEye extends ElementArrow {
 		EntityElementArrow arrow = event.arrow;
 
 		double mx = arrow.lastMotX;
-		double my = arrow.lastMotX;
-		double mz = arrow.lastMotX;
+		double my = arrow.lastMotY;
+		double mz = arrow.lastMotZ;
 
 		double x = arrow.prevPosX;
 		double y = arrow.prevPosY;
@@ -94,6 +97,27 @@ public final class ArrowEnderEye extends ElementArrow {
 		}
 
 		arrow.setElementData(0);
+
+		if (shooter.worldObj.isRemote) {
+			Random random = shooter.worldObj.rand;
+			AxisAlignedBB aabb = shooter.boundingBox;
+
+			double x = (aabb.maxX + aabb.minX) * 0.5d;
+			double y = (aabb.maxY + aabb.minY) * 0.5d;
+			double z = (aabb.maxZ + aabb.minZ) * 0.5d;
+
+			for (int i = 0; i < 35; i++) {
+				double x0 = x + (random.nextFloat() - 0.5d);
+				double y0 = y + (random.nextFloat() * shooter.height - 0.5d);
+				double z0 = z + (random.nextFloat() - 0.5d);
+
+				double mx = (random.nextFloat() - 0.5d) * 0.2d;
+				double my = (random.nextFloat() - 0.5d) * 0.2d;
+				double mz = (random.nextFloat() - 0.5d) * 0.2d;
+
+				shooter.worldObj.spawnParticle("portal", x0, y0, z0, mx, my, mz);
+		    }
+		}
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -105,7 +129,7 @@ public final class ArrowEnderEye extends ElementArrow {
 			float f = this.rand.nextFloat() * 0.6f + 0.4f;
 
 			this.particleScale = this.rand.nextFloat() * 0.2f + 0.5f;
-			this.particleRed = f;
+			this.particleBlue = f;
 			this.particleGreen = f * 0.3f;
 			this.particleRed = f * 0.9f;
 

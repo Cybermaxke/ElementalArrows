@@ -18,7 +18,13 @@
  */
 package me.cybermaxke.elementarrows.forge.arrows.custom;
 
+import java.util.Random;
+
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow;
+import me.cybermaxke.elementarrows.forge.entity.EntityElementArrow;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -38,9 +44,61 @@ public final class ArrowDirt extends ElementArrow {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
+	public void onArrowClientTick(ArrowTickEvent event) {
+		EntityElementArrow arrow = event.arrow;
+
+		double mx = arrow.lastMotX;
+		double my = arrow.lastMotY;
+		double mz = arrow.lastMotZ;
+
+		double x = arrow.prevPosX;
+		double y = arrow.prevPosY;
+		double z = arrow.prevPosZ;
+
+		String name = "blockdust_" + Block.getIdFromBlock(Blocks.dirt) + "_0";
+
+		for (int i = 0; i < 4; i++) {
+			arrow.worldObj.spawnParticle(name, x + mx * i / 4d, y + my * i / 4d, z + mz * i / 4d, -mx * 0.8d, -my * 0.8d, -mz * 0.8d);
+		}
+	}
+
+	@Override
 	public void onArrowShot(ArrowShotEvent event) {
 		event.arrow.setDamage(event.arrow.getDamage() * 1.3d);
 		event.arrow.setKnockbackStrength(2);
+	}
+
+	@Override
+	public void onArrowHitGround(ArrowHitGroundEvent event) {
+		this.onHit(event.arrow);
+	}
+
+	@Override
+	public void onArrowHitEntity(ArrowHitEntityEvent event) {
+		this.onHit(event.arrow);
+	}
+
+	public void onHit(EntityElementArrow arrow) {
+		arrow.setElementData(0);
+
+		if (arrow.worldObj.isRemote) {
+			Random random = arrow.worldObj.rand;
+
+			double x = arrow.posX;
+			double y = arrow.posY;
+			double z = arrow.posZ;
+
+			String name = "blockdust_" + Block.getIdFromBlock(Blocks.dirt) + "_0";
+
+			for (int i = 0; i < 15; i++) {
+				double mx = (random.nextFloat() - 0.5d) * 0.5d;
+				double my = (Math.abs(random.nextFloat() - 0.5d)) * 0.5d;
+				double mz = (random.nextFloat() - 0.5d) * 0.5d;
+
+				arrow.worldObj.spawnParticle(name, x, y, z, mx, my, mz);
+			}
+		}
 	}
 
 }

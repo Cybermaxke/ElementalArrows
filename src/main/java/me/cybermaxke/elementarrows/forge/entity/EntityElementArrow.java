@@ -109,8 +109,8 @@ public class EntityElementArrow extends EntityArrow {
 	@Override
 	public void onUpdate() {
 		this.lastMotX = this.motionX;
-		this.lastMotY = this.motionX;
-		this.lastMotZ = this.motionX;
+		this.lastMotY = this.motionY;
+		this.lastMotZ = this.motionZ;
 
 		super.onUpdate();
 
