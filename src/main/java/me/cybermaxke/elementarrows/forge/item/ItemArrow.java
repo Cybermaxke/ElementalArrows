@@ -26,7 +26,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow;
-import me.cybermaxke.elementarrows.forge.arrows.ElementArrowRegistry;
+import me.cybermaxke.elementarrows.forge.arrows.ArrowRegistryCommon;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -36,16 +36,31 @@ import net.minecraft.util.IIcon;
 
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public final class ItemArrow extends Item {
-	private ElementArrowRegistry registry;
+	private ArrowRegistryCommon registry;
 
 	private IIconRegister iconRegistry;
 	private IIcon[] icons = new IIcon[Short.MAX_VALUE];
 
-	public ItemArrow(ElementArrowRegistry registry) {
+	public ItemArrow(ArrowRegistryCommon registry) {
 		this.registry = registry;
 		this.setHasSubtypes(true);
 		this.setUnlocalizedName("arrow");
 		this.setTextureName("arrow");
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public boolean hasEffect(ItemStack itemStack, int i) {
+		int data = itemStack.getItemDamage();
+
+		if (data != 0) {
+			ElementArrow arrow = this.registry.fromData(data);
+			if (arrow != null) {
+				return itemStack.isItemEnchanted() || arrow.effect;
+			}
+		}
+
+		return super.hasEffect(itemStack, i);
 	}
 
 	@Override

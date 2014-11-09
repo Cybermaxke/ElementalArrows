@@ -54,7 +54,7 @@ public final class MessageInjectorClient {
 	}
 
 	@SubscribeEvent
-	public void onEntityJoinWorld(EntityJoinWorldEvent event) {
+	public void onClientPlayerMPJoinWorld(EntityJoinWorldEvent event) {
 		if (event.entity instanceof EntityClientPlayerMP) {
 			this.onJoinWorld((EntityClientPlayerMP) event.entity);
 		}
@@ -65,7 +65,7 @@ public final class MessageInjectorClient {
 	 * 
 	 * @param player the mp player
 	 */
-	public void onJoinWorld(EntityClientPlayerMP player) {
+	private void onJoinWorld(EntityClientPlayerMP player) {
 		Field field0 = UtilFields.findField(NetHandlerPlayClient.class, NetworkManager.class, 0);
 		field0.setAccessible(true);
 
@@ -77,14 +77,14 @@ public final class MessageInjectorClient {
 			Channel channel = (Channel) field1.get(networkManager);
 
 			if (channel.pipeline().get("elementArrows_handler") == null) {
-				channel.pipeline().addBefore("packet_handler", "elementArrows_handler", new Handler());
+				channel.pipeline().addBefore("packet_handler", "elementArrows_handler_client", new Handler());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	private final class Handler extends ChannelDuplexHandler {
+	private static final class Handler extends ChannelDuplexHandler {
 
 		@Override
 		public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {

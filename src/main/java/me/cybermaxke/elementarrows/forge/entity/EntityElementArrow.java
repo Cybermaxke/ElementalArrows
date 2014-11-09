@@ -139,6 +139,10 @@ public class EntityElementArrow extends EntityArrow {
 
 		if (arrow != null) {
 			arrow.onArrowTick(new ArrowTickEvent(this));
+
+			if (this.worldObj.isRemote) {
+				arrow.onArrowClientTick(new ArrowTickEvent(this));
+			}
 		}
 	}
 

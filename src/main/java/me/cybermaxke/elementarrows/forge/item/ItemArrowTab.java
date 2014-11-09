@@ -21,7 +21,7 @@ package me.cybermaxke.elementarrows.forge.item;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-import me.cybermaxke.elementarrows.forge.arrows.ElementArrowRegistry;
+import me.cybermaxke.elementarrows.forge.arrows.ArrowRegistryCommon;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnumEnchantmentType;
@@ -29,10 +29,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public final class ItemArrowTab extends CreativeTabs {
-	private final ElementArrowRegistry registry;
+	private final ArrowRegistryCommon registry;
 	private final ItemArrow item;
 
-	public ItemArrowTab(String label, ItemArrow item, ElementArrowRegistry registry) {
+	public ItemArrowTab(String label, ItemArrow item, ArrowRegistryCommon registry) {
 		super(label);
 
 		this.registry = registry;

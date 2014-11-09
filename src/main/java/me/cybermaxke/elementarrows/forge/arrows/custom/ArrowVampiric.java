@@ -20,6 +20,7 @@ package me.cybermaxke.elementarrows.forge.arrows.custom;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
@@ -45,6 +46,13 @@ public final class ArrowVampiric extends ElementArrow {
 	@Override
 	public void onArrowHitEntity(ArrowHitEntityEvent event) {
 		Entity shooter = event.arrow.shootingEntity;
+
+		/**
+		 * Undead doesn't have actual 'health' to steal.
+		 */
+		if (event.entity.getCreatureAttribute().equals(EnumCreatureAttribute.UNDEAD)) {
+			return;
+		}
 
 		if (shooter != null && shooter instanceof EntityLivingBase) {
 			((EntityLivingBase) shooter).addPotionEffect(new PotionEffect(Potion.regeneration.id, 40, 12));

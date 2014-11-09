@@ -25,7 +25,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class ElementArrowRegistryClient extends ElementArrowRegistry {
+public class ArrowRegistryClient extends ArrowRegistryCommon {
 
 	@Override
 	public void register(int data, ElementArrow arrow) {

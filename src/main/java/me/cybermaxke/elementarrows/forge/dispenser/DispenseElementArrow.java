@@ -20,7 +20,7 @@ package me.cybermaxke.elementarrows.forge.dispenser;
 
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow;
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow.SourceDispenser;
-import me.cybermaxke.elementarrows.forge.arrows.ElementArrowRegistry;
+import me.cybermaxke.elementarrows.forge.arrows.ArrowRegistryCommon;
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow.ArrowBuildEvent;
 import me.cybermaxke.elementarrows.forge.entity.EntityElementArrow;
 
@@ -34,9 +34,9 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 public final class DispenseElementArrow extends BehaviorProjectileDispense {
-	private final ElementArrowRegistry registry;
+	private final ArrowRegistryCommon registry;
 
-	public DispenseElementArrow(ElementArrowRegistry registry) {
+	public DispenseElementArrow(ArrowRegistryCommon registry) {
 		this.registry = registry;
 	}
 

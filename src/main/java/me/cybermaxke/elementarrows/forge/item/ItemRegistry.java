@@ -20,11 +20,9 @@ package me.cybermaxke.elementarrows.forge.item;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -40,7 +38,6 @@ import net.minecraft.util.RegistrySimple;
 
 @SuppressWarnings("unchecked")
 public final class ItemRegistry {
-	private final Map<String, Item> overriden = new HashMap<String, Item>();
 
 	/**
 	 * Registers a new item and overrides the old one if present.
@@ -72,8 +69,6 @@ public final class ItemRegistry {
 			try {
 				Item item0 = (Item) registry.getObject(id);
 				Integer id0 = registry.getIDForObject(item0);
-
-				this.overriden.put(id, item0);
 
 				Map<Object, Object> map0 = null;
 				ObjectIntIdentityMap map1 = null;
@@ -140,13 +135,6 @@ public final class ItemRegistry {
 				e.printStackTrace();
 			}
 		}
-	}
-
-	public void clean() {
-		for (Entry<String, Item> en : this.overriden.entrySet()) {
-			this.register(en.getKey(), en.getValue());
-		}
-		this.overriden.clear();
 	}
 
 }

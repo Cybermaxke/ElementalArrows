@@ -106,11 +106,29 @@ public final class UtilFields {
 	 * @return the fields
 	 */
 	public static Field[] findFields(Class<?> target, Class<?> fieldType) {
+		return UtilFields.findFields(target, fieldType, 0);
+	}
+
+	/**
+	 * Finds all the declared fields of a specific type in the target class.
+	 * 
+	 * @param target the target class
+	 * @param fieldType the field type
+	 * @param depth the depth you want to check for underlying classes their fields
+	 * @return the fields
+	 */
+	public static Field[] findFields(Class<?> target, Class<?> fieldType, int depth) {
 		List<Field> list = new ArrayList<Field>();
-		for (Field field : target.getDeclaredFields()) {
-			field.setAccessible(true);
-			if (field.getType().isAssignableFrom(fieldType)) {
-				list.add(field);
+		while (target != null) {
+			for (Field field : target.getDeclaredFields()) {
+				field.setAccessible(true);
+				if (field.getType().isAssignableFrom(fieldType)) {
+					list.add(field);
+				}
+			}
+			target = target.getSuperclass();
+			if (depth != -1 && depth-- == 0) {
+				break;
 			}
 		}
 		return list.toArray(new Field[] {});

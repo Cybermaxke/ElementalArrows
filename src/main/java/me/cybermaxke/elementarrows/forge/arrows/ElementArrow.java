@@ -55,6 +55,11 @@ public abstract class ElementArrow {
 	public String unlocalizedName;
 
 	/**
+	 * Whether the item the enchantment effect has.
+	 */
+	public boolean effect;
+
+	/**
 	 * Called when the arrow gets initialized.
 	 * 
 	 * @param event the event
@@ -135,6 +140,16 @@ public abstract class ElementArrow {
 	 * @param event the event
 	 */
 	public void onArrowTick(ArrowTickEvent event) {
+
+	}
+
+	/**
+	 * Called when the arrow ticks on the client.
+	 * 
+	 * @param event the event
+	 */
+	@SideOnly(Side.CLIENT)
+	public void onArrowClientTick(ArrowTickEvent event) {
 
 	}
 

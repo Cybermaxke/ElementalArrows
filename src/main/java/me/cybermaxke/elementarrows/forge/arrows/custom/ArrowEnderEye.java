@@ -47,12 +47,8 @@ public final class ArrowEnderEye extends ElementArrow {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void onArrowTick(ArrowTickEvent event) {
+	public void onArrowClientTick(ArrowTickEvent event) {
 		EntityElementArrow arrow = event.arrow;
-
-		if (!arrow.worldObj.isRemote) {
-			return;
-		}
 
 		double mx = arrow.lastMotX;
 		double my = arrow.lastMotX;

@@ -27,7 +27,7 @@ import me.cybermaxke.elementarrows.forge.arrows.ElementArrow.ArrowInitEvent;
 
 import com.google.common.base.Preconditions;
 
-public class ElementArrowRegistry {
+public class ArrowRegistryCommon {
 	private final Map<ElementArrow, Short> arrows = new HashMap<ElementArrow, Short>();
 	private final ElementArrow[] arrows0 = new ElementArrow[Short.MAX_VALUE];
 

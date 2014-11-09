@@ -18,15 +18,16 @@
  */
 package me.cybermaxke.elementarrows.forge;
 
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.GameRegistry;
-
+import cpw.mods.fml.relauncher.Side;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
-
-import me.cybermaxke.elementarrows.forge.arrows.ElementArrowRegistry;
+import me.cybermaxke.elementarrows.forge.arrows.ArrowRegistryCommon;
 import me.cybermaxke.elementarrows.forge.arrows.custom.ArrowBlindness;
 import me.cybermaxke.elementarrows.forge.arrows.custom.ArrowDazing;
 import me.cybermaxke.elementarrows.forge.arrows.custom.ArrowDirt;
@@ -46,15 +47,23 @@ import me.cybermaxke.elementarrows.forge.item.ItemArrow;
 import me.cybermaxke.elementarrows.forge.item.ItemArrowTab;
 import me.cybermaxke.elementarrows.forge.item.ItemBow;
 import me.cybermaxke.elementarrows.forge.item.ItemRegistry;
+import me.cybermaxke.elementarrows.forge.network.HandlerModInfo;
+import me.cybermaxke.elementarrows.forge.network.MessageInjectorCommon;
+import me.cybermaxke.elementarrows.forge.network.MessageModInfo;
 
 public class ModInitCommon {
 	/**
-	 * The arrow registry
+	 * The arrow registry.
 	 */
-	public ElementArrowRegistry registry;
+	public ArrowRegistryCommon registry;
 
 	/**
-	 * The overriden items.
+	 * The players info.
+	 */
+	public EPlayers players;
+
+	/**
+	 * The overridden items.
 	 */
 	public ItemArrow itemArrow;
 	public ItemBow itemBow;
@@ -75,6 +84,11 @@ public class ModInitCommon {
 	public EntityRegistry entityRegistry;
 
 	/**
+	 * The network wrapper.
+	 */
+	public SimpleNetworkWrapper network;
+
+	/**
 	 * Listener to define when the arrow a entity hits.
 	 */
 	private EntityElementArrowListener listener0;
@@ -86,6 +100,7 @@ public class ModInitCommon {
 		this.registry = this.newArrowRegistry();
 		this.itemRegistry = new ItemRegistry();
 		this.entityRegistry = new EntityRegistry();
+		this.players = new EPlayers();
 
 		/**
 		 * Create the arrow damage listener.
@@ -131,6 +146,16 @@ public class ModInitCommon {
 		 * Register the custom arrows.
 		 */
 		this.onInitArrows();
+
+		this.network = NetworkRegistry.INSTANCE.newSimpleChannel("elementArrows");
+		this.network.registerMessage(new HandlerModInfo(this.players), MessageModInfo.class, 1, Side.SERVER);
+
+		/**
+		 * Add the protocol injector to support the elemental
+		 * arrow names to be visible on vanilla clients.
+		 */
+		MessageInjectorCommon injector = new MessageInjectorCommon(this.players);
+		injector.onInit();
 	}
 
 	/**
@@ -180,12 +205,7 @@ public class ModInitCommon {
 	 * Called in the disable event.
 	 */
 	public void onDisable() {
-		this.itemRegistry.clean();
 
-		/**
-		 * Remove the listener.
-		 */
-		MinecraftForge.EVENT_BUS.unregister(this.listener0);
 	}
 
 	/**
@@ -193,8 +213,8 @@ public class ModInitCommon {
 	 * 
 	 * @return the registry
 	 */
-	public ElementArrowRegistry newArrowRegistry() {
-		return new ElementArrowRegistry();
+	public ArrowRegistryCommon newArrowRegistry() {
+		return new ArrowRegistryCommon();
 	}
 
 }

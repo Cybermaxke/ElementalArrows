@@ -21,21 +21,28 @@ package me.cybermaxke.elementarrows.forge;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnumEnchantmentType;
 
-import me.cybermaxke.elementarrows.forge.arrows.ElementArrowRegistry;
-import me.cybermaxke.elementarrows.forge.arrows.ElementArrowRegistryClient;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+
+import me.cybermaxke.elementarrows.forge.arrows.ArrowRegistryCommon;
+import me.cybermaxke.elementarrows.forge.arrows.ArrowRegistryClient;
 import me.cybermaxke.elementarrows.forge.entity.EntityElementArrow;
 import me.cybermaxke.elementarrows.forge.entity.EntityElementArrowRender;
 import me.cybermaxke.elementarrows.forge.network.MessageInjectorClient;
+import me.cybermaxke.elementarrows.forge.network.MessageModInfo;
+import me.cybermaxke.elementarrows.forge.util.UtilMod;
 
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class ModInitClient extends ModInitCommon {
+public final class ModInitClient extends ModInitCommon {
 
 	@Override
 	public void onInit() {
@@ -67,11 +74,22 @@ public class ModInitClient extends ModInitCommon {
 		 * Register the custom arrow entity renderer.
 		 */
 		RenderingRegistry.registerEntityRenderingHandler(EntityElementArrow.class, new EntityElementArrowRender());
+
+		/**
+		 * Register the event handlers.
+		 */
+		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	@Override
-	public ElementArrowRegistry newArrowRegistry() {
-		return new ElementArrowRegistryClient();
+	public ArrowRegistryCommon newArrowRegistry() {
+		return new ArrowRegistryClient();
 	}
 
+	@SubscribeEvent
+	public void onPlayerMPJoinWorld(EntityJoinWorldEvent event) {
+		if (event.entity instanceof EntityClientPlayerMP) {
+			this.network.sendToServer(new MessageModInfo(UtilMod.getVersionFor(EArrowMod.class)));
+		}
+	}
 }

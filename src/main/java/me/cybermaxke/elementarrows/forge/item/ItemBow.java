@@ -23,7 +23,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow;
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow.SourcePlayer;
-import me.cybermaxke.elementarrows.forge.arrows.ElementArrowRegistry;
+import me.cybermaxke.elementarrows.forge.arrows.ArrowRegistryCommon;
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow.ArrowBuildEvent;
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow.ArrowShotEvent;
 import me.cybermaxke.elementarrows.forge.entity.EntityElementArrow;
@@ -41,11 +41,11 @@ import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.ArrowNockEvent;
 
 public final class ItemBow extends net.minecraft.item.ItemBow {
-	private ElementArrowRegistry registry;
+	private ArrowRegistryCommon registry;
 	private ItemArrow arrow;
 	private IIcon[] icons;
 
-	public ItemBow(ElementArrowRegistry registry, ItemArrow arrow) {
+	public ItemBow(ArrowRegistryCommon registry, ItemArrow arrow) {
 		this.registry = registry;
 		this.arrow = arrow;
 		this.setUnlocalizedName("bow");
