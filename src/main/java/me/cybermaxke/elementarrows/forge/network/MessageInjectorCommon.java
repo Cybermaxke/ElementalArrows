@@ -29,6 +29,8 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPromise;
 
 import me.cybermaxke.elementarrows.forge.EPlayers;
+import me.cybermaxke.elementarrows.forge.arrows.ArrowRegistryCommon;
+import me.cybermaxke.elementarrows.forge.arrows.ElementArrow;
 import me.cybermaxke.elementarrows.forge.util.UtilFields;
 
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -36,6 +38,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.client.C15PacketClientSettings;
 
@@ -46,9 +49,11 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public final class MessageInjectorCommon {
+	private final ArrowRegistryCommon registry;
 	private final EPlayers players;
 
-	public MessageInjectorCommon(EPlayers players) {
+	public MessageInjectorCommon(ArrowRegistryCommon registry, EPlayers players) {
+		this.registry = registry;
 		this.players = players;
 	}
 
@@ -79,7 +84,7 @@ public final class MessageInjectorCommon {
 			Channel channel = (Channel) field0.get(player.playerNetServerHandler.netManager);
 
 			if (channel.pipeline().get("elementArrows_handler") == null) {
-				channel.pipeline().addBefore("packet_handler", "elementArrows_handler", new Handler(this.players, player.getPersistentID()));
+				channel.pipeline().addBefore("packet_handler", "elementArrows_handler", new Handler(this.registry, this.players, player.getPersistentID()));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -89,10 +94,12 @@ public final class MessageInjectorCommon {
 	private static final class Handler extends ChannelDuplexHandler {
 		private final Map<Class<?>, Field[]> fields0 = new HashMap<Class<?>, Field[]>();
 		private final Map<Class<?>, Field[]> fields1 = new HashMap<Class<?>, Field[]>();
+		private final ArrowRegistryCommon registry;
 		private final EPlayers players;
 		private final UUID uniqueId;
 
-		public Handler(EPlayers players, UUID uniqueId) {
+		public Handler(ArrowRegistryCommon registry, EPlayers players, UUID uniqueId) {
+			this.registry = registry;
 			this.uniqueId = uniqueId;
 			this.players = players;
 		}
@@ -199,11 +206,20 @@ public final class MessageInjectorCommon {
 		public ItemStack processIn(ItemStack itemStack) {
 			NBTTagCompound nbt = itemStack.stackTagCompound;
 
-			if (nbt != null && nbt.hasKey("display")) {
-				nbt = nbt.getCompoundTag("display");
-				if (nbt.hasKey("earrowfix")) {
-					nbt.removeTag("earrowfix");
-					nbt.removeTag("Name");
+			if (nbt != null) {
+				if (nbt.hasKey("ench")) {
+					NBTTagList list = (NBTTagList) nbt.getTag("ench");
+					if (list.tagCount() == 0) {
+						nbt.removeTag("ench");
+					}
+				}
+
+				if (nbt.hasKey("display")) {
+					nbt = nbt.getCompoundTag("display");
+					if (nbt.hasKey("ENameFix")) {
+						nbt.removeTag("ENameFix");
+						nbt.removeTag("Name");
+					}
 				}
 			}
 
@@ -215,6 +231,12 @@ public final class MessageInjectorCommon {
 			Item item = itemStack.getItem();
 
 			if (item == Items.arrow && itemStack.getItemDamage() > 0) {
+				ElementArrow arrow = this.registry.fromData(itemStack.getItemDamage());
+
+				if (arrow == null) {
+					return itemStack;
+				}
+
 				if (nbt == null) {
 					nbt = new NBTTagCompound();
 					itemStack.setTagCompound(nbt);
@@ -231,7 +253,8 @@ public final class MessageInjectorCommon {
 
 				if (!display.hasKey("Name")) {
 					itemStack = itemStack.copy();
-					display = itemStack.stackTagCompound.getCompoundTag("display");
+					nbt = itemStack.stackTagCompound;
+					display = nbt.getCompoundTag("display");
 
 					String name = item.getUnlocalizedName(itemStack) + ".name";
 					String local;
@@ -243,7 +266,15 @@ public final class MessageInjectorCommon {
 					}
 
 					display.setString("Name", this.reset + local);
-					display.setBoolean("earrowfix", true);
+					display.setBoolean("ENameFix", true);
+				}
+
+				if (!nbt.hasKey("ench") && arrow.effect) {
+					NBTTagList list = new NBTTagList();
+					list.appendTag(new NBTTagCompound());
+					list.removeTag(0);
+
+					nbt.setTag("ench", list);
 				}
 			}
 

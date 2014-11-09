@@ -22,11 +22,14 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
+
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+
 import net.minecraftforge.common.MinecraftForge;
+
 import me.cybermaxke.elementarrows.forge.arrows.ArrowRegistryCommon;
 import me.cybermaxke.elementarrows.forge.arrows.custom.ArrowBlindness;
 import me.cybermaxke.elementarrows.forge.arrows.custom.ArrowDazing;
@@ -154,7 +157,7 @@ public class ModInitCommon {
 		 * Add the protocol injector to support the elemental
 		 * arrow names to be visible on vanilla clients.
 		 */
-		MessageInjectorCommon injector = new MessageInjectorCommon(this.players);
+		MessageInjectorCommon injector = new MessageInjectorCommon(this.registry, this.players);
 		injector.onInit();
 	}
 
