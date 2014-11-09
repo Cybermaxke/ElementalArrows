@@ -6,5 +6,5 @@ required to run the mod on the server side, normal players will be able to use t
 More info is available at the [wiki][Wiki].
 
 [Home]: https://github.com/Cybermaxke/ElementalArrows
-[Logo]: https://dl.dropboxusercontent.com/u/104060836/ElementalArrows/ElementalArrowsTitle.png
+[Logo]: https://github.com/Cybermaxke/ElementalArrows/raw/master/logo.png
 [Wiki]: https://github.com/Cybermaxke/ElementalArrows/wiki
