@@ -25,6 +25,7 @@ import me.cybermaxke.elementarrows.forge.arrows.ElementArrow;
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow.ArrowHitGroundEvent;
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow.ArrowTickEvent;
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow.Source;
+import me.cybermaxke.elementarrows.forge.util.UtilFields;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -118,7 +119,7 @@ public class EntityElementArrow extends EntityArrow {
 		 * Update the in ground field state.
 		 */
 		try {
-			Field field = EntityArrow.class.getDeclaredField("inGround");
+			Field field = UtilFields.findField(EntityArrow.class, boolean.class, 0);
 			field.setAccessible(true);
 
 			this.lastInGround = this.inGround;
