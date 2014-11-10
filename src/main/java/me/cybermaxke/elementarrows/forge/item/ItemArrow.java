@@ -64,7 +64,6 @@ public final class ItemArrow extends Item {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public String getUnlocalizedName(ItemStack itemStack) {
 		int data = itemStack.getItemDamage();
 

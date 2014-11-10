@@ -18,4 +18,12 @@ Thumbs.db
 \eula.txt
 \options.txt
 \server.properties
+\whitelist.json
 \usernamecache.json
+\usercache.json
+\ops.json
+\banned-players.json
+\banned-ips.json
+\world
+\world_nether
+\world_the_end

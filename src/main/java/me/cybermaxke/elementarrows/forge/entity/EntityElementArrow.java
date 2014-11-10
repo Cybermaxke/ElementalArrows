@@ -36,6 +36,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
 public class EntityElementArrow extends EntityArrow {
+	/**
+	 * The cached in ground field.
+	 */
+	private static Field inGroundField = null;
+
 	private boolean lastInGround;
 
 	/**
@@ -119,11 +124,13 @@ public class EntityElementArrow extends EntityArrow {
 		 * Update the in ground field state.
 		 */
 		try {
-			Field field = UtilFields.findField(EntityArrow.class, boolean.class, 0);
-			field.setAccessible(true);
+			if (EntityElementArrow.inGroundField == null) {
+				EntityElementArrow.inGroundField = UtilFields.findField(EntityArrow.class, boolean.class, 0);
+			}
+			EntityElementArrow.inGroundField.setAccessible(true);
 
 			this.lastInGround = this.inGround;
-			this.inGround = field.getBoolean(this);
+			this.inGround = EntityElementArrow.inGroundField.getBoolean(this);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
