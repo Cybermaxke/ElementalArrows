@@ -120,7 +120,7 @@ public final class ItemRegistry {
 				while (it.hasNext()) {
 					StatCrafting stat = it.next();
 
-					if (stat.func_150959_a() == item0) {
+					if (field2.get(stat) == item0) {
 						Field field3 = Field.class.getDeclaredField("modifiers");
 						field3.setAccessible(true);
 						field3.set(field2, field2.getModifiers() & ~Modifier.FINAL);
