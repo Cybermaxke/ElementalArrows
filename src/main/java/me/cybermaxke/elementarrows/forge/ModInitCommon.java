@@ -42,6 +42,7 @@ import me.cybermaxke.elementarrows.forge.arrows.custom.ArrowLightning;
 import me.cybermaxke.elementarrows.forge.arrows.custom.ArrowPoison;
 import me.cybermaxke.elementarrows.forge.arrows.custom.ArrowRazor;
 import me.cybermaxke.elementarrows.forge.arrows.custom.ArrowVampiric;
+import me.cybermaxke.elementarrows.forge.arrows.custom.ArrowVolley;
 import me.cybermaxke.elementarrows.forge.dispenser.DispenseElementArrow;
 import me.cybermaxke.elementarrows.forge.entity.EntityElementArrow;
 import me.cybermaxke.elementarrows.forge.entity.EntityElementArrowListener;
@@ -176,6 +177,7 @@ public class ModInitCommon {
 		this.registry.register(9, new ArrowPoison());
 		this.registry.register(10, new ArrowRazor());
 		this.registry.register(11, new ArrowVampiric());
+		this.registry.register(12, new ArrowVolley());
 
 		GameRegistry.addShapedRecipe(new ItemStack(this.itemBow), " xy", "x y", " xy",
 				'x', new ItemStack(Items.stick),
