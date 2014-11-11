@@ -92,6 +92,8 @@ public final class ArrowVolley extends ElementArrow {
 			arrow0.shootingEntity = arrow.shootingEntity;
 			arrow0.worldObj.spawnEntityInWorld(arrow0);
 		}
+
+		arrow.setElementData(0);
 	}
 
 }

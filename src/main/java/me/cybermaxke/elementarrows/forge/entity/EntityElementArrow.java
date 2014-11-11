@@ -84,13 +84,31 @@ public class EntityElementArrow extends EntityArrow {
 
 	@Override
 	public void writeEntityToNBT(NBTTagCompound nbt) {
+		super.writeEntityToNBT(nbt);
+
+		/**
+		 * Save the elemental arrow type.
+		 */
 		nbt.setShort("elementarrow", this.getElementData());
 	}
 
 	@Override
 	public void readEntityFromNBT(NBTTagCompound nbt) {
+		/**
+		 * Try to load the elemental arrow type.
+		 */
 		if (nbt.hasKey("elementarrow")) {
 			this.setElementData(nbt.getShort("elementarrow"));
+		}
+
+		/**
+		 * Fix the in ground field and I forgot to save/load default data.
+		 */
+		if (nbt.hasKey("inGround")) {
+			super.readEntityFromNBT(nbt);
+
+			this.inGround = nbt.getBoolean("inGround");
+			this.lastInGround = this.inGround;
 		}
 	}
 
