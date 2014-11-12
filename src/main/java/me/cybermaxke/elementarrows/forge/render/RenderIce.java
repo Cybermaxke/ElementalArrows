@@ -47,8 +47,8 @@ public final class RenderIce extends Render {
 		arg2 += sizeY / 2;
 
 		int i = MathHelper.floor_double(arg0.posX);
-	    int j = MathHelper.floor_double(arg0.posY);
-	    int k = MathHelper.floor_double(arg0.posZ);
+		int j = MathHelper.floor_double(arg0.posY);
+		int k = MathHelper.floor_double(arg0.posZ);
 
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float) arg1, (float) arg2, (float) arg3);
@@ -58,7 +58,7 @@ public final class RenderIce extends Render {
 
 		GL11.glDisable(GL11.GL_LIGHTING);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        GL11.glEnable(GL11.GL_BLEND);
+		GL11.glEnable(GL11.GL_BLEND);
 
 		this.renderBlocks.setRenderBounds(0d, 0d, 0d, 1d, 1d, 1d);
 		this.renderBlocks.renderBlockSandFalling(Blocks.ice, arg0.worldObj, i, j, k, 0);
