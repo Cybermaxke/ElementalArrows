@@ -34,7 +34,8 @@ import me.cybermaxke.elementarrows.forge.entity.EntityElementArrow;
 import me.cybermaxke.elementarrows.forge.entity.EntityElementArrowRender;
 import me.cybermaxke.elementarrows.forge.network.MessageInjectorClient;
 import me.cybermaxke.elementarrows.forge.network.MessageModInfo;
-import me.cybermaxke.elementarrows.forge.util.UtilMod;
+import me.cybermaxke.elementarrows.forge.render.RenderIceHandler;
+import me.cybermaxke.elementarrows.forge.util.Mods;
 
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -76,6 +77,12 @@ public final class ModInitClient extends ModInitCommon {
 		RenderingRegistry.registerEntityRenderingHandler(EntityElementArrow.class, new EntityElementArrowRender());
 
 		/**
+		 * Initialize the ice handler (and renderer).
+		 */
+		RenderIceHandler iceHandler = new RenderIceHandler();
+		iceHandler.onInit();
+
+		/**
 		 * Register the event handlers.
 		 */
 		MinecraftForge.EVENT_BUS.register(this);
@@ -89,7 +96,8 @@ public final class ModInitClient extends ModInitCommon {
 	@SubscribeEvent
 	public void onPlayerMPJoinWorld(EntityJoinWorldEvent event) {
 		if (event.entity instanceof EntityClientPlayerMP) {
-			this.network.sendToServer(new MessageModInfo(UtilMod.getVersionFor(EArrowMod.class)));
+			this.network.sendToServer(new MessageModInfo(Mods.getVersionFor(EArrowMod.class)));
 		}
 	}
+
 }

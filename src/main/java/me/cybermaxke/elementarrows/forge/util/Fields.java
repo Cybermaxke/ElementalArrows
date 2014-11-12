@@ -22,9 +22,9 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class UtilFields {
+public final class Fields {
 
-	private UtilFields() {}
+	private Fields() {}
 
 	/**
 	 * Finds the object of a declared field with a specific type in the
@@ -106,7 +106,7 @@ public final class UtilFields {
 	 * @return the fields
 	 */
 	public static Field[] findFields(Class<?> target, Class<?> fieldType) {
-		return UtilFields.findFields(target, fieldType, 0);
+		return Fields.findFields(target, fieldType, 0);
 	}
 
 	/**

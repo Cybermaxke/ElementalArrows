@@ -18,31 +18,19 @@
  */
 package me.cybermaxke.elementarrows.forge.entity;
 
-import java.util.Map;
+import java.util.UUID;
 
-import me.cybermaxke.elementarrows.forge.util.Fields;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 
-import net.minecraft.entity.EntityList;
-
-@SuppressWarnings("unchecked")
-public final class EntityRegistry {
-
+public final class EntityAttribute {
 	/**
-	 * Register or override a entity type with a specific entity id and protocol id.
-	 * 
-	 * @param entity the entity type
-	 * @param id the id (can be overridden)
-	 * @param protocolId the protocol id
+	 * The unique id of the frozen attribute modifier.
 	 */
-	
-	public void register(Class<?> entity, String id, int protocolId) {
-		Object[] maps = Fields.findFieldsAndGet(EntityList.class, Map.class, null);
+	public static final UUID FrozenUUID = UUID.fromString("5CD17E52-A79A-43D3-A529-90FDE04B181E");
+	/**
+	 * The frozen attribute modifier.
+	 */
+	public static final AttributeModifier FrozenModifier = new AttributeModifier(EntityAttribute.FrozenUUID, "Frozen", -1d, 2);
 
-		((Map<Object, Object>) maps[0]).put(id, entity);
-		((Map<Object, Object>) maps[1]).put(entity, id);
-		((Map<Object, Object>) maps[2]).put(protocolId, entity);
-		((Map<Object, Object>) maps[3]).put(entity, protocolId);
-		((Map<Object, Object>) maps[4]).put(id, protocolId);
-	}
-
+	private EntityAttribute() {}
 }

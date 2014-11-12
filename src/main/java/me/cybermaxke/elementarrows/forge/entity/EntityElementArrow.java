@@ -25,7 +25,7 @@ import me.cybermaxke.elementarrows.forge.arrows.ElementArrow;
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow.ArrowHitGroundEvent;
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow.ArrowTickEvent;
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow.Source;
-import me.cybermaxke.elementarrows.forge.util.UtilFields;
+import me.cybermaxke.elementarrows.forge.util.Fields;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -143,7 +143,7 @@ public class EntityElementArrow extends EntityArrow {
 		 */
 		try {
 			if (EntityElementArrow.inGroundField == null) {
-				EntityElementArrow.inGroundField = UtilFields.findField(EntityArrow.class, boolean.class, 0);
+				EntityElementArrow.inGroundField = Fields.findField(EntityArrow.class, boolean.class, 0);
 			}
 			EntityElementArrow.inGroundField.setAccessible(true);
 

@@ -31,7 +31,7 @@ import io.netty.channel.ChannelPromise;
 import me.cybermaxke.elementarrows.forge.EPlayers;
 import me.cybermaxke.elementarrows.forge.arrows.ArrowRegistryCommon;
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow;
-import me.cybermaxke.elementarrows.forge.util.UtilFields;
+import me.cybermaxke.elementarrows.forge.util.Fields;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
@@ -77,7 +77,7 @@ public final class MessageInjectorCommon {
 	 * @param player the mp player
 	 */
 	private void onJoinWorld(EntityPlayerMP player) {
-		Field field0 = UtilFields.findField(NetworkManager.class, Channel.class, 0);
+		Field field0 = Fields.findField(NetworkManager.class, Channel.class, 0);
 		field0.setAccessible(true);
 
 		try {
@@ -127,8 +127,8 @@ public final class MessageInjectorCommon {
 			Class<?> type = msg.getClass();
 
 			if (!this.fields0.containsKey(type)) {
-				this.fields0.put(type, UtilFields.findFields(type, ItemStack.class, -1));
-				this.fields1.put(type, UtilFields.findFields(type, ItemStack[].class, -1));
+				this.fields0.put(type, Fields.findFields(type, ItemStack.class, -1));
+				this.fields1.put(type, Fields.findFields(type, ItemStack[].class, -1));
 			}
 
 			Field[] fields0 = this.fields0.get(type);
@@ -171,8 +171,8 @@ public final class MessageInjectorCommon {
 			Class<?> type = msg.getClass();
 
 			if (!this.fields0.containsKey(type)) {
-				this.fields0.put(type, UtilFields.findFields(type, ItemStack.class, -1));
-				this.fields1.put(type, UtilFields.findFields(type, ItemStack[].class, -1));
+				this.fields0.put(type, Fields.findFields(type, ItemStack.class, -1));
+				this.fields1.put(type, Fields.findFields(type, ItemStack[].class, -1));
 			}
 
 			Field[] fields0 = this.fields0.get(type);

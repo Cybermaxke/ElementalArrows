@@ -21,7 +21,7 @@ package me.cybermaxke.elementarrows.forge.network;
 import java.lang.reflect.Field;
 
 import me.cybermaxke.elementarrows.forge.entity.EntityElementArrow;
-import me.cybermaxke.elementarrows.forge.util.UtilFields;
+import me.cybermaxke.elementarrows.forge.util.Fields;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
@@ -66,10 +66,10 @@ public final class MessageInjectorClient {
 	 * @param player the mp player
 	 */
 	private void onJoinWorld(EntityClientPlayerMP player) {
-		Field field0 = UtilFields.findField(NetHandlerPlayClient.class, NetworkManager.class, 0);
+		Field field0 = Fields.findField(NetHandlerPlayClient.class, NetworkManager.class, 0);
 		field0.setAccessible(true);
 
-		Field field1 = UtilFields.findField(NetworkManager.class, Channel.class, 0);
+		Field field1 = Fields.findField(NetworkManager.class, Channel.class, 0);
 		field1.setAccessible(true);
 
 		try {

@@ -23,10 +23,10 @@ import java.util.Map;
 
 import cpw.mods.fml.common.Mod;
 
-public final class UtilMod {
+public final class Mods {
 	private final static Map<Class<?>, Mod> mods = new HashMap<Class<?>, Mod>();
 
-	private UtilMod() {}
+	private Mods() {}
 
 	/**
 	 * Gets the version for the mod of the type.
@@ -35,7 +35,7 @@ public final class UtilMod {
 	 * @return the version
 	 */
 	public static String getVersionFor(Class<?> type) {
-		return UtilMod.getModInfoFor(type).version();
+		return Mods.getModInfoFor(type).version();
 	}
 
 	/**
@@ -45,7 +45,7 @@ public final class UtilMod {
 	 * @return the id
 	 */
 	public static String getIdFor(Class<?> type) {
-		return UtilMod.getModInfoFor(type).modid();
+		return Mods.getModInfoFor(type).modid();
 	}
 
 	/**
@@ -55,12 +55,12 @@ public final class UtilMod {
 	 * @return the name
 	 */
 	public static String getNameFor(Class<?> type) {
-		return UtilMod.getModInfoFor(type).name();
+		return Mods.getModInfoFor(type).name();
 	}
 
 	private static Mod getModInfoFor(Class<?> type) {
-		if (UtilMod.mods.containsKey(type)) {
-			return UtilMod.mods.get(type);
+		if (Mods.mods.containsKey(type)) {
+			return Mods.mods.get(type);
 		}
 
 		Mod mod = type.getAnnotation(Mod.class);

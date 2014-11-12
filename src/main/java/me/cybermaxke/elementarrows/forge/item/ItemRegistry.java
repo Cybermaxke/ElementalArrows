@@ -26,7 +26,7 @@ import java.util.Map;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 
-import me.cybermaxke.elementarrows.forge.util.UtilFields;
+import me.cybermaxke.elementarrows.forge.util.Fields;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -73,10 +73,10 @@ public final class ItemRegistry {
 				Map<Object, Object> map0 = null;
 				ObjectIntIdentityMap map1 = null;
 
-				Field field0 = UtilFields.findField(RegistrySimple.class, Map.class, 0);
+				Field field0 = Fields.findField(RegistrySimple.class, Map.class, 0);
 				field0.setAccessible(true);
 
-				Field field1 = UtilFields.findField(RegistryNamespaced.class, ObjectIntIdentityMap.class, 0);
+				Field field1 = Fields.findField(RegistryNamespaced.class, ObjectIntIdentityMap.class, 0);
 				field1.setAccessible(true);
 
 				map0 = (Map<Object, Object>) field0.get(registry);
@@ -111,7 +111,7 @@ public final class ItemRegistry {
 					}
 				}
 
-				Field field2 = UtilFields.findField(StatCrafting.class, Item.class, 0);
+				Field field2 = Fields.findField(StatCrafting.class, Item.class, 0);
 				field2.setAccessible(true);
 
 				List<StatCrafting> list = StatList.itemStats;
