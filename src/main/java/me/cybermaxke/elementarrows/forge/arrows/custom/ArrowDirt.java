@@ -25,11 +25,18 @@ import net.minecraft.init.Blocks;
 
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow;
 import me.cybermaxke.elementarrows.forge.entity.EntityElementArrow;
+import me.cybermaxke.elementarrows.forge.json.JsonField;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public final class ArrowDirt extends ElementArrow {
+
+	@JsonField("damageMultiplier")
+	private double damageMultiplier = 1.3f;
+
+	@JsonField("knockbackStrength")
+	private int knockbackStrength = 2;
 
 	@Override
 	public void onInit(ArrowInitEvent event) {
@@ -65,8 +72,8 @@ public final class ArrowDirt extends ElementArrow {
 
 	@Override
 	public void onArrowShot(ArrowShotEvent event) {
-		event.arrow.setDamage(event.arrow.getDamage() * 1.3d);
-		event.arrow.setKnockbackStrength(2);
+		event.arrow.setDamage(event.arrow.getDamage() * this.damageMultiplier);
+		event.arrow.setKnockbackStrength(this.knockbackStrength);
 	}
 
 	@Override

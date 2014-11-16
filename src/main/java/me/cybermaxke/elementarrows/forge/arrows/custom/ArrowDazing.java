@@ -24,12 +24,17 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow;
+import me.cybermaxke.elementarrows.forge.json.JsonField;
+import me.cybermaxke.elementarrows.forge.util.Clones;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public final class ArrowDazing extends ElementArrow {
+
+	@JsonField("confusionEffect")
+	public PotionEffect confusionEffect = new PotionEffect(Potion.confusion.id, 75, 12);
 
 	@Override
 	public void onInit(ArrowInitEvent event) {
@@ -51,7 +56,9 @@ public final class ArrowDazing extends ElementArrow {
 
 	@Override
 	public void onArrowHitEntity(ArrowHitEntityEvent event) {
-		event.entity.addPotionEffect(new PotionEffect(Potion.confusion.id, 75, 12));
+		if (this.confusionEffect != null) {
+			event.entity.addPotionEffect(Clones.clone(this.confusionEffect));
+		}
 	}
 
 }

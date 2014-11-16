@@ -18,18 +18,18 @@
  */
 package me.cybermaxke.elementarrows.forge;
 
+import java.io.File;
+import java.io.IOException;
+
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
-
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-
 import net.minecraftforge.common.MinecraftForge;
-
 import me.cybermaxke.elementarrows.forge.arrows.ArrowRegistryCommon;
 import me.cybermaxke.elementarrows.forge.arrows.custom.ArrowBlindness;
 import me.cybermaxke.elementarrows.forge.arrows.custom.ArrowDazing;
@@ -52,6 +52,7 @@ import me.cybermaxke.elementarrows.forge.item.ItemArrow;
 import me.cybermaxke.elementarrows.forge.item.ItemArrowTab;
 import me.cybermaxke.elementarrows.forge.item.ItemBow;
 import me.cybermaxke.elementarrows.forge.item.ItemRegistry;
+import me.cybermaxke.elementarrows.forge.json.JsonFactory;
 import me.cybermaxke.elementarrows.forge.network.HandlerModInfo;
 import me.cybermaxke.elementarrows.forge.network.MessageInjectorCommon;
 import me.cybermaxke.elementarrows.forge.network.MessageModInfo;
@@ -94,14 +95,25 @@ public class ModInitCommon {
 	public SimpleNetworkWrapper network;
 
 	/**
+	 * The json factory.
+	 */
+	public JsonFactory jsonFactory;
+
+	/**
 	 * Listener to define when the arrow a entity hits.
 	 */
 	private EntityElementArrowListener listener0;
 
 	/**
+	 * The main directory.
+	 */
+	private File mainDirectory;
+
+	/**
 	 * Called in the initialize event.
 	 */
 	public void onInit() {
+		this.jsonFactory = new JsonFactory();
 		this.registry = this.newArrowRegistry();
 		this.itemRegistry = new ItemRegistry();
 		this.entityRegistry = new EntityRegistry();
@@ -150,7 +162,11 @@ public class ModInitCommon {
 		/**
 		 * Register the custom arrows.
 		 */
-		this.onInitArrows();
+		try {
+			this.onInitArrows();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		this.network = NetworkRegistry.INSTANCE.newSimpleChannel("elementArrows");
 		this.network.registerMessage(new HandlerModInfo(this.players), MessageModInfo.class, 1, Side.SERVER);
@@ -165,21 +181,24 @@ public class ModInitCommon {
 
 	/**
 	 * Called in the initialize event.
+	 * @throws IOException 
 	 */
-	public void onInitArrows() {
-		this.registry.register(1, new ArrowBlindness());
-		this.registry.register(2, new ArrowDazing());
-		this.registry.register(3, new ArrowDirt());
-		this.registry.register(4, new ArrowEgg());
-		this.registry.register(5, new ArrowEnderEye());
-		this.registry.register(6, new ArrowExplosion());
-		this.registry.register(7, new ArrowFire());
-		this.registry.register(8, new ArrowLightning());
-		this.registry.register(9, new ArrowPoison());
-		this.registry.register(10, new ArrowRazor());
-		this.registry.register(11, new ArrowVampiric());
-		this.registry.register(12, new ArrowVolley());
-		this.registry.register(13, new ArrowIce());
+	public void onInitArrows() throws IOException {
+		File directory = new File(this.mainDirectory + File.separator + "elementArrows");
+
+		this.registry.register(1, this.jsonFactory.fromJsonFile(new File(directory, "arrowBlindness.json"), ArrowBlindness.class));
+		this.registry.register(2, this.jsonFactory.fromJsonFile(new File(directory, "arrowDazing.json"), ArrowDazing.class));
+		this.registry.register(3, this.jsonFactory.fromJsonFile(new File(directory, "arrowDirt.json"), ArrowDirt.class));
+		this.registry.register(4, this.jsonFactory.fromJsonFile(new File(directory, "arrowEgg.json"), ArrowEgg.class));
+		this.registry.register(5, this.jsonFactory.fromJsonFile(new File(directory, "arrowEnderEye.json"), ArrowEnderEye.class));
+		this.registry.register(6, this.jsonFactory.fromJsonFile(new File(directory, "arrowExplosion.json"), ArrowExplosion.class));
+		this.registry.register(7, this.jsonFactory.fromJsonFile(new File(directory, "arrowFire.json"), ArrowFire.class));
+		this.registry.register(8, this.jsonFactory.fromJsonFile(new File(directory, "arrowLightning.json"), ArrowLightning.class));
+		this.registry.register(9, this.jsonFactory.fromJsonFile(new File(directory, "arrowPoison.json"), ArrowPoison.class));
+		this.registry.register(10, this.jsonFactory.fromJsonFile(new File(directory, "arrowRazor.json"), ArrowRazor.class));
+		this.registry.register(11, this.jsonFactory.fromJsonFile(new File(directory, "arrowVampiric.json"), ArrowVampiric.class));
+		this.registry.register(12, this.jsonFactory.fromJsonFile(new File(directory, "arrowVolley.json"), ArrowVolley.class));
+		this.registry.register(13, this.jsonFactory.fromJsonFile(new File(directory, "arrowIce.json"), ArrowIce.class));
 
 		GameRegistry.addShapedRecipe(new ItemStack(this.itemBow), " xy", "x y", " xy",
 				'x', new ItemStack(Items.stick),
@@ -196,9 +215,11 @@ public class ModInitCommon {
 
 	/**
 	 * Called in the pre initialize event.
+	 * 
+	 * @param file the main directory
 	 */
-	public void onPreInit() {
-
+	public void onPreInit(File file) {
+		this.mainDirectory = file;
 	}
 
 	/**

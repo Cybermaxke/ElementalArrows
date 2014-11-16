@@ -38,6 +38,8 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow;
 import me.cybermaxke.elementarrows.forge.entity.EntityAttribute;
 import me.cybermaxke.elementarrows.forge.entity.EntityElementArrow;
+import me.cybermaxke.elementarrows.forge.json.JsonField;
+import me.cybermaxke.elementarrows.forge.util.Clones;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
@@ -51,6 +53,15 @@ public final class ArrowIce extends ElementArrow {
 	 * The times of how long the entities will be frozen.
 	 */
 	private Map<UUID, Integer> frozen;
+
+	@JsonField("frozenChance")
+	private float frozenChance = 0.25f;
+
+	@JsonField("frozenPotionEffect")
+	private PotionEffect frozenPotionEffect = new PotionEffect(Potion.moveSlowdown.id, 100, 6);
+
+	@JsonField("slownPotionEffect")
+	private PotionEffect slownPotionEffect = new PotionEffect(Potion.moveSlowdown.id, 80, 0);
 
 	@Override
 	public void onInit(ArrowInitEvent event) {
@@ -114,7 +125,7 @@ public final class ArrowIce extends ElementArrow {
 		/**
 		 * Only a random chance of actual freezing the entity, to prevent the overpowered arrow.
 		 */
-		if (event.arrow.worldObj.rand.nextInt(4) == 0) {
+		if (event.arrow.worldObj.rand.nextFloat() < this.frozenChance) {
 			IAttributeInstance instance = event.entity.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
 
 			if (instance != null) {
@@ -130,9 +141,9 @@ public final class ArrowIce extends ElementArrow {
 			/**
 			 * Apply the normal slow effect.
 			 */
-			event.entity.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 100, 6));
+			event.entity.addPotionEffect(Clones.clone(this.frozenPotionEffect));
 		} else {
-			event.entity.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 80, 0));
+			event.entity.addPotionEffect(Clones.clone(this.slownPotionEffect));
 		}
 	}
 
@@ -176,7 +187,7 @@ public final class ArrowIce extends ElementArrow {
 				 */
 				int ticks = event.entity.ticksExisted - this.frozen.get(uuid);
 
-				if (ticks >= 100) {
+				if (ticks >= this.frozenPotionEffect.getDuration()) {
 					/**
 				 	 * No longer frozen.
 				 	 */

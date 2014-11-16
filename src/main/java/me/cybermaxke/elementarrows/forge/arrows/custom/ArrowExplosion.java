@@ -22,12 +22,22 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow;
+import me.cybermaxke.elementarrows.forge.json.JsonField;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public final class ArrowExplosion extends ElementArrow {
+
+	@JsonField("explosionStrength")
+	private float explosionStrength = 2.5f;
+
+	/**
+	 * This will also require the mob griefing to be turned off.
+	 */
+	@JsonField("destroyBlocks")
+	private boolean destroyBlocks = true;
 
 	@Override
 	public void onInit(ArrowInitEvent event) {
@@ -50,11 +60,15 @@ public final class ArrowExplosion extends ElementArrow {
 	public void onArrowHitEntity(ArrowHitEntityEvent event) {
 		boolean griefing = event.entity.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
 
+		if (griefing && !this.destroyBlocks) {
+			griefing = false;
+		}
+
 		double x = event.arrow.posX;
 		double y = event.arrow.posY;
 		double z = event.arrow.posZ;
 
-		event.entity.worldObj.createExplosion(event.entity, x, y, z, 2.5f, griefing);
+		event.entity.worldObj.createExplosion(event.entity, x, y, z, this.explosionStrength, griefing);
 		event.arrow.canBePickedUp = 2;
 	}
 
@@ -62,11 +76,15 @@ public final class ArrowExplosion extends ElementArrow {
 	public void onArrowHitGround(ArrowHitGroundEvent event) {
 		boolean griefing = event.arrow.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
 
+		if (griefing && !this.destroyBlocks) {
+			griefing = false;
+		}
+
 		double x = event.arrow.posX;
 		double y = event.arrow.posY;
 		double z = event.arrow.posZ;
 
-		event.arrow.worldObj.createExplosion(event.arrow, x, y, z, 2.5f, griefing);
+		event.arrow.worldObj.createExplosion(event.arrow, x, y, z, this.explosionStrength, griefing);
 		event.arrow.setElementData(0);
 		event.arrow.canBePickedUp = 2;
 	}

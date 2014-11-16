@@ -20,14 +20,19 @@ package me.cybermaxke.elementarrows.forge.arrows.custom;
 
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow;
 import me.cybermaxke.elementarrows.forge.entity.EntityElementArrow;
+import me.cybermaxke.elementarrows.forge.json.JsonField;
+import me.cybermaxke.elementarrows.forge.lightning.Lightning;
 
-import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.world.World;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public final class ArrowLightning extends ElementArrow {
+	private final Lightning lightning = new Lightning();
+
+	@JsonField("placeFire")
+	private boolean placeFire = true;
 
 	@Override
 	public void onInit(ArrowInitEvent event) {
@@ -58,7 +63,14 @@ public final class ArrowLightning extends ElementArrow {
 		double y = arrow.posY;
 		double z = arrow.posZ;
 
-		world.addWeatherEffect(new EntityLightningBolt(world, x, y, z));
+		/**
+		 * Spawn the lightning.
+		 */
+		this.lightning.spawnLightningAt(world, x, y, z, this.placeFire);
+
+		/**
+		 * Remove the element data.
+		 */
 		arrow.setElementData(0);
 	}
 

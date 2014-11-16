@@ -22,12 +22,16 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow;
+import me.cybermaxke.elementarrows.forge.json.JsonField;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public final class ArrowRazor extends ElementArrow {
+
+	@JsonField("powerMultiplier")
+	private float powerMultiplier = 1.45f;
 
 	@Override
 	public void onInit(ArrowInitEvent event) {
@@ -51,7 +55,7 @@ public final class ArrowRazor extends ElementArrow {
 		/**
 		 * Modify the power (speed)
 		 */
-		event.power *= 1.5f;
+		event.power *= this.powerMultiplier;
 
 		/**
 		 * Let the underlying method build the arrow.

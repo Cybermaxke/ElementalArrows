@@ -27,12 +27,16 @@ import net.minecraft.util.Vec3;
 
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow;
 import me.cybermaxke.elementarrows.forge.entity.EntityElementArrow;
+import me.cybermaxke.elementarrows.forge.json.JsonField;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public final class ArrowVolley extends ElementArrow {
 	private final Random random = new Random();
+
+	@JsonField("amount")
+	private int amount = 7;
 
 	@Override
 	public void onInit(ArrowInitEvent event) {
@@ -63,7 +67,7 @@ public final class ArrowVolley extends ElementArrow {
 
 		Vec3 vec = Vec3.createVectorHelper(x, y, z);
 
-		for (int i = 0; i < 7; i++) {
+		for (int i = 0; i < this.amount; i++) {
 			double x0 = x + (this.random.nextFloat() - 0.5f) * 4f;
 			double z0 = z + (this.random.nextFloat() - 0.5f) * 4f;
 			double y0 = y + 6f;

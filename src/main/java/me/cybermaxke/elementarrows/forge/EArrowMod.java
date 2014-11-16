@@ -26,7 +26,7 @@ import cpw.mods.fml.common.event.FMLModDisabledEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = "elementArrows", name = "ElementalArrows", version = "1.0.1", acceptableRemoteVersions = "*")
+@Mod(modid = "elementArrows", name = "ElementalArrows", version = "1.0.2", acceptableRemoteVersions = "*")
 public final class EArrowMod {
 
 	@SidedProxy(
@@ -37,7 +37,7 @@ public final class EArrowMod {
 
 	@EventHandler
 	public void onPreInit(FMLPreInitializationEvent event) {
-		EArrowMod.mod.onPreInit();
+		EArrowMod.mod.onPreInit(event.getSuggestedConfigurationFile().getParentFile().getParentFile());
 	}
 
 	@EventHandler

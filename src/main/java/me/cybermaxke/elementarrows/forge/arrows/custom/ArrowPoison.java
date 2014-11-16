@@ -24,12 +24,17 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow;
+import me.cybermaxke.elementarrows.forge.json.JsonField;
+import me.cybermaxke.elementarrows.forge.util.Clones;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public final class ArrowPoison extends ElementArrow {
+
+	@JsonField("poisonEffect")
+	private PotionEffect poisonEffect = new PotionEffect(Potion.poison.id, 70, 9);
 
 	@Override
 	public void onInit(ArrowInitEvent event) {
@@ -50,7 +55,9 @@ public final class ArrowPoison extends ElementArrow {
 
 	@Override
 	public void onArrowHitEntity(ArrowHitEntityEvent event) {
-		event.entity.addPotionEffect(new PotionEffect(Potion.poison.id, 70, 9));
+		if (this.poisonEffect != null) {
+			event.entity.addPotionEffect(Clones.clone(this.poisonEffect));
+		}
 	}
 
 }

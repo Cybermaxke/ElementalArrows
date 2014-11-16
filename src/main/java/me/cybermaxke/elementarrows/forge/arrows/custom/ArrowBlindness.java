@@ -28,8 +28,13 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow;
+import me.cybermaxke.elementarrows.forge.json.JsonField;
+import me.cybermaxke.elementarrows.forge.util.Clones;
 
 public final class ArrowBlindness extends ElementArrow {
+
+	@JsonField("blindnessEffect")
+	public PotionEffect blindnessEffect = new PotionEffect(Potion.blindness.id, 75, 12);
 
 	@Override
 	public void onInit(ArrowInitEvent event) {
@@ -51,7 +56,9 @@ public final class ArrowBlindness extends ElementArrow {
 
 	@Override
 	public void onArrowHitEntity(ArrowHitEntityEvent event) {
-		event.entity.addPotionEffect(new PotionEffect(Potion.blindness.id, 75, 12));
+		if (this.blindnessEffect != null) {
+			event.entity.addPotionEffect(Clones.clone(this.blindnessEffect));
+		}
 	}
 
 }
