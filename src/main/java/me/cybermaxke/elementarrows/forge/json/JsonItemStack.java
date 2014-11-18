@@ -49,14 +49,17 @@ public final class JsonItemStack implements JsonObjectSerializer<ItemStack> {
 
 		Item item = (Item) Item.itemRegistry.getObject(id);
 
+		/**
+		 * Try to find the item using it's legacy id.
+		 */
 		if (item == null) {
 			try {
 				item = Item.getItemById(Integer.parseInt(id));
 			} catch (NumberFormatException e) {}
+		}
 
-			if (item == null) {
-				throw new JsonParseException("Unknown effect id! (" + id + ")");
-			}
+		if (item == null) {
+			throw new JsonParseException("Unknown effect id! (" + id + ")");
 		}
 
 		int amount = json0.get("amount").getAsInt();

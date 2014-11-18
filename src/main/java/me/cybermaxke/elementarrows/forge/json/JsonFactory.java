@@ -28,6 +28,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Field;
 
+import me.cybermaxke.elementarrows.forge.recipe.Recipe;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 
@@ -52,6 +54,7 @@ public final class JsonFactory {
 			 */
 			.registerTypeAdapter(ItemStack.class, new JsonItemStack())
 			.registerTypeAdapter(PotionEffect.class, new JsonPotionEffect())
+			.registerTypeAdapter(Recipe.class, new JsonRecipe())
 			/**
 			 * Create the gson.
 			 */

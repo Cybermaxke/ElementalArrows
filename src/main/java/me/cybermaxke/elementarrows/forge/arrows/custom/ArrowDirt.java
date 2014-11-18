@@ -33,7 +33,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public final class ArrowDirt extends ElementArrow {
 
 	@JsonField("damageMultiplier")
-	private double damageMultiplier = 1.3f;
+	private double damageMultiplier = 1.3d;
 
 	@JsonField("knockbackStrength")
 	private int knockbackStrength = 2;
