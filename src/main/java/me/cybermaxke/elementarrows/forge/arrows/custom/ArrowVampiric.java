@@ -25,11 +25,16 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow;
+import me.cybermaxke.elementarrows.forge.json.JsonField;
+import me.cybermaxke.elementarrows.forge.util.Clones;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public final class ArrowVampiric extends ElementArrow {
+
+	@JsonField("regenerationEffect")
+	private PotionEffect regenerationEffect = new PotionEffect(Potion.regeneration.id, 40, 12);
 
 	@Override
 	public void onInit(ArrowInitEvent event) {
@@ -54,8 +59,8 @@ public final class ArrowVampiric extends ElementArrow {
 			return;
 		}
 
-		if (shooter != null && shooter instanceof EntityLivingBase) {
-			((EntityLivingBase) shooter).addPotionEffect(new PotionEffect(Potion.regeneration.id, 40, 12));
+		if (shooter != null && shooter instanceof EntityLivingBase && this.regenerationEffect != null) {
+			((EntityLivingBase) shooter).addPotionEffect(Clones.clone(this.regenerationEffect));
 		}
 
 		int x = (int) Math.round(event.arrow.posX);

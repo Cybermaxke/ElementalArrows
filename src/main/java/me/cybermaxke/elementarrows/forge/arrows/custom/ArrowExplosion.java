@@ -23,8 +23,8 @@ import net.minecraft.item.ItemStack;
 
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow;
 import me.cybermaxke.elementarrows.forge.json.JsonField;
+import me.cybermaxke.elementarrows.forge.recipe.RecipeShapeless;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -43,10 +43,14 @@ public final class ArrowExplosion extends ElementArrow {
 	public void onInit(ArrowInitEvent event) {
 		this.unlocalizedName = "elementArrowsExplosion";
 
-		GameRegistry.addShapelessRecipe(
-				new ItemStack(event.itemArrow, 1, event.data),
-				new ItemStack(Blocks.tnt, 1, 0),
-				new ItemStack(event.itemArrow, 1, 0));
+		/**
+		 * Add the default recipe.
+		 */
+		event.recipes.addDefault(RecipeShapeless.builder()
+				.withResult(new ItemStack(event.itemArrow, 1, event.data))
+				.withIngredient(new ItemStack(Blocks.tnt, 1, 0))
+				.withIngredient(new ItemStack(event.itemArrow, 1, 0))
+				.build());
 	}
 
 	@Override

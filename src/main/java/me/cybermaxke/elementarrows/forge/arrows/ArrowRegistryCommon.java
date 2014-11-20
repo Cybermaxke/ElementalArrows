@@ -24,12 +24,19 @@ import java.util.Map;
 
 import me.cybermaxke.elementarrows.forge.EArrowMod;
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow.ArrowInitEvent;
+import me.cybermaxke.elementarrows.forge.recipe.RecipeManager;
 
 import com.google.common.base.Preconditions;
 
 public class ArrowRegistryCommon {
 	private final Map<ElementArrow, Short> arrows = new HashMap<ElementArrow, Short>();
 	private final ElementArrow[] arrows0 = new ElementArrow[Short.MAX_VALUE];
+
+	protected final RecipeManager recipeManager;
+
+	public ArrowRegistryCommon(RecipeManager recipeManager) {
+		this.recipeManager = recipeManager;
+	}
 
 	/**
 	 * Registers a new elemental arrow with a specific data value.
@@ -48,7 +55,7 @@ public class ArrowRegistryCommon {
 		this.arrows.put(arrow, data0);
 		this.arrows0[data0] = arrow;
 
-		arrow.onInit(new ArrowInitEvent(EArrowMod.mod.itemArrow, EArrowMod.mod.itemBow, data));
+		arrow.onInit(new ArrowInitEvent(this.recipeManager, EArrowMod.mod.itemArrow, EArrowMod.mod.itemBow, data));
 	}
 
 	/**

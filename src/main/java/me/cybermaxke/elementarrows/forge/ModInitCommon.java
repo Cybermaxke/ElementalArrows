@@ -59,6 +59,7 @@ import me.cybermaxke.elementarrows.forge.json.JsonFactory;
 import me.cybermaxke.elementarrows.forge.network.HandlerModInfo;
 import me.cybermaxke.elementarrows.forge.network.MessageInjectorCommon;
 import me.cybermaxke.elementarrows.forge.network.MessageModInfo;
+import me.cybermaxke.elementarrows.forge.recipe.RecipeManager;
 
 public class ModInitCommon {
 	/**
@@ -103,6 +104,11 @@ public class ModInitCommon {
 	public JsonFactory jsonFactory;
 
 	/**
+	 * The recipe manager.
+	 */
+	public RecipeManager recipeManager;
+
+	/**
 	 * Listener to define when the arrow a entity hits.
 	 */
 	private EntityElementArrowListener listener0;
@@ -117,6 +123,7 @@ public class ModInitCommon {
 	 */
 	public void onInit() {
 		this.jsonFactory = new JsonFactory();
+		this.recipeManager = new RecipeManager(this.jsonFactory);
 		this.registry = this.newArrowRegistry();
 		this.itemRegistry = new ItemRegistry();
 		this.entityRegistry = new EntityRegistry();
@@ -187,7 +194,7 @@ public class ModInitCommon {
 	 * @throws IOException 
 	 */
 	public void onInitArrows() throws IOException {
-		File directory = new File(this.mainDirectory + File.separator + "elementArrows");
+		File directory = new File(this.mainDirectory + File.separator + "elementArrows" + File.separator + "arrows");
 
 		this.registry.register(1, this.jsonFactory.fromJsonFile(new File(directory, "arrowBlindness.json"), ArrowBlindness.class));
 		this.registry.register(2, this.jsonFactory.fromJsonFile(new File(directory, "arrowDazing.json"), ArrowDazing.class));
@@ -229,7 +236,11 @@ public class ModInitCommon {
 	 * Called in the post initialize event.
 	 */
 	public void onPostInit() {
-
+		try {
+			this.recipeManager.load(new File(this.mainDirectory + File.separator + "elementArrows", "recipes.json"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -245,7 +256,7 @@ public class ModInitCommon {
 	 * @return the registry
 	 */
 	public ArrowRegistryCommon newArrowRegistry() {
-		return new ArrowRegistryCommon();
+		return new ArrowRegistryCommon(this.recipeManager);
 	}
 
 }

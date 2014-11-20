@@ -26,6 +26,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 
 import me.cybermaxke.elementarrows.forge.recipe.Recipe;
@@ -61,6 +62,10 @@ public final class JsonFactory {
 			.create();
 
 	public <T> T fromJsonFile(File file, Class<T> type) throws IOException {
+		return this.fromJsonFile(file, type, null);
+	}
+
+	public <T, V extends T> T fromJsonFile(File file, Class<T> type, V defaultValue) throws IOException {
 		/**
 		 * Try to read the object from the json file.
 		 */
@@ -80,18 +85,24 @@ public final class JsonFactory {
 			file.getParentFile().mkdirs();
 
 			try {
-				T object = type.newInstance();
+				if (defaultValue == null) {
+					if (type.isArray()) {
+						defaultValue = (V) Array.newInstance(type, 0);
+					} else {
+						defaultValue = (V) type.newInstance();
+					}
+				}
 
 				FileOutputStream fos = new FileOutputStream(file);
 				OutputStreamWriter osr = new OutputStreamWriter(fos);
 				BufferedWriter bw = new BufferedWriter(osr);
 
-				this.gson.toJson(object, bw);
+				this.gson.toJson(defaultValue, bw);
 
 				bw.flush();
 				bw.close();
 
-				return object;
+				return defaultValue;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -27,7 +27,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
 
-public class RecipeHelper {
+public final class RecipeHelper {
 	private final CraftingManager manager = CraftingManager.getInstance();
 
 	/**

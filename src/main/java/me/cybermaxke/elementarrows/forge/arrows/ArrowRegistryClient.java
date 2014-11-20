@@ -20,12 +20,17 @@ package me.cybermaxke.elementarrows.forge.arrows;
 
 import me.cybermaxke.elementarrows.forge.EArrowMod;
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow.ArrowInitEvent;
+import me.cybermaxke.elementarrows.forge.recipe.RecipeManager;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class ArrowRegistryClient extends ArrowRegistryCommon {
+
+	public ArrowRegistryClient(RecipeManager recipeManager) {
+		super(recipeManager);
+	}
 
 	@Override
 	public void register(int data, ElementArrow arrow) {
@@ -34,7 +39,7 @@ public class ArrowRegistryClient extends ArrowRegistryCommon {
 		/**
 		 * Initialize on the client.
 		 */
-		arrow.onClientInit(new ArrowInitEvent(EArrowMod.mod.itemArrow, EArrowMod.mod.itemBow, data));
+		arrow.onClientInit(new ArrowInitEvent(this.recipeManager, EArrowMod.mod.itemArrow, EArrowMod.mod.itemBow, data));
 	}
 
 }

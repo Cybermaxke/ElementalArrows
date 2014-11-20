@@ -23,8 +23,8 @@ import net.minecraft.item.ItemStack;
 
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow;
 import me.cybermaxke.elementarrows.forge.json.JsonField;
+import me.cybermaxke.elementarrows.forge.recipe.RecipeShaped;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -37,10 +37,16 @@ public final class ArrowRazor extends ElementArrow {
 	public void onInit(ArrowInitEvent event) {
 		this.unlocalizedName = "elementArrowsRazor";
 
-		GameRegistry.addShapedRecipe(new ItemStack(event.itemArrow, 1, event.data), "x", "y", "z",
-				'x', new ItemStack(Items.iron_ingot),
-				'y', new ItemStack(Items.stick),
-				'z', new ItemStack(Items.feather));
+		/**
+		 * Add the default recipe.
+		 */
+		event.recipes.addDefault(RecipeShaped.builder()
+				.withResult(new ItemStack(event.itemArrow, 1, event.data))
+				.withShape(" x ", "xyx", " z ")
+				.withIngredient('x', new ItemStack(Items.iron_ingot, 1, 0))
+				.withIngredient('y', new ItemStack(Items.stick, 1, 0))
+				.withIngredient('z', new ItemStack(Items.feather, 1, 0))
+				.build());
 	}
 
 	@Override

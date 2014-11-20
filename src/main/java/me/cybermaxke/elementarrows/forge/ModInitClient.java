@@ -90,7 +90,7 @@ public final class ModInitClient extends ModInitCommon {
 
 	@Override
 	public ArrowRegistryCommon newArrowRegistry() {
-		return new ArrowRegistryClient();
+		return new ArrowRegistryClient(this.recipeManager);
 	}
 
 	@SubscribeEvent

@@ -19,9 +19,12 @@
 package me.cybermaxke.elementarrows.forge.arrows.custom;
 
 import net.minecraft.entity.passive.EntityChicken;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow;
+import me.cybermaxke.elementarrows.forge.recipe.RecipeShapeless;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -31,6 +34,15 @@ public final class ArrowEgg extends ElementArrow {
 	@Override
 	public void onInit(ArrowInitEvent event) {
 		this.unlocalizedName = "elementArrowsEgg";
+
+		/**
+		 * Add the default recipe.
+		 */
+		event.recipes.addDefault(RecipeShapeless.builder()
+				.withResult(new ItemStack(event.itemArrow, 1, event.data))
+				.withIngredient(new ItemStack(Items.egg, 1, 0))
+				.withIngredient(new ItemStack(event.itemArrow, 1, 0))
+				.build());
 	}
 
 	@Override
