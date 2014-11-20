@@ -26,8 +26,8 @@ import java.util.List;
 import me.cybermaxke.elementarrows.forge.json.JsonFactory;
 
 public final class RecipeManager {
-	private final RecipeHelper helper = new RecipeHelper();
-	private final JsonFactory factory;
+	public final RecipeHelper helper = new RecipeHelper();
+	public final JsonFactory factory;
 
 	/**
 	 * The default recipes which will be saved if the file couldn't be found.

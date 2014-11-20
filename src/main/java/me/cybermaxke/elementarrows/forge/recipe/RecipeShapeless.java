@@ -21,6 +21,7 @@ package me.cybermaxke.elementarrows.forge.recipe;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.cybermaxke.elementarrows.forge.EArrowMod;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -68,7 +69,7 @@ public final class RecipeShapeless implements Recipe {
 
 	@Override
 	public IRecipe convertTo() {
-		return null;
+		return EArrowMod.mod.recipeManager.helper.convertTo(this);
 	}
 
 	/**
@@ -129,4 +130,5 @@ public final class RecipeShapeless implements Recipe {
 		}
 
 	}
+
 }

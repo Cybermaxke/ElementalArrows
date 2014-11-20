@@ -98,4 +98,5 @@ public final class JsonRecipe implements JsonObjectSerializer<Recipe> {
 			return new RecipeShapeless(result, ingredients);
 		}
 	}
+
 }

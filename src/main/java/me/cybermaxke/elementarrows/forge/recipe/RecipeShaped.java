@@ -21,6 +21,7 @@ package me.cybermaxke.elementarrows.forge.recipe;
 import java.util.HashMap;
 import java.util.Map;
 
+import me.cybermaxke.elementarrows.forge.EArrowMod;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -84,7 +85,7 @@ public final class RecipeShaped implements Recipe {
 
 	@Override
 	public IRecipe convertTo() {
-		return null;
+		return EArrowMod.mod.recipeManager.helper.convertTo(this);
 	}
 
 	/**
@@ -159,4 +160,5 @@ public final class RecipeShaped implements Recipe {
 		}
 
 	}
+
 }
