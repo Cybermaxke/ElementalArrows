@@ -18,6 +18,7 @@
  */
 package me.cybermaxke.elementarrows.forge.arrows.custom;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -71,9 +72,10 @@ public final class ArrowTorch extends ElementArrow {
 		int by0 = MathHelper.floor_double(y0);
 		int bz0 = MathHelper.floor_double(z0);
 
-		boolean flag = false;
+		boolean place = Blocks.torch.canPlaceBlockAt(world, bx0, by0, bz0);
+		boolean flag = true;
 
-		if (world.isAirBlock(bx0, by0, bz0) && Blocks.torch.canPlaceBlockAt(world, bx0, by0, bz0)) {
+		if (place) {
 			double x1 = (double) bx0 + 0.5d;
 			double y1 = (double) by0 + 0.5d;
 			double z1 = (double) bz0 + 0.5d;
@@ -95,7 +97,30 @@ public final class ArrowTorch extends ElementArrow {
 			Vec3 vec0 = Vec3.createVectorHelper(x1, y1, z1);
 			Vec3 vec1 = Vec3.createVectorHelper(x2, y2, z2);
 
+			/**
+			 * The temporarily block type and data.
+			 */
+			Block tempBlock = null;
+			int tempData = 0;
+
+			/**
+			 * We need to temporarily set the block to air to make it replaceable.
+			 */
+			if (!world.isAirBlock(bx0, by0, bz0)) {
+				tempBlock = world.getBlock(bx0, by0, bz0);
+				tempData = world.getBlockMetadata(bx0, by0, bz0);
+
+				world.setBlock(bx0, by0, bz0, Blocks.air, 0, 0);
+			}
+
 			MovingObjectPosition mop = world.rayTraceBlocks(vec0, vec1);
+
+			/**
+			 * Now, lets reset the replaced data.
+			 */
+			if (tempBlock != null) {
+				world.setBlock(bx0, by0, bz0, tempBlock, tempData, 0);
+			}
 
 			if (mop != null && mop.typeOfHit.equals(MovingObjectType.BLOCK)) {
 				int bx1 = mop.blockX;
@@ -118,31 +143,34 @@ public final class ArrowTorch extends ElementArrow {
 				}
 
 				if (i == 1) {
-					int data = 0;
+					int face = 0;
 
 					if (dx < 0) {
-						data = 1;
+						face = 5;
 					} else if (dx > 0) {
-						data = 2;
+						face = 4;
 					} else if (dz < 0) {
-						data = 3;
+						face = 3;
 					} else if (dz > 0) {
-						data = 4;
+						face = 2;
 					} else if (dy < 0) {
-						data = 5;
+						face = 1;
 					}
 
-					if (data > 0) {
-						world.setBlock(bx0, by0, bz0, Blocks.torch, data, 3);
-					} else {
-						flag = true;
+					if (face > 0) {
+						int data = Blocks.torch.onBlockPlaced(world, bx0, by0, bz0, face, 0f, 0f, 0f, 0);
+
+						if (data > 0) {
+							world.setBlock(bx0, by0, bz0, Blocks.torch, data, 3);
+							flag = false;
+
+							if (tempBlock != null) {
+								world.playAuxSFX(2001, bx0, by0, bz0, Block.getIdFromBlock(tempBlock) + tempData << 12);
+							}
+						}
 					}
 				}
-			} else {
-				flag = true;
 			}
-		} else {
-			flag = true;
 		}
 
 		if (flag) {
