@@ -34,6 +34,7 @@ import me.cybermaxke.elementarrows.forge.recipe.Recipe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 
+import com.google.common.base.Preconditions;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.FieldNamingStrategy;
@@ -66,6 +67,9 @@ public final class JsonFactory {
 	}
 
 	public <T, V extends T> T fromJsonFile(File file, Class<T> type, V defaultValue) throws IOException {
+		Preconditions.checkNotNull(file);
+		Preconditions.checkNotNull(type);
+
 		/**
 		 * Try to read the object from the json file.
 		 */

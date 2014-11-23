@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.base.Preconditions;
+
 import me.cybermaxke.elementarrows.forge.json.JsonFactory;
 
 public final class RecipeManager {
@@ -44,6 +46,8 @@ public final class RecipeManager {
 	 * @param recipe the recipe
 	 */
 	public void addDefault(Recipe recipe) {
+		Preconditions.checkNotNull(recipe);
+
 		this.defaults.add(recipe);
 	}
 
@@ -55,7 +59,10 @@ public final class RecipeManager {
 	 * @throws IOException 
 	 */
 	public void load(File file) throws IOException {
-		Recipe[] recipes = this.factory.fromJsonFile(file, Recipe[].class, this.defaults.toArray(new Recipe[] {}));
+		Preconditions.checkNotNull(file);
+
+		Recipe[] defaults = this.defaults.toArray(new Recipe[] {});
+		Recipe[] recipes = this.factory.fromJsonFile(file, Recipe[].class, defaults);
 
 		for (int i = 0; i < recipes.length; i++) {
 			this.helper.register(recipes[i]);

@@ -21,6 +21,8 @@ package me.cybermaxke.elementarrows.forge.recipe;
 import java.util.List;
 import java.util.Map.Entry;
 
+import com.google.common.base.Preconditions;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
@@ -37,6 +39,8 @@ public final class RecipeHelper {
 	 * @return the converted recipe
 	 */
 	public IRecipe register(Recipe recipe) {
+		Preconditions.checkNotNull(recipe);
+
 		if (recipe instanceof RecipeShaped) {
 			return this.register((RecipeShaped) recipe);
 		} else if (recipe instanceof RecipeShapeless) {
@@ -73,6 +77,8 @@ public final class RecipeHelper {
 	 * @return the converted recipe
 	 */
 	public IRecipe convertTo(Recipe recipe) {
+		Preconditions.checkNotNull(recipe);
+
 		if (recipe instanceof RecipeShaped) {
 			return this.convertTo((RecipeShaped) recipe);
 		} else if (recipe instanceof RecipeShapeless) {

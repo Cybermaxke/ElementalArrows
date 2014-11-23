@@ -28,8 +28,8 @@ import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 
-import me.cybermaxke.elementarrows.forge.arrows.ArrowRegistryCommon;
 import me.cybermaxke.elementarrows.forge.arrows.ArrowRegistryClient;
+import me.cybermaxke.elementarrows.forge.arrows.ArrowRegistryCommon;
 import me.cybermaxke.elementarrows.forge.entity.EntityElementArrow;
 import me.cybermaxke.elementarrows.forge.entity.EntityElementArrowRender;
 import me.cybermaxke.elementarrows.forge.network.MessageInjectorClient;

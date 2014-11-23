@@ -21,6 +21,8 @@ package me.cybermaxke.elementarrows.forge.recipe;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.common.base.Preconditions;
+
 import me.cybermaxke.elementarrows.forge.EArrowMod;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -51,6 +53,10 @@ public final class RecipeShaped implements Recipe {
 	 * @param ingredients the ingredients
 	 */
 	public RecipeShaped(ItemStack result, String[] shape, Map<Character, ItemStack> ingredients) {
+		Preconditions.checkNotNull(ingredients);
+		Preconditions.checkNotNull(result);
+		Preconditions.checkNotNull(shape);
+
 		this.ingredients = ingredients;
 		this.result = result;
 		this.shape = shape;

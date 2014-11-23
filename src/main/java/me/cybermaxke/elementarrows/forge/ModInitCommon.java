@@ -45,6 +45,7 @@ import me.cybermaxke.elementarrows.forge.arrows.custom.ArrowIce;
 import me.cybermaxke.elementarrows.forge.arrows.custom.ArrowLightning;
 import me.cybermaxke.elementarrows.forge.arrows.custom.ArrowPoison;
 import me.cybermaxke.elementarrows.forge.arrows.custom.ArrowRazor;
+import me.cybermaxke.elementarrows.forge.arrows.custom.ArrowTorch;
 import me.cybermaxke.elementarrows.forge.arrows.custom.ArrowVampiric;
 import me.cybermaxke.elementarrows.forge.arrows.custom.ArrowVolley;
 import me.cybermaxke.elementarrows.forge.dispenser.DispenseElementArrow;
@@ -209,6 +210,7 @@ public class ModInitCommon {
 		this.registry.register(11, this.jsonFactory.fromJsonFile(new File(directory, "arrowVampiric.json"), ArrowVampiric.class));
 		this.registry.register(12, this.jsonFactory.fromJsonFile(new File(directory, "arrowVolley.json"), ArrowVolley.class));
 		this.registry.register(13, this.jsonFactory.fromJsonFile(new File(directory, "arrowIce.json"), ArrowIce.class));
+		this.registry.register(14, this.jsonFactory.fromJsonFile(new File(directory, "arrowTorch.json"), ArrowTorch.class));
 
 		GameRegistry.addShapedRecipe(new ItemStack(this.itemBow), " xy", "x y", " xy",
 				'x', new ItemStack(Items.stick),
