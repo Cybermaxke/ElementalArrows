@@ -84,7 +84,7 @@ public final class ArrowDiamond extends ElementArrow {
 	public void onArrowClientTick(ArrowTickEvent event) {
 		EntityElementArrow arrow = event.arrow;
 
-		if (!arrow.inGround) {
+		if (arrow.inGround) {
 			return;
 		}
 
@@ -97,7 +97,7 @@ public final class ArrowDiamond extends ElementArrow {
 		double z = arrow.posZ;
 
 		for (int i = 0; i < 4; i++) {
-			arrow.worldObj.spawnParticle("magicCrit", x + mx * i / 4D, y + my * i / 4d, z + mz * i / 4d, -mx, -my + 0.2d, -mz);
+			arrow.worldObj.spawnParticle("magicCrit", x + mx * i / 4d, y + my * i / 4d, z + mz * i / 4d, -mx, -my + 0.2d, -mz);
 		}
 	}
 
