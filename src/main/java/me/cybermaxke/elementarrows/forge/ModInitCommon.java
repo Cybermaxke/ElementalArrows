@@ -36,6 +36,7 @@ import net.minecraftforge.common.MinecraftForge;
 import me.cybermaxke.elementarrows.forge.arrows.ArrowRegistryCommon;
 import me.cybermaxke.elementarrows.forge.arrows.custom.ArrowBlindness;
 import me.cybermaxke.elementarrows.forge.arrows.custom.ArrowDazing;
+import me.cybermaxke.elementarrows.forge.arrows.custom.ArrowDiamond;
 import me.cybermaxke.elementarrows.forge.arrows.custom.ArrowDirt;
 import me.cybermaxke.elementarrows.forge.arrows.custom.ArrowEgg;
 import me.cybermaxke.elementarrows.forge.arrows.custom.ArrowEnderEye;
@@ -211,6 +212,7 @@ public class ModInitCommon {
 		this.registry.register(12, this.jsonFactory.fromJsonFile(new File(directory, "arrowVolley.json"), ArrowVolley.class));
 		this.registry.register(13, this.jsonFactory.fromJsonFile(new File(directory, "arrowIce.json"), ArrowIce.class));
 		this.registry.register(14, this.jsonFactory.fromJsonFile(new File(directory, "arrowTorch.json"), ArrowTorch.class));
+		this.registry.register(15, this.jsonFactory.fromJsonFile(new File(directory, "arrowDiamond.json"), ArrowDiamond.class));
 
 		GameRegistry.addShapedRecipe(new ItemStack(this.itemBow), " xy", "x y", " xy",
 				'x', new ItemStack(Items.stick),
