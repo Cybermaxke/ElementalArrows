@@ -19,8 +19,6 @@
 package me.cybermaxke.elementarrows.forge.arrows;
 
 import me.cybermaxke.elementarrows.forge.entity.EntityElementArrow;
-import me.cybermaxke.elementarrows.forge.item.ItemArrow;
-import me.cybermaxke.elementarrows.forge.item.ItemBow;
 import me.cybermaxke.elementarrows.forge.recipe.RecipeManager;
 
 import net.minecraft.block.BlockDispenser;
@@ -156,13 +154,9 @@ public abstract class ElementArrow {
 
 	public static class ArrowInitEvent {
 		public final RecipeManager recipes;
-		public final ItemArrow itemArrow;
-		public final ItemBow itemBow;
 		public final short data;
 
-		public ArrowInitEvent(RecipeManager recipes, ItemArrow itemArrow, ItemBow itemBow, int data) {
-			this.itemArrow = itemArrow;
-			this.itemBow = itemBow;
+		public ArrowInitEvent(RecipeManager recipes, int data) {
 			this.recipes = recipes;
 			this.data = (short) data;
 		}

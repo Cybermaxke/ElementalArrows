@@ -21,6 +21,7 @@ package me.cybermaxke.elementarrows.forge.arrows.custom;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
@@ -30,6 +31,7 @@ import net.minecraft.world.World;
 
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow;
 import me.cybermaxke.elementarrows.forge.entity.EntityElementArrow;
+import me.cybermaxke.elementarrows.forge.recipe.RecipeShapeless;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -39,6 +41,15 @@ public final class ArrowTorch extends ElementArrow {
 	@Override
 	public void onInit(ArrowInitEvent event) {
 		this.unlocalizedName = "elementArrowsTorch";
+
+		/**
+		 * Add the default recipe.
+		 */
+		event.recipes.addDefault(RecipeShapeless.builder()
+				.withResult(new ItemStack(Items.arrow, 1, event.data))
+				.withIngredient(new ItemStack(Blocks.torch, 1, 0))
+				.withIngredient(new ItemStack(Items.arrow, 1, 0))
+				.build());
 	}
 
 	@Override

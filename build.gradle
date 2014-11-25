@@ -17,7 +17,7 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.0.0"
+version = "1.1.1"
 group= "me.cybermaxke.elementarrows"
 archivesBaseName = "element-arrows"
 
@@ -34,11 +34,11 @@ processResources {
 	// Replace stuff in mcmod.info, nothing else
 	from(sourceSets.main.resources.srcDirs) {
 		include 'mcmod.info'
-                
+
 		// Replace version and mcversion
 		expand 'version':project.version, 'mcversion':project.minecraft.version
 	}
-        
+
 	// Copy everything else, thats not the mcmod.info
 	from(sourceSets.main.resources.srcDirs) {
 		exclude 'mcmod.info'

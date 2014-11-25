@@ -19,6 +19,7 @@
 package me.cybermaxke.elementarrows.forge.arrows.custom;
 
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow;
@@ -47,9 +48,9 @@ public final class ArrowExplosion extends ElementArrow {
 		 * Add the default recipe.
 		 */
 		event.recipes.addDefault(RecipeShapeless.builder()
-				.withResult(new ItemStack(event.itemArrow, 1, event.data))
+				.withResult(new ItemStack(Items.arrow, 1, event.data))
 				.withIngredient(new ItemStack(Blocks.tnt, 1, 0))
-				.withIngredient(new ItemStack(event.itemArrow, 1, 0))
+				.withIngredient(new ItemStack(Items.arrow, 1, 0))
 				.build());
 	}
 

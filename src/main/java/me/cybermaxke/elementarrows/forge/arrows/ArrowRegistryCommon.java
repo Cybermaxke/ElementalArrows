@@ -22,7 +22,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import me.cybermaxke.elementarrows.forge.EArrowMod;
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow.ArrowInitEvent;
 import me.cybermaxke.elementarrows.forge.recipe.RecipeManager;
 
@@ -55,7 +54,7 @@ public class ArrowRegistryCommon {
 		this.arrows.put(arrow, data0);
 		this.arrows0[data0] = arrow;
 
-		arrow.onInit(new ArrowInitEvent(this.recipeManager, EArrowMod.mod.itemArrow, EArrowMod.mod.itemBow, data));
+		arrow.onInit(new ArrowInitEvent(this.recipeManager, data));
 	}
 
 	/**

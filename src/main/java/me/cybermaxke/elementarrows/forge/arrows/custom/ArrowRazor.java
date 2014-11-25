@@ -41,7 +41,7 @@ public final class ArrowRazor extends ElementArrow {
 		 * Add the default recipe.
 		 */
 		event.recipes.addDefault(RecipeShaped.builder()
-				.withResult(new ItemStack(event.itemArrow, 1, event.data))
+				.withResult(new ItemStack(Items.arrow, 1, event.data))
 				.withShape(" x ", "xyx", " z ")
 				.withIngredient('x', new ItemStack(Items.iron_ingot, 1, 0))
 				.withIngredient('y', new ItemStack(Items.stick, 1, 0))

@@ -45,7 +45,7 @@ public final class ArrowDiamond extends ElementArrow {
 		 * Add the default recipe.
 		 */
 		event.recipes.addDefault(RecipeShaped.builder()
-				.withResult(new ItemStack(event.itemArrow, 1, event.data))
+				.withResult(new ItemStack(Items.arrow, 1, event.data))
 				.withShape("x", "y", "z")
 				.withIngredient('x', new ItemStack(Items.diamond, 1, 0))
 				.withIngredient('y', new ItemStack(Items.stick, 1, 0))

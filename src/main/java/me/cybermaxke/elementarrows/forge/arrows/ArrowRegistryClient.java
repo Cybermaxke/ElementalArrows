@@ -18,7 +18,6 @@
  */
 package me.cybermaxke.elementarrows.forge.arrows;
 
-import me.cybermaxke.elementarrows.forge.EArrowMod;
 import me.cybermaxke.elementarrows.forge.arrows.ElementArrow.ArrowInitEvent;
 import me.cybermaxke.elementarrows.forge.recipe.RecipeManager;
 
@@ -39,7 +38,7 @@ public class ArrowRegistryClient extends ArrowRegistryCommon {
 		/**
 		 * Initialize on the client.
 		 */
-		arrow.onClientInit(new ArrowInitEvent(this.recipeManager, EArrowMod.mod.itemArrow, EArrowMod.mod.itemBow, data));
+		arrow.onClientInit(new ArrowInitEvent(this.recipeManager, data));
 	}
 
 }

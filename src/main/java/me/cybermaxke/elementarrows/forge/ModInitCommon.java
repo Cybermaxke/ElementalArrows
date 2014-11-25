@@ -75,12 +75,6 @@ public class ModInitCommon {
 	public EPlayers players;
 
 	/**
-	 * The overridden items.
-	 */
-	public ItemArrow itemArrow;
-	public ItemBow itemBow;
-
-	/**
 	 * Arrows item tab.
 	 */
 	public ItemArrowTab arrowsTab;
@@ -119,6 +113,12 @@ public class ModInitCommon {
 	 * The main directory.
 	 */
 	private File mainDirectory;
+
+	/**
+	 * The overridden items.
+	 */
+	private ItemArrow itemArrow;
+	private ItemBow itemBow;
 
 	/**
 	 * Called in the initialize event.

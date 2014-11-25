@@ -44,9 +44,9 @@ public final class ArrowPoison extends ElementArrow {
 		 * Add the default recipe.
 		 */
 		event.recipes.addDefault(RecipeShapeless.builder()
-				.withResult(new ItemStack(event.itemArrow, 1, event.data))
+				.withResult(new ItemStack(Items.arrow, 1, event.data))
 				.withIngredient(new ItemStack(Items.spider_eye, 1, 0))
-				.withIngredient(new ItemStack(event.itemArrow, 1, 0))
+				.withIngredient(new ItemStack(Items.arrow, 1, 0))
 				.build());
 	}
 
