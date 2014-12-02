@@ -1,0 +1,11 @@
+rootProject.name = theName
+
+include 'elementarrows-common'
+include 'elementarrows-spigot-v1710'
+include 'elementarrows-spigot-v1800'
+include 'elementarrows-forge-v1710'
+
+project(':elementarrows-common').projectDir = new File('common')
+project(':elementarrows-spigot-v1710').projectDir = new File('spigot/v1710')
+project(':elementarrows-spigot-v1800').projectDir = new File('spigot/v1800')
+project(':elementarrows-forge-v1710').projectDir = new File('forge/v1710')

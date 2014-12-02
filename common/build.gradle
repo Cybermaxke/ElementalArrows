@@ -1,0 +1,37 @@
+buildscript {
+    repositories {
+		jcenter()
+    }
+}
+
+// Apply plugin
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+// Minimum version of Java required
+sourceCompatibility = '1.6'
+targetCompatibility = '1.6'
+
+// Basic project information
+group = 'cybermaxke'
+archivesBaseName = 'elementarrows-common'
+version = '1.0.0-SNAPSHOT'
+
+// Repositories
+repositories {
+	mavenCentral()
+}
+
+// Project dependencies
+dependencies {
+	compile 'com.google.guava:guava:17.0'
+}
+
+jar {
+	// exclude these files..
+	exclude ("*.db")
+
+	// exclude empty directories
+	includeEmptyDirs = false
+}

@@ -1,31 +1,100 @@
-\.gradle
-\.metadata
-\.classpath
-\.project
-\.settings
-\build
-\bin
-\eclipse
+# Build #
+#########
+MANIFEST.MF
+dependency-reduced-pom.xml
+.checkstyle
+
+# Compiled #
+############
+bin
+build
+dist
+lib
+out
+run
+target
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Databases #
+#############
+*.db
+*.sql
+*.sqlite
+
+# Packages #
+############
+*.7z
+*.dmg
+*.gz
+*.iso
+*.rar
+*.tar
+*.zip
+
+# Repository #
+##############
+.git
+
+# Logging #
+###########
+/logs
+*.log
+
+# Misc #
+########
+*.bak
+
+# System #
+##########
+.DS_Store
+ehthumbs.db
 Thumbs.db
 
-## Client/Server Test Files
-\mods
-\logs
-\config
-\saves
-\screenshots
-\resourcepacks
-\crash-reports
-\eula.txt
-\options.txt
-\server.properties
-\whitelist.json
-\usernamecache.json
-\usercache.json
-\ops.json
-\banned-players.json
-\banned-ips.json
-\world
-\world_nether
-\world_the_end
-/elementArrows
+# Project #
+###########
+.classpath
+.externalToolBuilders
+.gradle
+.nb-gradle
+.idea
+.project
+.settings
+eclipse
+nbproject
+atlassian-ide-plugin.xml
+build.xml
+nb-configuration.xml
+*.iml
+*.ipr
+*.iws
+
+# Spigot Lib Jar files #
+####################
+/spigot/**/lib/*.jar
+
+# Test Files #
+##############
+/forge/**/saves
+/forge/**/elementArrows
+/forge/**/crash-reports
+/forge/**/resourcepacks
+/forge/**/screenshots
+/forge/**/mods
+/forge/**/world
+/forge/**/world_nether
+/forge/**/world_the_end
+/forge/**/eula.txt
+/forge/**/logs
+/forge/**/config
+/forge/**/options.txt
+/forge/**/server.properties
+/forge/**/ops.json
+/forge/**/whitelist.json
+/forge/**/usernamecache.json
+/forge/**/banned-players.json
+/forge/**/banned-ips.json
