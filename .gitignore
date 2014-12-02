@@ -80,7 +80,7 @@ nb-configuration.xml
 # Test Files #
 ##############
 /forge/**/saves
-/forge/**/elementArrows
+/forge/**/elementArrows/*.json
 /forge/**/crash-reports
 /forge/**/resourcepacks
 /forge/**/screenshots
