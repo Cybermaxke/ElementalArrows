@@ -16,24 +16,25 @@
  * You should have received a copy of the GNU General Public License
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  */
-package me.cybermaxke.elementarrows.common.entity;
+package me.cybermaxke.elementarrows.common.enchant;
 
-import me.cybermaxke.elementarrows.common.item.inventory.Inventory;
-
-public interface EntityPlayer extends EntityLiving {
+public interface EnchantFactory {
 
 	/**
-	 * Gets the main inventory of the player.
+	 * Finds a enchantment by using its id.
 	 * 
-	 * @return the inventory
+	 * @param id the id
+	 * @return the enchantment
 	 */
-	Inventory getInventory();
+	Enchant typeById(String id);
 
 	/**
-	 * Gets whether the player the client mod installed has.
+	 * Finds a enchantment by using its internal id.
 	 * 
-	 * @return has client
+	 * @param internalId the internal id
+	 * @return the enchantment
 	 */
-	boolean hasClient();
+	@Deprecated
+	Enchant typeById(int internalId);
 
 }

@@ -201,7 +201,6 @@ public class FEntityTickHandler implements IWorldAccess {
 					Map<String, Serializable> map = entity.properties.getDirtyMapAndReset();
 
 					if (!map.isEmpty()) {
-						System.out.print("\ndebug22!!!!!");
 						try {
 							this.func_151261_b(this.toPacket(map));
 						} catch (IOException e) {

@@ -16,9 +16,10 @@
  * You should have received a copy of the GNU General Public License
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  */
-package me.cybermaxke.elementarrows.common.inventory;
+package me.cybermaxke.elementarrows.common.item.inventory;
 
 import me.cybermaxke.elementarrows.common.enchant.Enchant;
+import me.cybermaxke.elementarrows.common.item.type.ItemType;
 
 public interface ItemStack {
 
@@ -27,7 +28,7 @@ public interface ItemStack {
 	 * 
 	 * @return the type
 	 */
-	String getType();
+	ItemType getType();
 
 	/**
 	 * Gets the quantity of items in this item stack.

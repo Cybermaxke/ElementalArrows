@@ -16,10 +16,34 @@
  * You should have received a copy of the GNU General Public License
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  */
-package me.cybermaxke.elementarrows.common.inventory;
+package me.cybermaxke.elementarrows.common.item;
 
-public class ItemStacks {
+import me.cybermaxke.elementarrows.common.item.inventory.ItemStack;
+import me.cybermaxke.elementarrows.common.item.type.ItemType;
+
+public class Items {
 	private static ItemFactory factory;
+
+	/**
+	 * Finds the item type using it's identifier.
+	 * 
+	 * @param id the identifier
+	 * @return the item type
+	 */
+	public static ItemType find(String id) {
+		return factory.typeById(id);
+	}
+
+	/**
+	 * Finds the item type using it's internal id.
+	 * 
+	 * @param internalId the internal id
+	 * @return the item type
+	 */
+	@Deprecated
+	public static ItemType find(int internalId) {
+		return factory.typeById(internalId);
+	}
 
 	/**
 	 * Gets a new item stack of a specific type with a quantity and data value.
@@ -51,6 +75,39 @@ public class ItemStacks {
 	 * @return the item stack
 	 */
 	public static ItemStack of(String type) {
+		return factory.of(type);
+	}
+
+	/**
+	 * Gets a new item stack of a specific type with a quantity and data value.
+	 * 
+	 * @param type the material type
+	 * @param quantity the quantity items
+	 * @param data the data value
+	 * @return the item stack
+	 */
+	public static ItemStack of(ItemType type, int quantity, int data) {
+		return factory.of(type, quantity, data);
+	}
+
+	/**
+	 * Gets a new item stack of a specific type with a quantity.
+	 * 
+	 * @param type the material type
+	 * @param quantity the quantity items
+	 * @return the item stack
+	 */
+	public static ItemStack of(ItemType type, int quantity) {
+		return factory.of(type, quantity);
+	}
+
+	/**
+	 * Gets a new item stack of a specific type.
+	 * 
+	 * @param type the material type
+	 * @return the item stack
+	 */
+	public static ItemStack of(ItemType type) {
 		return factory.of(type);
 	}
 

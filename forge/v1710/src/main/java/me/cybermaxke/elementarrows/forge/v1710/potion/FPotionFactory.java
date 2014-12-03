@@ -72,15 +72,44 @@ public class FPotionFactory implements PotionFactory {
 	}
 
 	@Override
-	public PotionType typeById(String id) {
+	public FPotionType typeById(String id) {
 		Preconditions.checkNotNull(id);
 
 		int index = id.indexOf(':');
 		if (index != -1) {
 			id = id.substring(index + 1, id.length());
 		}
+		id = id.toLowerCase();
 
-		return this.potions0.get(id.toLowerCase());
+		FPotionType type = this.potions0.get(id);
+
+		if (type != null) {
+			return type;
+		}
+
+		Potion[] types = Potion.potionTypes;
+
+		/**
+		 * Start id of the fields in {@link PotionType}.
+		 */
+		for (int i = 0; i < types.length; i++) {
+			Potion type0 = types[i];
+
+			if (type0 != null) {
+				String id0 = getIdFor(type0);
+
+				if (id0.equals(id)) {
+					FPotionType type1 = new FPotionType(id0, type0);
+
+					this.potions0.put(id0, type1);
+					this.potions1.put(i, type1);
+
+					return type1;
+				}
+			}
+		}
+
+		return null;
 	}
 
 	@Override
@@ -94,8 +123,29 @@ public class FPotionFactory implements PotionFactory {
 	}
 
 	@Override
-	public PotionType typeById(int id) {
-		return this.potions1.get(id);
+	public FPotionType typeById(int id) {
+		FPotionType type = this.potions1.get(id);
+
+		if (type != null) {
+			return type;
+		}
+
+		if (id >= Potion.potionTypes.length) {
+			return null;
+		}
+
+		Potion potion = Potion.potionTypes[id];
+		if (potion != null) {
+			String id0 = getIdFor(potion);
+			FPotionType type0 = new FPotionType(id0, potion);
+
+			this.potions0.put(id0, type0);
+			this.potions1.put(id, type0);
+
+			return type0;
+		}
+
+		return null;
 	}
 
 	/**
@@ -105,7 +155,7 @@ public class FPotionFactory implements PotionFactory {
 	 * @return the id
 	 */
 	public static String getIdFor(Potion potion) {
-		return potion.getName().replaceFirst("potion.", "");
+		return potion.getName().replaceFirst("potion.", "").toLowerCase();
 	}
 
 }

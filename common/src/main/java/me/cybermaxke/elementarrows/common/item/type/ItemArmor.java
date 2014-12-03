@@ -16,24 +16,37 @@
  * You should have received a copy of the GNU General Public License
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  */
-package me.cybermaxke.elementarrows.common.entity;
+package me.cybermaxke.elementarrows.common.item.type;
 
-import me.cybermaxke.elementarrows.common.item.inventory.Inventory;
-
-public interface EntityPlayer extends EntityLiving {
+public interface ItemArmor extends ItemType {
 
 	/**
-	 * Gets the main inventory of the player.
+	 * Gets the type of the armor.
 	 * 
-	 * @return the inventory
+	 * @return the type
 	 */
-	Inventory getInventory();
+	Type getType();
 
 	/**
-	 * Gets whether the player the client mod installed has.
-	 * 
-	 * @return has client
+	 * The armor types/pieces.
 	 */
-	boolean hasClient();
+	enum Type {
+		/**
+		 * A helmet.
+		 */
+		Helmet,
+		/**
+		 * A chestplate.
+		 */
+		Chestplate,
+		/**
+		 * Leggings.
+		 */
+		Leggings,
+		/**
+		 * Boots
+		 */
+		Boots,
+	}
 
 }

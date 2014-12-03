@@ -23,8 +23,8 @@ import java.util.List;
 
 import com.google.common.base.Preconditions;
 
-import me.cybermaxke.elementarrows.common.inventory.ItemStack;
-import me.cybermaxke.elementarrows.common.inventory.ItemStacks;
+import me.cybermaxke.elementarrows.common.item.Items;
+import me.cybermaxke.elementarrows.common.item.inventory.ItemStack;
 
 public class RecipeShapelessBase implements RecipeShapeless {
 	private final ItemStack result;
@@ -69,7 +69,7 @@ public class RecipeShapelessBase implements RecipeShapeless {
 
 		@Override
 		public BuilderBase withIngredient(String ingredient) {
-			this.ingredients.add(ItemStacks.of(ingredient));
+			this.ingredients.add(Items.of(ingredient));
 			return this;
 		}
 

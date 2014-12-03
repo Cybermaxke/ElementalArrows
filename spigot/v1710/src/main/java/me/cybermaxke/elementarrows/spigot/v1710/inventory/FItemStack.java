@@ -23,11 +23,11 @@ import java.util.Map;
 import com.google.common.base.Preconditions;
 
 import me.cybermaxke.elementarrows.common.enchant.Enchant;
+import me.cybermaxke.elementarrows.spigot.v1710.FElementArrows;
 import net.minecraft.server.v1_7_R4.EnchantmentManager;
-import net.minecraft.server.v1_7_R4.Item;
 import net.minecraft.server.v1_7_R4.ItemStack;
 
-public class FItemStack implements me.cybermaxke.elementarrows.common.inventory.ItemStack {
+public class FItemStack implements me.cybermaxke.elementarrows.common.item.inventory.ItemStack {
 	public final ItemStack itemStack;
 
 	protected FItemStack(ItemStack itemStack) {
@@ -35,8 +35,8 @@ public class FItemStack implements me.cybermaxke.elementarrows.common.inventory.
 	}
 
 	@Override
-	public String getType() {
-		return Item.REGISTRY.c(this.itemStack.getItem());
+	public FItemType getType() {
+		return FElementArrows.items.of(this.itemStack.getItem());
 	}
 
 	@Override

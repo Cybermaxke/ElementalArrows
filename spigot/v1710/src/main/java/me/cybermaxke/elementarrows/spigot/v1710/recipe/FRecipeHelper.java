@@ -29,7 +29,7 @@ import net.minecraft.server.v1_7_R4.ShapelessRecipes;
 
 import com.google.common.base.Preconditions;
 
-import me.cybermaxke.elementarrows.common.inventory.ItemStack;
+import me.cybermaxke.elementarrows.common.item.inventory.ItemStack;
 import me.cybermaxke.elementarrows.common.recipe.Recipe;
 import me.cybermaxke.elementarrows.common.recipe.RecipeShaped;
 import me.cybermaxke.elementarrows.common.recipe.RecipeShapeless;

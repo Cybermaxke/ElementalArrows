@@ -20,8 +20,7 @@ package me.cybermaxke.elementarrows.forge.v1710.inventory;
 
 import com.google.common.base.Preconditions;
 
-import me.cybermaxke.elementarrows.common.inventory.Inventory;
-
+import me.cybermaxke.elementarrows.common.item.inventory.Inventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
@@ -43,7 +42,7 @@ public class FInventory implements Inventory {
 	}
 
 	@Override
-	public void setAt(int index, me.cybermaxke.elementarrows.common.inventory.ItemStack itemStack) {
+	public void setAt(int index, me.cybermaxke.elementarrows.common.item.inventory.ItemStack itemStack) {
 		ItemStack itemStack0 = null;
 
 		if (itemStack != null) {
@@ -54,8 +53,8 @@ public class FInventory implements Inventory {
 	}
 
 	@Override
-	public me.cybermaxke.elementarrows.common.inventory.ItemStack[] getContents() {
-		me.cybermaxke.elementarrows.common.inventory.ItemStack[] itemStacks = new me.cybermaxke.elementarrows.common.inventory.ItemStack[this.inventory.getSizeInventory()];
+	public me.cybermaxke.elementarrows.common.item.inventory.ItemStack[] getContents() {
+		me.cybermaxke.elementarrows.common.item.inventory.ItemStack[] itemStacks = new me.cybermaxke.elementarrows.common.item.inventory.ItemStack[this.inventory.getSizeInventory()];
 
 		for (int i = 0; i < itemStacks.length; i++) {
 			itemStacks[i] = this.getAt(i);
@@ -72,7 +71,7 @@ public class FInventory implements Inventory {
 	}
 
 	@Override
-	public me.cybermaxke.elementarrows.common.inventory.ItemStack add(me.cybermaxke.elementarrows.common.inventory.ItemStack itemStack) {
+	public me.cybermaxke.elementarrows.common.item.inventory.ItemStack add(me.cybermaxke.elementarrows.common.item.inventory.ItemStack itemStack) {
 		Preconditions.checkNotNull(itemStack);
 		ItemStack itemStack0 = ((FItemStack) itemStack).itemStack;
 

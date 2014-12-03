@@ -19,8 +19,7 @@
 package me.cybermaxke.elementarrows.spigot.v1710.entity;
 
 import net.minecraft.server.v1_7_R4.EntityPlayer;
-
-import me.cybermaxke.elementarrows.common.inventory.Inventory;
+import me.cybermaxke.elementarrows.common.item.inventory.Inventory;
 import me.cybermaxke.elementarrows.spigot.v1710.inventory.FInventory;
 
 public class FEntityPlayer extends FEntityLiving<EntityPlayer> implements me.cybermaxke.elementarrows.common.entity.EntityPlayer {

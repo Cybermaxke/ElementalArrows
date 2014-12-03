@@ -97,3 +97,4 @@ nb-configuration.xml
 /forge/**/usernamecache.json
 /forge/**/banned-players.json
 /forge/**/banned-ips.json
+/forge/**/src/main/resources/assets

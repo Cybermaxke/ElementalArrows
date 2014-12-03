@@ -16,35 +16,41 @@
  * You should have received a copy of the GNU General Public License
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  */
-package me.cybermaxke.elementarrows.common.inventory;
+package me.cybermaxke.elementarrows.spigot.v1710.inventory;
 
-public interface ItemFactory {
+import net.minecraft.server.v1_7_R4.Item;
+import me.cybermaxke.elementarrows.common.item.type.ItemType;
 
-	/**
-	 * Gets a new item stack of a specific type with a quantity and data value.
-	 * 
-	 * @param type the material type
-	 * @param quantity the quantity items
-	 * @param data the data value
-	 * @return the item stack
-	 */
-	ItemStack of(String type, int quantity, int data);
+public class FItemType implements ItemType {
+	public final Item item;
 
-	/**
-	 * Gets a new item stack of a specific type with a quantity.
-	 * 
-	 * @param type the material type
-	 * @param quantity the quantity items
-	 * @return the item stack
-	 */
-	ItemStack of(String type, int quantity);
+	public FItemType(Item item) {
+		this.item = item;
+	}
 
-	/**
-	 * Gets a new item stack of a specific type.
-	 * 
-	 * @param type the material type
-	 * @return the item stack
-	 */
-	ItemStack of(String type);
+	@Override
+	public String getId() {
+		return Item.REGISTRY.c(this.item);
+	}
+
+	@Override
+	public int getInternalId() {
+		return Item.REGISTRY.b(this.item);
+	}
+
+	@Override
+	public boolean hasDurability() {
+		return this.item.usesDurability();
+	}
+
+	@Override
+	public int getMaxDurability() {
+		return this.item.getMaxDurability();
+	}
+
+	@Override
+	public int getMaxStackSize() {
+		return this.item.getMaxStackSize();
+	}
 
 }

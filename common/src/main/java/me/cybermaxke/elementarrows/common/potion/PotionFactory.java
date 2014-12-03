@@ -34,6 +34,7 @@ public interface PotionFactory {
 	 * @param internalId the internal id
 	 * @return the potion type
 	 */
+	@Deprecated
 	PotionType typeById(int internalId);
 
 	/**

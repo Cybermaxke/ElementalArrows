@@ -16,51 +16,47 @@
  * You should have received a copy of the GNU General Public License
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  */
-package me.cybermaxke.elementarrows.common.inventory;
+package me.cybermaxke.elementarrows.common.item.type;
 
-public interface Inventory {
+public interface ItemType {
+
+	public static final ItemType Arrow = null;
+	public static final ItemType Bow = null;
 
 	/**
-	 * Tries to add a item to the inventory. Returns the rest if it isn't added.
+	 * Gets the id of the item type.
 	 * 
-	 * @param itemStack the item stack
-	 * @return the rest of the item stack
+	 * @return the id
 	 */
-	ItemStack add(ItemStack itemStack);
+	String getId();
 
 	/**
-	 * Gets the size of the inventory.
+	 * Gets the internal id of the item type.
 	 * 
-	 * @return the size
+	 * @return the internal id
 	 */
-	int getSize();
+	@Deprecated
+	int getInternalId();
 
 	/**
-	 * Gets the item stack at the index.
+	 * Gets whether the item type durability has.
 	 * 
-	 * @param index the index
-	 * @return the item stack
+	 * @return has durability
 	 */
-	ItemStack getAt(int index);
+	boolean hasDurability();
 
 	/**
-	 * Sets the item stack at the index.
+	 * Gets the maximum durability of the item type.
 	 * 
-	 * @param index the index
-	 * @param itemStack the item stack
+	 * @return the durability
 	 */
-	void setAt(int index, ItemStack itemStack);
+	int getMaxDurability();
 
 	/**
-	 * Gets all the item stacks.
+	 * Gets the maximum size of a item stack.
 	 * 
-	 * @return the item stacks
+	 * @return the maximum size
 	 */
-	ItemStack[] getContents();
-
-	/**
-	 * Clears all the content of the inventory.
-	 */
-	void clear();
+	int getMaxStackSize();
 
 }

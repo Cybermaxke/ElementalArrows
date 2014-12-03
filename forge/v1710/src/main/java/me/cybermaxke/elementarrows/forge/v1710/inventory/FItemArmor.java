@@ -16,24 +16,32 @@
  * You should have received a copy of the GNU General Public License
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  */
-package me.cybermaxke.elementarrows.common.entity;
+package me.cybermaxke.elementarrows.forge.v1710.inventory;
 
-import me.cybermaxke.elementarrows.common.item.inventory.Inventory;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
 
-public interface EntityPlayer extends EntityLiving {
+public class FItemArmor extends FItemType implements me.cybermaxke.elementarrows.common.item.type.ItemArmor {
 
-	/**
-	 * Gets the main inventory of the player.
-	 * 
-	 * @return the inventory
-	 */
-	Inventory getInventory();
+	public FItemArmor(Item item) {
+		super(item);
+	}
 
-	/**
-	 * Gets whether the player the client mod installed has.
-	 * 
-	 * @return has client
-	 */
-	boolean hasClient();
+	@Override
+	public Type getType() {
+		ItemArmor item0 = (ItemArmor) this.item;
+
+		if (item0.armorType == 0) {
+			return Type.Helmet;
+		} else if (item0.armorType == 1) {
+			return Type.Chestplate;
+		} else if (item0.armorType == 2) {
+			return Type.Leggings;
+		} else if (item0.armorType == 3) {
+			return Type.Boots;
+		}
+
+		return null;
+	}
 
 }

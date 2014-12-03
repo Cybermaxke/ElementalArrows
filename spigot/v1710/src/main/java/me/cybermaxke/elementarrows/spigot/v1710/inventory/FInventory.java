@@ -24,10 +24,8 @@ import org.bukkit.craftbukkit.v1_7_R4.inventory.CraftItemStack;
 
 import net.minecraft.server.v1_7_R4.IInventory;
 import net.minecraft.server.v1_7_R4.ItemStack;
-
 import net.minecraft.util.com.google.common.base.Preconditions;
-
-import me.cybermaxke.elementarrows.common.inventory.Inventory;
+import me.cybermaxke.elementarrows.common.item.inventory.Inventory;
 
 public class FInventory implements Inventory {
 	public final IInventory inventory;
@@ -47,7 +45,7 @@ public class FInventory implements Inventory {
 	}
 
 	@Override
-	public void setAt(int index, me.cybermaxke.elementarrows.common.inventory.ItemStack itemStack) {
+	public void setAt(int index, me.cybermaxke.elementarrows.common.item.inventory.ItemStack itemStack) {
 		ItemStack itemStack0 = null;
 
 		if (itemStack != null) {
@@ -58,8 +56,8 @@ public class FInventory implements Inventory {
 	}
 
 	@Override
-	public me.cybermaxke.elementarrows.common.inventory.ItemStack[] getContents() {
-		me.cybermaxke.elementarrows.common.inventory.ItemStack[] itemStacks = new me.cybermaxke.elementarrows.common.inventory.ItemStack[this.inventory.getSize()];
+	public me.cybermaxke.elementarrows.common.item.inventory.ItemStack[] getContents() {
+		me.cybermaxke.elementarrows.common.item.inventory.ItemStack[] itemStacks = new me.cybermaxke.elementarrows.common.item.inventory.ItemStack[this.inventory.getSize()];
 
 		for (int i = 0; i < itemStacks.length; i++) {
 			itemStacks[i] = this.getAt(i);
@@ -76,7 +74,7 @@ public class FInventory implements Inventory {
 	}
 
 	@Override
-	public me.cybermaxke.elementarrows.common.inventory.ItemStack add(me.cybermaxke.elementarrows.common.inventory.ItemStack itemStack) {
+	public me.cybermaxke.elementarrows.common.item.inventory.ItemStack add(me.cybermaxke.elementarrows.common.item.inventory.ItemStack itemStack) {
 		Preconditions.checkNotNull(itemStack);
 		ItemStack itemStack0 = ((FItemStack) itemStack).itemStack;
 

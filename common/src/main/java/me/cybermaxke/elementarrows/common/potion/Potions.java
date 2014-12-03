@@ -37,6 +37,7 @@ public class Potions {
 	 * @param internalId the internal id
 	 * @return the potion type
 	 */
+	@Deprecated
 	public static PotionType typeById(int internalId) {
 		return factory.typeById(internalId);
 	}

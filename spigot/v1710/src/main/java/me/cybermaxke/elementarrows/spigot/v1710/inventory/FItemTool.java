@@ -16,9 +16,15 @@
  * You should have received a copy of the GNU General Public License
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  */
-package me.cybermaxke.elementarrows.common.inventory;
+package me.cybermaxke.elementarrows.spigot.v1710.inventory;
 
-public class ItemTypes {
-	public static final String Arrow = "minecraft:arrow";
-	public static final String Bow   = "minecraft:bow";
+import net.minecraft.server.v1_7_R4.Item;
+import me.cybermaxke.elementarrows.common.item.type.ItemTool;
+
+public class FItemTool extends FItemType implements ItemTool {
+
+	public FItemTool(Item item) {
+		super(item);
+	}
+
 }

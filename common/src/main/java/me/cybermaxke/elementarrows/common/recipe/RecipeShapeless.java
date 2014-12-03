@@ -20,7 +20,7 @@ package me.cybermaxke.elementarrows.common.recipe;
 
 import java.util.List;
 
-import me.cybermaxke.elementarrows.common.inventory.ItemStack;
+import me.cybermaxke.elementarrows.common.item.inventory.ItemStack;
 
 public interface RecipeShapeless extends Recipe {
 

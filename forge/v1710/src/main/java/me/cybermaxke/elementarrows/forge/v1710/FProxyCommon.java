@@ -24,12 +24,13 @@ import java.lang.reflect.Modifier;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-
 import me.cybermaxke.elementarrows.common.PluginBase;
+import me.cybermaxke.elementarrows.common.enchant.EnchantFactory;
+import me.cybermaxke.elementarrows.common.enchant.Enchants;
 import me.cybermaxke.elementarrows.common.entity.Entities;
 import me.cybermaxke.elementarrows.common.entity.EntityFactory;
-import me.cybermaxke.elementarrows.common.inventory.ItemFactory;
-import me.cybermaxke.elementarrows.common.inventory.ItemStacks;
+import me.cybermaxke.elementarrows.common.item.ItemFactory;
+import me.cybermaxke.elementarrows.common.item.Items;
 import me.cybermaxke.elementarrows.common.locale.LocaleRegistry;
 import me.cybermaxke.elementarrows.common.locale.Locales;
 import me.cybermaxke.elementarrows.common.potion.PotionFactory;
@@ -39,6 +40,7 @@ import me.cybermaxke.elementarrows.common.recipe.Recipes;
 import me.cybermaxke.elementarrows.common.world.WorldManager;
 import me.cybermaxke.elementarrows.common.world.Worlds;
 import me.cybermaxke.elementarrows.forge.v1710.dispenser.DispenseElementArrow;
+import me.cybermaxke.elementarrows.forge.v1710.enchant.FEnchantFactory;
 import me.cybermaxke.elementarrows.forge.v1710.entity.EntityElementArrow;
 import me.cybermaxke.elementarrows.forge.v1710.entity.EntityElementArrowListener;
 import me.cybermaxke.elementarrows.forge.v1710.entity.EntityRegistry;
@@ -57,6 +59,7 @@ import me.cybermaxke.elementarrows.forge.v1710.util.Fields;
 import me.cybermaxke.elementarrows.forge.v1710.world.FWorldManager;
 
 public class FProxyCommon implements FProxy {
+	public static FEnchantFactory enchants;
 	public static FPotionFactory potions;
 	public static FRecipeFactory recipes;
 	public static FLocaleRegistry locales;
@@ -82,18 +85,20 @@ public class FProxyCommon implements FProxy {
 		items = new FItemFactory();
 
 		try {
+			enchants = new FEnchantFactory();
 			potions = new FPotionFactory();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		try {
+			setFactoryInstance(Enchants.class, EnchantFactory.class, enchants);
 			setFactoryInstance(Locales.class, LocaleRegistry.class, locales);
 			setFactoryInstance(Recipes.class, RecipeFactory.class, recipes);
 			setFactoryInstance(Entities.class, EntityFactory.class, entities);
 			setFactoryInstance(Potions.class, PotionFactory.class, potions);
 			setFactoryInstance(Worlds.class, WorldManager.class, worlds);
-			setFactoryInstance(ItemStacks.class, ItemFactory.class, items);
+			setFactoryInstance(Items.class, ItemFactory.class, items);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

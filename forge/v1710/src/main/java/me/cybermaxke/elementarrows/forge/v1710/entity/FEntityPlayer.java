@@ -20,8 +20,7 @@ package me.cybermaxke.elementarrows.forge.v1710.entity;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-
-import me.cybermaxke.elementarrows.common.inventory.Inventory;
+import me.cybermaxke.elementarrows.common.item.inventory.Inventory;
 import me.cybermaxke.elementarrows.common.math.Vector;
 import me.cybermaxke.elementarrows.forge.v1710.inventory.FInventory;
 

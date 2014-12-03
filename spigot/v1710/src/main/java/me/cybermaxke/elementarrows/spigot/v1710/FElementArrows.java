@@ -23,10 +23,11 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 import me.cybermaxke.elementarrows.common.PluginBase;
+import me.cybermaxke.elementarrows.common.enchant.EnchantFactory;
+import me.cybermaxke.elementarrows.common.enchant.Enchants;
 import me.cybermaxke.elementarrows.common.entity.Entities;
 import me.cybermaxke.elementarrows.common.entity.EntityFactory;
-import me.cybermaxke.elementarrows.common.inventory.ItemFactory;
-import me.cybermaxke.elementarrows.common.inventory.ItemStacks;
+import me.cybermaxke.elementarrows.common.item.ItemFactory;
 import me.cybermaxke.elementarrows.common.locale.LocaleRegistry;
 import me.cybermaxke.elementarrows.common.locale.Locales;
 import me.cybermaxke.elementarrows.common.potion.PotionFactory;
@@ -36,6 +37,7 @@ import me.cybermaxke.elementarrows.common.recipe.Recipes;
 import me.cybermaxke.elementarrows.common.world.WorldManager;
 import me.cybermaxke.elementarrows.common.world.Worlds;
 import me.cybermaxke.elementarrows.spigot.v1710.dispenser.DispenseElementArrow;
+import me.cybermaxke.elementarrows.spigot.v1710.enchant.FEnchantFactory;
 import me.cybermaxke.elementarrows.spigot.v1710.entity.EntityElementArrow;
 import me.cybermaxke.elementarrows.spigot.v1710.entity.EntityElementArrowListener;
 import me.cybermaxke.elementarrows.spigot.v1710.entity.EntityRegistry;
@@ -51,7 +53,6 @@ import me.cybermaxke.elementarrows.spigot.v1710.potion.FPotionFactory;
 import me.cybermaxke.elementarrows.spigot.v1710.recipe.FRecipeFactory;
 import me.cybermaxke.elementarrows.spigot.v1710.util.Fields;
 import me.cybermaxke.elementarrows.spigot.v1710.world.FWorldManager;
-
 import net.minecraft.server.v1_7_R4.BlockDispenser;
 import net.minecraft.server.v1_7_R4.Item;
 import net.minecraft.server.v1_7_R4.Items;
@@ -59,6 +60,7 @@ import net.minecraft.server.v1_7_R4.Items;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class FElementArrows extends JavaPlugin {
+	public static FEnchantFactory enchants;
 	public static FLocaleRegistry locales;
 	public static FRecipeFactory recipes;
 	public static FEntityFactory entities;
@@ -84,18 +86,20 @@ public class FElementArrows extends JavaPlugin {
 		items = new FItemFactory();
 
 		try {
+			enchants = new FEnchantFactory();
 			potions = new FPotionFactory();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		try {
+			setFactoryInstance(Enchants.class, EnchantFactory.class, enchants);
 			setFactoryInstance(Locales.class, LocaleRegistry.class, locales);
 			setFactoryInstance(Recipes.class, RecipeFactory.class, recipes);
 			setFactoryInstance(Entities.class, EntityFactory.class, entities);
 			setFactoryInstance(Potions.class, PotionFactory.class, potions);
 			setFactoryInstance(Worlds.class, WorldManager.class, worlds);
-			setFactoryInstance(ItemStacks.class, ItemFactory.class, items);
+			setFactoryInstance(me.cybermaxke.elementarrows.common.item.Items.class, ItemFactory.class, items);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -24,12 +24,11 @@ import java.util.Map.Entry;
 
 import com.google.common.base.Preconditions;
 
-import me.cybermaxke.elementarrows.common.inventory.ItemStack;
+import me.cybermaxke.elementarrows.common.item.inventory.ItemStack;
 import me.cybermaxke.elementarrows.common.recipe.Recipe;
 import me.cybermaxke.elementarrows.common.recipe.RecipeShaped;
 import me.cybermaxke.elementarrows.common.recipe.RecipeShapeless;
 import me.cybermaxke.elementarrows.forge.v1710.inventory.FItemStack;
-
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;

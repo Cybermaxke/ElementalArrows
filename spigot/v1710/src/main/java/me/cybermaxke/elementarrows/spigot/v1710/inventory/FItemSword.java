@@ -16,24 +16,15 @@
  * You should have received a copy of the GNU General Public License
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  */
-package me.cybermaxke.elementarrows.common.entity;
+package me.cybermaxke.elementarrows.spigot.v1710.inventory;
 
-import me.cybermaxke.elementarrows.common.item.inventory.Inventory;
+import net.minecraft.server.v1_7_R4.Item;
+import me.cybermaxke.elementarrows.common.item.type.ItemWeapon;
 
-public interface EntityPlayer extends EntityLiving {
+public class FItemSword extends FItemType implements ItemWeapon {
 
-	/**
-	 * Gets the main inventory of the player.
-	 * 
-	 * @return the inventory
-	 */
-	Inventory getInventory();
-
-	/**
-	 * Gets whether the player the client mod installed has.
-	 * 
-	 * @return has client
-	 */
-	boolean hasClient();
+	public FItemSword(Item item) {
+		super(item);
+	}
 
 }
