@@ -165,11 +165,6 @@ public class EntityElementArrow extends EntityArrow {
 		if (arrow != null) {
 			arrow.handle(new EventEntityTick(wrapper));
 		}
-		if (this.worldObj.isRemote) {
-			//System.out.print("\n1111111111111DDDDDDDDDDDDDDEEEEEEEEEEEBBBBBBug");
-		} else {
-			//System.out.print("\n222222222222DDDDDDDDDDDDDDEEEEEEEEEEEBBBBBBug");
-		}
 	}
 
 	/**

@@ -21,7 +21,6 @@ package me.cybermaxke.elementarrows.spigot.v1710.dispenser;
 import org.bukkit.block.Block;
 import org.bukkit.event.block.BlockDispenseEvent;
 import org.bukkit.util.Vector;
-
 import org.bukkit.craftbukkit.v1_7_R4.inventory.CraftItemStack;
 
 import net.minecraft.server.v1_7_R4.BlockDispenser;
@@ -33,14 +32,13 @@ import net.minecraft.server.v1_7_R4.IProjectile;
 import net.minecraft.server.v1_7_R4.ISourceBlock;
 import net.minecraft.server.v1_7_R4.ItemStack;
 import net.minecraft.server.v1_7_R4.World;
-
 import me.cybermaxke.elementarrows.common.arrow.Arrows;
 import me.cybermaxke.elementarrows.common.arrow.ElementArrow;
 import me.cybermaxke.elementarrows.common.arrow.event.EventEntityBuild;
 import me.cybermaxke.elementarrows.common.arrow.event.EventEntityShot;
+import me.cybermaxke.elementarrows.common.block.BlockFace;
 import me.cybermaxke.elementarrows.common.math.Vectors;
 import me.cybermaxke.elementarrows.common.source.SourceBlock;
-import me.cybermaxke.elementarrows.common.source.SourceBlock.Face;
 import me.cybermaxke.elementarrows.spigot.v1710.entity.EntityElementArrow;
 import me.cybermaxke.elementarrows.spigot.v1710.entity.FEntityArrow;
 import me.cybermaxke.elementarrows.spigot.v1710.world.FWorld;
@@ -64,7 +62,7 @@ public class DispenseElementArrow extends DispenseBehaviorProjectile {
 			EnumFacing face = BlockDispenser.b(source.h());
 
 			me.cybermaxke.elementarrows.common.math.Vector pos0 = Vectors.of(pos.getX(), pos.getY(), pos.getZ());
-			Face face0 = this.convert(face);
+			BlockFace face0 = this.convert(face);
 
 			SourceBlock source0 = new SourceBlock(wrapper0, pos0, face0);
 
@@ -146,20 +144,20 @@ public class DispenseElementArrow extends DispenseBehaviorProjectile {
 		return null;
 	}
 
-	Face convert(EnumFacing face) {
+	BlockFace convert(EnumFacing face) {
 		switch (face) {
 			case DOWN:
-				return Face.Down;
+				return BlockFace.Down;
 			case EAST:
-				return Face.East;
+				return BlockFace.West;
 			case NORTH:
-				return Face.North;
+				return BlockFace.North;
 			case SOUTH:
-				return Face.South;
+				return BlockFace.South;
 			case UP:
-				return Face.Up;
+				return BlockFace.Up;
 			case WEST:
-				return Face.West;
+				return BlockFace.East;
 			default:
 				return null;
 		}

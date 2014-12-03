@@ -143,4 +143,34 @@ public interface World {
 	 */
 	void addEntity(Entity entity);
 
+	/**
+	 * Ray traces between the two positions and returns a moving object position as result.
+	 * 
+	 * @param start the start position
+	 * @param end the end position
+	 * @return the moving object position
+	 */
+	MovingObjectPosition rayTrace(Vector start, Vector end);
+
+	/**
+	 * Ray traces between the two positions and returns a moving object position as result.
+	 * 
+	 * @param start the start position
+	 * @param end the end position
+	 * @param liquid whether you want to check collision with liquid blocks
+	 * @return the moving object position
+	 */
+	MovingObjectPosition rayTrace(Vector start, Vector end, boolean liquid);
+
+	/**
+	 * Ray traces between the two positions and returns a moving object position as result.
+	 * 
+	 * @param start the start position
+	 * @param end the end position
+	 * @param liquid whether you want to check collision with liquid blocks
+	 * @param nonCollidable whether you want to check non collidable blocks
+	 * @return the moving object position
+	 */
+	MovingObjectPosition rayTrace(Vector start, Vector end, boolean liquid, boolean nonCollidable);
+
 }

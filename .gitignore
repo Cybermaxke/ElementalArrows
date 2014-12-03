@@ -84,7 +84,7 @@ nb-configuration.xml
 /forge/**/resourcepacks
 /forge/**/screenshots
 /forge/**/mods
-/forge/**/world
+#/forge/**/world
 /forge/**/world_nether
 /forge/**/world_the_end
 /forge/**/eula.txt
@@ -98,3 +98,9 @@ nb-configuration.xml
 /forge/**/banned-players.json
 /forge/**/banned-ips.json
 /forge/**/src/main/resources/assets
+/forge/**/world/*.dat
+/forge/**/world/*.dat_old
+/forge/**/world/*.lock
+/forge/**/world/*.dat_old
+/forge/**/world/*.mca
+/forge/**/world/*.json

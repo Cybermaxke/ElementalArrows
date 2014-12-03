@@ -16,21 +16,20 @@
  * You should have received a copy of the GNU General Public License
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  */
-package me.cybermaxke.elementarrows.spigot.v1710.world;
+package me.cybermaxke.elementarrows.forge.v1710.world;
 
 import java.util.Random;
 
-import net.minecraft.server.v1_7_R4.Block;
-import net.minecraft.server.v1_7_R4.Entity;
-import net.minecraft.server.v1_7_R4.MovingObjectPosition;
-import net.minecraft.server.v1_7_R4.Vec3D;
-import net.minecraft.server.v1_7_R4.World;
-
 import com.google.common.base.Preconditions;
 
+import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
+import net.minecraft.world.World;
 import me.cybermaxke.elementarrows.common.math.Vector;
-import me.cybermaxke.elementarrows.spigot.v1710.FElementArrows;
-import me.cybermaxke.elementarrows.spigot.v1710.entity.FEntity;
+import me.cybermaxke.elementarrows.forge.v1710.FProxyCommon;
+import me.cybermaxke.elementarrows.forge.v1710.entity.FEntity;
 
 public class FWorld implements me.cybermaxke.elementarrows.common.world.World {
 	public final FWorldLightning lightning = new FWorldLightning();
@@ -40,19 +39,17 @@ public class FWorld implements me.cybermaxke.elementarrows.common.world.World {
 	 */
 	public World world;
 
-	/**
-	 * The name of the world.
-	 */
-	public String name;
-
 	public FWorld(World world) {
 		this.world = world;
-		this.name = world.getWorld().getName();
 	}
 
 	@Override
 	public void spawnLightning(Vector position, boolean placeFire) {
 		Preconditions.checkNotNull(position);
+
+		if (this.world.isRemote) {
+			return;
+		}
 
 		double x = position.getX();
 		double y = position.getY();
@@ -74,7 +71,7 @@ public class FWorld implements me.cybermaxke.elementarrows.common.world.World {
 		int y = position.getBlockY();
 		int z = position.getBlockZ();
 
-		return this.world.isEmpty(x, y, z);
+		return this.world.isAirBlock(x, y, z);
 	}
 
 	@Override
@@ -85,7 +82,7 @@ public class FWorld implements me.cybermaxke.elementarrows.common.world.World {
 		int y = position.getBlockY();
 		int z = position.getBlockZ();
 
-		return Block.REGISTRY.c(this.world.getType(x, y, z));
+		return Block.blockRegistry.getNameForObject(this.world.getBlock(x, y, z));
 	}
 
 	@Override
@@ -93,7 +90,7 @@ public class FWorld implements me.cybermaxke.elementarrows.common.world.World {
 		Preconditions.checkNotNull(position);
 		Preconditions.checkNotNull(type);
 
-		Block block = (Block) Block.REGISTRY.get(type);
+		Block block = (Block) Block.blockRegistry.getObject(type);
 
 		if (block ==  null) {
 			throw new IllegalArgumentException("Unknown block type! (" + type + ")");
@@ -103,7 +100,7 @@ public class FWorld implements me.cybermaxke.elementarrows.common.world.World {
 		int y = position.getBlockY();
 		int z = position.getBlockZ();
 
-		this.world.setTypeAndData(x, y, z, block, data, flags);
+		this.world.setBlock(x, y, z, block, data, flags);
 	}
 
 	@Override
@@ -115,34 +112,41 @@ public class FWorld implements me.cybermaxke.elementarrows.common.world.World {
 	public void addEntity(me.cybermaxke.elementarrows.common.entity.Entity entity) {
 		Preconditions.checkNotNull(entity);
 
-		this.world.addEntity(((FEntity<?>) entity).entity);
+		if (!this.world.isRemote) {
+			this.world.spawnEntityInWorld(((FEntity<?>) entity).entity);
+		}
 	}
 
 	@Override
 	public String getName() {
-		return this.world.getWorld().getName();
+		return FWorldManager.getFixedName(this.world);
 	}
 
 	@Override
 	public boolean isRemote() {
-		return this.world.isStatic;
+		return this.world.isRemote;
 	}
 
 	@Override
 	public Random getRandom() {
-		return this.world.random;
+		return this.world.rand;
 	}
 
 	@Override
 	public void createExplosion(Vector position, float power, boolean placeFire, boolean destroyBlocks, me.cybermaxke.elementarrows.common.entity.Entity source) {
 		Preconditions.checkNotNull(position);
+
+		if (this.world.isRemote) {
+			return;
+		}
+
 		Entity source0 = source == null ? null : ((FEntity) source).entity;
 
 		double x = position.getX();
 		double y = position.getY();
 		double z = position.getZ();
 
-		this.world.createExplosion(source0, x, y, z, power, placeFire, destroyBlocks);
+		this.world.newExplosion(source0, x, y, z, power, placeFire, destroyBlocks);
 	}
 
 	@Override
@@ -165,10 +169,10 @@ public class FWorld implements me.cybermaxke.elementarrows.common.world.World {
 		Preconditions.checkNotNull(start);
 		Preconditions.checkNotNull(end);
 
-		Vec3D start0 = Vec3D.a(start.getX(), start.getY(), start.getZ());
-		Vec3D end0 = Vec3D.a(end.getX(), end.getY(), end.getZ());
+		Vec3 start0 = Vec3.createVectorHelper(start.getX(), start.getY(), start.getZ());
+		Vec3 end0 = Vec3.createVectorHelper(end.getX(), end.getY(), end.getZ());
 
-		MovingObjectPosition mop = this.world.rayTrace(start0, end0, liquid, !nonCollidable, false);
+		MovingObjectPosition mop = this.world.func_147447_a(start0, end0, liquid, !nonCollidable, false);
 
 		if (mop != null) {
 			return new FMovingObjectPosition(this, mop);
@@ -184,7 +188,7 @@ public class FWorld implements me.cybermaxke.elementarrows.common.world.World {
 	 * @return the world
 	 */
 	public static FWorld of(World world) {
-		return FElementArrows.worlds.of(world);
+		return FProxyCommon.worlds.of(world);
 	}
 
 }

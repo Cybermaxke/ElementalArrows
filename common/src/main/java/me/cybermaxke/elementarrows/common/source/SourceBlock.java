@@ -18,14 +18,14 @@
  */
 package me.cybermaxke.elementarrows.common.source;
 
+import me.cybermaxke.elementarrows.common.block.BlockFace;
 import me.cybermaxke.elementarrows.common.math.Vector;
-import me.cybermaxke.elementarrows.common.math.Vectors;
 import me.cybermaxke.elementarrows.common.world.World;
 
 public class SourceBlock implements Source {
 	private final Vector position;
 	private final World world;
-	private final Face face;
+	private final BlockFace face;
 
 	/**
 	 * Creates a new block source.
@@ -34,7 +34,7 @@ public class SourceBlock implements Source {
 	 * @param position the block position
 	 * @param face the block face
 	 */
-	public SourceBlock(World world, Vector position, Face face) {
+	public SourceBlock(World world, Vector position, BlockFace face) {
 		this.position = position;
 		this.world = world;
 		this.face = face;
@@ -63,56 +63,8 @@ public class SourceBlock implements Source {
 	 * 
 	 * @return the face
 	 */
-	public Face getFace() {
+	public BlockFace getFace() {
 		return this.face;
 	}
 
-	public enum Face {
-		North	( 0,  0, -1),
-		South	( 0,  0,  1),
-		East	(-1,  0,  0),
-		West	( 1,  0,  0),
-		Down	( 0, -1,  0),
-		Up		( 0,  1,  0);
-
-		/**
-		 * Gets the direction of the face. (The direction vector a block would dispense.)
-		 */
-		private Vector direction;
-		private Face opposite;
-
-		Face(double x, double y, double z) {
-			this.direction = Vectors.of(x, y, z);
-		}
-
-		/**
-		 * Gets the opposite face.
-		 * 
-		 * @return the face
-		 */
-		public Face getOpposite() {
-			return this.opposite;
-		}
-
-		/**
-		 * Gets the direction vector of this face.
-		 * 
-		 * @return the direction
-		 */
-		public Vector getDirection() {
-			return this.direction;
-		}
-
-		static void setOpposite(Face face0, Face face1) {
-			face0.opposite = face1;
-			face1.opposite = face0;
-		}
-
-		static {
-			Face.setOpposite(Face.North, Face.South);
-			Face.setOpposite(Face.East, Face.West);
-			Face.setOpposite(Face.Down, Face.Up);
-		}
-
-	}
 }
