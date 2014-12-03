@@ -42,4 +42,19 @@ public interface EntityFactory {
 	 */
 	<T extends Entity> T create(Class<T> entity, World world);
 
+	/**
+	 * Adds a entity tick handler to the factory.
+	 * 
+	 * @param handler the handler
+	 */
+	void addTickHandler(EntityTickHandler handler);
+
+	/**
+	 * Removed a entity tick handler to the factory and returns whether it is removed.
+	 * 
+	 * @param handler the handler
+	 * @return whether it is removed
+	 */
+	boolean removeTickHandler(EntityTickHandler handler);
+
 }

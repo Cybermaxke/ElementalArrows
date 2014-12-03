@@ -18,13 +18,23 @@
  */
 package me.cybermaxke.elementarrows.common.entity;
 
-import me.cybermaxke.elementarrows.common.entity.property.Property;
-import me.cybermaxke.elementarrows.common.entity.property.PropertyMap;
+import java.util.UUID;
+
 import me.cybermaxke.elementarrows.common.math.Vector;
+import me.cybermaxke.elementarrows.common.property.Property;
+import me.cybermaxke.elementarrows.common.property.PropertyMap;
 import me.cybermaxke.elementarrows.common.world.World;
 
 public interface Entity {
 	public static final Property<Boolean> Frozen = Property.of("frozen", false);
+	public static final Property<Boolean> FrozenMovement = Property.of("frozenMovement", false);
+
+	/**
+	 * Gets the unique id of the entity.
+	 * 
+	 * @return the unique id
+	 */
+	UUID getUniqueId();
 
 	/**
 	 * Gets how many ticks the entity has lived.

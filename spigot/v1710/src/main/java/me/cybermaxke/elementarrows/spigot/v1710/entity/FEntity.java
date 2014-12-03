@@ -18,6 +18,8 @@
  */
 package me.cybermaxke.elementarrows.spigot.v1710.entity;
 
+import java.util.UUID;
+
 import org.bukkit.Location;
 
 import net.minecraft.server.v1_7_R4.Entity;
@@ -25,10 +27,10 @@ import net.minecraft.server.v1_7_R4.World;
 
 import com.google.common.base.Preconditions;
 
-import me.cybermaxke.elementarrows.common.entity.property.DirtyPropertyMap;
-import me.cybermaxke.elementarrows.common.entity.property.PropertyMap;
 import me.cybermaxke.elementarrows.common.math.Vector;
 import me.cybermaxke.elementarrows.common.math.Vectors;
+import me.cybermaxke.elementarrows.common.property.DirtyPropertyMap;
+import me.cybermaxke.elementarrows.common.property.PropertyMap;
 import me.cybermaxke.elementarrows.spigot.v1710.FElementArrows;
 import me.cybermaxke.elementarrows.spigot.v1710.world.FWorld;
 
@@ -38,6 +40,11 @@ public class FEntity<T extends Entity> implements me.cybermaxke.elementarrows.co
 
 	public FEntity(T entity) {
 		this.entity = entity;
+	}
+
+	@Override
+	public UUID getUniqueId() {
+		return this.entity.getUniqueID();
 	}
 
 	@Override

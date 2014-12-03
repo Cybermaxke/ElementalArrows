@@ -47,4 +47,23 @@ public class Entities {
 		return factory.create(entity, world);
 	}
 
+	/**
+	 * Adds a entity tick handler to the factory.
+	 * 
+	 * @param handler the handler
+	 */
+	public static void addTickHandler(EntityTickHandler handler) {
+		factory.addTickHandler(handler);
+	}
+
+	/**
+	 * Removed a entity tick handler to the factory and returns whether it is removed.
+	 * 
+	 * @param handler the handler
+	 * @return whether it is removed
+	 */
+	public static boolean removeTickHandler(EntityTickHandler handler) {
+		return factory.removeTickHandler(handler);
+	}
+
 }

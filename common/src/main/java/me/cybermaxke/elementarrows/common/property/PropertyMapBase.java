@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  */
-package me.cybermaxke.elementarrows.common.entity.property;
+package me.cybermaxke.elementarrows.common.property;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -43,7 +43,7 @@ public class PropertyMapBase implements PropertyMap {
 		Preconditions.checkNotNull(key);
 		String key0 = key.getKey();
 
-		if (this.map.containsKey(key)) {
+		if (this.map.containsKey(key0)) {
 			return (T) this.map.get(key0);
 		} else {
 			return key.getDefaultValue();

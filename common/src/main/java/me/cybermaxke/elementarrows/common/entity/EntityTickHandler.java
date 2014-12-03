@@ -16,21 +16,15 @@
  * You should have received a copy of the GNU General Public License
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  */
-package me.cybermaxke.elementarrows.common.entity.property;
+package me.cybermaxke.elementarrows.common.entity;
 
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
+public interface EntityTickHandler {
 
-public class PropertyHashMap extends PropertyMapBase {
-	protected final static long serialVersionUID = -306758799226718613L;
-
-	public PropertyHashMap(Map<String, Serializable> map) {
-		super(new HashMap<String, Serializable>(map));
-	}
-
-	public PropertyHashMap() {
-		super(new HashMap<String, Serializable>());
-	}
+	/**
+	 * Handles a entity tick.
+	 * 
+	 * @param entity the entity
+	 */
+	void handle(Entity entity);
 
 }

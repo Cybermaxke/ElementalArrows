@@ -26,6 +26,7 @@ import me.cybermaxke.elementarrows.common.arrow.custom.ArrowDirt;
 import me.cybermaxke.elementarrows.common.arrow.custom.ArrowEgg;
 import me.cybermaxke.elementarrows.common.arrow.custom.ArrowEnderEye;
 import me.cybermaxke.elementarrows.common.arrow.custom.ArrowExplosion;
+import me.cybermaxke.elementarrows.common.arrow.custom.ArrowIce;
 import me.cybermaxke.elementarrows.common.arrow.custom.ArrowLightning;
 import me.cybermaxke.elementarrows.common.arrow.custom.ArrowPoison;
 import me.cybermaxke.elementarrows.common.arrow.custom.ArrowRazor;
@@ -48,6 +49,7 @@ public class PluginBase implements Plugin {
 		Arrows.register(8, new ArrowLightning());
 		Arrows.register(9, new ArrowPoison());
 		Arrows.register(10, new ArrowRazor());
+		Arrows.register(13, new ArrowIce());
 		Arrows.register(15, new ArrowDiamond());
 	}
 

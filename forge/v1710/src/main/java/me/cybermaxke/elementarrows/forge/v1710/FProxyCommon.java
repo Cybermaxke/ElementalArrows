@@ -74,6 +74,8 @@ public class FProxyCommon implements FProxy {
 	@Override
 	public void onInit() {
 		entities = this.newEntities();
+		entities.onInit();
+
 		worlds = new FWorldManager();
 		recipes = new FRecipeFactory();
 		locales = new FLocaleRegistry();

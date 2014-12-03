@@ -57,8 +57,6 @@ public class ItemBow extends net.minecraft.item.ItemBow {
 	public void onPlayerStoppedUsing(ItemStack bow, World world, EntityPlayer player, int charge) {
 		charge = this.getMaxItemUseDuration(bow) - charge;
 
-		System.out.print("\n" + (world.isRemote ? "client" : "server") + " debug:");
-
 		ArrowLooseEvent event = new ArrowLooseEvent(player, bow, charge);
 		MinecraftForge.EVENT_BUS.post(event);
 		if (event.isCanceled()) {
@@ -71,15 +69,12 @@ public class ItemBow extends net.minecraft.item.ItemBow {
 		 */
 		ItemStack arrow = this.findFirstArrow(player.inventory);
 
-		System.out.print("\n" + (world.isRemote ? "client" : "server") + " debug: 1");
-
 		/**
 		 * Flag to make the arrows not retrievable after hitting the ground.
 		 */
 		boolean flag = player.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, bow) > 0;
 
 		if (flag || arrow != null) {
-			System.out.print("\n" + (world.isRemote ? "client" : "server") + " debug: 2");
 			ElementArrow arrow0 = null;
 
 			if (arrow != null) {
@@ -93,8 +88,6 @@ public class ItemBow extends net.minecraft.item.ItemBow {
 				return;
 			}
 
-			System.out.print("\n" + (world.isRemote ? "client" : "server") + " debug: 3");
-
 			if (power > 1f) {
 				power = 1f;
 			}
@@ -107,8 +100,6 @@ public class ItemBow extends net.minecraft.item.ItemBow {
 				EventEntityBuild event0 = new EventEntityBuild(source, charge / 72000f, power);
 				arrow0.handle(event0);
 
-				System.out.print("\n" + (world.isRemote ? "client" : "server") + " debug: 4");
-
 				entity1 = (FEntityArrow) event0.getEntity();
 
 				if (entity1 == null) {
@@ -119,7 +110,6 @@ public class ItemBow extends net.minecraft.item.ItemBow {
 					entity0.source = source;
 				}
 			} else {
-				System.out.print("\n" + (world.isRemote ? "client" : "server") + " debug: 4+");
 				entity0 = new EntityElementArrow(world, player, power * 2f);
 				entity0.source = source;
 			}
@@ -158,7 +148,6 @@ public class ItemBow extends net.minecraft.item.ItemBow {
 			}
 
 			if (!world.isRemote) {
-				System.out.print("\n" + (world.isRemote ? "client" : "server") + " debug: 5");
 				world.spawnEntityInWorld(entity0);
 			}
 		}

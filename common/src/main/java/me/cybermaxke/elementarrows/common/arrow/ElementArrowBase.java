@@ -75,12 +75,6 @@ public class ElementArrowBase implements ElementArrow {
 			if (source0 instanceof EntityLiving) {
 				arrow.setHeading((EntityLiving) source0, event.getPower() * 2.25f, 1f);
 			}
-
-			if (source0.getWorld().isRemote()) {
-				System.out.print("\nDEBUG1");
-			} else {
-				System.out.print("\nDEBUG2"); // WHY IS THIS NOT CALLED? :(
-			}
 		} else if (source instanceof SourceBlock) {
 			SourceBlock source0 = (SourceBlock) source;
 

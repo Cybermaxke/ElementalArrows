@@ -97,7 +97,7 @@ public class DispenseElementArrow extends DispenseBehaviorProjectile {
 		}
 
 		CraftItemStack itemStack0 = CraftItemStack.asCraftMirror(itemStack).clone();
-	    Block block = world.getWorld().getBlockAt(source.getBlockX(), source.getBlockY(), source.getBlockZ());
+		Block block = world.getWorld().getBlockAt(source.getBlockX(), source.getBlockY(), source.getBlockZ());
 		BlockDispenseEvent event = new BlockDispenseEvent(block, itemStack0, new Vector(arrow.motX, arrow.motY, arrow.motZ));
 
 		if (!BlockDispenser.eventFired) {

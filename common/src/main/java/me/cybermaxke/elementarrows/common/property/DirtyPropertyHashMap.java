@@ -16,18 +16,20 @@
  * You should have received a copy of the GNU General Public License
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  */
-package me.cybermaxke.elementarrows.common.entity.property;
+package me.cybermaxke.elementarrows.common.property;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 import com.google.common.base.Preconditions;
 
 public class DirtyPropertyHashMap extends PropertyHashMap implements DirtyPropertyMap {
 	private final static long serialVersionUID = 4065133922738223781L;
-	private final transient Map<String, Boolean> dirty = new HashMap<String, Boolean>();
+	private final transient Set<String> dirty = new HashSet<String>();
 
 	public DirtyPropertyHashMap(Map<String, Serializable> map) {
 		super(map);
@@ -40,13 +42,13 @@ public class DirtyPropertyHashMap extends PropertyHashMap implements DirtyProper
 	@Override
 	public <T extends Serializable> boolean isDirty(Property<T> key) {
 		Preconditions.checkNotNull(key);
-		return this.dirty.get(key.getKey());
+		return this.dirty.contains(key.getKey());
 	}
 
 	@Override
 	public <T extends Serializable> void setDirty(Property<T> key) {
 		Preconditions.checkNotNull(key);
-		this.dirty.put(key.getKey(), true);
+		this.dirty.add(key.getKey());
 	}
 
 	@Override
@@ -59,7 +61,7 @@ public class DirtyPropertyHashMap extends PropertyHashMap implements DirtyProper
 	public <T extends Serializable> T set(Property<T> key, T value) {
 		T old = super.set(key, value);
 		if (!Objects.deepEquals(old, value)) {
-			this.dirty.put(key.getKey(), true);
+			this.dirty.add(key.getKey());
 		}
 		return old;
 	}
@@ -68,7 +70,7 @@ public class DirtyPropertyHashMap extends PropertyHashMap implements DirtyProper
 	public <T extends Serializable> T setIfAbsent(Property<T> key, T value) {
 		String key0 = key.getKey();
 		if (!this.map.containsKey(key0)) {
-			this.dirty.put(key0, true);
+			this.dirty.add(key0);
 		}
 		return super.set(key, value);
 	}
@@ -77,7 +79,7 @@ public class DirtyPropertyHashMap extends PropertyHashMap implements DirtyProper
 	public <T extends Serializable> boolean remove(Property<T> key) {
 		boolean flag = super.remove(key);
 		if (flag) {
-			this.dirty.put(key.getKey(), true);
+			this.dirty.add(key.getKey());
 		}
 		return flag;
 	}
@@ -85,7 +87,7 @@ public class DirtyPropertyHashMap extends PropertyHashMap implements DirtyProper
 	@Override
 	public Map<String, Serializable> getDirtyMap() {
 		Map<String, Serializable> map = new HashMap<String, Serializable>();
-		for (String key : this.dirty.keySet()) {
+		for (String key : this.dirty) {
 			map.put(key, (Serializable) this.map.get(key));
 		}
 		return map;

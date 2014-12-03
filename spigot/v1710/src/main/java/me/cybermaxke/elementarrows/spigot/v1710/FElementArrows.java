@@ -75,9 +75,11 @@ public class FElementArrows extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
+		entities = new FEntityFactory();
+		entities.onInit(this);
+
 		locales = new FLocaleRegistry();
 		recipes = new FRecipeFactory();
-		entities = new FEntityFactory();
 		worlds = new FWorldManager();
 		items = new FItemFactory();
 

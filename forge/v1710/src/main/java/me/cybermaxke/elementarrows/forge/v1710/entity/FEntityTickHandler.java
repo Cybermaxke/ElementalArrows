@@ -32,7 +32,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import me.cybermaxke.elementarrows.common.util.MapSerializer;
 import me.cybermaxke.elementarrows.forge.v1710.util.Fields;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityTracker;
 import net.minecraft.entity.EntityTrackerEntry;
@@ -44,10 +43,8 @@ import net.minecraft.util.IntHashMap;
 import net.minecraft.world.IWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.WorldEvent;
-
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class FEntityTickHandler implements IWorldAccess {
@@ -67,7 +64,7 @@ public class FEntityTickHandler implements IWorldAccess {
 	}
 
 	@SubscribeEvent
-	public void onWorldInit(WorldEvent.Save event) {
+	public void onWorldInit(WorldEvent.Load event) {
 		World world = event.world;
 
 		if (world instanceof WorldServer) {
@@ -146,11 +143,8 @@ public class FEntityTickHandler implements IWorldAccess {
 
 		FEntityTrackerEntry entry0 = new FEntityTrackerEntry(entity, entry.blocksDistanceThreshold, entry.updateFrequency, velocity);
 
-		synchronized (entries) {
-			entries.remove(entry);
-			entries.add(entry0);
-		}
-
+		entries.remove(entry);
+		entries.add(entry0);
 		map.addKey(entity.getEntityId(), entry0);
 	}
 
@@ -207,6 +201,7 @@ public class FEntityTickHandler implements IWorldAccess {
 					Map<String, Serializable> map = entity.properties.getDirtyMapAndReset();
 
 					if (!map.isEmpty()) {
+						System.out.print("\ndebug22!!!!!");
 						try {
 							this.func_151261_b(this.toPacket(map));
 						} catch (IOException e) {

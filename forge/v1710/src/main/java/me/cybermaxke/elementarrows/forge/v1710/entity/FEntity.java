@@ -18,17 +18,18 @@
  */
 package me.cybermaxke.elementarrows.forge.v1710.entity;
 
+import java.util.UUID;
+
 import com.google.common.base.Preconditions;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-
-import me.cybermaxke.elementarrows.common.entity.property.DirtyPropertyHashMap;
-import me.cybermaxke.elementarrows.common.entity.property.DirtyPropertyMap;
-import me.cybermaxke.elementarrows.common.entity.property.PropertyMap;
 import me.cybermaxke.elementarrows.common.math.Vector;
 import me.cybermaxke.elementarrows.common.math.Vectors;
+import me.cybermaxke.elementarrows.common.property.DirtyPropertyHashMap;
+import me.cybermaxke.elementarrows.common.property.DirtyPropertyMap;
+import me.cybermaxke.elementarrows.common.property.PropertyMap;
 import me.cybermaxke.elementarrows.forge.v1710.FProxyCommon;
 import me.cybermaxke.elementarrows.forge.v1710.world.FWorld;
 
@@ -38,6 +39,11 @@ public class FEntity<T extends Entity> implements me.cybermaxke.elementarrows.co
 
 	public FEntity(T entity) {
 		this.entity = entity;
+	}
+
+	@Override
+	public UUID getUniqueId() {
+		return this.entity.getUniqueID();
 	}
 
 	@Override
