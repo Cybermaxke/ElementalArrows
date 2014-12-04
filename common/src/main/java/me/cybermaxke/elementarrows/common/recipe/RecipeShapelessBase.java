@@ -31,7 +31,7 @@ public class RecipeShapelessBase implements RecipeShapeless {
 	private final ItemStack result;
 	private final List<ItemStack> ingredients;
 
-	protected RecipeShapelessBase(ItemStack result, List<ItemStack> ingredients) {
+	public RecipeShapelessBase(ItemStack result, List<ItemStack> ingredients) {
 		Preconditions.checkNotNull(ingredients);
 		Preconditions.checkNotNull(result);
 		Preconditions.checkState(!ingredients.isEmpty());

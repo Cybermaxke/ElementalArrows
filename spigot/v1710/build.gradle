@@ -1,8 +1,6 @@
 buildscript {
 	repositories {
 		mavenCentral()
-
-		// The repo for the shade plugin
 		jcenter()
 	}
 	dependencies {
@@ -32,6 +30,7 @@ repositories {
 
 // Dependencies
 dependencies {
+	compile 'com.google.code.gson:gson:2.3.1'
 	compile project(':elementarrows-common')
 	compile files('lib/spigot-1.7.10.jar')
 }

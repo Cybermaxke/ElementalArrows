@@ -30,7 +30,7 @@ public class Items {
 	 * @param id the identifier
 	 * @return the item type
 	 */
-	public static ItemType find(String id) {
+	public static ItemType typeById(String id) {
 		return factory.typeById(id);
 	}
 
@@ -41,7 +41,7 @@ public class Items {
 	 * @return the item type
 	 */
 	@Deprecated
-	public static ItemType find(int internalId) {
+	public static ItemType typeById(int internalId) {
 		return factory.typeById(internalId);
 	}
 

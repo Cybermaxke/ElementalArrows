@@ -27,7 +27,7 @@ public class Blocks {
 	 * @param id the identifier
 	 * @return the block type
 	 */
-	public static BlockType find(String id) {
+	public static BlockType typeById(String id) {
 		return factory.typeById(id);
 	}
 
@@ -38,7 +38,7 @@ public class Blocks {
 	 * @return the block type
 	 */
 	@Deprecated
-	public static BlockType find(int internalId) {
+	public static BlockType typeById(int internalId) {
 		return factory.typeById(internalId);
 	}
 

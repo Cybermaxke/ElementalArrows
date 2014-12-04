@@ -29,6 +29,7 @@ import me.cybermaxke.elementarrows.common.entity.Entities;
 import me.cybermaxke.elementarrows.common.entity.Entity;
 import me.cybermaxke.elementarrows.common.entity.EntityLiving;
 import me.cybermaxke.elementarrows.common.entity.EntityTickHandler;
+import me.cybermaxke.elementarrows.common.json.JsonField;
 import me.cybermaxke.elementarrows.common.potion.PotionEffect;
 import me.cybermaxke.elementarrows.common.potion.PotionType;
 import me.cybermaxke.elementarrows.common.potion.Potions;
@@ -42,9 +43,13 @@ public class ArrowIce extends ElementArrowBase {
 	/**
 	 * The chance between a frozen entity or just one slown down.
 	 */
+	@JsonField("frozenChance")
 	private float frozenChance = 0.25f;
 
+	@JsonField("frozenPotionEffect")
 	private PotionEffect frozenPotionEffect = Potions.of(PotionType.Slowness, 100, 6);
+
+	@JsonField("slownPotionEffect")
 	private PotionEffect slownPotionEffect = Potions.of(PotionType.Slowness, 80, 0);
 
 	@Override

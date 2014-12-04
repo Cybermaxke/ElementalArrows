@@ -16,31 +16,21 @@
  * You should have received a copy of the GNU General Public License
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  */
-package me.cybermaxke.elementarrows.forge.v1710;
+package me.cybermaxke.elementarrows.common.json;
 
-import java.io.File;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-public interface FProxy {
-
-	/**
-	 * Called when the proxy gets pre initialized.
-	 * 
-	 * @param file the main folder
-	 */
-	void onPreInit(File file);
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+public @interface JsonField {
 
 	/**
-	 * Called when the proxy gets initialized.
+	 * Gets the name or path value of the json field.
 	 * 
-	 * @param file the main folder
+	 * @return the value
 	 */
-	void onInit(File file);
-
-	/**
-	 * Called when the proxy gets post initialized.
-	 * 
-	 * @param file the main folder
-	 */
-	void onPostInit(File file);
-
+	public String value();
 }

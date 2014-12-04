@@ -16,31 +16,11 @@
  * You should have received a copy of the GNU General Public License
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  */
-package me.cybermaxke.elementarrows.forge.v1710;
+package me.cybermaxke.elementarrows.common.json;
 
-import java.io.File;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonSerializer;
 
-public interface FProxy {
-
-	/**
-	 * Called when the proxy gets pre initialized.
-	 * 
-	 * @param file the main folder
-	 */
-	void onPreInit(File file);
-
-	/**
-	 * Called when the proxy gets initialized.
-	 * 
-	 * @param file the main folder
-	 */
-	void onInit(File file);
-
-	/**
-	 * Called when the proxy gets post initialized.
-	 * 
-	 * @param file the main folder
-	 */
-	void onPostInit(File file);
+public interface JsonSerial<T> extends JsonSerializer<T>, JsonDeserializer<T> {
 
 }

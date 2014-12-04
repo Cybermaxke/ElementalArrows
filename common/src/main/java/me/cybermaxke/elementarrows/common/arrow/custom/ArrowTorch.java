@@ -36,8 +36,8 @@ import me.cybermaxke.elementarrows.common.world.MovingObjectPosition;
 import me.cybermaxke.elementarrows.common.world.World;
 
 public class ArrowTorch extends ElementArrowBase {
-	private final BlockType torchType = Blocks.find("minecraft:torch");
-	private final BlockType airType = Blocks.find("minecraft:air");
+	private final BlockType torchType = Blocks.typeById("minecraft:torch");
+	private final BlockType airType = Blocks.typeById("minecraft:air");
 
 	@Override
 	public void handle(EventInitialize event) {

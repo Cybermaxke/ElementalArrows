@@ -18,6 +18,7 @@
  */
 package me.cybermaxke.elementarrows.forge.v1710;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
@@ -74,12 +75,12 @@ public class FProxyCommon implements FProxy {
 	private PluginBase plugin = new PluginBase();
 
 	@Override
-	public void onPreInit() {
-		this.plugin.onPreInit();
+	public void onPreInit(File file) {
+		this.plugin.onPreInit(file);
 	}
 
 	@Override
-	public void onInit() {
+	public void onInit(File file) {
 		entities = this.newEntities();
 		entities.onInit();
 
@@ -150,12 +151,12 @@ public class FProxyCommon implements FProxy {
 		 */
 		BlockDispenser.dispenseBehaviorRegistry.putObject(itemArrow, new DispenseElementArrow());
 
-		this.plugin.onInit();
+		this.plugin.onInit(file);
 	}
 
 	@Override
-	public void onPostInit() {
-		this.plugin.onPostInit();
+	public void onPostInit(File file) {
+		this.plugin.onPostInit(file);
 	}
 
 	/**

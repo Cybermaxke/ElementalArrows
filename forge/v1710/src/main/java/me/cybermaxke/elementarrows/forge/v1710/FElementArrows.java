@@ -18,6 +18,8 @@
  */
 package me.cybermaxke.elementarrows.forge.v1710;
 
+import java.io.File;
+
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -33,20 +35,22 @@ public class FElementArrows {
 			serverSide = "me.cybermaxke.elementarrows.forge.v1710.FProxyCommon"
 	)
 	static FProxy instance;
+	static File file;
 
 	@EventHandler
 	public void onPreInit(FMLPreInitializationEvent event) {
-		instance.onPreInit();
+		file = event.getSourceFile().getParentFile().getParentFile();
+		instance.onPreInit(file);
 	}
 
 	@EventHandler
 	public void onInit(FMLInitializationEvent event) {
-		instance.onInit();
+		instance.onInit(file);
 	}
 
 	@EventHandler
 	public void onPostInit(FMLPostInitializationEvent event) {
-		instance.onPostInit();
+		instance.onPostInit(file);
 	}
 
 }

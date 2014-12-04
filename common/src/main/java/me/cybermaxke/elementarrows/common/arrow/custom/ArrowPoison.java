@@ -23,11 +23,14 @@ import me.cybermaxke.elementarrows.common.arrow.event.EventEntityHitEntity;
 import me.cybermaxke.elementarrows.common.arrow.event.EventInitialize;
 import me.cybermaxke.elementarrows.common.entity.Entity;
 import me.cybermaxke.elementarrows.common.entity.EntityLiving;
+import me.cybermaxke.elementarrows.common.json.JsonField;
 import me.cybermaxke.elementarrows.common.potion.PotionEffect;
 import me.cybermaxke.elementarrows.common.potion.PotionType;
 import me.cybermaxke.elementarrows.common.potion.Potions;
 
 public class ArrowPoison extends ElementArrowBase {
+
+	@JsonField("poisonEffect")
 	private PotionEffect poisonEffect = Potions.of(PotionType.Poison, 70, 9);
 
 	@Override

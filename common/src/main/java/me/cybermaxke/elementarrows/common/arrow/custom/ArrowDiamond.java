@@ -23,9 +23,14 @@ import me.cybermaxke.elementarrows.common.arrow.event.EventEntityBuild;
 import me.cybermaxke.elementarrows.common.arrow.event.EventEntityShot;
 import me.cybermaxke.elementarrows.common.arrow.event.EventInitialize;
 import me.cybermaxke.elementarrows.common.entity.EntityArrow;
+import me.cybermaxke.elementarrows.common.json.JsonField;
 
 public class ArrowDiamond extends ElementArrowBase {
+
+	@JsonField("powerMultiplier")
 	private float powerMultiplier = 1.45f;
+
+	@JsonField("damageMultiplier")
 	private float damageMultiplier = 1.45f;
 
 	@Override

@@ -26,12 +26,15 @@ import me.cybermaxke.elementarrows.common.arrow.event.EventEntityHitGround;
 import me.cybermaxke.elementarrows.common.arrow.event.EventInitialize;
 import me.cybermaxke.elementarrows.common.entity.Entities;
 import me.cybermaxke.elementarrows.common.entity.EntityArrow;
+import me.cybermaxke.elementarrows.common.json.JsonField;
 import me.cybermaxke.elementarrows.common.math.Vector;
 import me.cybermaxke.elementarrows.common.math.Vectors;
 import me.cybermaxke.elementarrows.common.world.MovingObjectPosition;
 import me.cybermaxke.elementarrows.common.world.World;
 
 public class ArrowVolley extends ElementArrowBase {
+
+	@JsonField("amount")
 	private int amount = 7;
 
 	@Override

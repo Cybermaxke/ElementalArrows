@@ -18,6 +18,9 @@
  */
 package me.cybermaxke.elementarrows.common;
 
+import java.io.File;
+import java.io.IOException;
+
 import me.cybermaxke.elementarrows.common.arrow.Arrows;
 import me.cybermaxke.elementarrows.common.arrow.custom.ArrowBlindness;
 import me.cybermaxke.elementarrows.common.arrow.custom.ArrowDazing;
@@ -34,35 +37,42 @@ import me.cybermaxke.elementarrows.common.arrow.custom.ArrowRazor;
 import me.cybermaxke.elementarrows.common.arrow.custom.ArrowTorch;
 import me.cybermaxke.elementarrows.common.arrow.custom.ArrowVampiric;
 import me.cybermaxke.elementarrows.common.arrow.custom.ArrowVolley;
+import me.cybermaxke.elementarrows.common.json.Json;
 
 public class PluginBase implements Plugin {
 
 	@Override
-	public void onPreInit() {
+	public void onPreInit(File file) {
 
 	}
 
 	@Override
-	public void onInit() {
-		Arrows.register(1, new ArrowBlindness());
-		Arrows.register(2, new ArrowDazing());
-		Arrows.register(3, new ArrowDirt());
-		Arrows.register(4, new ArrowEgg());
-		Arrows.register(5, new ArrowEnderEye());
-		Arrows.register(6, new ArrowExplosion());
-		Arrows.register(7, new ArrowFire());
-		Arrows.register(8, new ArrowLightning());
-		Arrows.register(9, new ArrowPoison());
-		Arrows.register(10, new ArrowRazor());
-		Arrows.register(11, new ArrowVampiric());
-		Arrows.register(12, new ArrowVolley());
-		Arrows.register(13, new ArrowIce());
-		Arrows.register(14, new ArrowTorch());
-		Arrows.register(15, new ArrowDiamond());
+	public void onInit(File file) {
+		File folder = new File(file + File.separator + "plugins" + File.separator + "elementarrows");
+
+		try {
+			Arrows.register(1, Json.of(new File(folder, "arrowBlindness.json"), ArrowBlindness.class));
+			Arrows.register(2, Json.of(new File(folder, "arrowDazing.json"), ArrowDazing.class));
+			Arrows.register(3, Json.of(new File(folder, "arrowDirt.json"), ArrowDirt.class));
+			Arrows.register(4, Json.of(new File(folder, "arrowEgg.json"), ArrowEgg.class));
+			Arrows.register(5, Json.of(new File(folder, "arrowEnderEye.json"), ArrowEnderEye.class));
+			Arrows.register(6, Json.of(new File(folder, "arrowExplosion.json"), ArrowExplosion.class));
+			Arrows.register(7, Json.of(new File(folder, "arrowFire.json"), ArrowFire.class));
+			Arrows.register(8, Json.of(new File(folder, "arrowLightning.json"), ArrowLightning.class));
+			Arrows.register(9, Json.of(new File(folder, "arrowPoison.json"), ArrowPoison.class));
+			Arrows.register(10, Json.of(new File(folder, "arrowRazor.json"), ArrowRazor.class));
+			Arrows.register(11, Json.of(new File(folder, "arrowVampiric.json"), ArrowVampiric.class));
+			Arrows.register(12, Json.of(new File(folder, "arrowVolley.json"), ArrowVolley.class));
+			Arrows.register(13, Json.of(new File(folder, "arrowIce.json"), ArrowIce.class));
+			Arrows.register(14, Json.of(new File(folder, "arrowTorch.json"), ArrowTorch.class));
+			Arrows.register(15, Json.of(new File(folder, "arrowDiamond.json"), ArrowDiamond.class));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public void onPostInit() {
+	public void onPostInit(File file) {
 
 	}
 

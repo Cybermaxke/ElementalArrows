@@ -23,10 +23,13 @@ import me.cybermaxke.elementarrows.common.arrow.event.EventEntityHitEntity;
 import me.cybermaxke.elementarrows.common.arrow.event.EventEntityHitGround;
 import me.cybermaxke.elementarrows.common.arrow.event.EventInitialize;
 import me.cybermaxke.elementarrows.common.entity.EntityArrow;
+import me.cybermaxke.elementarrows.common.json.JsonField;
 import me.cybermaxke.elementarrows.common.math.Vector;
 import me.cybermaxke.elementarrows.common.world.World;
 
 public class ArrowLightning extends ElementArrowBase {
+
+	@JsonField("placeFire")
 	private boolean placeFire = true;
 
 	@Override

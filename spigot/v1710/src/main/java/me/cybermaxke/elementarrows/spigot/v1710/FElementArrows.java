@@ -76,7 +76,7 @@ public class FElementArrows extends JavaPlugin {
 
 	@Override
 	public void onLoad() {
-		this.plugin.onPreInit();
+		this.plugin.onPreInit(this.getDataFolder().getParentFile().getParentFile());
 	}
 
 	@Override
@@ -152,8 +152,8 @@ public class FElementArrows extends JavaPlugin {
 		 */
 		BlockDispenser.a.a(Items.ARROW, new DispenseElementArrow());
 
-		this.plugin.onInit();
-		this.plugin.onPostInit();
+		this.plugin.onInit(this.getDataFolder().getParentFile().getParentFile());
+		this.plugin.onPostInit(this.getDataFolder().getParentFile().getParentFile());
 	}
 
 	protected static void setFactoryInstance(Class<?> target, Class<?> type, Object instance) throws Exception {

@@ -16,31 +16,41 @@
  * You should have received a copy of the GNU General Public License
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  */
-package me.cybermaxke.elementarrows.forge.v1710;
+package me.cybermaxke.elementarrows.common.json;
 
 import java.io.File;
+import java.io.IOException;
 
-public interface FProxy {
+import com.google.gson.Gson;
 
-	/**
-	 * Called when the proxy gets pre initialized.
-	 * 
-	 * @param file the main folder
-	 */
-	void onPreInit(File file);
+public interface JsonFactory {
 
 	/**
-	 * Called when the proxy gets initialized.
+	 * Gets the gson instance.
 	 * 
-	 * @param file the main folder
+	 * @return the gson
 	 */
-	void onInit(File file);
+	Gson getGson();
 
 	/**
-	 * Called when the proxy gets post initialized.
+	 * Reads a object of a specific type from a file with json content.
 	 * 
-	 * @param file the main folder
+	 * @param is the input stream
+	 * @param type the class type
+	 * @return the object
+	 * @throws IOException
 	 */
-	void onPostInit(File file);
+	<T> T of(File file, Class<T> type) throws IOException;
+
+	/**
+	 * Reads a object of a specific type from a file with json content.
+	 * 
+	 * @param is the input stream
+	 * @param type the class type
+	 * @param defaultValue the default value
+	 * @return the object
+	 * @throws IOException
+	 */
+	<T, V extends T> T of(File file, Class<T> type, V defaultValue) throws IOException;
 
 }

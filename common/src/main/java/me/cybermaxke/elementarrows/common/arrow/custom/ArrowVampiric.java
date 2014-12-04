@@ -24,6 +24,7 @@ import me.cybermaxke.elementarrows.common.arrow.event.EventInitialize;
 import me.cybermaxke.elementarrows.common.entity.Entity;
 import me.cybermaxke.elementarrows.common.entity.EntityLiving;
 import me.cybermaxke.elementarrows.common.entity.EntityLiving.Attribute;
+import me.cybermaxke.elementarrows.common.json.JsonField;
 import me.cybermaxke.elementarrows.common.potion.PotionEffect;
 import me.cybermaxke.elementarrows.common.potion.PotionType;
 import me.cybermaxke.elementarrows.common.potion.Potions;
@@ -31,6 +32,8 @@ import me.cybermaxke.elementarrows.common.source.Source;
 import me.cybermaxke.elementarrows.common.source.SourceEntity;
 
 public class ArrowVampiric extends ElementArrowBase {
+
+	@JsonField("regenerationEffect")
 	private PotionEffect regenerationEffect = Potions.of(PotionType.Regeneration, 40, 12);
 
 	@Override

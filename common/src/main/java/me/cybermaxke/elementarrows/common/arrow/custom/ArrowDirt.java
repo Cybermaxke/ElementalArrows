@@ -21,8 +21,15 @@ package me.cybermaxke.elementarrows.common.arrow.custom;
 import me.cybermaxke.elementarrows.common.arrow.ElementArrowBase;
 import me.cybermaxke.elementarrows.common.arrow.event.EventEntityShot;
 import me.cybermaxke.elementarrows.common.arrow.event.EventInitialize;
+import me.cybermaxke.elementarrows.common.entity.EntityArrow;
+import me.cybermaxke.elementarrows.common.json.JsonField;
 
 public class ArrowDirt extends ElementArrowBase {
+
+	@JsonField("damageMultiplier")
+	private double damageMultiplier = 1.3d;
+
+	@JsonField("knockbackStrength")
 	private int knockbackStrength = 3;
 
 	@Override
@@ -41,7 +48,10 @@ public class ArrowDirt extends ElementArrowBase {
 
 	@Override
 	public void handle(EventEntityShot event) {
-		event.getEntity().setKnockbackPower(this.knockbackStrength);
+		EntityArrow arrow = event.getEntity();
+
+		arrow.setKnockbackPower(this.knockbackStrength);
+		arrow.setDamage(arrow.getDamage() * this.damageMultiplier);
 	}
 
 }

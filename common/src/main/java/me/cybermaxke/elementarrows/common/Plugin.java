@@ -18,21 +18,29 @@
  */
 package me.cybermaxke.elementarrows.common;
 
+import java.io.File;
+
 public interface Plugin {
 
 	/**
 	 * Called when the plugin gets pre initialized.
+	 * 
+	 * @param file the main folder
 	 */
-	void onPreInit();
+	void onPreInit(File file);
 
 	/**
 	 * Called when the plugin gets initialized.
+	 * 
+	 * @param file the main folder
 	 */
-	void onInit();
+	void onInit(File file);
 
 	/**
 	 * Called when the plugin gets post initialized.
+	 * 
+	 * @param file the main folder
 	 */
-	void onPostInit();
+	void onPostInit(File file);
 
 }

@@ -22,9 +22,14 @@ import me.cybermaxke.elementarrows.common.arrow.ElementArrowBase;
 import me.cybermaxke.elementarrows.common.arrow.event.EventEntityBuild;
 import me.cybermaxke.elementarrows.common.arrow.event.EventEntityShot;
 import me.cybermaxke.elementarrows.common.arrow.event.EventInitialize;
+import me.cybermaxke.elementarrows.common.json.JsonField;
 
 public class ArrowRazor extends ElementArrowBase {
+
+	@JsonField("powerMultiplier")
 	private float powerMultiplier = 1.45f;
+
+	@JsonField("knockbackStrength")
 	private int knockbackStrength = 2;
 
 	@Override

@@ -25,14 +25,20 @@ import me.cybermaxke.elementarrows.common.arrow.event.EventInitialize;
 import me.cybermaxke.elementarrows.common.entity.Entity;
 import me.cybermaxke.elementarrows.common.entity.EntityArrow;
 import me.cybermaxke.elementarrows.common.entity.EntityArrow.PickupMode;
+import me.cybermaxke.elementarrows.common.json.JsonField;
 import me.cybermaxke.elementarrows.common.math.Vector;
 import me.cybermaxke.elementarrows.common.source.SourceEntity;
 import me.cybermaxke.elementarrows.common.world.World;
 
 public class ArrowExplosion extends ElementArrowBase {
+
+	@JsonField("explosionStrength")
 	private float power = 2.55f;
 
+	@JsonField("destroyBlocks")
 	private boolean destroyBlocks = true;
+
+	@JsonField("placeFire")
 	private boolean placeFire = true;
 
 	@Override
