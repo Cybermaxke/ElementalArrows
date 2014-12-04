@@ -25,6 +25,8 @@ import net.minecraft.block.BlockDispenser;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import me.cybermaxke.elementarrows.common.PluginBase;
+import me.cybermaxke.elementarrows.common.block.BlockFactory;
+import me.cybermaxke.elementarrows.common.block.Blocks;
 import me.cybermaxke.elementarrows.common.enchant.EnchantFactory;
 import me.cybermaxke.elementarrows.common.enchant.Enchants;
 import me.cybermaxke.elementarrows.common.entity.Entities;
@@ -39,6 +41,7 @@ import me.cybermaxke.elementarrows.common.recipe.RecipeFactory;
 import me.cybermaxke.elementarrows.common.recipe.Recipes;
 import me.cybermaxke.elementarrows.common.world.WorldManager;
 import me.cybermaxke.elementarrows.common.world.Worlds;
+import me.cybermaxke.elementarrows.forge.v1710.block.FBlockFactory;
 import me.cybermaxke.elementarrows.forge.v1710.dispenser.DispenseElementArrow;
 import me.cybermaxke.elementarrows.forge.v1710.enchant.FEnchantFactory;
 import me.cybermaxke.elementarrows.forge.v1710.entity.EntityElementArrow;
@@ -59,6 +62,7 @@ import me.cybermaxke.elementarrows.forge.v1710.util.Fields;
 import me.cybermaxke.elementarrows.forge.v1710.world.FWorldManager;
 
 public class FProxyCommon implements FProxy {
+	public static FBlockFactory blocks;
 	public static FEnchantFactory enchants;
 	public static FPotionFactory potions;
 	public static FRecipeFactory recipes;
@@ -79,6 +83,7 @@ public class FProxyCommon implements FProxy {
 		entities = this.newEntities();
 		entities.onInit();
 
+		blocks = new FBlockFactory();
 		worlds = new FWorldManager();
 		recipes = new FRecipeFactory();
 		locales = new FLocaleRegistry();
@@ -92,6 +97,7 @@ public class FProxyCommon implements FProxy {
 		}
 
 		try {
+			setFactoryInstance(Blocks.class, BlockFactory.class, blocks);
 			setFactoryInstance(Enchants.class, EnchantFactory.class, enchants);
 			setFactoryInstance(Locales.class, LocaleRegistry.class, locales);
 			setFactoryInstance(Recipes.class, RecipeFactory.class, recipes);

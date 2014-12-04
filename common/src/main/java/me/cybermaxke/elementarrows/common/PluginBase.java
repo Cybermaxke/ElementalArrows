@@ -26,10 +26,14 @@ import me.cybermaxke.elementarrows.common.arrow.custom.ArrowDirt;
 import me.cybermaxke.elementarrows.common.arrow.custom.ArrowEgg;
 import me.cybermaxke.elementarrows.common.arrow.custom.ArrowEnderEye;
 import me.cybermaxke.elementarrows.common.arrow.custom.ArrowExplosion;
+import me.cybermaxke.elementarrows.common.arrow.custom.ArrowFire;
 import me.cybermaxke.elementarrows.common.arrow.custom.ArrowIce;
 import me.cybermaxke.elementarrows.common.arrow.custom.ArrowLightning;
 import me.cybermaxke.elementarrows.common.arrow.custom.ArrowPoison;
 import me.cybermaxke.elementarrows.common.arrow.custom.ArrowRazor;
+import me.cybermaxke.elementarrows.common.arrow.custom.ArrowTorch;
+import me.cybermaxke.elementarrows.common.arrow.custom.ArrowVampiric;
+import me.cybermaxke.elementarrows.common.arrow.custom.ArrowVolley;
 
 public class PluginBase implements Plugin {
 
@@ -46,10 +50,14 @@ public class PluginBase implements Plugin {
 		Arrows.register(4, new ArrowEgg());
 		Arrows.register(5, new ArrowEnderEye());
 		Arrows.register(6, new ArrowExplosion());
+		Arrows.register(7, new ArrowFire());
 		Arrows.register(8, new ArrowLightning());
 		Arrows.register(9, new ArrowPoison());
 		Arrows.register(10, new ArrowRazor());
+		Arrows.register(11, new ArrowVampiric());
+		Arrows.register(12, new ArrowVolley());
 		Arrows.register(13, new ArrowIce());
+		Arrows.register(14, new ArrowTorch());
 		Arrows.register(15, new ArrowDiamond());
 	}
 

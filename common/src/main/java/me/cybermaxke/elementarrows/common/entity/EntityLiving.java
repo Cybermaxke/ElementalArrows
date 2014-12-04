@@ -83,4 +83,29 @@ public interface EntityLiving extends Entity {
 	 */
 	PotionEffect removePotionEffect(PotionType type);
 
+	/**
+	 * Gets the attribute of the entity.
+	 * 
+	 * @return the attribute
+	 */
+	Attribute getCreatureAttribute();
+
+	/**
+	 * All the entity attributes.
+	 */
+	enum Attribute {
+		/**
+		 * Undead monsters like skeletons, zombies, etc.
+		 */
+		Undead,
+		/**
+		 * Arthropod monsters like spiders.
+		 */
+		Arthropod,
+		/**
+		 * All the other undefined monsters.
+		 */
+		Undefined,
+	}
+
 }

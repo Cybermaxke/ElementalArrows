@@ -48,7 +48,7 @@ public class FEnchantFactory implements EnchantFactory {
 
 					Field field0 = Field.class.getDeclaredField("modifiers");
 					field0.setAccessible(true);
-					field0.set(field, field.getModifiers() & ~Modifier.FINAL);
+					field0.set(field1, field1.getModifiers() & ~Modifier.FINAL);
 
 					field1.setAccessible(true);
 					field1.set(null, type);

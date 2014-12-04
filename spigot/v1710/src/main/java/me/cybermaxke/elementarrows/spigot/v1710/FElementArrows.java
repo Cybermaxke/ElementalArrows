@@ -23,6 +23,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 import me.cybermaxke.elementarrows.common.PluginBase;
+import me.cybermaxke.elementarrows.common.block.BlockFactory;
+import me.cybermaxke.elementarrows.common.block.Blocks;
 import me.cybermaxke.elementarrows.common.enchant.EnchantFactory;
 import me.cybermaxke.elementarrows.common.enchant.Enchants;
 import me.cybermaxke.elementarrows.common.entity.Entities;
@@ -36,6 +38,7 @@ import me.cybermaxke.elementarrows.common.recipe.RecipeFactory;
 import me.cybermaxke.elementarrows.common.recipe.Recipes;
 import me.cybermaxke.elementarrows.common.world.WorldManager;
 import me.cybermaxke.elementarrows.common.world.Worlds;
+import me.cybermaxke.elementarrows.spigot.v1710.block.FBlockFactory;
 import me.cybermaxke.elementarrows.spigot.v1710.dispenser.DispenseElementArrow;
 import me.cybermaxke.elementarrows.spigot.v1710.enchant.FEnchantFactory;
 import me.cybermaxke.elementarrows.spigot.v1710.entity.EntityElementArrow;
@@ -60,6 +63,7 @@ import net.minecraft.server.v1_7_R4.Items;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class FElementArrows extends JavaPlugin {
+	public static FBlockFactory blocks;
 	public static FEnchantFactory enchants;
 	public static FLocaleRegistry locales;
 	public static FRecipeFactory recipes;
@@ -80,6 +84,7 @@ public class FElementArrows extends JavaPlugin {
 		entities = new FEntityFactory();
 		entities.onInit(this);
 
+		blocks = new FBlockFactory();
 		locales = new FLocaleRegistry();
 		recipes = new FRecipeFactory();
 		worlds = new FWorldManager();
@@ -93,6 +98,7 @@ public class FElementArrows extends JavaPlugin {
 		}
 
 		try {
+			setFactoryInstance(Blocks.class, BlockFactory.class, blocks);
 			setFactoryInstance(Enchants.class, EnchantFactory.class, enchants);
 			setFactoryInstance(Locales.class, LocaleRegistry.class, locales);
 			setFactoryInstance(Recipes.class, RecipeFactory.class, recipes);

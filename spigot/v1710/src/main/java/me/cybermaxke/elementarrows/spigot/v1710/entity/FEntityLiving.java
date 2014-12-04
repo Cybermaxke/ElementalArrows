@@ -18,10 +18,14 @@
  */
 package me.cybermaxke.elementarrows.spigot.v1710.entity;
 
-import net.minecraft.server.v1_7_R4.EntityLiving;
+import com.google.common.base.Preconditions;
 
-import me.cybermaxke.elementarrows.common.potion.PotionEffect;
+import net.minecraft.server.v1_7_R4.EntityLiving;
+import net.minecraft.server.v1_7_R4.EnumMonsterType;
+import net.minecraft.server.v1_7_R4.MobEffect;
+import net.minecraft.server.v1_7_R4.MobEffectList;
 import me.cybermaxke.elementarrows.common.potion.PotionType;
+import me.cybermaxke.elementarrows.spigot.v1710.potion.FPotionEffect;
 
 public class FEntityLiving<T extends EntityLiving> extends FEntity<T> implements me.cybermaxke.elementarrows.common.entity.EntityLiving {
 
@@ -61,20 +65,63 @@ public class FEntityLiving<T extends EntityLiving> extends FEntity<T> implements
 
 	@Override
 	public boolean hasPotionEffect(PotionType type) {
-		// TODO Auto-generated method stub
-		return false;
+		Preconditions.checkNotNull(type);
+		return this.entity.hasEffect(type.getInternalId());
 	}
 
 	@Override
-	public PotionEffect addPotionEffect(PotionEffect effect) {
-		// TODO Auto-generated method stub
-		return null;
+	public FPotionEffect addPotionEffect(me.cybermaxke.elementarrows.common.potion.PotionEffect effect) {
+		Preconditions.checkNotNull(effect);
+
+		FPotionEffect effect0 = (FPotionEffect) effect;
+		MobEffectList potion = MobEffectList.byId[effect0.effect.getEffectId()];
+
+		MobEffect effect1 = null;
+
+		if (this.entity.hasEffect(potion)) {
+			effect1 = this.entity.getEffect(potion);
+		}
+
+		this.entity.addEffect(effect0.effect);
+
+		if (effect1 != null) {
+			return new FPotionEffect(effect1);
+		} else {
+			return null;
+		}
 	}
 
 	@Override
-	public PotionEffect removePotionEffect(PotionType type) {
-		// TODO Auto-generated method stub
-		return null;
+	public FPotionEffect removePotionEffect(PotionType type) {
+		Preconditions.checkNotNull(type);
+
+		MobEffectList potion = MobEffectList.byId[type.getInternalId()];
+		MobEffect effect = null;
+
+		if (this.entity.hasEffect(potion)) {
+			effect = this.entity.getEffect(potion);
+		}
+
+		this.entity.removeEffect(potion.id);
+
+		if (effect != null) {
+			return new FPotionEffect(effect);
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public Attribute getCreatureAttribute() {
+		EnumMonsterType attribute = this.entity.getMonsterType();
+
+		if (attribute == EnumMonsterType.ARTHROPOD) {
+			return Attribute.Arthropod;
+		} else if (attribute == EnumMonsterType.UNDEAD) {
+			return Attribute.Undead;
+		} else {
+			return Attribute.Undefined;
+		}
 	}
 
 }

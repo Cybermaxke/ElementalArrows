@@ -22,13 +22,14 @@ import java.util.Random;
 
 import com.google.common.base.Preconditions;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import me.cybermaxke.elementarrows.common.block.BlockType;
 import me.cybermaxke.elementarrows.common.math.Vector;
 import me.cybermaxke.elementarrows.forge.v1710.FProxyCommon;
+import me.cybermaxke.elementarrows.forge.v1710.block.FBlockType;
 import me.cybermaxke.elementarrows.forge.v1710.entity.FEntity;
 
 public class FWorld implements me.cybermaxke.elementarrows.common.world.World {
@@ -75,37 +76,42 @@ public class FWorld implements me.cybermaxke.elementarrows.common.world.World {
 	}
 
 	@Override
-	public String getBlockType(Vector position) {
+	public BlockType getBlockType(Vector position) {
 		Preconditions.checkNotNull(position);
 
 		int x = position.getBlockX();
 		int y = position.getBlockY();
 		int z = position.getBlockZ();
 
-		return Block.blockRegistry.getNameForObject(this.world.getBlock(x, y, z));
+		return FProxyCommon.blocks.of(this.world.getBlock(x, y, z));
 	}
 
 	@Override
-	public void setBlock(Vector position, String type, int data, int flags) {
+	public void setBlock(Vector position, BlockType type, int data, int flags) {
 		Preconditions.checkNotNull(position);
 		Preconditions.checkNotNull(type);
 
-		Block block = (Block) Block.blockRegistry.getObject(type);
+		int x = position.getBlockX();
+		int y = position.getBlockY();
+		int z = position.getBlockZ();
 
-		if (block ==  null) {
-			throw new IllegalArgumentException("Unknown block type! (" + type + ")");
-		}
+		this.world.setBlock(x, y, z, ((FBlockType) type).block, data, flags);
+	}
+
+	@Override
+	public void setBlock(Vector position, BlockType type, int data) {
+		this.setBlock(position, type, data, me.cybermaxke.elementarrows.common.world.World.All);
+	}
+
+	@Override
+	public int getBlockData(Vector position) {
+		Preconditions.checkNotNull(position);
 
 		int x = position.getBlockX();
 		int y = position.getBlockY();
 		int z = position.getBlockZ();
 
-		this.world.setBlock(x, y, z, block, data, flags);
-	}
-
-	@Override
-	public void setBlock(Vector position, String type, int data) {
-		this.setBlock(position, type, data, me.cybermaxke.elementarrows.common.world.World.All);
+		return this.world.getBlockMetadata(x, y, z);
 	}
 
 	@Override

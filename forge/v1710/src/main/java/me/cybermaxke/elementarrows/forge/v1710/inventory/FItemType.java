@@ -23,19 +23,23 @@ import me.cybermaxke.elementarrows.common.item.type.ItemType;
 
 public class FItemType implements ItemType {
 	public final Item item;
+	public final String id;
+	public final int internalId;
 
 	public FItemType(Item item) {
+		this.internalId = Item.itemRegistry.getIDForObject(item);
+		this.id = Item.itemRegistry.getNameForObject(item);
 		this.item = item;
 	}
 
 	@Override
 	public String getId() {
-		return Item.itemRegistry.getNameForObject(this.item);
+		return this.id;
 	}
 
 	@Override
 	public int getInternalId() {
-		return Item.itemRegistry.getIDForObject(this.item);
+		return this.internalId;
 	}
 
 	@Override

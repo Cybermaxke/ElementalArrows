@@ -37,6 +37,7 @@ import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
@@ -132,6 +133,8 @@ public class FEntityFactory implements EntityFactory {
 			entity = new EntityChicken(world0);
 		} else if (type.isAssignableFrom(me.cybermaxke.elementarrows.common.entity.EntityArrow.class)) {
 			entity = new EntityElementArrow(world0);
+		} else if (type.isAssignableFrom(me.cybermaxke.elementarrows.common.entity.EntityItem.class)) {
+			entity = new EntityItem(world0);
 		} else {
 			throw new IllegalArgumentException("Unsupported entity type! (" + type.getName() + ")");
 		}
@@ -177,6 +180,8 @@ public class FEntityFactory implements EntityFactory {
 			entity0 = new FEntityPlayer((EntityPlayer) entity);
 		} else if (entity instanceof EntityChicken) {
 			entity0 = new FEntityChicken((EntityChicken) entity);
+		} else if (entity instanceof EntityItem) {
+			entity0 = new FEntityItem((EntityItem) entity);
 		} else if (entity instanceof EntityAgeable || entity instanceof EntityZombie) {
 			entity0 = new FEntityAgeable((EntityLivingBase) entity);
 		} else if (entity instanceof EntityLivingBase) {

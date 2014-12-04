@@ -20,6 +20,7 @@ package me.cybermaxke.elementarrows.common.world;
 
 import java.util.Random;
 
+import me.cybermaxke.elementarrows.common.block.BlockType;
 import me.cybermaxke.elementarrows.common.entity.Entity;
 import me.cybermaxke.elementarrows.common.math.Vector;
 
@@ -115,7 +116,15 @@ public interface World {
 	 * @param position the position
 	 * @return the block type
 	 */
-	String getBlockType(Vector position);
+	BlockType getBlockType(Vector position);
+
+	/**
+	 * Gets the block data value of the block at the coordinates.
+	 * 
+	 * @param position the position
+	 * @return the block data value
+	 */
+	int getBlockData(Vector position);
 
 	/**
 	 * Sets the block type and data of a block in the world.
@@ -125,7 +134,7 @@ public interface World {
 	 * @param data the data value
 	 * @param flags the update flags
 	 */
-	void setBlock(Vector position, String type, int data, int flags);
+	void setBlock(Vector position, BlockType type, int data, int flags);
 
 	/**
 	 * Sets the block type and data of a block in the world.
@@ -134,7 +143,7 @@ public interface World {
 	 * @param type the type of the block
 	 * @param data the data value
 	 */
-	void setBlock(Vector position, String type, int data);
+	void setBlock(Vector position, BlockType type, int data);
 
 	/**
 	 * Adds the entity to the world.

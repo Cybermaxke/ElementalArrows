@@ -28,7 +28,6 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
-
 import org.bukkit.craftbukkit.v1_7_R4.CraftWorld;
 
 import net.minecraft.server.v1_7_R4.AttributeInstance;
@@ -37,6 +36,7 @@ import net.minecraft.server.v1_7_R4.Entity;
 import net.minecraft.server.v1_7_R4.EntityAgeable;
 import net.minecraft.server.v1_7_R4.EntityArrow;
 import net.minecraft.server.v1_7_R4.EntityChicken;
+import net.minecraft.server.v1_7_R4.EntityItem;
 import net.minecraft.server.v1_7_R4.EntityLiving;
 import net.minecraft.server.v1_7_R4.EntityPlayer;
 import net.minecraft.server.v1_7_R4.EntityZombie;
@@ -128,6 +128,8 @@ public class FEntityFactory implements EntityFactory {
 			entity = new EntityChicken(world0);
 		} else if (type.isAssignableFrom(me.cybermaxke.elementarrows.common.entity.EntityArrow.class)) {
 			entity = new EntityElementArrow(world0);
+		} else if (type.isAssignableFrom(me.cybermaxke.elementarrows.common.entity.EntityItem.class)) {
+			entity = new EntityItem(world0);
 		} else {
 			throw new IllegalArgumentException("Unsupported entity type! (" + type.getName() + ")");
 		}
@@ -172,6 +174,8 @@ public class FEntityFactory implements EntityFactory {
 			entity0 = new FEntityPlayer((EntityPlayer) entity);
 		} else if (entity instanceof EntityChicken) {
 			entity0 = new FEntityChicken((EntityChicken) entity);
+		} else if (entity instanceof EntityItem) {
+			entity0 = new FEntityItem((EntityItem) entity);
 		} else if (entity instanceof EntityAgeable || entity instanceof EntityZombie) {
 			entity0 = new FEntityAgeable((EntityLiving) entity);
 		} else if (entity instanceof EntityLiving) {

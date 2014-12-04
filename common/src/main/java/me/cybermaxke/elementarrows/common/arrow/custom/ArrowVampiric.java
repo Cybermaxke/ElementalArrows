@@ -23,33 +23,46 @@ import me.cybermaxke.elementarrows.common.arrow.event.EventEntityHitEntity;
 import me.cybermaxke.elementarrows.common.arrow.event.EventInitialize;
 import me.cybermaxke.elementarrows.common.entity.Entity;
 import me.cybermaxke.elementarrows.common.entity.EntityLiving;
+import me.cybermaxke.elementarrows.common.entity.EntityLiving.Attribute;
 import me.cybermaxke.elementarrows.common.potion.PotionEffect;
 import me.cybermaxke.elementarrows.common.potion.PotionType;
 import me.cybermaxke.elementarrows.common.potion.Potions;
+import me.cybermaxke.elementarrows.common.source.Source;
+import me.cybermaxke.elementarrows.common.source.SourceEntity;
 
-public class ArrowBlindness extends ElementArrowBase {
-	private PotionEffect blindnessEffect = Potions.of(PotionType.Blindness, 75, 12);
+public class ArrowVampiric extends ElementArrowBase {
+	private PotionEffect regenerationEffect = Potions.of(PotionType.Regeneration, 40, 12);
 
 	@Override
 	public void handle(EventInitialize event) {
 		/**
 		 * The unlocalized path.
 		 */
-		this.unlocalizedName = "elementArrowsBlindness";
+		this.unlocalizedName = "elementArrowsVampiric";
 
 		/**
 		 * Setup client settings.
 		 */
-		this.icon = "elementArrows:arrowBlindness.png";
-		this.texture = "elementArrows:arrowEntityBlindness.png";
+		this.icon = "elementArrows:arrowVampiric.png";
+		this.texture = "elementArrows:arrowEntityVampiric.png";
 	}
 
 	@Override
 	public void handle(EventEntityHitEntity event) {
 		Entity entity = event.getDamageSource().getDamaged();
+		Source source = event.getSource();
 
-		if (entity instanceof EntityLiving && this.blindnessEffect != null) {
-			((EntityLiving) entity).addPotionEffect(this.blindnessEffect.clone());
+		if (source instanceof SourceEntity && entity instanceof EntityLiving) {
+			EntityLiving entity0 = (EntityLiving) entity;
+			Entity shooter = ((SourceEntity) source).getEntity();
+
+			if (entity0.getCreatureAttribute().equals(Attribute.Undead)) {
+				return;
+			}
+
+			if (shooter instanceof EntityLiving) {
+				((EntityLiving) shooter).addPotionEffect(this.regenerationEffect.clone());
+			}
 		}
 	}
 

@@ -23,8 +23,8 @@ import com.google.common.base.Preconditions;
 import me.cybermaxke.elementarrows.common.entity.EntityLiving;
 import me.cybermaxke.elementarrows.common.potion.PotionType;
 import me.cybermaxke.elementarrows.forge.v1710.potion.FPotionEffect;
-
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
@@ -109,6 +109,19 @@ public class FEntityLiving<T extends EntityLivingBase> extends FEntity<T> implem
 			return new FPotionEffect(effect);
 		} else {
 			return null;
+		}
+	}
+
+	@Override
+	public Attribute getCreatureAttribute() {
+		EnumCreatureAttribute attribute = this.entity.getCreatureAttribute();
+
+		if (attribute == EnumCreatureAttribute.ARTHROPOD) {
+			return Attribute.Arthropod;
+		} else if (attribute == EnumCreatureAttribute.UNDEAD) {
+			return Attribute.Undead;
+		} else {
+			return Attribute.Undefined;
 		}
 	}
 

@@ -19,6 +19,8 @@
 package me.cybermaxke.elementarrows.common.block;
 
 import me.cybermaxke.elementarrows.common.item.type.ItemType;
+import me.cybermaxke.elementarrows.common.math.Vector;
+import me.cybermaxke.elementarrows.common.world.World;
 
 public interface BlockType {
 
@@ -43,5 +45,24 @@ public interface BlockType {
 	 * @return the item type
 	 */
 	ItemType getItem();
+
+	/**
+	 * Gets whether the block type is able to be placed at the position in the world.
+	 * 
+	 * @param world the world the position is located in
+	 * @param position the position in the world
+	 * @return whether the type is placeable
+	 */
+	boolean isPlaceableAt(World world, Vector position);
+
+	/**
+	 * Gets the data value for the block at the location with a specific facing direction.
+	 * 
+	 * @param world the world the block is located in
+	 * @param position the position of the block
+	 * @param facing the direction the block is facing
+	 * @return the data value
+	 */
+	int getDataForRotationAndPosition(World world, Vector position, BlockFace facing);
 
 }
