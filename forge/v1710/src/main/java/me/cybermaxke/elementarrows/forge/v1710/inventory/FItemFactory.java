@@ -38,28 +38,6 @@ public class FItemFactory implements ItemFactory {
 	private final Map<Item, FItemType> items = new WeakHashMap<Item, FItemType>();
 
 	@Override
-	public FItemStack of(String type, int quantity, int data) {
-		Preconditions.checkNotNull(type);
-
-		Item item = (Item) Item.itemRegistry.getObject(type);
-
-		Preconditions.checkNotNull(item, "Unknown item type! (" + type + ")");
-		Preconditions.checkState(quantity > 0, "The quantity has to be greater then zero!");
-
-		return new FItemStack(new ItemStack(item, quantity, data));
-	}
-
-	@Override
-	public FItemStack of(String type, int quantity) {
-		return this.of(type, quantity, 0);
-	}
-
-	@Override
-	public FItemStack of(String type) {
-		return this.of(type, 1);
-	}
-
-	@Override
 	public ItemType typeById(String id) {
 		Preconditions.checkNotNull(id);
 		Item item = (Item) Item.itemRegistry.getObject(id);

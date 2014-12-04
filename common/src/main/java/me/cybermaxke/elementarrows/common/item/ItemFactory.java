@@ -48,33 +48,6 @@ public interface ItemFactory {
 	 * @param data the data value
 	 * @return the item stack
 	 */
-	ItemStack of(String type, int quantity, int data);
-
-	/**
-	 * Gets a new item stack of a specific type with a quantity.
-	 * 
-	 * @param type the material type
-	 * @param quantity the quantity items
-	 * @return the item stack
-	 */
-	ItemStack of(String type, int quantity);
-
-	/**
-	 * Gets a new item stack of a specific type.
-	 * 
-	 * @param type the material type
-	 * @return the item stack
-	 */
-	ItemStack of(String type);
-
-	/**
-	 * Gets a new item stack of a specific type with a quantity and data value.
-	 * 
-	 * @param type the material type
-	 * @param quantity the quantity items
-	 * @param data the data value
-	 * @return the item stack
-	 */
 	ItemStack of(ItemType type, int quantity, int data);
 
 	/**

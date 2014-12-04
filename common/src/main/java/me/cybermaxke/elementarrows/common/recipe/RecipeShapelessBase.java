@@ -25,6 +25,7 @@ import com.google.common.base.Preconditions;
 
 import me.cybermaxke.elementarrows.common.item.Items;
 import me.cybermaxke.elementarrows.common.item.inventory.ItemStack;
+import me.cybermaxke.elementarrows.common.item.type.ItemType;
 
 public class RecipeShapelessBase implements RecipeShapeless {
 	private final ItemStack result;
@@ -68,7 +69,7 @@ public class RecipeShapelessBase implements RecipeShapeless {
 		}
 
 		@Override
-		public BuilderBase withIngredient(String ingredient) {
+		public BuilderBase withIngredient(ItemType ingredient) {
 			this.ingredients.add(Items.of(ingredient));
 			return this;
 		}

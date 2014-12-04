@@ -21,6 +21,7 @@ package me.cybermaxke.elementarrows.common.recipe;
 import java.util.List;
 
 import me.cybermaxke.elementarrows.common.item.inventory.ItemStack;
+import me.cybermaxke.elementarrows.common.item.type.ItemType;
 
 public interface RecipeShapeless extends Recipe {
 
@@ -65,7 +66,7 @@ public interface RecipeShapeless extends Recipe {
 		 * @param ingredient the ingredient
 		 * @return the builder
 		 */
-		Builder withIngredient(String ingredient);
+		Builder withIngredient(ItemType ingredient);
 
 		/**
 		 * Builds the shaped recipe.

@@ -21,6 +21,7 @@ package me.cybermaxke.elementarrows.common.recipe;
 import java.util.Map;
 
 import me.cybermaxke.elementarrows.common.item.inventory.ItemStack;
+import me.cybermaxke.elementarrows.common.item.type.ItemType;
 
 public interface RecipeShaped extends Recipe {
 
@@ -82,7 +83,7 @@ public interface RecipeShaped extends Recipe {
 		 * @param ingredient the ingredient
 		 * @return the builder
 		 */
-		Builder withIngredient(char character, String ingredient);
+		Builder withIngredient(char character, ItemType ingredient);
 
 		/**
 		 * Builds the shaped recipe.

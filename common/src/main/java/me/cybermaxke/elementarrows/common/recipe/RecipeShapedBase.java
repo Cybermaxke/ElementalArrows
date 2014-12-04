@@ -25,6 +25,7 @@ import com.google.common.base.Preconditions;
 
 import me.cybermaxke.elementarrows.common.item.Items;
 import me.cybermaxke.elementarrows.common.item.inventory.ItemStack;
+import me.cybermaxke.elementarrows.common.item.type.ItemType;
 
 public final class RecipeShapedBase implements RecipeShaped {
 	private final Map<Character, ItemStack> ingredients;
@@ -82,7 +83,7 @@ public final class RecipeShapedBase implements RecipeShaped {
 		}
 
 		@Override
-		public Builder withIngredient(char character, String ingredient) {
+		public Builder withIngredient(char character, ItemType ingredient) {
 			this.ingredients.put(character, Items.of(ingredient));
 			return this;
 		}
