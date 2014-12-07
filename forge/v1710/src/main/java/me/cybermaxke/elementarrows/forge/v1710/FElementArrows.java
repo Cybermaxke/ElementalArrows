@@ -39,7 +39,7 @@ public class FElementArrows {
 
 	@EventHandler
 	public void onPreInit(FMLPreInitializationEvent event) {
-		file = event.getSourceFile().getParentFile().getParentFile();
+		file = event.getSourceFile().getParentFile();
 		instance.onPreInit(file);
 	}
 

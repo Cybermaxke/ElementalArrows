@@ -43,6 +43,7 @@ public class ArrowVolley extends ElementArrowBase {
 		 * The unlocalized path.
 		 */
 		this.unlocalizedName = "elementArrowsVolley";
+		this.effect = true;
 
 		/**
 		 * Setup client settings.

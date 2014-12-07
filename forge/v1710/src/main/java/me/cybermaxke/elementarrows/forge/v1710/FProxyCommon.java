@@ -34,6 +34,8 @@ import me.cybermaxke.elementarrows.common.entity.Entities;
 import me.cybermaxke.elementarrows.common.entity.EntityFactory;
 import me.cybermaxke.elementarrows.common.item.ItemFactory;
 import me.cybermaxke.elementarrows.common.item.Items;
+import me.cybermaxke.elementarrows.common.json.Json;
+import me.cybermaxke.elementarrows.common.json.JsonFactory;
 import me.cybermaxke.elementarrows.common.locale.LocaleRegistry;
 import me.cybermaxke.elementarrows.common.locale.Locales;
 import me.cybermaxke.elementarrows.common.potion.PotionFactory;
@@ -55,6 +57,7 @@ import me.cybermaxke.elementarrows.forge.v1710.item.ItemArrow;
 import me.cybermaxke.elementarrows.forge.v1710.item.ItemArrowTab;
 import me.cybermaxke.elementarrows.forge.v1710.item.ItemBow;
 import me.cybermaxke.elementarrows.forge.v1710.item.ItemRegistry;
+import me.cybermaxke.elementarrows.forge.v1710.json.FJsonFactory;
 import me.cybermaxke.elementarrows.forge.v1710.locale.FLocaleRegistry;
 import me.cybermaxke.elementarrows.forge.v1710.network.MessageInjectorCommon;
 import me.cybermaxke.elementarrows.forge.v1710.potion.FPotionFactory;
@@ -71,6 +74,7 @@ public class FProxyCommon implements FProxy {
 	public static FEntityFactory entities;
 	public static FWorldManager worlds;
 	public static FItemFactory items;
+	public static FJsonFactory json;
 
 	private PluginBase plugin = new PluginBase();
 
@@ -89,6 +93,7 @@ public class FProxyCommon implements FProxy {
 		recipes = new FRecipeFactory();
 		locales = new FLocaleRegistry();
 		items = new FItemFactory();
+		json = new FJsonFactory();
 
 		try {
 			enchants = new FEnchantFactory();
@@ -106,6 +111,7 @@ public class FProxyCommon implements FProxy {
 			setFactoryInstance(Potions.class, PotionFactory.class, potions);
 			setFactoryInstance(Worlds.class, WorldManager.class, worlds);
 			setFactoryInstance(Items.class, ItemFactory.class, items);
+			setFactoryInstance(Json.class, JsonFactory.class, json);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

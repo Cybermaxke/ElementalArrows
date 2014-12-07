@@ -37,7 +37,7 @@ public class JsonItemStack implements JsonSerial<ItemStack> {
 	public JsonElement serialize(ItemStack src, Type type, JsonSerializationContext ctx) {
 		JsonObject json = new JsonObject();
 
-		json.add("id", ctx.serialize(src.getType()));
+		json.addProperty("id", src.getType().getId());
 		json.addProperty("amount", src.getQuantity());
 		json.addProperty("data", src.getData());
 

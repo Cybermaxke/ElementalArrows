@@ -52,29 +52,34 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public class JsonFactoryBase implements JsonFactory {
-	private final Gson gson = new GsonBuilder()
-			/**
-			 * Setup default settings.
-			 */
-			.addDeserializationExclusionStrategy(new JsonExclusionStrategy())
-			.addSerializationExclusionStrategy(new JsonExclusionStrategy())
-			.setFieldNamingStrategy(new JsonFieldNamingStrategy())
-			.setPrettyPrinting()
-			.serializeNulls()
-			/**
-			 * Register custom type adapters.
-			 */
-			.registerTypeAdapter(ItemType.class, new JsonItemType())
-			.registerTypeAdapter(ItemStack.class, new JsonItemStack())
-			.registerTypeAdapter(PotionType.class, new JsonPotionType())
-			.registerTypeAdapter(PotionEffect.class, new JsonPotionEffect())
-			.registerTypeAdapter(BlockType.class, new JsonBlockType())
-			.registerTypeAdapter(Enchant.class, new JsonEnchant())
-			.registerTypeAdapter(Recipe.class, new JsonRecipe())
-			/**
-			 * Create the gson.
-			 */
-			.create();
+	private Gson gson = this.newGson().create();
+
+	/**
+	 * Gets a new gson instance.
+	 * 
+	 * @return the gson builder
+	 */
+	protected GsonBuilder newGson() {
+		return new GsonBuilder()
+				/**
+				 * Setup default settings.
+				 */
+				.addDeserializationExclusionStrategy(new JsonExclusionStrategy())
+				.addSerializationExclusionStrategy(new JsonExclusionStrategy())
+				.setFieldNamingStrategy(new JsonFieldNamingStrategy())
+				.setPrettyPrinting()
+				.serializeNulls()
+				/**
+				 * Register custom type adapters.
+				 */
+				.registerTypeAdapter(ItemType.class, new JsonItemType())
+				.registerTypeAdapter(ItemStack.class, new JsonItemStack())
+				.registerTypeAdapter(PotionType.class, new JsonPotionType())
+				.registerTypeAdapter(PotionEffect.class, new JsonPotionEffect())
+				.registerTypeAdapter(BlockType.class, new JsonBlockType())
+				.registerTypeAdapter(Enchant.class, new JsonEnchant())
+				.registerTypeAdapter(Recipe.class, new JsonRecipe());
+	}
 
 	@Override
 	public Gson getGson() {

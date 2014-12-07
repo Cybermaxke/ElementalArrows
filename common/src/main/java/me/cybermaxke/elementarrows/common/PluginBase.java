@@ -48,7 +48,11 @@ public class PluginBase implements Plugin {
 
 	@Override
 	public void onInit(File file) {
-		File folder = new File(file + File.separator + "plugins" + File.separator + "elementarrows");
+		File folder = new File(file, "plugins" + File.separator + "elementarrows" + File.separator + "arrows");
+
+		if (!folder.exists()) {
+			folder.mkdirs();
+		}
 
 		try {
 			Arrows.register(1, Json.of(new File(folder, "arrowBlindness.json"), ArrowBlindness.class));

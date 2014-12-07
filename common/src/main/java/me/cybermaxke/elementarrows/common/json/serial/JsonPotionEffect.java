@@ -37,7 +37,7 @@ public class JsonPotionEffect implements JsonSerial<PotionEffect> {
 	public JsonElement serialize(PotionEffect src, Type type, JsonSerializationContext ctx) {
 		JsonObject json = new JsonObject();
 
-		json.add("effectId", ctx.serialize(src.getType()));
+		json.addProperty("effectId", src.getType().getId());
 		json.addProperty("duration", src.getDuration());
 		json.addProperty("amplifier", src.getAmplifier());
 		json.addProperty("ambient", src.isAmbient());

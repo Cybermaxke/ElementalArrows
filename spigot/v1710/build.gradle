@@ -1,6 +1,5 @@
 buildscript {
 	repositories {
-		mavenCentral()
 		jcenter()
 	}
 	dependencies {
@@ -26,38 +25,48 @@ version = '1.0.0-SNAPSHOT'
 // Repositories
 repositories {
 	mavenCentral()
+
+	// Local dependencies
+	flatDir {
+        dirs 'lib'
+    }
 }
 
 // Dependencies
 dependencies {
 	compile 'com.google.code.gson:gson:2.3.1'
 	compile project(':elementarrows-common')
-	compile files('lib/spigot-1.7.10.jar')
+	compile name: 'spigot-1.7.10'
 }
 
 // Shade the dependencies in the jar
 shadowJar {
 	exclude 'META-INF/*.DSA'
 	exclude 'META-INF/*.RSA'
+    exclude '**/*.png'
+	exclude '**/*.db'
+
 	dependencies {
 		include(dependency(':elementarrows-common'))
+		include(dependency('com.google.code.gson:gson'))
 	}
-	classifier = ''
+
+	classifier = 'release'
 }
 build.dependsOn(shadowJar)
 
 jar {
 	// Jar shading and packaging configuration
-	from { project(':elementarrows-common').sourceSets.main.output }
+	//from { project(':elementarrows-common').sourceSets.main.output }
 
-	// classifier
-	classifier = 'release'
+	// Classifier
+	classifier = ''
 
-	// exclude textures
-    exclude ("**/*.png")
-	exclude ("**/*.db")
+	// Exclude textures
+	exclude '**/*.png'
+	exclude '**/*.db'
 
-	// exclude empty directories
+	// Exclude empty directories
 	includeEmptyDirs = false
 }
 

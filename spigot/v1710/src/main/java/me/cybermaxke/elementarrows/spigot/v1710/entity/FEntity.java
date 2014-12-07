@@ -29,13 +29,14 @@ import com.google.common.base.Preconditions;
 
 import me.cybermaxke.elementarrows.common.math.Vector;
 import me.cybermaxke.elementarrows.common.math.Vectors;
+import me.cybermaxke.elementarrows.common.property.DirtyPropertyHashMap;
 import me.cybermaxke.elementarrows.common.property.DirtyPropertyMap;
 import me.cybermaxke.elementarrows.common.property.PropertyMap;
 import me.cybermaxke.elementarrows.spigot.v1710.FElementArrows;
 import me.cybermaxke.elementarrows.spigot.v1710.world.FWorld;
 
 public class FEntity<T extends Entity> implements me.cybermaxke.elementarrows.common.entity.Entity {
-	public DirtyPropertyMap properties;
+	public DirtyPropertyMap properties = new DirtyPropertyHashMap();
 	public T entity;
 
 	public FEntity(T entity) {

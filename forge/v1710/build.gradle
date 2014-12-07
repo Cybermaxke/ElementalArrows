@@ -13,7 +13,6 @@ buildscript {
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
-        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.0'
     }
 }
 
@@ -22,7 +21,6 @@ apply plugin: 'forge'
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
-apply plugin: 'com.github.johnrengelman.shadow'
 
 // Minimum version of Java required
 sourceCompatibility = '1.6'
@@ -48,31 +46,15 @@ dependencies {
 	compile project(':elementarrows-common')
 }
 
-// Shade the dependencies in the jar
-shadowJar  {
-    exclude 'META-INF/*.DSA'
-    exclude 'META-INF/*.RSA'
-    exclude '*'
-    dependencies {
-        include(dependency(':elementarrows-common'))
-    }
-    relocate 'com.google.gson', 'net.minecraft.util.com.google.gson'
-    classifier = ''
-}
-build.dependsOn(shadowJar)
-
 jar {
 	// Jar shading and packaging configuration
 	from { project(':elementarrows-common').sourceSets.main.output }
 
-	// classifier
+	// Classifier
 	classifier = 'release'
 
-	// exclude textures
-	exclude ("**/*.db")
-
-	// exclude empty directories
-	includeEmptyDirs = false
+	// Exclude db files
+	exclude '**/*.db'
 }
 
 processResources {

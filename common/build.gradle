@@ -1,9 +1,3 @@
-buildscript {
-    repositories {
-		jcenter()
-    }
-}
-
 // Apply plugin
 apply plugin: 'java'
 apply plugin: 'eclipse'
@@ -30,9 +24,6 @@ dependencies {
 }
 
 jar {
-	// exclude these files..
-	exclude ("*.db")
-
-	// exclude empty directories
-	includeEmptyDirs = false
+	// classifier
+	classifier = 'release'
 }

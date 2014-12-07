@@ -30,6 +30,8 @@ import me.cybermaxke.elementarrows.common.enchant.Enchants;
 import me.cybermaxke.elementarrows.common.entity.Entities;
 import me.cybermaxke.elementarrows.common.entity.EntityFactory;
 import me.cybermaxke.elementarrows.common.item.ItemFactory;
+import me.cybermaxke.elementarrows.common.json.Json;
+import me.cybermaxke.elementarrows.common.json.JsonFactory;
 import me.cybermaxke.elementarrows.common.locale.LocaleRegistry;
 import me.cybermaxke.elementarrows.common.locale.Locales;
 import me.cybermaxke.elementarrows.common.potion.PotionFactory;
@@ -50,6 +52,7 @@ import me.cybermaxke.elementarrows.spigot.v1710.inventory.FItemFactory;
 import me.cybermaxke.elementarrows.spigot.v1710.item.ItemArrow;
 import me.cybermaxke.elementarrows.spigot.v1710.item.ItemBow;
 import me.cybermaxke.elementarrows.spigot.v1710.item.ItemRegistry;
+import me.cybermaxke.elementarrows.spigot.v1710.json.FJsonFactory;
 import me.cybermaxke.elementarrows.spigot.v1710.locale.FLocaleRegistry;
 import me.cybermaxke.elementarrows.spigot.v1710.network.MessageInjector;
 import me.cybermaxke.elementarrows.spigot.v1710.potion.FPotionFactory;
@@ -71,6 +74,7 @@ public class FElementArrows extends JavaPlugin {
 	public static FPotionFactory potions;
 	public static FWorldManager worlds;
 	public static FItemFactory items;
+	public static FJsonFactory json;
 
 	private PluginBase plugin = new PluginBase();
 
@@ -89,6 +93,7 @@ public class FElementArrows extends JavaPlugin {
 		recipes = new FRecipeFactory();
 		worlds = new FWorldManager();
 		items = new FItemFactory();
+		json = new FJsonFactory();
 
 		try {
 			enchants = new FEnchantFactory();
@@ -98,6 +103,7 @@ public class FElementArrows extends JavaPlugin {
 		}
 
 		try {
+			setFactoryInstance(Json.class, JsonFactory.class, json);
 			setFactoryInstance(Blocks.class, BlockFactory.class, blocks);
 			setFactoryInstance(Enchants.class, EnchantFactory.class, enchants);
 			setFactoryInstance(Locales.class, LocaleRegistry.class, locales);

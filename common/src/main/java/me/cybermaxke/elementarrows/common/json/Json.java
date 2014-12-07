@@ -24,7 +24,7 @@ import java.io.IOException;
 import com.google.gson.Gson;
 
 public class Json {
-	private static JsonFactory factory = new JsonFactoryBase();
+	private static JsonFactory factory;
 
 	/**
 	 * Gets the gson instance.
