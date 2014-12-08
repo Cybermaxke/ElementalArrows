@@ -19,6 +19,7 @@
 package me.cybermaxke.elementarrows.common.entity;
 
 import me.cybermaxke.elementarrows.common.item.inventory.Inventory;
+import me.cybermaxke.elementarrows.common.item.inventory.ItemStack;
 
 public interface EntityPlayer extends EntityLiving {
 
@@ -28,6 +29,13 @@ public interface EntityPlayer extends EntityLiving {
 	 * @return the inventory
 	 */
 	Inventory getInventory();
+
+	/**
+	 * Gets the item stack the player is holding in it's hand.
+	 * 
+	 * @return the item stack
+	 */
+	ItemStack getHeldItem();
 
 	/**
 	 * Gets whether the player the client mod installed has.

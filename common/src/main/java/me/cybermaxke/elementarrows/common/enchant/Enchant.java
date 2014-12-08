@@ -37,6 +37,7 @@ public interface Enchant {
 	public static final Enchant ProjectileProtection = null;
 	public static final Enchant Respiration = null;
 	public static final Enchant AquaAffinity = null;
+	public static final Enchant DepthStrider = null;
 	public static final Enchant Thorns = null;
 	public static final Enchant Sharpness = null;
 	public static final Enchant Smite = null;

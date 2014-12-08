@@ -23,6 +23,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 import me.cybermaxke.elementarrows.common.PluginBase;
+import me.cybermaxke.elementarrows.common.arrow.ArrowRegistry;
+import me.cybermaxke.elementarrows.common.arrow.ArrowRegistryBase;
+import me.cybermaxke.elementarrows.common.arrow.Arrows;
 import me.cybermaxke.elementarrows.common.block.BlockFactory;
 import me.cybermaxke.elementarrows.common.block.Blocks;
 import me.cybermaxke.elementarrows.common.enchant.EnchantFactory;
@@ -66,6 +69,7 @@ import net.minecraft.server.v1_7_R4.Items;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class FElementArrows extends JavaPlugin {
+	public static ArrowRegistry arrows;
 	public static FBlockFactory blocks;
 	public static FEnchantFactory enchants;
 	public static FLocaleRegistry locales;
@@ -88,6 +92,7 @@ public class FElementArrows extends JavaPlugin {
 		entities = new FEntityFactory();
 		entities.onInit(this);
 
+		arrows = new ArrowRegistryBase();
 		blocks = new FBlockFactory();
 		locales = new FLocaleRegistry();
 		recipes = new FRecipeFactory();
@@ -103,6 +108,7 @@ public class FElementArrows extends JavaPlugin {
 		}
 
 		try {
+			setFactoryInstance(Arrows.class, ArrowRegistry.class, arrows);
 			setFactoryInstance(Json.class, JsonFactory.class, json);
 			setFactoryInstance(Blocks.class, BlockFactory.class, blocks);
 			setFactoryInstance(Enchants.class, EnchantFactory.class, enchants);

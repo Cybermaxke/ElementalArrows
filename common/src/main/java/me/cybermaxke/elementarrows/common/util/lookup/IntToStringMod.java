@@ -21,21 +21,6 @@ package me.cybermaxke.elementarrows.common.util.lookup;
 public class IntToStringMod extends IntToString {
 
 	@Override
-	public String get(int id) {
-		String value = super.get(id);
-
-		if (value != null) {
-			int index = value.indexOf(':');
-
-			if (index < 0) {
-				value = "minecraft:" + value;
-			}
-		}
-
-		return value;
-	}
-
-	@Override
 	protected String transform(String string) {
 		int index = string.indexOf(':');
 

@@ -28,6 +28,7 @@ import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.fml.relauncher.Side;
+import me.cybermaxke.elementarrows.forge.v1800.arrow.FArrowRegistryClient;
 import me.cybermaxke.elementarrows.forge.v1800.entity.EntityElementArrow;
 import me.cybermaxke.elementarrows.forge.v1800.entity.FEntityFactory;
 import me.cybermaxke.elementarrows.forge.v1800.entity.FEntityFactoryClient;
@@ -81,6 +82,11 @@ public class FProxyClient extends FProxyCommon {
 	@Override
 	protected FEntityFactory newEntities() {
 		return new FEntityFactoryClient();
+	}
+
+	@Override
+	protected FArrowRegistryClient newArrows() {
+		return new FArrowRegistryClient();
 	}
 
 }

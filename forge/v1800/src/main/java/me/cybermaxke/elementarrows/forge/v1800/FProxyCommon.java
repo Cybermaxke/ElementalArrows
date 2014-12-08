@@ -26,6 +26,9 @@ import net.minecraft.block.BlockDispenser;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import me.cybermaxke.elementarrows.common.PluginBase;
+import me.cybermaxke.elementarrows.common.arrow.ArrowRegistry;
+import me.cybermaxke.elementarrows.common.arrow.ArrowRegistryBase;
+import me.cybermaxke.elementarrows.common.arrow.Arrows;
 import me.cybermaxke.elementarrows.common.block.BlockFactory;
 import me.cybermaxke.elementarrows.common.block.Blocks;
 import me.cybermaxke.elementarrows.common.enchant.EnchantFactory;
@@ -66,6 +69,7 @@ import me.cybermaxke.elementarrows.forge.v1800.recipe.FRecipeFactory;
 import me.cybermaxke.elementarrows.forge.v1800.world.FWorldManager;
 
 public class FProxyCommon implements FProxy {
+	public static ArrowRegistry arrows;
 	public static FBlockFactory blocks;
 	public static FEnchantFactory enchants;
 	public static FPotionFactory potions;
@@ -88,6 +92,7 @@ public class FProxyCommon implements FProxy {
 		entities = this.newEntities();
 		entities.onInit();
 
+		arrows = this.newArrows();
 		blocks = new FBlockFactory();
 		worlds = new FWorldManager();
 		recipes = new FRecipeFactory();
@@ -103,6 +108,7 @@ public class FProxyCommon implements FProxy {
 		}
 
 		try {
+			setFactoryInstance(Arrows.class, ArrowRegistry.class, arrows);
 			setFactoryInstance(Blocks.class, BlockFactory.class, blocks);
 			setFactoryInstance(Enchants.class, EnchantFactory.class, enchants);
 			setFactoryInstance(Locales.class, LocaleRegistry.class, locales);
@@ -172,6 +178,15 @@ public class FProxyCommon implements FProxy {
 	 */
 	protected FEntityFactory newEntities() {
 		return new FEntityFactory();
+	}
+
+	/**
+	 * Gets a new arrow registry instance.
+	 * 
+	 * @return the instance
+	 */
+	protected ArrowRegistry newArrows() {
+		return new ArrowRegistryBase();
 	}
 
 	protected static void setFactoryInstance(Class<?> target, Class<?> type, Object instance) throws Exception {

@@ -24,11 +24,14 @@ import me.cybermaxke.elementarrows.common.arrow.event.EventEntityHitGround;
 import me.cybermaxke.elementarrows.common.arrow.event.EventEntityShot;
 import me.cybermaxke.elementarrows.common.arrow.event.EventEntityTick;
 import me.cybermaxke.elementarrows.common.arrow.event.EventInitialize;
+import me.cybermaxke.elementarrows.common.enchant.Enchant;
 import me.cybermaxke.elementarrows.common.entity.Entities;
 import me.cybermaxke.elementarrows.common.entity.Entity;
 import me.cybermaxke.elementarrows.common.entity.EntityArrow;
 import me.cybermaxke.elementarrows.common.entity.EntityArrow.PickupMode;
 import me.cybermaxke.elementarrows.common.entity.EntityLiving;
+import me.cybermaxke.elementarrows.common.entity.EntityPlayer;
+import me.cybermaxke.elementarrows.common.item.inventory.ItemStack;
 import me.cybermaxke.elementarrows.common.math.Vector;
 import me.cybermaxke.elementarrows.common.source.Source;
 import me.cybermaxke.elementarrows.common.source.SourceBlock;
@@ -72,8 +75,32 @@ public class ElementArrowBase implements ElementArrow {
 			arrow = Entities.create(EntityArrow.class, source0.getWorld());
 			arrow.setPosition(source0.getPosition());
 
+			if (event.getPower() >= 1f) {
+				arrow.setCritical(true);
+			}
+
 			if (source0 instanceof EntityLiving) {
 				arrow.setHeading((EntityLiving) source0, event.getPower() * 2.25f, 1f);
+
+				if (source0 instanceof EntityPlayer) {
+					ItemStack bow = ((EntityPlayer) source0).getHeldItem();
+
+					if (bow != null) {
+						int l0 = bow.getEnchantLevel(Enchant.Power);
+						if (l0 > 0) {
+							arrow.setDamage(arrow.getDamage() + l0 * 0.5d + 0.5d);
+						}
+
+						int l1 = bow.getEnchantLevel(Enchant.Punch);
+						if (l1 > 0) {
+							arrow.setKnockbackPower(l1);
+						}
+
+						if (bow.hasEnchant(Enchant.Flame)) {
+							arrow.setFireTicks(100);
+						}
+					}
+				}
 			}
 		} else if (source instanceof SourceBlock) {
 			SourceBlock source0 = (SourceBlock) source;

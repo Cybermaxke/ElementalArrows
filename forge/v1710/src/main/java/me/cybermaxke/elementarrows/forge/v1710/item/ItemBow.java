@@ -114,24 +114,6 @@ public class ItemBow extends net.minecraft.item.ItemBow {
 				entity0.source = source;
 			}
 
-			if (power == 1f) {
-				entity0.setIsCritical(true);
-			}
-
-			int k = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, bow);
-			if (k > 0) {
-				entity0.setDamage(entity0.getDamage() + k * 0.5d + 0.5d);
-			}
-
-			int l = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, bow);
-			if (l > 0) {
-				entity0.setKnockbackStrength(l);
-			}
-
-			if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, bow) > 0) {
-				entity0.setFire(100);
-			}
-
 			bow.damageItem(1, player);
 			world.playSoundAtEntity(player, "random.bow", 1f, 1f / (Item.itemRand.nextFloat() * 0.4f + 1.2f) + power * 0.5f);
 

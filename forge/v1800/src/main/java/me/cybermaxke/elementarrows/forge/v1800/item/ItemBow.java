@@ -39,11 +39,9 @@ import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.ArrowNockEvent;
 
 public class ItemBow extends net.minecraft.item.ItemBow {
-	//private IIcon[] icons;
 
 	public ItemBow() {
 		this.setUnlocalizedName("bow");
-		//this.setTextureName("bow");
 	}
 
 	@Override
@@ -107,24 +105,6 @@ public class ItemBow extends net.minecraft.item.ItemBow {
 				entity0.source = source;
 			}
 
-			if (power == 1f) {
-				entity0.setIsCritical(true);
-			}
-
-			int k = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, bow);
-			if (k > 0) {
-				entity0.setDamage(entity0.getDamage() + k * 0.5d + 0.5d);
-			}
-
-			int l = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, bow);
-			if (l > 0) {
-				entity0.setKnockbackStrength(l);
-			}
-
-			if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, bow) > 0) {
-				entity0.setFire(100);
-			}
-
 			bow.damageItem(1, player);
 			world.playSoundAtEntity(player, "random.bow", 1f, 1f / (Item.itemRand.nextFloat() * 0.4f + 1.2f) + power * 0.5f);
 
@@ -161,44 +141,6 @@ public class ItemBow extends net.minecraft.item.ItemBow {
 
 		return bow;
 	}
-
-	/**
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister registry) {
-		this.itemIcon = registry.registerIcon("bow_standby");
-
-		this.icons = new IIcon[3];
-		this.icons[0] = registry.registerIcon("bow_pulling_0");
-		this.icons[1] = registry.registerIcon("bow_pulling_1");
-		this.icons[2] = registry.registerIcon("bow_pulling_2");
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon getItemIconForUseDuration(int duration) {
-		return this.icons[duration];
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining) {
-		if (usingItem == null) {
-			return this.itemIcon;
-		}
-
-		int ticksInUse = stack.getMaxItemUseDuration() - useRemaining;
-
-		if (ticksInUse > 18) {
-			return this.icons[2];
-		} else if (ticksInUse > 14) {
-			return this.icons[1];
-		} else if (ticksInUse > 0) {
-			return this.icons[0];
-		} else {
-			return this.itemIcon;
-		}
-	}*/
 
 	/**
 	 * Finds the first arrow stack in the inventory.

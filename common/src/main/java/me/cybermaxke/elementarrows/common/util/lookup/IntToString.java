@@ -80,7 +80,13 @@ public class IntToString {
 	 * @return the name
 	 */
 	public String get(int id) {
-		return this.map.inverse().get(id).value;
+		StringEntry entry = this.map.inverse().get(id);
+
+		if (entry != null) {
+			return this.transform(entry.value);
+		}
+
+		return null;
 	}
 
 	/**

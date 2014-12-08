@@ -23,7 +23,7 @@ import java.util.Set;
 import java.util.Map.Entry;
 
 public class Arrows {
-	private static ArrowRegistry registry = new ArrowRegistryBase();
+	private static ArrowRegistry registry;
 
 	/**
 	 * Registers a new arrow with a specific data value.
