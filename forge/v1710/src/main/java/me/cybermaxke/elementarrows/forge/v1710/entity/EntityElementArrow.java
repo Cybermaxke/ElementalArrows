@@ -26,8 +26,7 @@ import me.cybermaxke.elementarrows.common.arrow.event.EventEntityHitGround;
 import me.cybermaxke.elementarrows.common.arrow.event.EventEntityTick;
 import me.cybermaxke.elementarrows.common.source.Source;
 import me.cybermaxke.elementarrows.common.source.SourceUnknown;
-import me.cybermaxke.elementarrows.forge.v1710.util.Fields;
-
+import me.cybermaxke.elementarrows.common.util.reflect.Fields;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;

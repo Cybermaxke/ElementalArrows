@@ -31,7 +31,7 @@ import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 import me.cybermaxke.elementarrows.common.util.MapSerializer;
-import me.cybermaxke.elementarrows.forge.v1710.util.Fields;
+import me.cybermaxke.elementarrows.common.util.reflect.Fields;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityTracker;
 import net.minecraft.entity.EntityTrackerEntry;

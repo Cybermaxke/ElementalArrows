@@ -24,10 +24,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import me.cybermaxke.elementarrows.common.util.MapSerializer;
+import me.cybermaxke.elementarrows.common.util.reflect.Fields;
 import me.cybermaxke.elementarrows.forge.v1710.FElementArrows;
 import me.cybermaxke.elementarrows.forge.v1710.entity.EntityElementArrow;
 import me.cybermaxke.elementarrows.forge.v1710.entity.FEntity;
-import me.cybermaxke.elementarrows.forge.v1710.util.Fields;
 import me.cybermaxke.elementarrows.forge.v1710.util.Mods;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;

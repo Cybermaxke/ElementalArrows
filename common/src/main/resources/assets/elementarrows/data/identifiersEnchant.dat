@@ -1,0 +1,26 @@
+## String identifiers for the enchantments
+0=minecraft:protection
+1=minecraft:fireProtection
+2=minecraft:featherFalling
+3=minecraft:blastProtection
+4=minecraft:projectileProtection
+5=minecraft:respiration
+6=minecraft:aquaAffinity
+7=minecraft:thorns
+8=minecraft:depthStrider
+16=minecraft:sharpness
+17=minecraft:smite
+18=minecraft:baneOfArthropods
+19=minecraft:knockback
+20=minecraft:fireAspect
+21=minecraft:looting
+32=minecraft:efficiency
+33=minecraft:silkTouch
+34=minecraft:unbreaking
+35=minecraft:fortune
+48=minecraft:power
+49=minecraft:punch
+50=minecraft:flame
+51=minecraft:infinity
+61=minecraft:luckOfTheSea
+62=minecraft:lure

@@ -42,8 +42,8 @@ public class ArrowLightning extends ElementArrowBase {
 		/**
 		 * Setup client settings.
 		 */
-		this.icon = "elementArrows:arrowLightning.png";
-		this.texture = "elementArrows:arrowEntityLightning.png";
+		this.model = "elementArrows:arrowLightning";
+		this.texture = "elementArrows:arrowEntityLightning";
 	}
 
 	@Override

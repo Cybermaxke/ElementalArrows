@@ -26,8 +26,8 @@ import java.util.Map;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 
-import me.cybermaxke.elementarrows.forge.v1710.util.Fields;
 
+import me.cybermaxke.elementarrows.common.util.reflect.Fields;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.stats.StatCrafting;

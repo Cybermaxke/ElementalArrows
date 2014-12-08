@@ -42,8 +42,8 @@ public class ArrowDirt extends ElementArrowBase {
 		/**
 		 * Setup client settings.
 		 */
-		this.icon = "elementArrows:arrowDirt.png";
-		this.texture = "elementArrows:arrowEntityDirt.png";
+		this.model = "elementArrows:arrowDirt";
+		this.texture = "elementArrows:arrowEntityDirt";
 	}
 
 	@Override

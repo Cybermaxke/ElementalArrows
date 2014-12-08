@@ -42,6 +42,7 @@ import me.cybermaxke.elementarrows.common.potion.PotionFactory;
 import me.cybermaxke.elementarrows.common.potion.Potions;
 import me.cybermaxke.elementarrows.common.recipe.RecipeFactory;
 import me.cybermaxke.elementarrows.common.recipe.Recipes;
+import me.cybermaxke.elementarrows.common.util.reflect.Fields;
 import me.cybermaxke.elementarrows.common.world.WorldManager;
 import me.cybermaxke.elementarrows.common.world.Worlds;
 import me.cybermaxke.elementarrows.forge.v1710.block.FBlockFactory;
@@ -62,7 +63,6 @@ import me.cybermaxke.elementarrows.forge.v1710.locale.FLocaleRegistry;
 import me.cybermaxke.elementarrows.forge.v1710.network.MessageInjectorCommon;
 import me.cybermaxke.elementarrows.forge.v1710.potion.FPotionFactory;
 import me.cybermaxke.elementarrows.forge.v1710.recipe.FRecipeFactory;
-import me.cybermaxke.elementarrows.forge.v1710.util.Fields;
 import me.cybermaxke.elementarrows.forge.v1710.world.FWorldManager;
 
 public class FProxyCommon implements FProxy {

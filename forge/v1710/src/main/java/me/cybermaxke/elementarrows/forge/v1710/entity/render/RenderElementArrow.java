@@ -74,6 +74,10 @@ public class RenderElementArrow extends RenderArrow {
 							part1 = texture.substring(index + 1, texture.length());
 						}
 
+						if (!part1.endsWith(".png")) {
+							part1 = part1 + ".png";
+						}
+
 						resources[data] = new ResourceLocation(part0 + ":textures/entity/" + part1);
 						return resources[data];
 					}

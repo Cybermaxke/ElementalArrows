@@ -27,7 +27,6 @@ import java.util.Set;
 import java.util.WeakHashMap;
 
 import org.bukkit.craftbukkit.v1_7_R4.CraftWorld;
-
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -35,8 +34,7 @@ import org.bukkit.event.world.WorldInitEvent;
 import org.bukkit.plugin.Plugin;
 
 import me.cybermaxke.elementarrows.common.util.MapSerializer;
-import me.cybermaxke.elementarrows.spigot.v1710.util.Fields;
-
+import me.cybermaxke.elementarrows.common.util.reflect.Fields;
 import net.minecraft.server.v1_7_R4.Entity;
 import net.minecraft.server.v1_7_R4.EntityHuman;
 import net.minecraft.server.v1_7_R4.EntityPlayer;
@@ -47,7 +45,6 @@ import net.minecraft.server.v1_7_R4.IntHashMap;
 import net.minecraft.server.v1_7_R4.PacketDataSerializer;
 import net.minecraft.server.v1_7_R4.PacketPlayOutCustomPayload;
 import net.minecraft.server.v1_7_R4.WorldServer;
-
 import net.minecraft.util.io.netty.buffer.Unpooled;
 
 public class FEntityTickHandler implements IWorldAccess, Listener {

@@ -1,57 +1,81 @@
+/**
+ * This file is part of ElementalArrows.
+ * 
+ * Copyright (c) 2014, Cybermaxke
+ * 
+ * ElementalArrows is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * ElementalArrows is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
+ */
 package me.cybermaxke.elementarrows.forge.v1710.enchant;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import net.minecraft.enchantment.Enchantment;
+
 import com.google.common.base.Preconditions;
 
 import me.cybermaxke.elementarrows.common.enchant.Enchant;
 import me.cybermaxke.elementarrows.common.enchant.EnchantFactory;
-import me.cybermaxke.elementarrows.forge.v1710.util.Fields;
+import me.cybermaxke.elementarrows.common.util.lookup.IntToString;
+import me.cybermaxke.elementarrows.common.util.lookup.IntToStringMod;
+import me.cybermaxke.elementarrows.common.util.reflect.Fields;
+import me.cybermaxke.elementarrows.common.util.resource.Resources;
 
 public class FEnchantFactory implements EnchantFactory {
-	private final Map<Integer, FEnchant> items0 = new HashMap<Integer, FEnchant>();
-	private final Map<String, FEnchant> items1 = new HashMap<String, FEnchant>();
+	private final Map<Integer, FEnchant> items = new HashMap<Integer, FEnchant>();
+	private final IntToString map = new IntToStringMod();
 
 	public FEnchantFactory() throws Exception {
-		Field[] fields0 = Fields.findFields(Enchantment.class, Enchantment.class);
-		Field[] fields1 = Fields.findFields(Enchant.class, Enchant.class);
+		this.map.load(Resources.find("assets/elementarrows/data/identifiersEnchant.dat"));
 
 		/**
-		 * The current field.
+		 * Get all the fields of types that are available.
 		 */
-		int fieldIndex = 0;
+		Field[] fields = Fields.findFields(Enchant.class, Enchant.class);
 
-		for (int i = 0; i < fields0.length; i++) {
-			Field field = fields0[i];
-			field.setAccessible(true);
+		Field field0 = Field.class.getDeclaredField("modifiers");
+		field0.setAccessible(true);
 
-			if (Modifier.isStatic(field.getModifiers())) {
-				Enchantment enchantment = (Enchantment) field.get(null);
+		Enchantment[] types = Enchantment.enchantmentsList;
+		Iterator<Entry<Integer, String>> it = this.map.entries();
 
-				if (enchantment != null) {
-					String id = getIdFor(enchantment);
-					FEnchant type = new FEnchant(id, enchantment);
+		while (it.hasNext()) {
+			Entry<Integer, String> entry = it.next();
 
-					this.items0.put(enchantment.effectId, type);
-					this.items1.put(id, type);
+			String name = entry.getValue();
+			Enchantment enchant = types[entry.getKey()];
 
-					if (fieldIndex > fields1.length) {
-						continue;
+			if (enchant != null) {
+				FEnchant type = new FEnchant(name, enchant);
+
+				for (int i = 0; i < fields.length; i++) {
+					Field field = fields[i];
+
+					if (field.getName().equalsIgnoreCase(name)) {
+						field0.set(field, field.getModifiers() & ~Modifier.FINAL);
+
+						field.setAccessible(true);
+						field.set(null, type);
+						break;
 					}
-
-					Field field1 = fields1[fieldIndex++];
-
-					Field field0 = Field.class.getDeclaredField("modifiers");
-					field0.setAccessible(true);
-					field0.set(field1, field1.getModifiers() & ~Modifier.FINAL);
-
-					field1.setAccessible(true);
-					field1.set(null, type);
 				}
+
+				this.items.put(enchant.effectId, type);
 			}
 		}
 	}
@@ -60,73 +84,58 @@ public class FEnchantFactory implements EnchantFactory {
 	public FEnchant typeById(String id) {
 		Preconditions.checkNotNull(id);
 
-		int index = id.indexOf(':');
-		if (index != -1) {
-			id = id.substring(index + 1, id.length());
-		}
-		id = id.toLowerCase();
+		/**
+		 * Get the internal id.
+		 */
+		int id0 = this.map.get(id);
 
-		FEnchant enchant = this.items0.get(id.toLowerCase());
-		if (enchant != null) {
-			return enchant;
-		}
-
-		Enchantment[] types = Enchantment.enchantmentsList;
-
-		for (int i = 0; i < types.length; i++) {
-			Enchantment type0 = types[i];
-
-			if (type0 != null) {
-				String id0 = getIdFor(type0);
-
-				if (id0.equals(id)) {
-					FEnchant type1 = new FEnchant(id0, type0);
-
-					this.items1.put(id0, type1);
-					this.items0.put(i, type1);
-
-					return type1;
-				}
-			}
+		FEnchant type = this.items.get(this.map.get(id));
+		if (type != null) {
+			return type;
 		}
 
-		return null;
+		if (id0 < 0 || id0 >= Enchantment.enchantmentsList.length) {
+			return null;
+		}
+
+		Enchantment type0 = Enchantment.enchantmentsList[id0];
+		if (type0 != null) {
+			type = new FEnchant(this.map.get(id0), type0);
+
+			/**
+			 * Cache the type.
+			 */
+			this.items.put(id0, type);
+		}
+
+		return type;
 	}
 
 	@Override
-	public FEnchant typeById(int internalId) {
-		FEnchant type = this.items1.get(internalId);
+	public FEnchant typeById(int id) {
+		FEnchant type = this.items.get(id);
 
 		if (type != null) {
 			return type;
 		}
 
-		if (internalId >= Enchantment.enchantmentsList.length) {
+		if (id < 0 || id >= Enchantment.enchantmentsList.length) {
 			return null;
 		}
 
-		Enchantment enchant = Enchantment.enchantmentsList[internalId];
+		Enchantment enchant = Enchantment.enchantmentsList[id];
 		if (enchant != null) {
-			String id0 = getIdFor(enchant);
-			FEnchant type0 = new FEnchant(id0, enchant);
+			String id0 = this.map.get(id);
 
-			this.items0.put(internalId, type0);
-			this.items1.put(id0, type0);
+			if (id0 == null) {
+				return null;
+			}
 
-			return type0;
+			type = new FEnchant(id0, enchant);
+			this.items.put(id, type);
 		}
 
-		return null;
-	}
-
-	/**
-	 * Gets the id for the minecraft potion.
-	 * 
-	 * @param potion the potion
-	 * @return the id
-	 */
-	public static String getIdFor(Enchantment enchantment) {
-		return enchantment.getName().replaceFirst("enchantment.", "").replaceAll(".", "");
+		return type;
 	}
 
 }

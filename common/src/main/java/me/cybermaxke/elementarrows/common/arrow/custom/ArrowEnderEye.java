@@ -38,8 +38,8 @@ public class ArrowEnderEye extends ElementArrowBase {
 		/**
 		 * Setup client settings.
 		 */
-		this.icon = "elementArrows:arrowEnderEye.png";
-		this.texture = "elementArrows:arrowEntityEnderEye.png";
+		this.model = "elementArrows:arrowEnderEye";
+		this.texture = "elementArrows:arrowEntityEnderEye";
 	}
 
 	@Override

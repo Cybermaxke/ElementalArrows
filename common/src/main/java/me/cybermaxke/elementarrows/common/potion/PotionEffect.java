@@ -49,6 +49,13 @@ public interface PotionEffect {
 	boolean isAmbient();
 
 	/**
+	 * Gets whether the particles of the effect will be shown.
+	 * 
+	 * @return has particles
+	 */
+	boolean hasParticles();
+
+	/**
 	 * Combines the potion effect with this potion
 	 * effect and returns the new combined effect.
 	 * 

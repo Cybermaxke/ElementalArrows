@@ -62,8 +62,8 @@ public class ArrowIce extends ElementArrowBase {
 		/**
 		 * Setup client settings.
 		 */
-		this.icon = "elementArrows:arrowIce.png";
-		this.texture = "elementArrows:arrowEntityIce.png";
+		this.model = "elementArrows:arrowIce";
+		this.texture = "elementArrows:arrowEntityIce";
 
 		Entities.addTickHandler(new EntityTickHandler() {
 

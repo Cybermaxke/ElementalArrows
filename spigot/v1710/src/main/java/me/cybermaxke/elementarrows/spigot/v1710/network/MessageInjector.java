@@ -25,10 +25,9 @@ import java.util.Map;
 import me.cybermaxke.elementarrows.common.arrow.Arrows;
 import me.cybermaxke.elementarrows.common.arrow.ElementArrow;
 import me.cybermaxke.elementarrows.common.locale.Locales;
+import me.cybermaxke.elementarrows.common.util.reflect.Fields;
 import me.cybermaxke.elementarrows.spigot.v1710.entity.FEntity;
 import me.cybermaxke.elementarrows.spigot.v1710.entity.FEntityPlayer;
-import me.cybermaxke.elementarrows.spigot.v1710.util.Fields;
-
 import net.minecraft.server.v1_7_R4.EntityPlayer;
 import net.minecraft.server.v1_7_R4.Item;
 import net.minecraft.server.v1_7_R4.ItemStack;
@@ -39,7 +38,6 @@ import net.minecraft.server.v1_7_R4.NetworkManager;
 import net.minecraft.server.v1_7_R4.PacketDataSerializer;
 import net.minecraft.server.v1_7_R4.PacketPlayInCustomPayload;
 import net.minecraft.server.v1_7_R4.PacketPlayInSettings;
-
 import net.minecraft.util.io.netty.buffer.Unpooled;
 import net.minecraft.util.io.netty.channel.Channel;
 import net.minecraft.util.io.netty.channel.ChannelDuplexHandler;
@@ -47,7 +45,6 @@ import net.minecraft.util.io.netty.channel.ChannelHandlerContext;
 import net.minecraft.util.io.netty.channel.ChannelPromise;
 
 import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
-
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

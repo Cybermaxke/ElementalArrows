@@ -34,7 +34,7 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
 
 import me.cybermaxke.elementarrows.common.locale.LocaleRegistry;
-import me.cybermaxke.elementarrows.spigot.v1710.util.Fields;
+import me.cybermaxke.elementarrows.common.util.reflect.Fields;
 
 public class FLocaleRegistry implements LocaleRegistry {
 	private final Pattern pattern = Pattern.compile("%(\\d+\\$)?[\\d\\.]*[df]");

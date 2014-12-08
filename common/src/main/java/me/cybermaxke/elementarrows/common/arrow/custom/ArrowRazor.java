@@ -42,8 +42,8 @@ public class ArrowRazor extends ElementArrowBase {
 		/**
 		 * Setup client settings.
 		 */
-		this.icon = "elementArrows:arrowRazor.png";
-		this.texture = "elementArrows:arrowEntityRazor.png";
+		this.model = "elementArrows:arrowRazor";
+		this.texture = "elementArrows:arrowEntityRazor";
 	}
 
 	@Override

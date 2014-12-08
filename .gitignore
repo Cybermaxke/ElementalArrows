@@ -84,7 +84,6 @@ nb-configuration.xml
 /forge/**/resourcepacks
 /forge/**/screenshots
 /forge/**/mods
-#/forge/**/world
 /forge/**/world_nether
 /forge/**/world_the_end
 /forge/**/eula.txt

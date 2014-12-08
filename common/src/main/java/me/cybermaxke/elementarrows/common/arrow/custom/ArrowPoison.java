@@ -43,8 +43,8 @@ public class ArrowPoison extends ElementArrowBase {
 		/**
 		 * Setup client settings.
 		 */
-		this.icon = "elementArrows:arrowPoison.png";
-		this.texture = "elementArrows:arrowEntityPoison.png";
+		this.model = "elementArrows:arrowPoison";
+		this.texture = "elementArrows:arrowEntityPoison";
 	}
 
 	@Override

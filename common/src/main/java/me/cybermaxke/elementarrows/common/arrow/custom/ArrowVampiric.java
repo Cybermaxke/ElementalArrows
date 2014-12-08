@@ -46,8 +46,8 @@ public class ArrowVampiric extends ElementArrowBase {
 		/**
 		 * Setup client settings.
 		 */
-		this.icon = "elementArrows:arrowVampiric.png";
-		this.texture = "elementArrows:arrowEntityVampiric.png";
+		this.model = "elementArrows:arrowVampiric";
+		this.texture = "elementArrows:arrowEntityVampiric";
 	}
 
 	@Override

@@ -28,13 +28,11 @@ import io.netty.channel.Channel;
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPromise;
-
 import me.cybermaxke.elementarrows.common.arrow.Arrows;
 import me.cybermaxke.elementarrows.common.arrow.ElementArrow;
+import me.cybermaxke.elementarrows.common.util.reflect.Fields;
 import me.cybermaxke.elementarrows.forge.v1710.entity.FEntity;
 import me.cybermaxke.elementarrows.forge.v1710.entity.FEntityPlayer;
-import me.cybermaxke.elementarrows.forge.v1710.util.Fields;
-
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -44,10 +42,8 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.client.C15PacketClientSettings;
 import net.minecraft.network.play.client.C17PacketCustomPayload;
-
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.registry.LanguageRegistry;

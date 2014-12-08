@@ -53,6 +53,11 @@ public class FPotionEffect implements me.cybermaxke.elementarrows.common.potion.
 	}
 
 	@Override
+	public boolean hasParticles() {
+		return true;
+	}
+
+	@Override
 	public FPotionEffect clone() {
 		int id = this.effect.getEffectId();
 		int duration = this.effect.getDuration();

@@ -34,8 +34,8 @@ public class ArrowFire extends ElementArrowBase {
 		/**
 		 * Setup client settings.
 		 */
-		this.icon = "elementArrows:arrowFire.png";
-		this.texture = "elementArrows:arrowEntityFire.png";
+		this.model = "elementArrows:arrowFire";
+		this.texture = "elementArrows:arrowEntityFire";
 	}
 
 	@Override

@@ -1,0 +1,24 @@
+## String identifiers for the potion types
+1=minecraft:speed
+2=minecraft:slowness
+3=minecraft:haste
+4=minecraft:miningFatigue
+5=minecraft:strength
+6=minecraft:instantHealth
+7=minecraft:instantDamage
+8=minecraft:jumpBoost
+9=minecraft:nausea
+10=minecraft:regeneration
+11=minecraft:resistance
+12=minecraft:fireResistance
+13=minecraft:waterBreathing
+14=minecraft:invisibility
+15=minecraft:blindness
+16=minecraft:nightVision
+17=minecraft:hunger
+18=minecraft:weakness
+19=minecraft:poison
+20=minecraft:wither
+21=minecraft:healthBoost
+22=minecraft:absorption
+23=minecraft:saturation

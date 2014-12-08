@@ -43,8 +43,8 @@ public class ArrowDiamond extends ElementArrowBase {
 		/**
 		 * Setup client settings.
 		 */
-		this.icon = "elementArrows:arrowDiamond.png";
-		this.texture = "elementArrows:arrowEntityDiamond.png";
+		this.model = "elementArrows:arrowDiamond";
+		this.texture = "elementArrows:arrowEntityDiamond";
 	}
 
 	@Override

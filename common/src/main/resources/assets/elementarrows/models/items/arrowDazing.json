@@ -1,0 +1,6 @@
+{
+    "parent": "items/arrow",
+    "textures": {
+        "layer0": "elementarrows:items/arrowDazing"
+    }
+}

@@ -58,4 +58,16 @@ public interface PotionFactory {
 	 */
 	PotionEffect of(PotionType type, int duration, int amplifier, boolean ambient);
 
+	/**
+	 * Gets a new potion effect with the properties.
+	 * 
+	 * @param type the potion type
+	 * @param duration the duration of the effect
+	 * @param amplifier the amplifier of the effect
+	 * @param ambient whether the potion effect ambient is
+	 * @param particles whether you can see the particles of the effect
+	 * @return the new potion effect
+	 */
+	PotionEffect of(PotionType type, int duration, int amplifier, boolean ambient, boolean particles);
+
 }

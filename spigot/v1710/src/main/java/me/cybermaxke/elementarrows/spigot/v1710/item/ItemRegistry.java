@@ -25,7 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import me.cybermaxke.elementarrows.spigot.v1710.util.Fields;
+import me.cybermaxke.elementarrows.common.util.reflect.Fields;
 import net.minecraft.server.v1_7_R4.CraftingStatistic;
 import net.minecraft.server.v1_7_R4.Item;
 import net.minecraft.server.v1_7_R4.Items;

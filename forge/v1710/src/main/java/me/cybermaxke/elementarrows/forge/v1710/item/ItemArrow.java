@@ -18,22 +18,28 @@
  */
 package me.cybermaxke.elementarrows.forge.v1710.item;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 
+import com.google.gson.JsonObject;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-
 import me.cybermaxke.elementarrows.common.arrow.Arrows;
 import me.cybermaxke.elementarrows.common.arrow.ElementArrow;
-
+import me.cybermaxke.elementarrows.common.json.Json;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.resources.IResource;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.ResourceLocation;
 
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public final class ItemArrow extends Item {
@@ -87,10 +93,10 @@ public final class ItemArrow extends Item {
 				ElementArrow arrow = Arrows.find(data);
 
 				if (arrow != null) {
-					String icon0 = arrow.getIcon();
+					String icon0 = getTexture(arrow.getItemModel());
 
 					if (icon0 != null) {
-						this.icons[data] = this.iconRegistry.registerIcon(icon0.replace(".png", ""));
+						this.icons[data] = this.iconRegistry.registerIcon(icon0);
 						return this.icons[data];
 					}
 				}
@@ -116,11 +122,11 @@ public final class ItemArrow extends Item {
 		while (it.hasNext()) {
 			Entry<Short, ElementArrow> entry = it.next();
 
-			String icon0 = entry.getValue().getIcon();
+			String icon0 = getTexture(entry.getValue().getItemModel());
 			Short index = entry.getKey();
 
 			if (icon0 != null) {
-				this.icons[index] = this.iconRegistry.registerIcon(icon0.replace(".png", ""));
+				this.icons[index] = this.iconRegistry.registerIcon(icon0);
 			}
 		}
 	}
@@ -136,6 +142,58 @@ public final class ItemArrow extends Item {
 		while (it.hasNext()) {
 			items.add(new ItemStack(item, 1, it.next()));
 		}
+	}
+
+	static String getTexture(String model) {
+		if (model == null) {
+			return null;
+		}
+
+		int index = model.indexOf(':');
+		if (index >= 0) {
+			String[] parts = model.split(":");
+			model = parts[0] + ":models/items/" + parts[1];
+		} else {
+			model = "minecraft:models/items/" + model;
+		}
+
+		if (!model.endsWith(".json")) {
+			model = model + ".json";
+		}
+
+		ResourceLocation location = new ResourceLocation(model);
+		IResource resource = null;
+
+		try {
+			resource = Minecraft.getMinecraft().getResourceManager().getResource(location);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		InputStreamReader reader = new InputStreamReader(resource.getInputStream());
+		JsonObject object = Json.getGson().fromJson(reader, JsonObject.class);
+
+		if (object.has("textures")) {
+			String texture = object.get("textures").getAsJsonObject().entrySet().iterator().next().getValue().getAsString();
+
+			int index0 = texture.indexOf(':');
+			if (index0 >= 0) {
+				String part0 = texture.substring(0, index0 + 1);
+				String part1 = texture.substring(index0 + 1, texture.length());
+
+				if (part1.startsWith("items/")) {
+					texture = part0 + part1.substring(part1.indexOf('/') + 1, part1.length());
+				}
+			} else {
+				if (texture.startsWith("items/")) {
+					texture = texture.substring(texture.indexOf('/') + 1, texture.length());
+				}
+			}
+
+			return texture;
+		}
+
+		return null;
 	}
 
 }

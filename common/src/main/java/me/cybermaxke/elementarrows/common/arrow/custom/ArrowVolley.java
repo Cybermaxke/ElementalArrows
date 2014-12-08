@@ -48,8 +48,8 @@ public class ArrowVolley extends ElementArrowBase {
 		/**
 		 * Setup client settings.
 		 */
-		this.icon = "elementArrows:arrowVolley.png";
-		this.texture = "elementArrows:arrowEntityVolley.png";
+		this.model = "elementArrows:arrowVolley";
+		this.texture = "elementArrows:arrowEntityVolley";
 	}
 
 	@Override

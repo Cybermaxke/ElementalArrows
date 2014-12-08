@@ -20,8 +20,7 @@ package me.cybermaxke.elementarrows.forge.v1710.entity;
 
 import java.util.Map;
 
-import me.cybermaxke.elementarrows.forge.v1710.util.Fields;
-
+import me.cybermaxke.elementarrows.common.util.reflect.Fields;
 import net.minecraft.entity.EntityList;
 
 public class EntityRegistry {

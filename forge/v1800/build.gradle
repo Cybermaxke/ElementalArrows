@@ -1,0 +1,96 @@
+buildscript {
+    repositories {
+		mavenCentral()
+		maven {
+			name = "forge"
+			url = "http://files.minecraftforge.net/maven"
+		}
+		maven {
+			name = "sonatype"
+			url = "https://oss.sonatype.org/content/repositories/snapshots/"
+		}
+		jcenter()
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+    }
+}
+
+// Apply plugin
+apply plugin: 'forge'
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+// Minimum version of Java required
+sourceCompatibility = '1.6'
+targetCompatibility = '1.6'
+
+// Basic project information
+group = 'cybermaxke'
+archivesBaseName = 'elementarrows-forge-v1800'
+version = '1.0.0-SNAPSHOT'
+
+// Forge gradle plugin
+minecraft {
+	version = "1.8-11.14.0.1257-1.8"
+	mappings = "snapshot_nodoc_20141130"
+}
+
+// Repositories
+repositories {
+	mavenCentral()
+}
+
+// Dependencies
+dependencies {
+	compile project(':elementarrows-common')
+}
+
+jar {
+	// Jar shading and packaging configuration
+	from { project(':elementarrows-common').sourceSets.main.output }
+
+	// Classifier
+	classifier = 'release'
+
+	// Exclude db files
+	exclude '**/*.db'
+}
+
+processResources {
+	// This will ensure that this task is redone when the versions change.
+	inputs.property "name", project.theName
+	inputs.property "version", project.version
+	inputs.property "identifier", project.theIdentifier
+	inputs.property "description", project.theDescription
+	inputs.property "projectpage", project.theProjectPage
+	inputs.property "authors", project.theAuthors
+	inputs.property "credits", project.theCredits
+
+	// The minecraft version
+	inputs.property "mcversion", project.minecraft.version
+
+	// Replace stuff in mcmod.info, nothing else
+	from(sourceSets.main.resources.srcDirs) {
+		include 'mcmod.info'
+
+		// Replace the properties
+		expand([
+			'name':project.theName,
+			'version':project.version,
+			'identifier':project.theIdentifier,
+			'description':project.theDescription,
+			'projectpage':project.theProjectPage,
+			'authors':project.theAuthors,
+			'credits':project.theCredits,
+			'mcversion':project.minecraft.version
+		])
+	}
+
+	// Copy everything else, thats not the mcmod.info
+	from(sourceSets.main.resources.srcDirs) {
+		exclude '*.db'
+		exclude 'mcmod.info'
+	}
+}

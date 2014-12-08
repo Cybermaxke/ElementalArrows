@@ -51,8 +51,8 @@ public class ArrowExplosion extends ElementArrowBase {
 		/**
 		 * Setup client settings.
 		 */
-		this.icon = "elementArrows:arrowExplosion.png";
-		this.texture = "elementArrows:arrowEntityExplosion.png";
+		this.model = "elementArrows:arrowExplosion";
+		this.texture = "elementArrows:arrowEntityExplosion";
 	}
 
 	@Override

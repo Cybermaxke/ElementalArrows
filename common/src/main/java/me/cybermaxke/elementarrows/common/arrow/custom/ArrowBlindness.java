@@ -43,8 +43,8 @@ public class ArrowBlindness extends ElementArrowBase {
 		/**
 		 * Setup client settings.
 		 */
-		this.icon = "elementArrows:arrowBlindness.png";
-		this.texture = "elementArrows:arrowEntityBlindness.png";
+		this.model = "elementArrows:arrowBlindness";
+		this.texture = "elementArrows:arrowEntityBlindness";
 	}
 
 	@Override

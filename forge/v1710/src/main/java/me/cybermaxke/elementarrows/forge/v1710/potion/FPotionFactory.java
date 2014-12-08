@@ -21,52 +21,61 @@ package me.cybermaxke.elementarrows.forge.v1710.potion;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.google.common.base.Preconditions;
 
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-
 import me.cybermaxke.elementarrows.common.potion.PotionFactory;
 import me.cybermaxke.elementarrows.common.potion.PotionType;
-import me.cybermaxke.elementarrows.forge.v1710.util.Fields;
+import me.cybermaxke.elementarrows.common.util.lookup.IntToString;
+import me.cybermaxke.elementarrows.common.util.lookup.IntToStringMod;
+import me.cybermaxke.elementarrows.common.util.reflect.Fields;
+import me.cybermaxke.elementarrows.common.util.resource.Resources;
 
 public class FPotionFactory implements PotionFactory {
-	private Map<String, FPotionType> potions0 = new HashMap<String, FPotionType>();
-	private Map<Integer, FPotionType> potions1 = new HashMap<Integer, FPotionType>();
+	private final Map<Integer, FPotionType> potions = new HashMap<Integer, FPotionType>();
+	private final IntToString map = new IntToStringMod();
 
 	public FPotionFactory() throws Exception {
+		this.map.load(Resources.find("assets/elementarrows/data/identifiersPotion.dat"));
+
+		/**
+		 * Get all the fields of types that are available.
+		 */
+		Field[] fields = Fields.findFields(PotionType.class, PotionType.class);
+
+		Field field0 = Field.class.getDeclaredField("modifiers");
+		field0.setAccessible(true);
+
 		Potion[] types = Potion.potionTypes;
+		Iterator<Entry<Integer, String>> it = this.map.entries();
 
-		/**
-		 * The current field.
-		 */
-		int fieldIndex = 0;
+		while (it.hasNext()) {
+			Entry<Integer, String> entry = it.next();
 
-		/**
-		 * Start id of the fields in {@link PotionType}.
-		 */
-		for (int i = 1; i < types.length; i++) {
-			Potion type = types[i];
+			String name = entry.getValue();
+			Potion effect = types[entry.getKey()];
 
-			if (type != null) {
-				String id = getIdFor(type);
-				FPotionType type0 = new FPotionType(id, type);
+			if (effect != null) {
+				FPotionType type = new FPotionType(name, effect);
 
-				Field field = Fields.findField(PotionType.class, PotionType.class, fieldIndex++);
+				for (int i = 0; i < fields.length; i++) {
+					Field field = fields[i];
 
-				if (field != null) {
-					Field field0 = Field.class.getDeclaredField("modifiers");
-					field0.setAccessible(true);
-					field0.set(field, field.getModifiers() & ~Modifier.FINAL);
+					if (field.getName().equalsIgnoreCase(name)) {
+						field0.set(field, field.getModifiers() & ~Modifier.FINAL);
 
-					field.setAccessible(true);
-					field.set(null, type0);
+						field.setAccessible(true);
+						field.set(null, type);
+						break;
+					}
 				}
 
-				this.potions0.put(id.toLowerCase(), type0);
-				this.potions1.put(type.id, type0);
+				this.potions.put(effect.id, type);
 			}
 		}
 	}
@@ -75,41 +84,31 @@ public class FPotionFactory implements PotionFactory {
 	public FPotionType typeById(String id) {
 		Preconditions.checkNotNull(id);
 
-		int index = id.indexOf(':');
-		if (index != -1) {
-			id = id.substring(index + 1, id.length());
-		}
-		id = id.toLowerCase();
+		/**
+		 * Get the internal id.
+		 */
+		int id0 = this.map.get(id);
 
-		FPotionType type = this.potions0.get(id);
-
+		FPotionType type = this.potions.get(this.map.get(id));
 		if (type != null) {
 			return type;
 		}
 
-		Potion[] types = Potion.potionTypes;
-
-		/**
-		 * Start id of the fields in {@link PotionType}.
-		 */
-		for (int i = 0; i < types.length; i++) {
-			Potion type0 = types[i];
-
-			if (type0 != null) {
-				String id0 = getIdFor(type0);
-
-				if (id0.equals(id)) {
-					FPotionType type1 = new FPotionType(id0, type0);
-
-					this.potions0.put(id0, type1);
-					this.potions1.put(i, type1);
-
-					return type1;
-				}
-			}
+		if (id0 < 0 || id0 >= Potion.potionTypes.length) {
+			return null;
 		}
 
-		return null;
+		Potion type0 = Potion.potionTypes[id0];
+		if (type0 != null) {
+			type = new FPotionType(this.map.get(id0), type0);
+
+			/**
+			 * Cache the type.
+			 */
+			this.potions.put(id0, type);
+		}
+
+		return type;
 	}
 
 	@Override
@@ -123,8 +122,13 @@ public class FPotionFactory implements PotionFactory {
 	}
 
 	@Override
+	public FPotionEffect of(PotionType type, int duration, int amplifier, boolean ambient, boolean particles) {
+		return new FPotionEffect(new PotionEffect(type.getInternalId(), duration, amplifier, ambient));
+	}
+
+	@Override
 	public FPotionType typeById(int id) {
-		FPotionType type = this.potions1.get(id);
+		FPotionType type = this.potions.get(id);
 
 		if (type != null) {
 			return type;
@@ -136,26 +140,17 @@ public class FPotionFactory implements PotionFactory {
 
 		Potion potion = Potion.potionTypes[id];
 		if (potion != null) {
-			String id0 = getIdFor(potion);
-			FPotionType type0 = new FPotionType(id0, potion);
+			String id0 = this.map.get(id);
 
-			this.potions0.put(id0, type0);
-			this.potions1.put(id, type0);
+			if (id0 == null) {
+				return null;
+			}
 
-			return type0;
+			type = new FPotionType(id0, potion);
+			this.potions.put(id, type);
 		}
 
-		return null;
-	}
-
-	/**
-	 * Gets the id for the minecraft potion.
-	 * 
-	 * @param potion the potion
-	 * @return the id
-	 */
-	public static String getIdFor(Potion potion) {
-		return potion.getName().replaceFirst("potion.", "").toLowerCase();
+		return type;
 	}
 
 }

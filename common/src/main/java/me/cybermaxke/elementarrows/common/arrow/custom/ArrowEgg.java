@@ -40,8 +40,8 @@ public class ArrowEgg extends ElementArrowBase {
 		/**
 		 * Setup client settings.
 		 */
-		this.icon = "elementArrows:arrowEgg.png";
-		this.texture = "elementArrows:arrowEntityEgg.png";
+		this.model = "elementArrows:arrowEgg";
+		this.texture = "elementArrows:arrowEntityEgg";
 	}
 
 	@Override

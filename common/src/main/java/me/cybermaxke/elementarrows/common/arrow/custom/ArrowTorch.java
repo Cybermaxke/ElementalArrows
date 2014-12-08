@@ -49,8 +49,8 @@ public class ArrowTorch extends ElementArrowBase {
 		/**
 		 * Setup client settings.
 		 */
-		this.icon = "elementArrows:arrowTorch.png";
-		this.texture = "elementArrows:arrowEntityTorch.png";
+		this.model = "elementArrows:arrowTorch";
+		this.texture = "elementArrows:arrowEntityTorch";
 	}
 
 	@Override

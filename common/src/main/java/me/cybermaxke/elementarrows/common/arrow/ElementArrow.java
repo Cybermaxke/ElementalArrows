@@ -28,16 +28,16 @@ import me.cybermaxke.elementarrows.common.arrow.event.EventEntityTick;
 public interface ElementArrow {
 
 	/**
-	 * Gets the location of the icon texture.
+	 * Gets the location of the model file of the rendered item.
 	 * 
-	 * @return the icon
+	 * @return the model
 	 */
-	String getIcon();
+	String getItemModel();
 
 	/**
 	 * Gets the location of the entity texture.
 	 * 
-	 * @return the icon
+	 * @return the texture
 	 */
 	String getTexture();
 

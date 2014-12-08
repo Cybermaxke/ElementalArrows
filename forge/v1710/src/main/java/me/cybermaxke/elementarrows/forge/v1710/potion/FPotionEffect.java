@@ -81,4 +81,9 @@ public class FPotionEffect implements me.cybermaxke.elementarrows.common.potion.
 		return ((FPotionEffect) other).effect.equals(this.effect);
 	}
 
+	@Override
+	public boolean hasParticles() {
+		return true;
+	}
+
 }

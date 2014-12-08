@@ -20,8 +20,7 @@ package me.cybermaxke.elementarrows.spigot.v1710.entity;
 
 import java.util.Map;
 
-import me.cybermaxke.elementarrows.spigot.v1710.util.Fields;
-
+import me.cybermaxke.elementarrows.common.util.reflect.Fields;
 import net.minecraft.server.v1_7_R4.EntityTypes;
 
 public class EntityRegistry {

@@ -35,15 +35,15 @@ import me.cybermaxke.elementarrows.common.source.SourceBlock;
 import me.cybermaxke.elementarrows.common.source.SourceEntity;
 
 public class ElementArrowBase implements ElementArrow {
-	protected String icon;
+	protected String model;
 	protected String texture;
 	protected String unlocalizedName;
 
 	protected boolean effect;
 
 	@Override
-	public String getIcon() {
-		return this.icon;
+	public String getItemModel() {
+		return this.model;
 	}
 
 	@Override

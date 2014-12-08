@@ -43,8 +43,8 @@ public class ArrowDazing extends ElementArrowBase {
 		/**
 		 * Setup client settings.
 		 */
-		this.icon = "elementArrows:arrowDazing.png";
-		this.texture = "elementArrows:arrowEntityDazing.png";
+		this.model = "elementArrows:arrowDazing";
+		this.texture = "elementArrows:arrowEntityDazing";
 	}
 
 	@Override
