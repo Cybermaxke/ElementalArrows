@@ -47,6 +47,12 @@ dependencies {
 	compile project(':elementarrows-common')
 }
 
+def manifestEntries = [
+	"Built-By": System.properties['user.name'],
+	"Created-By": System.properties['java.vm.version'] + " (" + System.properties['java.vm.vendor'] + ")",
+	"FMLCorePlugin": "me.cybermaxke.elementarrows.forge.v1800.FLoadingPlugin"
+]
+
 jar {
 	// Jar shading and packaging configuration
 	from { project(':elementarrows-common').sourceSets.main.output }
@@ -56,6 +62,9 @@ jar {
 
 	// Exclude db files
 	exclude '**/*.db'
+
+	// Jar manifest configuration
+    manifest.mainAttributes(manifestEntries)
 }
 
 processResources {

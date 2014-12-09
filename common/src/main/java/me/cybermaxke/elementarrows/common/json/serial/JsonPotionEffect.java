@@ -41,6 +41,7 @@ public class JsonPotionEffect implements JsonSerial<PotionEffect> {
 		json.addProperty("duration", src.getDuration());
 		json.addProperty("amplifier", src.getAmplifier());
 		json.addProperty("ambient", src.isAmbient());
+		json.addProperty("particles", src.hasParticles());
 
 		return json;
 	}
@@ -57,8 +58,9 @@ public class JsonPotionEffect implements JsonSerial<PotionEffect> {
 		int duration = json0.get("duration").getAsInt();
 		int amplifier = json0.get("amplifier").getAsInt();
 		boolean ambient = json0.get("ambient").getAsBoolean();
+		boolean particles = json0.get("particles").getAsBoolean();
 
-		return Potions.of(potion, duration, amplifier, ambient);
+		return Potions.of(potion, duration, amplifier, ambient, particles);
 	}
 
 }

@@ -21,7 +21,9 @@ package me.cybermaxke.elementarrows.forge.v1800.entity;
 import com.google.common.base.Preconditions;
 
 import me.cybermaxke.elementarrows.common.entity.EntityLiving;
+import me.cybermaxke.elementarrows.common.item.inventory.ItemStack;
 import me.cybermaxke.elementarrows.common.potion.PotionType;
+import me.cybermaxke.elementarrows.forge.v1800.inventory.FItemStack;
 import me.cybermaxke.elementarrows.forge.v1800.potion.FPotionEffect;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
@@ -123,6 +125,11 @@ public class FEntityLiving<T extends EntityLivingBase> extends FEntity<T> implem
 		} else {
 			return Attribute.Undefined;
 		}
+	}
+
+	@Override
+	public ItemStack getHeldItem() {
+		return FItemStack.of(this.entity.getEquipmentInSlot(0));
 	}
 
 }

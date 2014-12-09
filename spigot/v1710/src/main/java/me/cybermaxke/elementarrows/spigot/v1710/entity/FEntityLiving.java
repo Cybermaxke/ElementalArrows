@@ -24,7 +24,9 @@ import net.minecraft.server.v1_7_R4.EntityLiving;
 import net.minecraft.server.v1_7_R4.EnumMonsterType;
 import net.minecraft.server.v1_7_R4.MobEffect;
 import net.minecraft.server.v1_7_R4.MobEffectList;
+import me.cybermaxke.elementarrows.common.item.inventory.ItemStack;
 import me.cybermaxke.elementarrows.common.potion.PotionType;
+import me.cybermaxke.elementarrows.spigot.v1710.inventory.FItemStack;
 import me.cybermaxke.elementarrows.spigot.v1710.potion.FPotionEffect;
 
 public class FEntityLiving<T extends EntityLiving> extends FEntity<T> implements me.cybermaxke.elementarrows.common.entity.EntityLiving {
@@ -122,6 +124,11 @@ public class FEntityLiving<T extends EntityLiving> extends FEntity<T> implements
 		} else {
 			return Attribute.Undefined;
 		}
+	}
+
+	@Override
+	public ItemStack getHeldItem() {
+		return FItemStack.of(this.entity.getEquipment(0));
 	}
 
 }

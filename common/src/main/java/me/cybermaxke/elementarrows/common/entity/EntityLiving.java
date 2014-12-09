@@ -18,10 +18,18 @@
  */
 package me.cybermaxke.elementarrows.common.entity;
 
+import me.cybermaxke.elementarrows.common.item.inventory.ItemStack;
 import me.cybermaxke.elementarrows.common.potion.PotionEffect;
 import me.cybermaxke.elementarrows.common.potion.PotionType;
 
 public interface EntityLiving extends Entity {
+
+	/**
+	 * Gets the item stack the player is holding in it's hand.
+	 * 
+	 * @return the item stack
+	 */
+	ItemStack getHeldItem();
 
 	/**
 	 * Gets the eye height of the entity.

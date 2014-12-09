@@ -16,24 +16,19 @@
  * You should have received a copy of the GNU General Public License
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  */
-package me.cybermaxke.elementarrows.common.entity;
+package me.cybermaxke.elementarrows.forge.v1710.render;
 
-import me.cybermaxke.elementarrows.common.item.inventory.Inventory;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
-public interface EntityPlayer extends EntityLiving {
-
-	/**
-	 * Gets the main inventory of the player.
-	 * 
-	 * @return the inventory
-	 */
-	Inventory getInventory();
+@SideOnly(Side.CLIENT)
+public interface RenderCallbackManager {
 
 	/**
-	 * Gets whether the player the client mod installed has.
+	 * Adds a new render callback.
 	 * 
-	 * @return has client
+	 * @param callback the callback
 	 */
-	boolean hasClient();
+	void addCallback(RenderCallback callback);
 
 }

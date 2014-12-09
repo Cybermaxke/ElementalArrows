@@ -27,19 +27,27 @@ import net.minecraft.enchantment.EnumEnchantmentType;
 import me.cybermaxke.elementarrows.forge.v1710.entity.EntityElementArrow;
 import me.cybermaxke.elementarrows.forge.v1710.entity.FEntityFactory;
 import me.cybermaxke.elementarrows.forge.v1710.entity.FEntityFactoryClient;
-import me.cybermaxke.elementarrows.forge.v1710.entity.render.RenderElementArrow;
-import me.cybermaxke.elementarrows.forge.v1710.entity.render.RenderEntityIce;
 import me.cybermaxke.elementarrows.forge.v1710.network.MessageInjectorClient;
+import me.cybermaxke.elementarrows.forge.v1710.render.RenderCallbackManager;
+import me.cybermaxke.elementarrows.forge.v1710.render.RenderCallbackManagerBase;
+import me.cybermaxke.elementarrows.forge.v1710.render.RenderEntityElementArrow;
+import me.cybermaxke.elementarrows.forge.v1710.render.RenderEntityIce;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class FProxyClient extends FProxyCommon {
+	private RenderCallbackManager renderCallbackManager;
 
 	@Override
 	public void onInit(File file) {
 		super.onInit(file);
+
+		/**
+		 * Initialize the render callback manager.
+		 */
+		this.renderCallbackManager = new RenderCallbackManagerBase();
 
 		/**
 		 * Initialize the client message injector.
@@ -50,13 +58,15 @@ public class FProxyClient extends FProxyCommon {
 		/**
 		 * Register the custom arrow entity renderer.
 		 */
-		RenderingRegistry.registerEntityRenderingHandler(EntityElementArrow.class, new RenderElementArrow());
+		RenderingRegistry.registerEntityRenderingHandler(EntityElementArrow.class, new RenderEntityElementArrow());
 
 		/**
 		 * Load the ice renderer.
 		 */
-		RenderEntityIce renderer = new RenderEntityIce();
-		renderer.onInit();
+		//RenderEntityIce renderer = new RenderEntityIce();
+		//renderer.onInit();
+
+		this.renderCallbackManager.addCallback(new RenderEntityIce());
 
 		/**
 		 * Remove the bow enchantments from the combat tab.

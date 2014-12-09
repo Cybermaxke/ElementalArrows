@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with ElementalArrows. If not, see <http://www.gnu.org/licenses/>.
  */
-package me.cybermaxke.elementarrows.forge.v1800.entity.render;
+package me.cybermaxke.elementarrows.forge.v1800.render;
 
 import me.cybermaxke.elementarrows.common.arrow.Arrows;
 import me.cybermaxke.elementarrows.common.arrow.ElementArrow;
@@ -30,10 +30,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.fml.relauncher.Side;
 
 @SideOnly(Side.CLIENT)
-public class RenderElementArrow extends RenderArrow {
+public class RenderEntityElementArrow extends RenderArrow {
 	private final static ResourceLocation[] resources = new ResourceLocation[Short.MAX_VALUE];
 
-	public RenderElementArrow(RenderManager renderManager) {
+	public RenderEntityElementArrow(RenderManager renderManager) {
 		super(renderManager);
 	}
 

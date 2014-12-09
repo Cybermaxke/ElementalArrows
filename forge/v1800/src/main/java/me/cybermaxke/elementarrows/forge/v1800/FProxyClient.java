@@ -32,16 +32,24 @@ import me.cybermaxke.elementarrows.forge.v1800.arrow.FArrowRegistryClient;
 import me.cybermaxke.elementarrows.forge.v1800.entity.EntityElementArrow;
 import me.cybermaxke.elementarrows.forge.v1800.entity.FEntityFactory;
 import me.cybermaxke.elementarrows.forge.v1800.entity.FEntityFactoryClient;
-import me.cybermaxke.elementarrows.forge.v1800.entity.render.RenderElementArrow;
-import me.cybermaxke.elementarrows.forge.v1800.entity.render.RenderEntityIce;
 import me.cybermaxke.elementarrows.forge.v1800.network.MessageInjectorClient;
+import me.cybermaxke.elementarrows.forge.v1800.render.RenderCallbackManager;
+import me.cybermaxke.elementarrows.forge.v1800.render.RenderCallbackManagerBase;
+import me.cybermaxke.elementarrows.forge.v1800.render.RenderEntityElementArrow;
+import me.cybermaxke.elementarrows.forge.v1800.render.RenderEntityIce;
 
 @SideOnly(Side.CLIENT)
 public class FProxyClient extends FProxyCommon {
+	private RenderCallbackManager renderCallbackManager;
 
 	@Override
 	public void onInit(File file) {
 		super.onInit(file);
+
+		/**
+		 * Initialize the render callback manager.
+		 */
+		this.renderCallbackManager = new RenderCallbackManagerBase();
 
 		/**
 		 * Initialize the client message injector.
@@ -52,13 +60,12 @@ public class FProxyClient extends FProxyCommon {
 		/**
 		 * Register the custom arrow entity renderer.
 		 */
-		RenderingRegistry.registerEntityRenderingHandler(EntityElementArrow.class, new RenderElementArrow(Minecraft.getMinecraft().getRenderManager()));
+		RenderingRegistry.registerEntityRenderingHandler(EntityElementArrow.class, new RenderEntityElementArrow(Minecraft.getMinecraft().getRenderManager()));
 
 		/**
 		 * Load the ice renderer.
 		 */
-		RenderEntityIce renderer = new RenderEntityIce();
-		renderer.onInit();
+		this.renderCallbackManager.addCallback(new RenderEntityIce());
 
 		/**
 		 * Remove the bow enchantments from the combat tab.
