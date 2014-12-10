@@ -119,7 +119,7 @@ public class RenderClassTransformer implements IClassTransformer {
 		}
 
 		@Override
-	    public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
+		public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
 			if (name.equals(mRenderEquippedItems) && desc.equals("(L" + cEntityLivingBase + ";F)V")) {
 				return new RenderMethodVisitorCall(this.cv.visitMethod(access, name, desc, signature, exceptions));
 			} else {
@@ -134,10 +134,10 @@ public class RenderClassTransformer implements IClassTransformer {
 			}
 
 			@Override
-		    public void visitInsn(int opcode) {
+			public void visitInsn(int opcode) {
 				if (opcode == Opcodes.RETURN){
 					this.visitCall();
-		        }
+				}
 				super.visitInsn(opcode);
 			}
 
@@ -159,7 +159,7 @@ public class RenderClassTransformer implements IClassTransformer {
 		}
 
 		@Override
-	    public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
+		public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
 			if (name.equals(mDoRender) && desc.equals("(L" + cEntityLivingBase + ";DDDFF)V")) {
 				return new RenderMethodVisitorCall1(this.cv.visitMethod(access, name, desc, signature, exceptions));
 			} else if (name.equals(mRenderModel) && desc.equals("(L" + cEntityLivingBase + ";FFFFFF)V")) {
@@ -177,10 +177,10 @@ public class RenderClassTransformer implements IClassTransformer {
 			}
 
 			@Override
-		    public void visitInsn(int opcode) {
+			public void visitInsn(int opcode) {
 				if (opcode == Opcodes.RETURN && this.i++ >= 1){
 					this.visitCall1();
-		        }
+				}
 				super.visitInsn(opcode);
 			}
 

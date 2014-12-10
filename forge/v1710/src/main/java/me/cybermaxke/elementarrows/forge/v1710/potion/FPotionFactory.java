@@ -113,16 +113,19 @@ public class FPotionFactory implements PotionFactory {
 
 	@Override
 	public FPotionEffect of(PotionType type, int duration, int amplifier) {
+		Preconditions.checkNotNull(type);
 		return new FPotionEffect(new PotionEffect(type.getInternalId(), duration, amplifier));
 	}
 
 	@Override
 	public FPotionEffect of(PotionType type, int duration, int amplifier, boolean ambient) {
+		Preconditions.checkNotNull(type);
 		return new FPotionEffect(new PotionEffect(type.getInternalId(), duration, amplifier, ambient));
 	}
 
 	@Override
 	public FPotionEffect of(PotionType type, int duration, int amplifier, boolean ambient, boolean particles) {
+		Preconditions.checkNotNull(type);
 		return new FPotionEffect(new PotionEffect(type.getInternalId(), duration, amplifier, ambient));
 	}
 

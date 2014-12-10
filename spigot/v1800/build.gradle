@@ -1,8 +1,5 @@
 buildscript {
 	repositories {
-		mavenCentral()
-
-		// The repo for the shade plugin
 		jcenter()
 	}
 	dependencies {
@@ -28,46 +25,54 @@ version = '1.0.0-SNAPSHOT'
 // Repositories
 repositories {
 	mavenCentral()
+
+	// Local dependencies
+	flatDir {
+        dirs 'lib'
+    }
 }
 
 // Dependencies
 dependencies {
+	compile 'com.google.code.gson:gson:2.3.1'
 	compile project(':elementarrows-common')
-	compile files('lib/spigot-1.8.0.jar')
+	compile name: 'spigot-1.8.0'
 }
 
 // Shade the dependencies in the jar
-shadowJar  {
+shadowJar {
 	exclude 'META-INF/*.DSA'
 	exclude 'META-INF/*.RSA'
+    exclude '**/textures/**'
+	exclude '**/models/**'
+
 	dependencies {
 		include(dependency(':elementarrows-common'))
+		include(dependency('com.google.code.gson:gson'))
 	}
-	classifier = ''
+
+	classifier = 'release'
 }
 build.dependsOn(shadowJar)
 
 jar {
-	// Jar shading and packaging configuration
-	from { project(':elementarrows-common').sourceSets.main.output }
+	// Classifier
+	classifier = ''
 
-	// classifier
-	classifier = 'release'
+	// Exclude textures
+	exclude '**/*.png'
+	exclude '**/*.db'
 
-	// exclude textures
-    exclude ("**/*.png")
-	exclude ("**/*.db")
-
-	// exclude empty directories
+	// Exclude empty directories
 	includeEmptyDirs = false
 }
 
 processResources {
-	ext.set('mainclass', 'me.cybermaxke.elementarrows.spigot.ElementArrowsPlugin')
+	ext.set('mainclass', 'me.cybermaxke.elementarrows.spigot.v1800.FElementArrows')
 
 	// This will ensure that this task is redone when the versions change.
 	inputs.property "name", project.theName
-	//inputs.property "version", project.version
+	inputs.property "version", project.version
 	inputs.property "identifier", project.theIdentifier
 	inputs.property "description", project.theDescription
 	inputs.property "projectpage", project.theProjectPage

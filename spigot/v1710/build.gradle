@@ -43,8 +43,8 @@ dependencies {
 shadowJar {
 	exclude 'META-INF/*.DSA'
 	exclude 'META-INF/*.RSA'
-    exclude '**/*.png'
-	exclude '**/*.db'
+	exclude '**/textures/**'
+	exclude '**/models/**'
 
 	dependencies {
 		include(dependency(':elementarrows-common'))
@@ -56,9 +56,6 @@ shadowJar {
 build.dependsOn(shadowJar)
 
 jar {
-	// Jar shading and packaging configuration
-	//from { project(':elementarrows-common').sourceSets.main.output }
-
 	// Classifier
 	classifier = ''
 

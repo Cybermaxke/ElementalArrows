@@ -41,7 +41,7 @@ public class FPotionFactory implements PotionFactory {
 	private final IntToString map = new IntToStringMod();
 
 	public FPotionFactory() throws Exception {
-		this.map.load(FPotionFactory.class.getResourceAsStream("assets/elementarrows/data/identifiersPotion.dat"));
+		this.map.load(FPotionFactory.class.getResourceAsStream("/assets/elementarrows/data/identifiersPotion.dat"));
 
 		/**
 		 * Get all the fields of types that are available.
@@ -113,16 +113,19 @@ public class FPotionFactory implements PotionFactory {
 
 	@Override
 	public FPotionEffect of(PotionType type, int duration, int amplifier) {
+		Preconditions.checkNotNull(type);
 		return new FPotionEffect(new MobEffect(type.getInternalId(), duration, amplifier));
 	}
 
 	@Override
 	public FPotionEffect of(PotionType type, int duration, int amplifier, boolean ambient) {
+		Preconditions.checkNotNull(type);
 		return new FPotionEffect(new MobEffect(type.getInternalId(), duration, amplifier, ambient));
 	}
 
 	@Override
 	public FPotionEffect of(PotionType type, int duration, int amplifier, boolean ambient, boolean particles) {
+		Preconditions.checkNotNull(type);
 		return new FPotionEffect(new MobEffect(type.getInternalId(), duration, amplifier, ambient));
 	}
 
