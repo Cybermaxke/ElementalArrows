@@ -34,13 +34,14 @@ import me.cybermaxke.elementarrows.common.enchant.EnchantFactory;
 import me.cybermaxke.elementarrows.common.util.lookup.IntToString;
 import me.cybermaxke.elementarrows.common.util.lookup.IntToStringMod;
 import me.cybermaxke.elementarrows.common.util.reflect.Fields;
+import me.cybermaxke.elementarrows.common.util.resource.Resources;
 
 public class FEnchantFactory implements EnchantFactory {
 	private final Map<Integer, FEnchant> items = new HashMap<Integer, FEnchant>();
 	private final IntToString map = new IntToStringMod();
 
 	public FEnchantFactory() throws Exception {
-		this.map.load(FEnchantFactory.class.getResourceAsStream("/assets/elementarrows/data/identifiersEnchant.dat"));
+		this.map.load(Resources.find("/assets/elementarrows/data/identifiersEnchant.dat"));
 
 		/**
 		 * Get all the fields of types that are available.
@@ -61,11 +62,19 @@ public class FEnchantFactory implements EnchantFactory {
 
 			if (enchant != null) {
 				FEnchant type = new FEnchant(name, enchant);
+				String name0;
+
+				int index = name.indexOf(':');
+				if (index == -1) {
+					name0 = name;
+				} else {
+					name0 = name.substring(index + 1, name.length());
+				}
 
 				for (int i = 0; i < fields.length; i++) {
 					Field field = fields[i];
 
-					if (field.getName().equalsIgnoreCase(name)) {
+					if (field.getName().equalsIgnoreCase(name0)) {
 						field0.set(field, field.getModifiers() & ~Modifier.FINAL);
 
 						field.setAccessible(true);

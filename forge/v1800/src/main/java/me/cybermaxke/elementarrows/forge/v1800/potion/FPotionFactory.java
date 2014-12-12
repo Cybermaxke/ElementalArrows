@@ -62,11 +62,19 @@ public class FPotionFactory implements PotionFactory {
 
 			if (effect != null) {
 				FPotionType type = new FPotionType(name, effect);
+				String name0;
+
+				int index = name.indexOf(':');
+				if (index == -1) {
+					name0 = name;
+				} else {
+					name0 = name.substring(index + 1, name.length());
+				}
 
 				for (int i = 0; i < fields.length; i++) {
 					Field field = fields[i];
 
-					if (field.getName().equalsIgnoreCase(name)) {
+					if (field.getName().equalsIgnoreCase(name0)) {
 						field0.set(field, field.getModifiers() & ~Modifier.FINAL);
 
 						field.setAccessible(true);

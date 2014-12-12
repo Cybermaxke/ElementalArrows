@@ -35,13 +35,14 @@ import me.cybermaxke.elementarrows.common.potion.PotionType;
 import me.cybermaxke.elementarrows.common.util.lookup.IntToString;
 import me.cybermaxke.elementarrows.common.util.lookup.IntToStringMod;
 import me.cybermaxke.elementarrows.common.util.reflect.Fields;
+import me.cybermaxke.elementarrows.common.util.resource.Resources;
 
 public class FPotionFactory implements PotionFactory {
 	private final Map<Integer, FPotionType> potions = new HashMap<Integer, FPotionType>();
 	private final IntToString map = new IntToStringMod();
 
 	public FPotionFactory() throws Exception {
-		this.map.load(FPotionFactory.class.getResourceAsStream("/assets/elementarrows/data/identifiersPotion.dat"));
+		this.map.load(Resources.find("/assets/elementarrows/data/identifiersPotion.dat"));
 
 		/**
 		 * Get all the fields of types that are available.
@@ -62,11 +63,19 @@ public class FPotionFactory implements PotionFactory {
 
 			if (effect != null) {
 				FPotionType type = new FPotionType(name, effect);
+				String name0;
+
+				int index = name.indexOf(':');
+				if (index == -1) {
+					name0 = name;
+				} else {
+					name0 = name.substring(index + 1, name.length());
+				}
 
 				for (int i = 0; i < fields.length; i++) {
 					Field field = fields[i];
 
-					if (field.getName().equalsIgnoreCase(name)) {
+					if (field.getName().equalsIgnoreCase(name0)) {
 						field0.set(field, field.getModifiers() & ~Modifier.FINAL);
 
 						field.setAccessible(true);

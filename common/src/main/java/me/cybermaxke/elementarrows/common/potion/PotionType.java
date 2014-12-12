@@ -23,11 +23,11 @@ public interface PotionType {
 	public static final PotionType Speed = null;
 	public static final PotionType Slowness = null;
 	public static final PotionType Haste = null;
-	public static final PotionType Fatigue = null;
+	public static final PotionType MiningFatigue = null;
 	public static final PotionType Strength = null;
-	public static final PotionType Heal = null;
-	public static final PotionType Harm = null;
-	public static final PotionType Jump = null;
+	public static final PotionType InstantHealth = null;
+	public static final PotionType InstantDamage = null;
+	public static final PotionType JumpBoost = null;
 	public static final PotionType Nausea = null;
 	public static final PotionType Regeneration = null;
 	public static final PotionType Resistance = null;
