@@ -29,6 +29,7 @@ import net.minecraft.server.v1_8_R1.ItemHoe;
 import net.minecraft.server.v1_8_R1.ItemStack;
 import net.minecraft.server.v1_8_R1.ItemSword;
 import net.minecraft.server.v1_8_R1.ItemTool;
+import net.minecraft.server.v1_8_R1.MinecraftKey;
 
 import com.google.common.base.Preconditions;
 
@@ -41,7 +42,7 @@ public class FItemFactory implements ItemFactory {
 	@Override
 	public ItemType typeById(String id) {
 		Preconditions.checkNotNull(id);
-		Item item = (Item) Item.REGISTRY.get(id);
+		Item item = (Item) Item.REGISTRY.get(new MinecraftKey(id));
 		Preconditions.checkNotNull(item, "Unknown item type! (" + id + ")");
 
 		return this.of(item);

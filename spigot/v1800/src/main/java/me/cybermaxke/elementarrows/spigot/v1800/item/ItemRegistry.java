@@ -29,6 +29,7 @@ import me.cybermaxke.elementarrows.common.util.reflect.Fields;
 import net.minecraft.server.v1_8_R1.CraftingStatistic;
 import net.minecraft.server.v1_8_R1.Item;
 import net.minecraft.server.v1_8_R1.Items;
+import net.minecraft.server.v1_8_R1.MinecraftKey;
 import net.minecraft.server.v1_8_R1.RegistryID;
 import net.minecraft.server.v1_8_R1.RegistryMaterials;
 import net.minecraft.server.v1_8_R1.RegistrySimple;
@@ -55,7 +56,9 @@ public final class ItemRegistry {
 			RegistryMaterials registry = Item.REGISTRY;
 
 			try {
-				Item item0 = (Item) registry.get(id);
+				MinecraftKey key = new MinecraftKey(id);
+
+				Item item0 = (Item) registry.get(key);
 				Integer id0 = registry.b(item0);
 
 				Map<Object, Object> map0 = null;
@@ -70,9 +73,9 @@ public final class ItemRegistry {
 				map0 = (Map<Object, Object>) field0.get(registry);
 				map1 = (RegistryID) field1.get(registry);
 
-				map0.remove(id);
-				map0.put(id, item);
-				map0.put("removed:" + id.replace("minecraft:", ""), item0);
+				map0.remove(key);
+				map0.put(key, item);
+				map0.put(new MinecraftKey("removed:" + id.replace("minecraft:", "")), item0);
 				map1.a(item, id0);
 
 				for (Field field : Items.class.getFields()) {

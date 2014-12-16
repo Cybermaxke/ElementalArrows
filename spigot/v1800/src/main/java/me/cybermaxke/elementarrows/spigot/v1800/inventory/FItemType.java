@@ -19,23 +19,28 @@
 package me.cybermaxke.elementarrows.spigot.v1800.inventory;
 
 import net.minecraft.server.v1_8_R1.Item;
+import net.minecraft.server.v1_8_R1.MinecraftKey;
 import me.cybermaxke.elementarrows.common.item.type.ItemType;
 
 public class FItemType implements ItemType {
 	public final Item item;
+	public final String id;
+	public final int internalId;
 
 	public FItemType(Item item) {
+		this.internalId = Item.REGISTRY.b(this.item);
+		this.id = ((MinecraftKey) Item.REGISTRY.c(this.item)).toString();
 		this.item = item;
 	}
 
 	@Override
 	public String getId() {
-		return (String) Item.REGISTRY.c(this.item);
+		return this.id;
 	}
 
 	@Override
 	public int getInternalId() {
-		return Item.REGISTRY.b(this.item);
+		return this.internalId;
 	}
 
 	@Override

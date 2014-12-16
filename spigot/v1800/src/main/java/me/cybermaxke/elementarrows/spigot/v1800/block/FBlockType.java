@@ -22,6 +22,7 @@ import net.minecraft.server.v1_8_R1.Block;
 import net.minecraft.server.v1_8_R1.BlockPosition;
 import net.minecraft.server.v1_8_R1.EnumDirection;
 import net.minecraft.server.v1_8_R1.IBlockData;
+import net.minecraft.server.v1_8_R1.MinecraftKey;
 
 import com.google.common.base.Preconditions;
 
@@ -40,7 +41,7 @@ public class FBlockType implements BlockType {
 
 	public FBlockType(Block block) {
 		this.internalId = Block.REGISTRY.b(block);
-		this.id = (String) Block.REGISTRY.c(block);
+		this.id = ((MinecraftKey) Block.REGISTRY.c(block)).toString();
 		this.block = block;
 	}
 

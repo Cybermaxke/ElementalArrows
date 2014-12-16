@@ -144,6 +144,7 @@ public final class ItemArrow extends Item {
 		}
 	}
 
+	@SideOnly(Side.CLIENT)
 	static String getTexture(String model) {
 		if (model == null) {
 			return null;

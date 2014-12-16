@@ -19,6 +19,7 @@
 package me.cybermaxke.elementarrows.forge.v1800.inventory;
 
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 import me.cybermaxke.elementarrows.common.item.type.ItemType;
 
 public class FItemType implements ItemType {
@@ -28,7 +29,7 @@ public class FItemType implements ItemType {
 
 	public FItemType(Item item) {
 		this.internalId = Item.itemRegistry.getIDForObject(item);
-		this.id = (String) Item.itemRegistry.getNameForObject(item);
+		this.id = ((ResourceLocation) Item.itemRegistry.getNameForObject(item)).toString();
 		this.item = item;
 	}
 

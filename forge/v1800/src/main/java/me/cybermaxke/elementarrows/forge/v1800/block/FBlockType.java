@@ -24,6 +24,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import me.cybermaxke.elementarrows.common.block.BlockFace;
 import me.cybermaxke.elementarrows.common.block.BlockType;
 import me.cybermaxke.elementarrows.common.item.type.ItemType;
@@ -39,7 +40,7 @@ public class FBlockType implements BlockType {
 
 	public FBlockType(Block block) {
 		this.internalId = Block.blockRegistry.getIDForObject(block);
-		this.id = (String) Block.blockRegistry.getNameForObject(block);
+		this.id = ((ResourceLocation) Block.blockRegistry.getNameForObject(block)).toString();
 		this.block = block;
 	}
 

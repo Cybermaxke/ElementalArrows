@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.WeakHashMap;
 
 import net.minecraft.server.v1_8_R1.Block;
+import net.minecraft.server.v1_8_R1.MinecraftKey;
 
 import com.google.common.base.Preconditions;
 
@@ -33,7 +34,7 @@ public class FBlockFactory implements BlockFactory {
 	@Override
 	public FBlockType typeById(String id) {
 		Preconditions.checkNotNull(id);
-		Block block = (Block) Block.REGISTRY.get(id);
+		Block block = (Block) Block.REGISTRY.get(new MinecraftKey(id));
 		Preconditions.checkNotNull(block, "Unknown block type! (" + id + ")");
 
 		return this.of(block);

@@ -209,6 +209,17 @@ public class MessageInjectorCommon {
 			NBTTagCompound nbt = itemStack.stackTagCompound;
 
 			if (nbt != null) {
+				/**
+				 * This is a fix for the missing textures on clients without the mod.
+				 */
+				if (nbt.hasKey("EDataValue")) {
+					itemStack.setItemDamage(nbt.getInteger("EDataValue"));
+					nbt.removeTag("EDataValue");
+				}
+
+				/**
+				 * A fix to support glows on clients without the mod.
+				 */
 				if (nbt.hasKey("ench")) {
 					NBTTagList list = (NBTTagList) nbt.getTag("ench");
 					if (list.tagCount() == 0) {
@@ -216,6 +227,9 @@ public class MessageInjectorCommon {
 					}
 				}
 
+				/**
+				 * A fix for names on clients without the mod.
+				 */
 				if (nbt.hasKey("display")) {
 					nbt = nbt.getCompoundTag("display");
 					if (nbt.hasKey("ENameFix")) {
@@ -244,6 +258,9 @@ public class MessageInjectorCommon {
 					itemStack.setTagCompound(nbt);
 				}
 
+				/**
+				 * A fix for names on clients without the mod.
+				 */
 				NBTTagCompound display;
 
 				if (nbt.hasKey("display")) {
@@ -271,9 +288,18 @@ public class MessageInjectorCommon {
 					display.setBoolean("ENameFix", true);
 				}
 
+				/**
+				 * A fix to support glows on clients without the mod.
+				 */
 				if (!nbt.hasKey("ench") && arrow.hasEffect()) {
 					nbt.setTag("ench", new NBTTagList());
 				}
+
+				/**
+				 * This is a fix for the missing textures on clients without the mod.
+				 */
+				nbt.setInteger("EDataValue", itemStack.getItemDamage());
+				itemStack.setItemDamage(0);
 			}
 
 			return itemStack;

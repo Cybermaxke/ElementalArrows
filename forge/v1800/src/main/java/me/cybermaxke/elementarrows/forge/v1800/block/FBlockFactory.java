@@ -24,6 +24,7 @@ import java.util.WeakHashMap;
 import com.google.common.base.Preconditions;
 
 import net.minecraft.block.Block;
+import net.minecraft.util.ResourceLocation;
 import me.cybermaxke.elementarrows.common.block.BlockFactory;
 
 public class FBlockFactory implements BlockFactory {
@@ -32,7 +33,7 @@ public class FBlockFactory implements BlockFactory {
 	@Override
 	public FBlockType typeById(String id) {
 		Preconditions.checkNotNull(id);
-		Block block = (Block) Block.blockRegistry.getObject(id);
+		Block block = (Block) Block.blockRegistry.getObject(new ResourceLocation(id));
 		Preconditions.checkNotNull(block, "Unknown block type! (" + id + ")");
 
 		return this.of(block);

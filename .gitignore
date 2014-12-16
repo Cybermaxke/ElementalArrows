@@ -104,3 +104,4 @@ nb-configuration.xml
 /forge/**/world/*.mca
 /forge/**/world/*.json
 /forge/**/plugins
+/forge/**/servers.dat

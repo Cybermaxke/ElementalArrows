@@ -95,7 +95,7 @@ public class FEntityFactory implements EntityFactory {
 					}
 				}
 
-				if (entity0.properties.get(me.cybermaxke.elementarrows.common.entity.Entity.FrozenMovement)) {
+				if (flag) {
 					entity.posX = entity.lastTickPosX;
 					entity.posY = entity.lastTickPosY;
 					entity.posZ = entity.lastTickPosZ;

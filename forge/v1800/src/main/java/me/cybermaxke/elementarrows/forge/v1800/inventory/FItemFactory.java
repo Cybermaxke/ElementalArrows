@@ -31,6 +31,7 @@ import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
+import net.minecraft.util.ResourceLocation;
 import me.cybermaxke.elementarrows.common.item.ItemFactory;
 import me.cybermaxke.elementarrows.common.item.type.ItemType;
 
@@ -40,7 +41,7 @@ public class FItemFactory implements ItemFactory {
 	@Override
 	public ItemType typeById(String id) {
 		Preconditions.checkNotNull(id);
-		Item item = (Item) Item.itemRegistry.getObject(id);
+		Item item = (Item) Item.itemRegistry.getObject(new ResourceLocation(id));
 		Preconditions.checkNotNull(item, "Unknown item type! (" + id + ")");
 
 		return this.of(item);

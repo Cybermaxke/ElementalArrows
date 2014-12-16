@@ -32,6 +32,7 @@ import net.minecraft.stats.StatList;
 import net.minecraft.util.ObjectIntIdentityMap;
 import net.minecraft.util.RegistryNamespaced;
 import net.minecraft.util.RegistrySimple;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @SuppressWarnings("unchecked")
@@ -65,7 +66,9 @@ public final class ItemRegistry {
 			RegistryNamespaced registry = Item.itemRegistry;
 
 			try {
-				Item item0 = (Item) registry.getObject(id);
+				ResourceLocation key = new ResourceLocation(id);
+
+				Item item0 = (Item) registry.getObject(key);
 				Integer id0 = registry.getIDForObject(item0);
 
 				Map<Object, Object> map0 = null;
@@ -80,9 +83,9 @@ public final class ItemRegistry {
 				map0 = (Map<Object, Object>) field0.get(registry);
 				map1 = (ObjectIntIdentityMap) field1.get(registry);
 
-				map0.remove(id);
-				map0.put(id, item);
-				map0.put("removed:" + id.replace("minecraft:", ""), item0);
+				map0.remove(key);
+				map0.put(key, item);
+				map0.put(new ResourceLocation("removed:" + id.replace("minecraft:", "")), item0);
 				map1.put(item, id0);
 
 				/**

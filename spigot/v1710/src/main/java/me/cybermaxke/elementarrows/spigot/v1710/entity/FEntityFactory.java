@@ -79,14 +79,14 @@ public class FEntityFactory implements EntityFactory {
 							if (entity instanceof EntityPlayer && entity.ticksLived % 3 == 0) {
 								AttributeInstance instance = ((EntityLiving) entity).getAttributeInstance(GenericAttributes.d);
 
-								if (flag) {
+								if (!flag) {
 									instance.b(frozenModifier);
 								} else if (instance.a(frozenUUID) == null) {
 									instance.a(frozenModifier);
 								}
 							}
 
-							if (entity0.properties.get(me.cybermaxke.elementarrows.common.entity.Entity.FrozenMovement)) {
+							if (flag) {
 								entity.locX = entity.lastX;
 								entity.locY = entity.lastY;
 								entity.locZ = entity.lastZ;
