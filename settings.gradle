@@ -1,0 +1,7 @@
+rootProject.name = name
+
+include 'elementalarrows-common'
+include 'elementalarrows-forge-mc111'
+
+project(':elementalarrows-common').projectDir = new File('common')
+project(':elementalarrows-forge-mc111').projectDir = new File('forge/v111')

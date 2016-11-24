@@ -1,0 +1,70 @@
+// Basic project information
+group = 'cybermaxke'
+version = '1.0.0-SNAPSHOT'
+archivesBaseName = "${rootProject.name.toLowerCase()}-${baseName.replaceAll("\\.", "")}"
+
+defaultTasks 'licenseFormat', 'build'
+
+sponge {
+    plugin {
+        id = "${rootProject.name.toLowerCase()}"
+        meta {
+            name = rootProject.name
+            authors = [ "Cybermaxke" ]
+        }
+    }
+}
+
+// Repositories
+repositories {
+    mavenCentral()
+    maven {
+        url 'http://repo.spongepowered.org/maven'
+    }
+}
+
+dependencies {
+    compile 'org.spongepowered:spongeapi:5.1.0-SNAPSHOT'
+}
+
+def jarBaseName = "${rootProject.name.toLowerCase()}-${baseName}-${version}"
+
+jar {
+    archiveName = "${jarBaseName}.jar"
+}
+
+processResources {
+    from 'LICENSE.txt'
+}
+
+task sourceJar(type: Jar) {
+    archiveName = "${jarBaseName}-sources.jar"
+    //noinspection GrUnresolvedAccess,GroovyAssignabilityCheck
+    from sourceSets.main.allSource
+}
+assemble.dependsOn sourceJar
+
+license {
+    header rootProject.file('HEADER.txt')
+    sourceSets = project.sourceSets
+    include '**/*.java'
+    include '**/*.groovy'
+
+    strictCheck true
+    ignoreFailures = false
+
+    ext {
+        name = rootProject.name
+        url = rootProject.url
+        organization = rootProject.organization
+    }
+
+    mapping {
+        java = 'SLASHSTAR_STYLE'
+    }
+}
+
+// Gradle version used for generating the Gradle wrapper
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.14'
+}

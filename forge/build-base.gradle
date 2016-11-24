@@ -1,0 +1,12 @@
+ext.baseName = "forge-mc${mcVersion}"
+
+apply from: rootProject.file('gradle/build-base.gradle')
+
+dependencies {
+    compile project(':elementalarrows-common')
+}
+
+sourceJar << {
+    from project(':elementalarrows-common').sourceSets.main.allSource
+}
+assemble.dependsOn sourceJar

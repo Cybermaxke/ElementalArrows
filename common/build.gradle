@@ -1,0 +1,8 @@
+plugins {
+    id "com.github.hierynomus.license" version "0.13.1"
+    id "org.spongepowered.plugin" version "0.8"
+}
+
+ext.baseName = "common"
+
+apply from: rootProject.file('gradle/build-base.gradle')
