@@ -22,13 +22,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.lanternpowered.elementalarrows.arrow.event;
+package org.lanternpowered.elementalarrows.parser.gson;
 
-import org.lanternpowered.elementalarrows.event.Target;
-import org.spongepowered.api.entity.Entity;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import org.lanternpowered.elementalarrows.registry.ObjectTypeRegistry;
 
-public interface ArrowHitEntityEvent extends ArrowEvent {
+import java.lang.reflect.Type;
 
-    @Target("hit-entity")
-    Entity getHitEntity();
+public class JsonObjectTypeRegistryObjectDeserializer<T> implements JsonDeserializer<T> {
+
+    private final ObjectTypeRegistry<T> registry;
+
+    public JsonObjectTypeRegistryObjectDeserializer(ObjectTypeRegistry<T> registry) {
+        this.registry = registry;
+    }
+
+    @Override
+    public T deserialize(JsonElement element, Type type, JsonDeserializationContext ctx) throws JsonParseException {
+        return this.registry.get(element.getAsString()).orElseThrow(
+                () -> new JsonParseException("Unable to find the object type: " + element.getAsString()));
+    }
 }

@@ -22,13 +22,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.lanternpowered.elementalarrows.arrow.event;
+package org.lanternpowered.elementalarrows.item;
 
-import org.lanternpowered.elementalarrows.event.Target;
-import org.spongepowered.api.entity.Entity;
+import org.spongepowered.api.item.ItemType;
 
-public interface ArrowHitEntityEvent extends ArrowEvent {
+public class InbuiltBaseItem implements BaseItem {
 
-    @Target("hit-entity")
-    Entity getHitEntity();
+    private final ItemType itemType;
+
+    public InbuiltBaseItem(ItemType itemType) {
+        this.itemType = itemType;
+    }
+
+    @Override
+    public String getId() {
+        return this.itemType.getId();
+    }
+
+    @Override
+    public String getName() {
+        return this.itemType.getName();
+    }
 }

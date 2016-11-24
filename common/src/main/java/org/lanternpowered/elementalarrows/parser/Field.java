@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.lanternpowered.elementalarrows.function;
+package org.lanternpowered.elementalarrows.parser;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -31,7 +31,12 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface SerializedType {
+public @interface Field {
 
-    Class<?> value();
+    /**
+     * The name of the target.
+     *
+     * @return The name
+     */
+    String value();
 }

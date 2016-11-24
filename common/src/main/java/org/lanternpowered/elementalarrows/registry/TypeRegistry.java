@@ -22,20 +22,36 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.lanternpowered.elementalarrows.function;
+package org.lanternpowered.elementalarrows.registry;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import java.util.Optional;
 
-@Retention(RetentionPolicy.RUNTIME)
-@java.lang.annotation.Target({ ElementType.FIELD, ElementType.METHOD })
-public @interface Target {
+public interface TypeRegistry<T> {
 
     /**
-     * The name of the target.
+     * Registers a type with the specified identifier.
      *
-     * @return The name
+     * @param identifier The identifier
+     * @param type The type
+     * @param secondaryIdentifiers Identifiers that will also be matched to the
+     *        given type, but the primary one is used for serializing the
+     *        objects.
      */
-    String value();
+    void register(String identifier, Class<? extends T> type, String... secondaryIdentifiers);
+
+    /**
+     * Gets the identifier by using it's type.
+     *
+     * @param type The type
+     * @return The identifier if found, otherwise {@link Optional#empty()}
+     */
+    Optional<String> getIdentifier(Class<? extends T> type);
+
+    /**
+     * Gets the type by using it's identifier.
+     *
+     * @param identifier The identifier
+     * @return The type if found, otherwise null
+     */
+    Class<? extends T> get(String identifier);
 }

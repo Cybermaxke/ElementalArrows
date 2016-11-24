@@ -22,13 +22,5 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.lanternpowered.elementalarrows.arrow;
-
-import org.spongepowered.api.CatalogType;
-
-/**
- * Represents a elemental arrow type.
- */
-public interface ElementalArrow extends CatalogType {
-
-}
+@org.spongepowered.api.util.annotation.NonnullByDefault
+package org.lanternpowered.elementalarrows.item;

@@ -1,4 +1,5 @@
 {
+    "object-type": "base-arrow",
     "id": "elemental_arrows:blindness_arrow",
     "name": "Blindness Arrow",
     "item-model": "elemental_arrows:models/items/blindness_arrow.json",
@@ -9,16 +10,14 @@
                 {
                     "target": "hit-entity",
                     "function": {
-                        "type": "add-potion-effects",
-                        "data": {
-                            "potion-effects": [
-                                {
-                                    "id": "minecraft:blindness",
-                                    "amplifier": 12,
-                                    "duration": 75
-                                }
-                            ]
-                        }
+                        "object-type": "add-potion-effects",
+                        "potion-effects": [
+                            {
+                                "id": "minecraft:blindness",
+                                "amplifier": 12,
+                                "duration": 75
+                            }
+                        ]
                     }
                 }
             ]

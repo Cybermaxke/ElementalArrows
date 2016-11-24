@@ -22,13 +22,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.lanternpowered.elementalarrows.arrow.event;
+package org.lanternpowered.elementalarrows.event;
 
-import org.lanternpowered.elementalarrows.event.Target;
-import org.spongepowered.api.entity.Entity;
+public final class EventFunctionSet {
 
-public interface ArrowHitEntityEvent extends ArrowEvent {
-
-    @Target("hit-entity")
-    Entity getHitEntity();
 }

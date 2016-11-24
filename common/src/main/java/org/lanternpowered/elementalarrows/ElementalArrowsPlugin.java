@@ -24,6 +24,17 @@
  */
 package org.lanternpowered.elementalarrows;
 
+import org.lanternpowered.elementalarrows.arrow.BaseArrow;
+import org.lanternpowered.elementalarrows.function.ObjectConsumer;
+import org.lanternpowered.elementalarrows.function.data.AddPotionEffects;
+import org.lanternpowered.elementalarrows.function.data.SetDataKey;
+import org.lanternpowered.elementalarrows.function.locatable.CreateExplosion;
+import org.lanternpowered.elementalarrows.function.locatable.PlaySound;
+import org.lanternpowered.elementalarrows.item.BaseItem;
+import org.lanternpowered.elementalarrows.parser.gson.GsonParser;
+import org.lanternpowered.elementalarrows.parser.gson.JsonTypeRegistryObjectDeserializer;
+import org.lanternpowered.elementalarrows.registry.SimpleTypeRegistry;
+import org.lanternpowered.elementalarrows.registry.TypeRegistry;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.event.game.state.GamePostInitializationEvent;
@@ -33,6 +44,16 @@ import org.spongepowered.api.plugin.Plugin;
 @Plugin(id = "elemental_arrows")
 public final class ElementalArrowsPlugin {
 
+    /**
+     * The registry of all the {@link ObjectConsumer}s classes.
+     */
+    private final TypeRegistry<ObjectConsumer> objectConsumersTypeRegistry = new SimpleTypeRegistry<>();
+
+    /**
+     * The registry of all the {@link BaseItem}s classes.
+     */
+    private final TypeRegistry<BaseItem> itemTypesRegistry = new SimpleTypeRegistry<>();
+
     @Listener
     public void onPreInit(GamePreInitializationEvent event) {
 
@@ -40,11 +61,22 @@ public final class ElementalArrowsPlugin {
 
     @Listener
     public void onInit(GameInitializationEvent event) {
+        // Object consumer types
+        this.objectConsumersTypeRegistry.register("add-potion-effects", AddPotionEffects.class);
+        this.objectConsumersTypeRegistry.register("set-data-key", SetDataKey.class);
+        this.objectConsumersTypeRegistry.register("create-explosion", CreateExplosion.class);
+        this.objectConsumersTypeRegistry.register("play-sound", PlaySound.class);
 
+        // Base item types
+        this.itemTypesRegistry.register("base-item", BaseItem.class);
+        this.itemTypesRegistry.register("base-arrow", BaseArrow.class);
+
+        // Setup the gson parser
+        final GsonParser gsonParser = new GsonParser();
+        gsonParser.registerTypeAdapter(ObjectConsumer.class, new JsonTypeRegistryObjectDeserializer<>(this.objectConsumersTypeRegistry));
     }
 
     @Listener
     public void onPostInit(GamePostInitializationEvent event) {
-
     }
 }

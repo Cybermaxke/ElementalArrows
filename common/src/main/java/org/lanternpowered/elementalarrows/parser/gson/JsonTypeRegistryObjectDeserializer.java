@@ -22,21 +22,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.lanternpowered.elementalarrows.arrow.event;
+package org.lanternpowered.elementalarrows.parser.gson;
 
-import org.lanternpowered.elementalarrows.event.Target;
-import org.spongepowered.api.entity.projectile.arrow.Arrow;
-import org.spongepowered.api.entity.projectile.source.ProjectileSource;
-import org.spongepowered.api.event.entity.TargetEntityEvent;
+import java.lang.reflect.Type;
 
-public interface ArrowEvent extends TargetEntityEvent {
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import org.lanternpowered.elementalarrows.registry.TypeRegistry;
 
-    @Target("source")
+public class JsonTypeRegistryObjectDeserializer<T> implements JsonDeserializer<T> {
+
+    private final TypeRegistry<T> registry;
+
+    public JsonTypeRegistryObjectDeserializer(TypeRegistry<T> recipeTypeRegistry) {
+        this.registry = recipeTypeRegistry;
+    }
+
     @Override
-    Arrow getTargetEntity();
-
-    @Target("shooter")
-    default ProjectileSource getShooter() {
-        return getTargetEntity().getShooter();
+    public T deserialize(JsonElement element, Type type, JsonDeserializationContext ctx) throws JsonParseException {
+        final JsonObject json = element.getAsJsonObject();
+        if (!json.has("object-type")) {
+            throw new JsonParseException("The object type entry is missing!");
+        }
+        final String identifier = json.get("object-type").getAsString();
+        final Class<? extends T> type0 = this.registry.get(identifier);
+        if (type0 == null) {
+            throw new JsonParseException("The object type entry is invalid! (" + identifier + ")");
+        }
+        json.remove("object-type");
+        return ctx.deserialize(json, type0);
     }
 }

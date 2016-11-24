@@ -22,13 +22,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.lanternpowered.elementalarrows.arrow.event;
+package com.google.gson.internal.bind;
 
-import org.lanternpowered.elementalarrows.event.Target;
-import org.spongepowered.api.entity.Entity;
+import com.google.gson.internal.bind.ReflectiveTypeAdapterFactory.BoundField;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 
-public interface ArrowHitEntityEvent extends ArrowEvent {
+import java.io.IOException;
 
-    @Target("hit-entity")
-    Entity getHitEntity();
+public abstract class LanternReflectiveBoundField extends BoundField {
+
+    protected LanternReflectiveBoundField(String name, boolean serialized, boolean deserialized) {
+        super(name, serialized, deserialized);
+    }
+
+    protected LanternReflectiveBoundField(Object boundField) {
+        super(((BoundField) boundField).name, ((BoundField) boundField).serialized, ((BoundField) boundField).deserialized);
+    }
+
+    @Override
+    protected abstract void write(JsonWriter var1, Object var2) throws IOException, IllegalAccessException;
+
+    @Override
+    protected abstract void read(JsonReader var1, Object var2) throws IOException, IllegalAccessException;
 }

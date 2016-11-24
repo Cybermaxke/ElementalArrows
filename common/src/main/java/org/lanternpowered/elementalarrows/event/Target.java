@@ -22,13 +22,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.lanternpowered.elementalarrows.arrow.event;
+package org.lanternpowered.elementalarrows.event;
 
-import org.lanternpowered.elementalarrows.event.Target;
-import org.spongepowered.api.entity.Entity;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
-public interface ArrowHitEntityEvent extends ArrowEvent {
+@Retention(RetentionPolicy.RUNTIME)
+@java.lang.annotation.Target({ ElementType.FIELD, ElementType.METHOD })
+public @interface Target {
 
-    @Target("hit-entity")
-    Entity getHitEntity();
+    /**
+     * The name of the target.
+     *
+     * @return The name
+     */
+    String value();
 }

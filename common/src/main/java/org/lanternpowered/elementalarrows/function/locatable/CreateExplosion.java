@@ -22,31 +22,45 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.lanternpowered.elementalarrows.function.data;
+package org.lanternpowered.elementalarrows.function.locatable;
 
 import org.lanternpowered.elementalarrows.parser.Field;
 import org.lanternpowered.elementalarrows.function.ObjectConsumer;
-import org.lanternpowered.elementalarrows.util.PotionEffectHelper;
-import org.spongepowered.api.data.key.Keys;
-import org.spongepowered.api.data.value.ValueContainer;
-import org.spongepowered.api.data.value.mutable.CompositeValueStore;
-import org.spongepowered.api.effect.potion.PotionEffect;
+import org.spongepowered.api.event.cause.Cause;
+import org.spongepowered.api.world.Locatable;
+import org.spongepowered.api.world.Location;
+import org.spongepowered.api.world.World;
+import org.spongepowered.api.world.explosion.Explosion;
 
-import java.util.List;
-import java.util.Optional;
+public class CreateExplosion<T extends Locatable> implements ObjectConsumer<T> {
 
-public class AddPotionEffects<S extends CompositeValueStore<S, H>, H extends ValueContainer<?>> implements ObjectConsumer<S> {
+    @Field("can-cause-fire")
+    private boolean canCauseFire = true;
 
-    @Field("potion-effects")
-    private List<PotionEffect> potionEffects;
+    @Field("radius")
+    private double radius = 1.0;
+
+    @Field("should-break-blocks")
+    private boolean shouldBreakBlocks = true;
+
+    @Field("should-damage-entities")
+    private boolean shouldDamageEntities = true;
+
+    @Field("should-play-smoke")
+    private boolean shouldPlaySmoke = true;
 
     @Override
-    public void accept(S store) {
-        final Optional<List<PotionEffect>> potionEffects = store.get(Keys.POTION_EFFECTS);
-        if (potionEffects.isPresent()) {
-            store.offer(Keys.POTION_EFFECTS, PotionEffectHelper.merge(potionEffects.get(), this.potionEffects));
-        } else {
-            store.offer(Keys.POTION_EFFECTS, this.potionEffects);
-        }
+    public void accept(T t) {
+        final Location<World> location = t.getLocation();
+
+        final Explosion.Builder builder = Explosion.builder();
+        builder.location(location);
+        builder.canCauseFire(this.canCauseFire);
+        builder.radius((float) this.radius);
+        builder.shouldBreakBlocks(this.shouldBreakBlocks);
+        builder.shouldDamageEntities(this.shouldDamageEntities);
+        builder.shouldPlaySmoke(this.shouldPlaySmoke);
+
+        location.getExtent().triggerExplosion(builder.build(), Cause.source(t).build());
     }
 }

@@ -22,13 +22,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.lanternpowered.elementalarrows.arrow.event;
+package com.google.gson.internal.bind;
 
-import org.lanternpowered.elementalarrows.event.Target;
-import org.spongepowered.api.entity.Entity;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
 
-public interface ArrowHitEntityEvent extends ArrowEvent {
+import java.lang.reflect.Type;
 
-    @Target("hit-entity")
-    Entity getHitEntity();
+public final class LanternTypeAdapterRuntimeTypeWrapper {
+
+    public static <T> TypeAdapterRuntimeTypeWrapper<T> create(Gson context, TypeAdapter<T> delegate, Type type) {
+        return new TypeAdapterRuntimeTypeWrapper<>(context, delegate, type);
+    }
 }

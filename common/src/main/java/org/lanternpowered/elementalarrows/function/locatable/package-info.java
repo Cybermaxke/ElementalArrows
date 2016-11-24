@@ -22,21 +22,5 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.lanternpowered.elementalarrows.function;
-
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
-public @interface Input {
-
-    /**
-     * The name of the target.
-     *
-     * @return The name
-     */
-    String value();
-}
+@org.spongepowered.api.util.annotation.NonnullByDefault
+package org.lanternpowered.elementalarrows.function.locatable;

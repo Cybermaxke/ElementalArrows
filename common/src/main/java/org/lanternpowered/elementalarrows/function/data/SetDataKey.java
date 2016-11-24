@@ -24,11 +24,11 @@
  */
 package org.lanternpowered.elementalarrows.function.data;
 
-import com.google.common.reflect.TypeToken;
-import org.lanternpowered.elementalarrows.function.Input;
+import com.google.gson.reflect.TypeToken;
+import org.lanternpowered.elementalarrows.parser.Field;
 import org.lanternpowered.elementalarrows.function.ObjectConsumer;
-import org.lanternpowered.elementalarrows.function.SerializedType;
-import org.lanternpowered.elementalarrows.function.SerializedTypeProvider;
+import org.lanternpowered.elementalarrows.parser.SerializedType;
+import org.lanternpowered.elementalarrows.parser.SerializedTypeProvider;
 import org.spongepowered.api.data.key.Key;
 import org.spongepowered.api.data.value.ValueContainer;
 import org.spongepowered.api.data.value.mutable.CompositeValueStore;
@@ -37,11 +37,11 @@ import javax.annotation.Nullable;
 
 public class SetDataKey<S extends CompositeValueStore<S, H>, H extends ValueContainer<?>> implements ObjectConsumer<S> {
 
-    @Input("key")
+    @Field("key")
     private Key key;
 
     @Nullable
-    @Input("element")
+    @Field("element")
     @SerializedType(TypeProvider.class)
     private Object element;
 
@@ -58,7 +58,7 @@ public class SetDataKey<S extends CompositeValueStore<S, H>, H extends ValueCont
 
         @Override
         public TypeToken<?> get(String field, SetDataKey<?,?> function) {
-            return function.key.getElementToken();
+            return TypeToken.get(function.key.getElementToken().getType());
         }
     }
 }

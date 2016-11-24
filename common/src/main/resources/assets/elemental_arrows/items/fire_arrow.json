@@ -1,4 +1,5 @@
 {
+    "object-type": "base-arrow",
     "id": "elemental_arrows:fire_arrow",
     "name": "Fire Arrow",
     "item-model": "elemental_arrows:models/items/fire_arrow.json",
@@ -9,11 +10,9 @@
                 {
                     "target": "arrow",
                     "function": {
-                        "type": "set-data-key",
-                        "data": {
-                            "key": "sponge:fire_ticks",
-                            "value": 1000
-                        }
+                        "object-type": "set-data-key",
+                        "key": "sponge:fire_ticks",
+                        "value": 1000
                     }
                 }
             ]

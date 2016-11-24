@@ -22,11 +22,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.lanternpowered.elementalarrows.function;
+package org.lanternpowered.elementalarrows.arrow;
 
-import com.google.common.reflect.TypeToken;
+import org.lanternpowered.elementalarrows.item.SimpleBaseItem;
+import org.lanternpowered.elementalarrows.parser.Field;
 
-public interface SerializedTypeProvider<F extends ObjectConsumer<?>> {
+import java.util.Optional;
 
-    TypeToken<?> get(String field, F function);
+import javax.annotation.Nullable;
+
+public class BaseArrow extends SimpleBaseItem {
+
+    @Nullable
+    @Field("entity-texture")
+    private String entityTexture;
+
+    public Optional<String> getEntityTexture() {
+        return Optional.ofNullable(this.entityTexture);
+    }
 }

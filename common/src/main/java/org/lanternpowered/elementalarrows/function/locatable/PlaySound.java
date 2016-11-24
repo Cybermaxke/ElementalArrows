@@ -22,45 +22,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.lanternpowered.elementalarrows.function.misc;
+package org.lanternpowered.elementalarrows.function.locatable;
 
-import org.lanternpowered.elementalarrows.function.Input;
+import org.lanternpowered.elementalarrows.parser.Field;
 import org.lanternpowered.elementalarrows.function.ObjectConsumer;
-import org.spongepowered.api.event.cause.Cause;
+import org.spongepowered.api.effect.sound.SoundCategories;
+import org.spongepowered.api.effect.sound.SoundCategory;
+import org.spongepowered.api.effect.sound.SoundType;
 import org.spongepowered.api.world.Locatable;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
-import org.spongepowered.api.world.explosion.Explosion;
 
-public class CreateExplosion<T extends Locatable> implements ObjectConsumer<T> {
+public class PlaySound<T extends Locatable> implements ObjectConsumer<T> {
 
-    @Input("can-cause-fire")
-    private boolean canCauseFire = true;
+    @Field("sound")
+    private SoundType soundType;
 
-    @Input("radius")
-    private double radius = 1.0;
+    @Field("category")
+    private SoundCategory soundCategory = SoundCategories.MASTER;
 
-    @Input("should-break-blocks")
-    private boolean shouldBreakBlocks = true;
+    @Field("volume")
+    private double volume = 1.0;
 
-    @Input("should-damage-entities")
-    private boolean shouldDamageEntities = true;
-
-    @Input("should-play-smoke")
-    private boolean shouldPlaySmoke = true;
+    @Field("pitch")
+    private double pitch = 1.0;
 
     @Override
     public void accept(T t) {
         final Location<World> location = t.getLocation();
-
-        final Explosion.Builder builder = Explosion.builder();
-        builder.location(location);
-        builder.canCauseFire(this.canCauseFire);
-        builder.radius((float) this.radius);
-        builder.shouldBreakBlocks(this.shouldBreakBlocks);
-        builder.shouldDamageEntities(this.shouldDamageEntities);
-        builder.shouldPlaySmoke(this.shouldPlaySmoke);
-
-        location.getExtent().triggerExplosion(builder.build(), Cause.source(t).build());
+        location.getExtent().playSound(this.soundType, this.soundCategory, location.getPosition(), this.volume, this.pitch);
     }
 }
