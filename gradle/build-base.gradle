@@ -7,7 +7,7 @@ defaultTasks 'licenseFormat', 'build'
 
 sponge {
     plugin {
-        id = "${rootProject.name.toLowerCase()}"
+        id = "elemental_arrows"
         meta {
             name = rootProject.name
             authors = [ "Cybermaxke" ]

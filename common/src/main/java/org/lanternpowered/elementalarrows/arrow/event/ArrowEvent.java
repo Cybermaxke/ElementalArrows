@@ -24,11 +24,19 @@
  */
 package org.lanternpowered.elementalarrows.arrow.event;
 
+import org.lanternpowered.elementalarrows.function.Target;
 import org.spongepowered.api.entity.projectile.arrow.Arrow;
+import org.spongepowered.api.entity.projectile.source.ProjectileSource;
 import org.spongepowered.api.event.entity.TargetEntityEvent;
 
 public interface ArrowEvent extends TargetEntityEvent {
 
+    @Target("source")
     @Override
     Arrow getTargetEntity();
+
+    @Target("shooter")
+    default ProjectileSource getShooter() {
+        return getTargetEntity().getShooter();
+    }
 }

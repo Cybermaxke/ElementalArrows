@@ -22,5 +22,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-@org.spongepowered.api.util.annotation.NonnullByDefault
-package org.lanternpowered.elementalarrows.arrow.action;
+package org.lanternpowered.elementalarrows.function;
+
+public interface ObjectConsumerType<T> {
+
+    /**
+     * Gets the type of the target.
+     *
+     * @return The target type
+     */
+    Class<T> getTargetType();
+}

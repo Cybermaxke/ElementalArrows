@@ -22,11 +22,5 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.lanternpowered.elementalarrows.arrow.action;
-
-import org.lanternpowered.elementalarrows.arrow.event.ArrowEvent;
-import org.spongepowered.api.event.EventListener;
-
-public interface Action<E extends ArrowEvent> extends EventListener<E> {
-
-}
+@org.spongepowered.api.util.annotation.NonnullByDefault
+package org.lanternpowered.elementalarrows.util;

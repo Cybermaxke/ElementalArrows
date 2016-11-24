@@ -24,9 +24,11 @@
  */
 package org.lanternpowered.elementalarrows.arrow.event;
 
+import org.lanternpowered.elementalarrows.function.Target;
 import org.spongepowered.api.entity.Entity;
 
 public interface ArrowHitEntityEvent extends ArrowEvent {
 
+    @Target("hit-entity")
     Entity getHitEntity();
 }

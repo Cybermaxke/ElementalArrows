@@ -22,29 +22,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.lanternpowered.elementalarrows;
+package org.lanternpowered.elementalarrows.function.data;
 
-import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.game.state.GameInitializationEvent;
-import org.spongepowered.api.event.game.state.GamePostInitializationEvent;
-import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
-import org.spongepowered.api.plugin.Plugin;
+import com.google.common.reflect.TypeToken;
+import org.lanternpowered.elementalarrows.function.Input;
+import org.lanternpowered.elementalarrows.function.ObjectConsumer;
+import org.lanternpowered.elementalarrows.function.SerializedType;
+import org.lanternpowered.elementalarrows.function.SerializedTypeProvider;
+import org.spongepowered.api.data.key.Key;
+import org.spongepowered.api.data.value.ValueContainer;
+import org.spongepowered.api.data.value.mutable.CompositeValueStore;
 
-@Plugin(id = "elemental_arrows")
-public final class ElementalArrowsPlugin {
+import javax.annotation.Nullable;
 
-    @Listener
-    public void onPreInit(GamePreInitializationEvent event) {
+public class SetDataKey<S extends CompositeValueStore<S, H>, H extends ValueContainer<?>> implements ObjectConsumer<S> {
 
+    @Input("key")
+    private Key key;
+
+    @Nullable
+    @Input("element")
+    @SerializedType(TypeProvider.class)
+    private Object element;
+
+    @Override
+    public void accept(S s) {
+        if (this.element == null) {
+            s.remove(this.key);
+        } else {
+            s.offer(this.key, this.element);
+        }
     }
 
-    @Listener
-    public void onInit(GameInitializationEvent event) {
+    private static final class TypeProvider implements SerializedTypeProvider<SetDataKey<?,?>> {
 
-    }
-
-    @Listener
-    public void onPostInit(GamePostInitializationEvent event) {
-
+        @Override
+        public TypeToken<?> get(String field, SetDataKey<?,?> function) {
+            return function.key.getElementToken();
+        }
     }
 }

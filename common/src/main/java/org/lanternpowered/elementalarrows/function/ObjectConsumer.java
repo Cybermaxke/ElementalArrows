@@ -22,12 +22,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.lanternpowered.elementalarrows.arrow.action;
+package org.lanternpowered.elementalarrows.function;
 
-import org.lanternpowered.elementalarrows.arrow.event.ArrowHitEntityEvent;
-import org.spongepowered.api.event.Event;
+import java.util.function.Consumer;
 
-public final class ActionType<E extends Event> {
+public interface ObjectConsumer<T> extends Consumer<T> {
 
-    public static final ActionType<ArrowHitEntityEvent> HIT_ENTITY = new ActionType<>();
 }

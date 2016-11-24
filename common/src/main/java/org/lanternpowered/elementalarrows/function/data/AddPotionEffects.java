@@ -22,29 +22,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.lanternpowered.elementalarrows;
+package org.lanternpowered.elementalarrows.function.data;
 
-import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.game.state.GameInitializationEvent;
-import org.spongepowered.api.event.game.state.GamePostInitializationEvent;
-import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
-import org.spongepowered.api.plugin.Plugin;
+import org.lanternpowered.elementalarrows.function.Input;
+import org.lanternpowered.elementalarrows.function.ObjectConsumer;
+import org.lanternpowered.elementalarrows.util.PotionEffectHelper;
+import org.spongepowered.api.data.key.Keys;
+import org.spongepowered.api.data.value.ValueContainer;
+import org.spongepowered.api.data.value.mutable.CompositeValueStore;
+import org.spongepowered.api.effect.potion.PotionEffect;
 
-@Plugin(id = "elemental_arrows")
-public final class ElementalArrowsPlugin {
+import java.util.List;
+import java.util.Optional;
 
-    @Listener
-    public void onPreInit(GamePreInitializationEvent event) {
+public class AddPotionEffects<S extends CompositeValueStore<S, H>, H extends ValueContainer<?>> implements ObjectConsumer<S> {
 
-    }
+    @Input("potion-effects")
+    private List<PotionEffect> potionEffects;
 
-    @Listener
-    public void onInit(GameInitializationEvent event) {
-
-    }
-
-    @Listener
-    public void onPostInit(GamePostInitializationEvent event) {
-
+    @Override
+    public void accept(S store) {
+        final Optional<List<PotionEffect>> potionEffects = store.get(Keys.POTION_EFFECTS);
+        if (potionEffects.isPresent()) {
+            store.offer(Keys.POTION_EFFECTS, PotionEffectHelper.merge(potionEffects.get(), this.potionEffects));
+        } else {
+            store.offer(Keys.POTION_EFFECTS, this.potionEffects);
+        }
     }
 }

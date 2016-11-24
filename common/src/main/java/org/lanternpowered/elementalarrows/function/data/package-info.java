@@ -22,29 +22,5 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.lanternpowered.elementalarrows;
-
-import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.game.state.GameInitializationEvent;
-import org.spongepowered.api.event.game.state.GamePostInitializationEvent;
-import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
-import org.spongepowered.api.plugin.Plugin;
-
-@Plugin(id = "elemental_arrows")
-public final class ElementalArrowsPlugin {
-
-    @Listener
-    public void onPreInit(GamePreInitializationEvent event) {
-
-    }
-
-    @Listener
-    public void onInit(GameInitializationEvent event) {
-
-    }
-
-    @Listener
-    public void onPostInit(GamePostInitializationEvent event) {
-
-    }
-}
+@org.spongepowered.api.util.annotation.NonnullByDefault
+package org.lanternpowered.elementalarrows.function.data;
