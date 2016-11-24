@@ -22,51 +22,36 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.lanternpowered.elementalarrows.item;
+package org.lanternpowered.elementalarrows.event;
 
-import org.lanternpowered.elementalarrows.event.EventActionSet;
-import org.lanternpowered.elementalarrows.parser.Field;
-import org.spongepowered.api.text.Text;
+import com.google.common.base.Throwables;
 
-import java.util.Optional;
+import java.lang.reflect.Method;
+import java.util.function.Function;
 
-import javax.annotation.Nullable;
+public final class TargetProvider {
 
-public class SimpleBaseItem implements BaseItem {
-
-    @Field("id")
-    private String id;
-
-    @Field("name")
-    private Text name;
-
-    @Nullable
-    @Field("item-model")
-    private String model;
-
-    @Field("events")
-    private EventActionSet eventActionSet;
-
-    @Nullable private String plainName;
-
-    @Override
-    public String getId() {
-        return this.id;
-    }
-
-    @Override
-    public String getName() {
-        if (this.plainName == null) {
-            this.plainName = this.name.toPlain();
+    public static <S, R> Function<S, R> of(Class<S> source, String targetName) {
+        for (Method method : source.getMethods()) {
+            final Target target = method.getAnnotation(Target.class);
+            if (target == null) {
+                continue;
+            }
+            if (target.value().equals(targetName)) {
+                if (method.getParameterTypes().length != 0) {
+                    throw new IllegalStateException("A target provider method may not have parameters, method: " +
+                            method.getName() + " in the class: " + method.getDeclaringClass());
+                }
+                return s -> {
+                    try {
+                        //noinspection unchecked
+                        return (R) method.invoke(s);
+                    } catch (Exception e) {
+                        throw Throwables.propagate(e);
+                    }
+                };
+            }
         }
-        return this.plainName;
-    }
-
-    public Optional<String> getItemModel() {
-        return Optional.ofNullable(this.model);
-    }
-
-    public EventActionSet getEventActionSet() {
-        return this.eventActionSet;
+        throw new IllegalArgumentException("Unable to find the target method in the class.");
     }
 }

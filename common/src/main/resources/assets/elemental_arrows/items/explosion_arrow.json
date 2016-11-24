@@ -6,7 +6,7 @@
     "entity-texture": "elemental_arrows:textures/entities/explosion_arrow",
     "events": {
         "arrow-hit-entity": {
-            "actions": [
+            "action": [
                 {
                     "target": "hit-entity",
                     "function": {
@@ -25,22 +25,20 @@
             ]
         },
         "arrow-hit-ground": {
-            "actions": [
-                {
-                    "target": "arrow",
-                    "function": [
-                        {
-                            "object-type": "create-explosion",
-                            "can-cause-fire": false,
-                            "should-break-blocks": true,
-                            "radius": 3.0
-                        },
-                        {
-                            "object-type": "destroy-entity"
-                        }
-                    ]
-                }
-            ]
+            "action": {
+                "target": "arrow",
+                "function": [
+                    {
+                        "object-type": "create-explosion",
+                        "can-cause-fire": false,
+                        "should-break-blocks": true,
+                        "radius": 3.0
+                    },
+                    {
+                        "object-type": "destroy-entity"
+                    }
+                ]
+            }
         }
     }
 }

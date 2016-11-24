@@ -25,18 +25,25 @@
 package org.lanternpowered.elementalarrows;
 
 import org.lanternpowered.elementalarrows.arrow.BaseArrow;
+import org.lanternpowered.elementalarrows.arrow.event.ArrowHitEntityEvent;
+import org.lanternpowered.elementalarrows.arrow.event.ArrowHitGroundEvent;
+import org.lanternpowered.elementalarrows.arrow.event.ArrowShotEvent;
+import org.lanternpowered.elementalarrows.event.EventActionSet;
 import org.lanternpowered.elementalarrows.function.ObjectConsumer;
 import org.lanternpowered.elementalarrows.function.data.AddPotionEffects;
 import org.lanternpowered.elementalarrows.function.data.SetDataKey;
 import org.lanternpowered.elementalarrows.function.entity.DestroyEntity;
 import org.lanternpowered.elementalarrows.function.locatable.CreateExplosion;
 import org.lanternpowered.elementalarrows.function.locatable.PlaySound;
+import org.lanternpowered.elementalarrows.function.locatable.SpawnEntity;
 import org.lanternpowered.elementalarrows.item.BaseItem;
+import org.lanternpowered.elementalarrows.parser.gson.EventActionSetDeserializer;
 import org.lanternpowered.elementalarrows.parser.gson.GsonParser;
 import org.lanternpowered.elementalarrows.parser.gson.JsonTypeRegistryObjectDeserializer;
 import org.lanternpowered.elementalarrows.parser.gson.ObjectConsumerDeserializer;
 import org.lanternpowered.elementalarrows.registry.SimpleTypeRegistry;
 import org.lanternpowered.elementalarrows.registry.TypeRegistry;
+import org.spongepowered.api.event.Event;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.event.game.state.GamePostInitializationEvent;
@@ -54,7 +61,9 @@ public final class ElementalArrowsPlugin {
     /**
      * The registry of all the {@link BaseItem}s classes.
      */
-    private final TypeRegistry<BaseItem> itemTypesRegistry = new SimpleTypeRegistry<>();
+    private final TypeRegistry<BaseItem> itemTypeRegistry = new SimpleTypeRegistry<>();
+
+    private final TypeRegistry<Event> eventTypeRegistry = new SimpleTypeRegistry<>();
 
     @Listener
     public void onPreInit(GamePreInitializationEvent event) {
@@ -69,15 +78,21 @@ public final class ElementalArrowsPlugin {
         this.objectConsumersTypeRegistry.register("destroy-entity", DestroyEntity.class);
         this.objectConsumersTypeRegistry.register("create-explosion", CreateExplosion.class);
         this.objectConsumersTypeRegistry.register("play-sound", PlaySound.class);
+        this.objectConsumersTypeRegistry.register("spawn-entity", SpawnEntity.class);
 
         // Base item types
-        this.itemTypesRegistry.register("base-item", BaseItem.class);
-        this.itemTypesRegistry.register("base-arrow", BaseArrow.class);
+        this.itemTypeRegistry.register("base-item", BaseItem.class);
+        this.itemTypeRegistry.register("base-arrow", BaseArrow.class);
+
+        this.eventTypeRegistry.register("arrow-hit-entity", ArrowHitEntityEvent.class);
+        this.eventTypeRegistry.register("arrow-hit-ground", ArrowHitGroundEvent.class);
+        this.eventTypeRegistry.register("arrow-shot", ArrowShotEvent.class);
 
         // Setup the gson parser
         final GsonParser gsonParser = new GsonParser();
+        gsonParser.registerTypeAdapter(EventActionSet.class, new EventActionSetDeserializer(this.eventTypeRegistry));
         gsonParser.registerTypeAdapter(ObjectConsumer.class, new ObjectConsumerDeserializer(this.objectConsumersTypeRegistry));
-        gsonParser.registerTypeAdapter(BaseItem.class, new JsonTypeRegistryObjectDeserializer<>(this.itemTypesRegistry));
+        gsonParser.registerTypeAdapter(BaseItem.class, new JsonTypeRegistryObjectDeserializer<>(this.itemTypeRegistry));
     }
 
     @Listener

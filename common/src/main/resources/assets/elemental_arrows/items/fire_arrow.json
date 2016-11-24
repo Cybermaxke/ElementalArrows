@@ -6,16 +6,14 @@
     "entity-texture": "elemental_arrows:textures/entities/fire_arrow",
     "events": {
         "arrow-shot": {
-            "actions": [
-                {
-                    "target": "arrow",
-                    "function": {
-                        "object-type": "set-data-key",
-                        "key": "sponge:fire_ticks",
-                        "value": 1000
-                    }
+            "action":{
+                "target": "arrow",
+                "function": {
+                    "object-type": "set-data-key",
+                    "key": "sponge:fire_ticks",
+                    "element": 1000
                 }
-            ]
+            }
         }
     }
 }

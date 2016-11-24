@@ -22,51 +22,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.lanternpowered.elementalarrows.item;
+package org.lanternpowered.elementalarrows.arrow;
 
-import org.lanternpowered.elementalarrows.event.EventActionSet;
-import org.lanternpowered.elementalarrows.parser.Field;
-import org.spongepowered.api.text.Text;
+import static org.spongepowered.api.data.key.KeyFactory.makeSingleKey;
 
-import java.util.Optional;
+import com.google.common.reflect.TypeToken;
+import org.spongepowered.api.data.DataQuery;
+import org.spongepowered.api.data.key.Key;
+import org.spongepowered.api.data.value.mutable.Value;
 
-import javax.annotation.Nullable;
+public final class ArrowKeys {
 
-public class SimpleBaseItem implements BaseItem {
-
-    @Field("id")
-    private String id;
-
-    @Field("name")
-    private Text name;
-
-    @Nullable
-    @Field("item-model")
-    private String model;
-
-    @Field("events")
-    private EventActionSet eventActionSet;
-
-    @Nullable private String plainName;
-
-    @Override
-    public String getId() {
-        return this.id;
-    }
-
-    @Override
-    public String getName() {
-        if (this.plainName == null) {
-            this.plainName = this.name.toPlain();
-        }
-        return this.plainName;
-    }
-
-    public Optional<String> getItemModel() {
-        return Optional.ofNullable(this.model);
-    }
-
-    public EventActionSet getEventActionSet() {
-        return this.eventActionSet;
-    }
+    public static final Key<Value<BaseArrow>> ARROW_TYPE = makeSingleKey(new TypeToken<BaseArrow>() {}, new TypeToken<Value<BaseArrow>>() {},
+            DataQuery.of("ArrowType"), "elemental_arrows:arrow_type", "ArrowType");
 }

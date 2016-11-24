@@ -22,51 +22,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.lanternpowered.elementalarrows.item;
+package org.lanternpowered.elementalarrows.arrow;
 
-import org.lanternpowered.elementalarrows.event.EventActionSet;
-import org.lanternpowered.elementalarrows.parser.Field;
-import org.spongepowered.api.text.Text;
+import org.lanternpowered.elementalarrows.arrow.event.ArrowHitEntityEvent;
+import org.lanternpowered.elementalarrows.event.EventFactory;
+import org.spongepowered.api.entity.projectile.arrow.Arrow;
+import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.entity.DamageEntityEvent;
+import org.spongepowered.api.event.filter.cause.First;
 
 import java.util.Optional;
 
-import javax.annotation.Nullable;
+public class ArrowEventHandler {
 
-public class SimpleBaseItem implements BaseItem {
-
-    @Field("id")
-    private String id;
-
-    @Field("name")
-    private Text name;
-
-    @Nullable
-    @Field("item-model")
-    private String model;
-
-    @Field("events")
-    private EventActionSet eventActionSet;
-
-    @Nullable private String plainName;
-
-    @Override
-    public String getId() {
-        return this.id;
-    }
-
-    @Override
-    public String getName() {
-        if (this.plainName == null) {
-            this.plainName = this.name.toPlain();
+    @Listener
+    public void onEntityDamage(DamageEntityEvent event, @First Arrow arrow) {
+        final Optional<BaseArrow> type = arrow.get(ArrowKeys.ARROW_TYPE);
+        if (type.isPresent()) {
+            type.get().getEventActionSet().get(ArrowHitEntityEvent.class)
+                    .accept(EventFactory.createArrowHitEntityEvent(event.getTargetEntity(), arrow.getShooter(), arrow));
         }
-        return this.plainName;
-    }
-
-    public Optional<String> getItemModel() {
-        return Optional.ofNullable(this.model);
-    }
-
-    public EventActionSet getEventActionSet() {
-        return this.eventActionSet;
     }
 }

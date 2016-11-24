@@ -22,51 +22,36 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.lanternpowered.elementalarrows.item;
+package org.lanternpowered.elementalarrows.function.locatable;
 
-import org.lanternpowered.elementalarrows.event.EventActionSet;
+import org.lanternpowered.elementalarrows.function.ObjectConsumer;
 import org.lanternpowered.elementalarrows.parser.Field;
-import org.spongepowered.api.text.Text;
-
-import java.util.Optional;
+import org.spongepowered.api.entity.Entity;
+import org.spongepowered.api.entity.EntityType;
+import org.spongepowered.api.event.cause.Cause;
+import org.spongepowered.api.world.Locatable;
+import org.spongepowered.api.world.Location;
+import org.spongepowered.api.world.World;
 
 import javax.annotation.Nullable;
 
-public class SimpleBaseItem implements BaseItem {
+public class SpawnEntity<T extends Locatable> implements ObjectConsumer<T> {
 
-    @Field("id")
-    private String id;
-
-    @Field("name")
-    private Text name;
+    @Field("entity-type")
+    private EntityType entityType;
 
     @Nullable
-    @Field("item-model")
-    private String model;
-
-    @Field("events")
-    private EventActionSet eventActionSet;
-
-    @Nullable private String plainName;
+    @Field("function")
+    private ObjectConsumer function;
 
     @Override
-    public String getId() {
-        return this.id;
-    }
-
-    @Override
-    public String getName() {
-        if (this.plainName == null) {
-            this.plainName = this.name.toPlain();
+    public void accept(T t) {
+        final Location<World> location = t.getLocation();
+        final Entity entity = location.getExtent().createEntity(this.entityType, location.getPosition());
+        if (this.function != null) {
+            //noinspection unchecked
+            this.function.accept(entity);
         }
-        return this.plainName;
-    }
-
-    public Optional<String> getItemModel() {
-        return Optional.ofNullable(this.model);
-    }
-
-    public EventActionSet getEventActionSet() {
-        return this.eventActionSet;
+        location.getExtent().spawnEntity(entity, Cause.source(t).build());
     }
 }

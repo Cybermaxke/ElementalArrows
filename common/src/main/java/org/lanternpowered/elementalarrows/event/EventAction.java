@@ -24,6 +24,10 @@
  */
 package org.lanternpowered.elementalarrows.event;
 
-public final class EventFunctionSet {
+import org.spongepowered.api.event.Event;
+
+import java.util.function.Consumer;
+
+public interface EventAction<E extends Event> extends Consumer<E> {
 
 }

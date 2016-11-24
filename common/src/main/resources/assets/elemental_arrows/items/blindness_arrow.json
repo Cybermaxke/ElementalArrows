@@ -6,21 +6,19 @@
     "entity-texture": "elemental_arrows:textures/entities/blindness_arrow",
     "events": {
         "arrow-hit-entity": {
-            "actions": [
-                {
-                    "target": "hit-entity",
-                    "function": {
-                        "object-type": "add-potion-effects",
-                        "potion-effects": [
-                            {
-                                "id": "minecraft:blindness",
-                                "amplifier": 12,
-                                "duration": 75
-                            }
-                        ]
-                    }
+            "action": {
+                "target": "hit-entity",
+                "function": {
+                    "object-type": "add-potion-effects",
+                    "potion-effects": [
+                        {
+                            "id": "minecraft:blindness",
+                            "amplifier": 12,
+                            "duration": 75
+                        }
+                    ]
                 }
-            ]
+            }
         }
     }
 }

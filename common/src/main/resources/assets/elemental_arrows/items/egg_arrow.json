@@ -1,0 +1,32 @@
+{
+    "object-type": "base-arrow",
+    "id": "elemental_arrows:egg_arrow",
+    "name": "Egg Arrow",
+    "item-model": "elemental_arrows:models/items/egg_arrow.json",
+    "entity-texture": "elemental_arrows:textures/entities/egg_arrow",
+    "events": {
+        "arrow-hit-entity arrow-hit-ground": {
+            "action": [
+                {
+                    "target": "arrow",
+                    "function": [
+                        {
+                            "object-type": "spawn-entity",
+                            "entity-type": "minecraft:chicken",
+                            "function": {
+                                "object-type": "set-data-key",
+                                "key": "sponge:age",
+                                "element": -10000
+                            }
+                        },
+                        {
+                            "object-type": "set-data-key",
+                            "key": "elemental_arrows:arrow_type",
+                            "element": null
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

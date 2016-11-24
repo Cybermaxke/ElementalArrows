@@ -22,51 +22,33 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.lanternpowered.elementalarrows.item;
+package org.lanternpowered.elementalarrows.event;
 
-import org.lanternpowered.elementalarrows.event.EventActionSet;
-import org.lanternpowered.elementalarrows.parser.Field;
-import org.spongepowered.api.text.Text;
+import org.spongepowered.api.event.Event;
 
-import java.util.Optional;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
-import javax.annotation.Nullable;
+public final class EventActionSet {
 
-public class SimpleBaseItem implements BaseItem {
+    private final Map<EventAction, Class<?>> actions = new HashMap<>();
 
-    @Field("id")
-    private String id;
-
-    @Field("name")
-    private Text name;
-
-    @Nullable
-    @Field("item-model")
-    private String model;
-
-    @Field("events")
-    private EventActionSet eventActionSet;
-
-    @Nullable private String plainName;
-
-    @Override
-    public String getId() {
-        return this.id;
+    public void add(EventAction<Event> action) {
+        this.actions.put(action, Event.class);
     }
 
-    @Override
-    public String getName() {
-        if (this.plainName == null) {
-            this.plainName = this.name.toPlain();
-        }
-        return this.plainName;
+    public <E extends Event> void add(Class<E> type, EventAction<E> action) {
+        this.actions.put(action, type);
     }
 
-    public Optional<String> getItemModel() {
-        return Optional.ofNullable(this.model);
-    }
-
-    public EventActionSet getEventActionSet() {
-        return this.eventActionSet;
+    public <E extends Event> EventAction<E> get(Class<E> event) {
+        //noinspection unchecked
+        final List<EventAction<E>> actions = this.actions.entrySet().stream()
+                .filter(entry -> event.isAssignableFrom(entry.getValue()))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+        return e -> actions.forEach(action -> action.accept(e));
     }
 }

@@ -22,51 +22,39 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.lanternpowered.elementalarrows.item;
+package org.lanternpowered.elementalarrows.arrow.data;
 
-import org.lanternpowered.elementalarrows.event.EventActionSet;
-import org.lanternpowered.elementalarrows.parser.Field;
-import org.spongepowered.api.text.Text;
+import org.lanternpowered.elementalarrows.arrow.ArrowKeys;
+import org.lanternpowered.elementalarrows.arrow.BaseArrow;
+import org.spongepowered.api.Sponge;
+import org.spongepowered.api.data.DataContainer;
+import org.spongepowered.api.data.manipulator.immutable.common.AbstractImmutableSingleData;
+import org.spongepowered.api.data.value.immutable.ImmutableValue;
 
-import java.util.Optional;
+public final class ImmutableArrowData extends AbstractImmutableSingleData<BaseArrow, ImmutableArrowData, ArrowData> {
 
-import javax.annotation.Nullable;
-
-public class SimpleBaseItem implements BaseItem {
-
-    @Field("id")
-    private String id;
-
-    @Field("name")
-    private Text name;
-
-    @Nullable
-    @Field("item-model")
-    private String model;
-
-    @Field("events")
-    private EventActionSet eventActionSet;
-
-    @Nullable private String plainName;
-
-    @Override
-    public String getId() {
-        return this.id;
+    protected ImmutableArrowData(BaseArrow value) {
+        super(value, ArrowKeys.ARROW_TYPE);
     }
 
     @Override
-    public String getName() {
-        if (this.plainName == null) {
-            this.plainName = this.name.toPlain();
-        }
-        return this.plainName;
+    protected ImmutableValue<?> getValueGetter() {
+        return Sponge.getRegistry().getValueFactory().createValue(ArrowKeys.ARROW_TYPE, getValue()).asImmutable();
     }
 
-    public Optional<String> getItemModel() {
-        return Optional.ofNullable(this.model);
+    @Override
+    public ArrowData asMutable() {
+        return new ArrowData(getValue());
     }
 
-    public EventActionSet getEventActionSet() {
-        return this.eventActionSet;
+    @Override
+    public int getContentVersion() {
+        return 1;
+    }
+
+    @Override
+    public DataContainer toContainer() {
+        return super.toContainer()
+                .set(ArrowKeys.ARROW_TYPE.getQuery(), getValue());
     }
 }
