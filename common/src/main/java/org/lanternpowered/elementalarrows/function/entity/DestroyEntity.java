@@ -22,20 +22,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.lanternpowered.elementalarrows.function;
+package org.lanternpowered.elementalarrows.function.entity;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.lanternpowered.elementalarrows.function.ObjectConsumer;
+import org.spongepowered.api.entity.Entity;
 
-import java.util.function.Consumer;
-
-public interface ObjectConsumer<T> extends Consumer<T> {
+public class DestroyEntity implements ObjectConsumer<Entity> {
 
     @Override
-    default ObjectConsumer<T> andThen(Consumer<? super T> after) {
-        checkNotNull(after);
-        return (T t) -> {
-            accept(t);
-            after.accept(t);
-        };
+    public void accept(Entity entity) {
+        entity.remove();
     }
 }

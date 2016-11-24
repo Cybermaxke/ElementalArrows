@@ -28,11 +28,13 @@ import org.lanternpowered.elementalarrows.arrow.BaseArrow;
 import org.lanternpowered.elementalarrows.function.ObjectConsumer;
 import org.lanternpowered.elementalarrows.function.data.AddPotionEffects;
 import org.lanternpowered.elementalarrows.function.data.SetDataKey;
+import org.lanternpowered.elementalarrows.function.entity.DestroyEntity;
 import org.lanternpowered.elementalarrows.function.locatable.CreateExplosion;
 import org.lanternpowered.elementalarrows.function.locatable.PlaySound;
 import org.lanternpowered.elementalarrows.item.BaseItem;
 import org.lanternpowered.elementalarrows.parser.gson.GsonParser;
 import org.lanternpowered.elementalarrows.parser.gson.JsonTypeRegistryObjectDeserializer;
+import org.lanternpowered.elementalarrows.parser.gson.ObjectConsumerDeserializer;
 import org.lanternpowered.elementalarrows.registry.SimpleTypeRegistry;
 import org.lanternpowered.elementalarrows.registry.TypeRegistry;
 import org.spongepowered.api.event.Listener;
@@ -64,6 +66,7 @@ public final class ElementalArrowsPlugin {
         // Object consumer types
         this.objectConsumersTypeRegistry.register("add-potion-effects", AddPotionEffects.class);
         this.objectConsumersTypeRegistry.register("set-data-key", SetDataKey.class);
+        this.objectConsumersTypeRegistry.register("destroy-entity", DestroyEntity.class);
         this.objectConsumersTypeRegistry.register("create-explosion", CreateExplosion.class);
         this.objectConsumersTypeRegistry.register("play-sound", PlaySound.class);
 
@@ -73,7 +76,8 @@ public final class ElementalArrowsPlugin {
 
         // Setup the gson parser
         final GsonParser gsonParser = new GsonParser();
-        gsonParser.registerTypeAdapter(ObjectConsumer.class, new JsonTypeRegistryObjectDeserializer<>(this.objectConsumersTypeRegistry));
+        gsonParser.registerTypeAdapter(ObjectConsumer.class, new ObjectConsumerDeserializer(this.objectConsumersTypeRegistry));
+        gsonParser.registerTypeAdapter(BaseItem.class, new JsonTypeRegistryObjectDeserializer<>(this.itemTypesRegistry));
     }
 
     @Listener

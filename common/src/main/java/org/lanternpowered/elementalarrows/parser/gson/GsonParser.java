@@ -46,10 +46,12 @@ import org.lanternpowered.elementalarrows.parser.Field;
 import org.lanternpowered.elementalarrows.parser.SerializedType;
 import org.lanternpowered.elementalarrows.parser.SerializedTypeProvider;
 
+import javax.annotation.Nullable;
+
 public final class GsonParser {
 
     private final GsonBuilder builder;
-    private Gson gson;
+    @Nullable private Gson gson;
 
     /**
      * Creates a new gson parser instance.
@@ -72,9 +74,9 @@ public final class GsonParser {
 
     }
 
-    private void bake() throws Exception {
+    private Gson bake() throws Exception {
         if (this.gson != null) {
-            return;
+            return this.gson;
         }
         this.gson = this.builder.create();
 
@@ -99,6 +101,7 @@ public final class GsonParser {
 
         // Replace the default type adapter factory
         factories.set(factories.size() - 1, new TypeAdapterFactory() {
+            @Nullable
             @Override
             public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
                 final TypeAdapter adapter = factory.create(gson, (TypeToken) typeToken);
@@ -106,7 +109,7 @@ public final class GsonParser {
                     return null;
                 }
                 try {
-                    java.lang.reflect.Field field1 = ReflectiveTypeAdapterFactory.Adapter.class.getDeclaredField("boundFields");
+                    final java.lang.reflect.Field field1 = ReflectiveTypeAdapterFactory.Adapter.class.getDeclaredField("boundFields");
                     field1.setAccessible(true);
 
                     // Get the bound fields
@@ -161,9 +164,11 @@ public final class GsonParser {
                 } catch (Exception e) {
                     throw Throwables.propagate(e);
                 }
-                return null;
+                //noinspection unchecked
+                return adapter;
             }
         });
+        return this.gson;
     }
 
     /**
@@ -194,10 +199,9 @@ public final class GsonParser {
      */
     public Gson getGson() {
         try {
-            bake();
+            return bake();
         } catch (Exception e) {
             throw Throwables.propagate(e);
         }
-        return this.gson;
     }
 }

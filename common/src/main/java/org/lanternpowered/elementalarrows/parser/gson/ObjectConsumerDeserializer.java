@@ -22,20 +22,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.lanternpowered.elementalarrows.function;
+package org.lanternpowered.elementalarrows.parser.gson;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import org.lanternpowered.elementalarrows.function.ObjectConsumer;
+import org.lanternpowered.elementalarrows.registry.TypeRegistry;
 
-import java.util.function.Consumer;
+import java.lang.reflect.Type;
 
-public interface ObjectConsumer<T> extends Consumer<T> {
+public class ObjectConsumerDeserializer extends JsonTypeRegistryObjectDeserializer<ObjectConsumer> {
+
+    public ObjectConsumerDeserializer(TypeRegistry<ObjectConsumer> recipeTypeRegistry) {
+        super(recipeTypeRegistry);
+    }
 
     @Override
-    default ObjectConsumer<T> andThen(Consumer<? super T> after) {
-        checkNotNull(after);
-        return (T t) -> {
-            accept(t);
-            after.accept(t);
-        };
+    public ObjectConsumer deserialize(JsonElement element, Type type, JsonDeserializationContext ctx) throws JsonParseException {
+        if (element.isJsonArray()) {
+            final ObjectConsumer[] consumers = ctx.deserialize(element, ObjectConsumer[].class);
+            if (consumers.length == 0) {
+                return obj -> {};
+            } else {
+                ObjectConsumer consumer = consumers[0];
+                for (int i = 1; i < consumers.length; i++) {
+                    //noinspection unchecked
+                    consumer = consumer.andThen(consumers[i]);
+                }
+                return consumer;
+            }
+        }
+        return super.deserialize(element, type, ctx);
     }
 }

@@ -22,20 +22,5 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.lanternpowered.elementalarrows.function;
-
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.util.function.Consumer;
-
-public interface ObjectConsumer<T> extends Consumer<T> {
-
-    @Override
-    default ObjectConsumer<T> andThen(Consumer<? super T> after) {
-        checkNotNull(after);
-        return (T t) -> {
-            accept(t);
-            after.accept(t);
-        };
-    }
-}
+@org.spongepowered.api.util.annotation.NonnullByDefault
+package org.lanternpowered.elementalarrows.event;
