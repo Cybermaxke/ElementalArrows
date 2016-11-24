@@ -1,3 +1,16 @@
+buildscript {
+    repositories {
+        maven {
+            url = 'https://repo.spongepowered.org/maven'
+        }
+    }
+
+    dependencies {
+        classpath 'org.spongepowered:event-impl-gen:2.1.0-SNAPSHOT'
+    }
+}
+
+
 plugins {
     id "com.github.hierynomus.license" version "0.13.1"
     id "org.spongepowered.plugin" version "0.8"
@@ -6,3 +19,19 @@ plugins {
 ext.baseName = "common"
 
 apply from: rootProject.file('gradle/build-base.gradle')
+
+apply plugin: 'event-impl-gen'
+
+// Compile time code generator for the event factory
+genEventImpl {
+    includeSrc = [
+            "${projectDir}/src/main/java/org/lanternpowered/elementalarrows/arrow/event/"
+    ]
+    excludeSrc = []
+    outputDir = "${projectDir}/src/main/java/"
+    outputFactory = 'org.lanternpowered.elementalarrows.event.EventFactory'
+    eventImplCreateMethod = 'org.lanternpowered.elementalarrows.event.EventFactoryUtils.createEventImpl'
+    sortPriorityPrefix = 'original'
+    groupingPrefixes = ['from': 'to']
+    validateCode = false
+}
