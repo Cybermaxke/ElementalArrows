@@ -72,11 +72,12 @@ public class EventActionSetDeserializer implements JsonDeserializer<EventActionS
         final JsonObject obj = element.getAsJsonObject();
         for (String event : events) {
             final Class eventType = this.eventTypeRegistry.get(event);
+            //noinspection ConstantConditions
             if (eventType == null) {
                 throw new JsonParseException("Unknown event type: " + event);
             }
             final String target = obj.get("target").getAsString();
-            final JsonObject function = obj.getAsJsonObject("function");
+            final JsonElement function = obj.get("function");
             final ObjectConsumer consumer = ctx.deserialize(function, ObjectConsumer.class);
             final Function targetProvider = TargetProvider.of(eventType, target);
             //noinspection unchecked

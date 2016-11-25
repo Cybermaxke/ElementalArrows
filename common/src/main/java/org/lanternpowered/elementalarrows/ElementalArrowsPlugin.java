@@ -24,7 +24,11 @@
  */
 package org.lanternpowered.elementalarrows;
 
-import org.lanternpowered.elementalarrows.arrow.BaseArrow;
+import com.google.common.base.Throwables;
+import com.google.common.io.ByteStreams;
+import com.google.inject.Inject;
+import org.lanternpowered.elementalarrows.arrow.ArrowKeys;
+import org.lanternpowered.elementalarrows.arrow.CustomArrow;
 import org.lanternpowered.elementalarrows.arrow.event.ArrowHitEntityEvent;
 import org.lanternpowered.elementalarrows.arrow.event.ArrowHitGroundEvent;
 import org.lanternpowered.elementalarrows.arrow.event.ArrowShotEvent;
@@ -37,18 +41,44 @@ import org.lanternpowered.elementalarrows.function.locatable.CreateExplosion;
 import org.lanternpowered.elementalarrows.function.locatable.PlaySound;
 import org.lanternpowered.elementalarrows.function.locatable.SpawnEntity;
 import org.lanternpowered.elementalarrows.item.BaseItem;
+import org.lanternpowered.elementalarrows.item.ConstructableItem;
+import org.lanternpowered.elementalarrows.item.InbuiltBaseItem;
+import org.lanternpowered.elementalarrows.item.CustomItem;
+import org.lanternpowered.elementalarrows.parser.gson.CatalogTypeAdapterFactory;
 import org.lanternpowered.elementalarrows.parser.gson.EventActionSetDeserializer;
 import org.lanternpowered.elementalarrows.parser.gson.GsonParser;
 import org.lanternpowered.elementalarrows.parser.gson.JsonTypeRegistryObjectDeserializer;
 import org.lanternpowered.elementalarrows.parser.gson.ObjectConsumerDeserializer;
+import org.lanternpowered.elementalarrows.parser.gson.PotionEffectDeserializer;
+import org.lanternpowered.elementalarrows.parser.gson.TextDeserializer;
+import org.lanternpowered.elementalarrows.registry.CatalogTypeRegistry;
+import org.lanternpowered.elementalarrows.registry.SimpleCatalogTypeRegistry;
 import org.lanternpowered.elementalarrows.registry.SimpleTypeRegistry;
 import org.lanternpowered.elementalarrows.registry.TypeRegistry;
+import org.slf4j.Logger;
+import org.spongepowered.api.Sponge;
+import org.spongepowered.api.config.ConfigDir;
+import org.spongepowered.api.data.key.Key;
+import org.spongepowered.api.effect.potion.PotionEffect;
 import org.spongepowered.api.event.Event;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameInitializationEvent;
 import org.spongepowered.api.event.game.state.GamePostInitializationEvent;
 import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
+import org.spongepowered.api.item.ItemType;
 import org.spongepowered.api.plugin.Plugin;
+import org.spongepowered.api.plugin.PluginContainer;
+import org.spongepowered.api.text.Text;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
+import java.util.regex.Pattern;
 
 @Plugin(id = "elemental_arrows")
 public final class ElementalArrowsPlugin {
@@ -63,7 +93,22 @@ public final class ElementalArrowsPlugin {
      */
     private final TypeRegistry<BaseItem> itemTypeRegistry = new SimpleTypeRegistry<>();
 
+    /**
+     * The registry of all the {@link BaseItem}s.
+     */
+    private final CatalogTypeRegistry<BaseItem> itemRegistry = new SimpleCatalogTypeRegistry<>();
+
     private final TypeRegistry<Event> eventTypeRegistry = new SimpleTypeRegistry<>();
+
+    @Inject
+    private PluginContainer pluginContainer;
+
+    @Inject
+    private Logger logger;
+
+    @Inject
+    @ConfigDir(sharedRoot = false)
+    private Path configFolder;
 
     @Listener
     public void onPreInit(GamePreInitializationEvent event) {
@@ -72,6 +117,25 @@ public final class ElementalArrowsPlugin {
 
     @Listener
     public void onInit(GameInitializationEvent event) {
+        // Extract the default configs
+        final JarFile jarFile;
+        try {
+            jarFile = new JarFile(this.pluginContainer.getSource().get().toFile());
+        } catch (IOException e) {
+            throw Throwables.propagate(e);
+        }
+
+        final Pattern jsonPattern = Pattern.compile(".+");
+        final Path assets = this.configFolder.resolve("assets");
+
+        if (!Files.exists(assets)) {
+            try {
+                extractFolder(jarFile, "assets", assets, jsonPattern);
+            } catch (IOException e) {
+                throw new IllegalStateException("Unable to extract assets", e);
+            }
+        }
+
         // Object consumer types
         this.objectConsumersTypeRegistry.register("add-potion-effects", AddPotionEffects.class);
         this.objectConsumersTypeRegistry.register("set-data-key", SetDataKey.class);
@@ -81,21 +145,98 @@ public final class ElementalArrowsPlugin {
         this.objectConsumersTypeRegistry.register("spawn-entity", SpawnEntity.class);
 
         // Base item types
-        this.itemTypeRegistry.register("base-item", BaseItem.class);
-        this.itemTypeRegistry.register("base-arrow", BaseArrow.class);
+        this.itemTypeRegistry.register("base-item", CustomItem.class);
+        this.itemTypeRegistry.register("base-arrow", CustomArrow.class);
 
         this.eventTypeRegistry.register("arrow-hit-entity", ArrowHitEntityEvent.class);
         this.eventTypeRegistry.register("arrow-hit-ground", ArrowHitGroundEvent.class);
         this.eventTypeRegistry.register("arrow-shot", ArrowShotEvent.class);
 
+        Sponge.getRegistry().registerModule(BaseItem.class, this.itemRegistry);
+
+        // Register the default item types
+        Sponge.getRegistry().getAllOf(ItemType.class)
+                .forEach(type -> this.itemRegistry.register(type.getId(), new InbuiltBaseItem(type)));
+
+        Sponge.getRegistry().register(Key.class, ArrowKeys.ARROW_TYPE);
+
         // Setup the gson parser
         final GsonParser gsonParser = new GsonParser();
+        gsonParser.registerTypeAdapterFactory(new CatalogTypeAdapterFactory());
+        gsonParser.registerTypeAdapter(ConstructableItem.class, new JsonTypeRegistryObjectDeserializer<>(this.itemTypeRegistry));
+        gsonParser.registerTypeAdapter(BaseItem.class, new JsonTypeRegistryObjectDeserializer<>(this.itemTypeRegistry));
+        gsonParser.registerTypeAdapter(PotionEffect.class, new PotionEffectDeserializer());
+        gsonParser.registerTypeAdapter(Text.class, new TextDeserializer());
         gsonParser.registerTypeAdapter(EventActionSet.class, new EventActionSetDeserializer(this.eventTypeRegistry));
         gsonParser.registerTypeAdapter(ObjectConsumer.class, new ObjectConsumerDeserializer(this.objectConsumersTypeRegistry));
-        gsonParser.registerTypeAdapter(BaseItem.class, new JsonTypeRegistryObjectDeserializer<>(this.itemTypeRegistry));
+
+        try {
+            Files.list(assets).forEach(path -> {
+                final Path items = path.resolve("items");
+                if (Files.exists(items)) {
+                    try {
+                        Files.list(items).forEach(item -> {
+                            if (!item.getFileName().toString().endsWith(".json")) {
+                                return;
+                            }
+                            try (BufferedReader reader = Files.newBufferedReader(item)) {
+                                try {
+                                    final BaseItem baseItem = gsonParser.getGson().fromJson(reader, ConstructableItem.class);
+                                    this.itemRegistry.register(baseItem.getId(), baseItem);
+                                    this.logger.info("Successfully registered the BaseItem with id {} from the path: {}", baseItem.getId(), item);
+                                } catch (Exception e) {
+                                    this.logger.error("Failed to parse the BaseItem from the path: {}", item, e);
+                                }
+                            } catch (IOException e) {
+                                throw Throwables.propagate(e);
+                            }
+                        });
+                    } catch (IOException e) {
+                        throw Throwables.propagate(e);
+                    }
+                }
+            });
+        } catch (IOException e) {
+            throw Throwables.propagate(e);
+        }
     }
 
     @Listener
     public void onPostInit(GamePostInitializationEvent event) {
+    }
+
+    private static void extractFolder(JarFile jarFile, String folder, Path outputFolder, Pattern namePattern) throws IOException {
+        if (!folder.endsWith("/")) {
+            folder = folder + "/";
+        }
+        final java.util.Enumeration<JarEntry> it = jarFile.entries();
+        while (it.hasMoreElements()) {
+            final JarEntry entry = it.nextElement();
+            if (entry.isDirectory()) {
+                continue;
+            }
+            String name = entry.getName();
+            if (!name.startsWith(folder)) {
+                continue;
+            }
+            name = name.replaceFirst(folder, "");
+            final String name0;
+            if (name.contains("/")) {
+                name0 = name.substring(name.lastIndexOf('/') + 1, name.length());
+            } else {
+                name0 = name;
+            }
+            if (!namePattern.matcher(name0).matches()) {
+                continue;
+            }
+            final Path path = outputFolder.resolve(name);
+            if (!Files.exists(path.getParent())) {
+                Files.createDirectories(path.getParent());
+            }
+            try (OutputStream os = Files.newOutputStream(path); InputStream is = jarFile.getInputStream(entry)) {
+                ByteStreams.copy(is, os);
+                os.flush();
+            }
+        }
     }
 }

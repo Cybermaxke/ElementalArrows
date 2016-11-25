@@ -52,6 +52,6 @@ public final class TargetProvider {
                 };
             }
         }
-        throw new IllegalArgumentException("Unable to find the target method in the class.");
+        throw new IllegalArgumentException("Unable to find the target \"" + targetName + "\" in the class \"" + source.getName() + "\"");
     }
 }

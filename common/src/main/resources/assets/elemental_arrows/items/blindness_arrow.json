@@ -12,7 +12,7 @@
                     "object-type": "add-potion-effects",
                     "potion-effects": [
                         {
-                            "id": "minecraft:blindness",
+                            "type": "minecraft:blindness",
                             "amplifier": 12,
                             "duration": 75
                         }

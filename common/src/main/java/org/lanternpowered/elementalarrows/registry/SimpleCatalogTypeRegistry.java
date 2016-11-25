@@ -26,6 +26,12 @@ package org.lanternpowered.elementalarrows.registry;
 
 import org.spongepowered.api.CatalogType;
 
+import java.util.Optional;
+
 public class SimpleCatalogTypeRegistry<T extends CatalogType> extends SimpleObjectTypeRegistry<T> implements CatalogTypeRegistry<T> {
 
+    @Override
+    public Optional<T> getById(String id) {
+        return get(id);
+    }
 }

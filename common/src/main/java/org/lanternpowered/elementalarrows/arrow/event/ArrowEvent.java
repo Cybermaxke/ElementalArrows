@@ -31,7 +31,7 @@ import org.spongepowered.api.event.entity.TargetEntityEvent;
 
 public interface ArrowEvent extends TargetEntityEvent {
 
-    @Target("source")
+    @Target("arrow")
     @Override
     Arrow getTargetEntity();
 

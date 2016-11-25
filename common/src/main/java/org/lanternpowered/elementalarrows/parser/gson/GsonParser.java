@@ -25,9 +25,11 @@
 package org.lanternpowered.elementalarrows.parser.gson;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
+import java.util.RandomAccess;
 
 import com.google.common.base.Throwables;
 import com.google.gson.ExclusionStrategy;
@@ -57,7 +59,7 @@ public final class GsonParser {
      * Creates a new gson parser instance.
      */
     public GsonParser() {
-        this.builder = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting();
+        this.builder = new GsonBuilder().setPrettyPrinting();
         this.builder
                 .setFieldNamingStrategy(field -> field.getAnnotation(Field.class).value())
                 .setExclusionStrategies(new ExclusionStrategy() {
@@ -94,7 +96,11 @@ public final class GsonParser {
         final ReflectiveTypeAdapterFactory factory = (ReflectiveTypeAdapterFactory) factories.get(factories.size() - 1);
 
         // The factories is modifiable, lets fix that
-        field = factories.getClass().getDeclaredField("list");
+        if (factories instanceof RandomAccess) {
+            field = factories.getClass().getSuperclass().getDeclaredField("list");
+        } else {
+            field = factories.getClass().getDeclaredField("list");
+        }
         field.setAccessible(true);
         //noinspection unchecked
         factories = (List<TypeAdapterFactory>) field.get(factories);
@@ -117,9 +123,10 @@ public final class GsonParser {
                     final Map<String, Object> boundFields = (Map<String, Object>) field1.get(adapter);
 
                     Class<?> raw = typeToken.getRawType();
-                    while (raw != Object.class) {
+                    while (raw != Object.class && raw != null) {
                         final java.lang.reflect.Field[] fields = raw.getDeclaredFields();
                         for (final java.lang.reflect.Field field2 : fields) {
+                            field2.setAccessible(true);
                             if (field2.getAnnotation(Field.class) == null) {
                                 continue;
                             }
@@ -127,7 +134,9 @@ public final class GsonParser {
                             if (boundFields.containsKey(name)) {
                                 final SerializedType serializedType = field2.getAnnotation(SerializedType.class);
                                 if (serializedType != null) {
-                                    final SerializedTypeProvider provider = (SerializedTypeProvider) serializedType.value().newInstance();
+                                    final Constructor constructor = serializedType.value().getDeclaredConstructor();
+                                    constructor.setAccessible(true);
+                                    final SerializedTypeProvider provider = (SerializedTypeProvider) constructor.newInstance();
                                     final Object boundField = boundFields.get(name);
                                     boundFields.put(name, new LanternReflectiveBoundField(boundField) {
 
@@ -159,7 +168,7 @@ public final class GsonParser {
                             }
                         }
 
-                        raw = typeToken.getRawType();
+                        raw = raw.getSuperclass();
                     }
                 } catch (Exception e) {
                     throw Throwables.propagate(e);

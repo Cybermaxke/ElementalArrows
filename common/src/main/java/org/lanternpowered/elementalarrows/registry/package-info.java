@@ -22,25 +22,5 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.lanternpowered.elementalarrows.arrow;
-
-import org.lanternpowered.elementalarrows.arrow.event.ArrowHitEntityEvent;
-import org.lanternpowered.elementalarrows.event.EventFactory;
-import org.spongepowered.api.entity.projectile.arrow.Arrow;
-import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.entity.DamageEntityEvent;
-import org.spongepowered.api.event.filter.cause.First;
-
-import java.util.Optional;
-
-public class ArrowEventHandler {
-
-    @Listener
-    public void onEntityDamage(DamageEntityEvent event, @First Arrow arrow) {
-        final Optional<CustomArrow> type = arrow.get(ArrowKeys.ARROW_TYPE);
-        if (type.isPresent()) {
-            type.get().getEventActionSet().get(ArrowHitEntityEvent.class)
-                    .accept(EventFactory.createArrowHitEntityEvent(event.getTargetEntity(), arrow.getShooter(), arrow));
-        }
-    }
-}
+@org.spongepowered.api.util.annotation.NonnullByDefault
+package org.lanternpowered.elementalarrows.registry;

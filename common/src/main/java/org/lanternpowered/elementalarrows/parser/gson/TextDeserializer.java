@@ -22,25 +22,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.lanternpowered.elementalarrows.arrow;
+package org.lanternpowered.elementalarrows.parser.gson;
 
-import org.lanternpowered.elementalarrows.arrow.event.ArrowHitEntityEvent;
-import org.lanternpowered.elementalarrows.event.EventFactory;
-import org.spongepowered.api.entity.projectile.arrow.Arrow;
-import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.entity.DamageEntityEvent;
-import org.spongepowered.api.event.filter.cause.First;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.serializer.TextSerializers;
 
-import java.util.Optional;
+import java.lang.reflect.Type;
 
-public class ArrowEventHandler {
+public class TextDeserializer implements JsonDeserializer<Text> {
 
-    @Listener
-    public void onEntityDamage(DamageEntityEvent event, @First Arrow arrow) {
-        final Optional<CustomArrow> type = arrow.get(ArrowKeys.ARROW_TYPE);
-        if (type.isPresent()) {
-            type.get().getEventActionSet().get(ArrowHitEntityEvent.class)
-                    .accept(EventFactory.createArrowHitEntityEvent(event.getTargetEntity(), arrow.getShooter(), arrow));
-        }
+    @Override
+    public Text deserialize(JsonElement element, Type type, JsonDeserializationContext ctx) throws JsonParseException {
+        return TextSerializers.JSON.deserializeUnchecked(element.getAsString());
     }
 }

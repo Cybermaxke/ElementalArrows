@@ -22,51 +22,47 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.lanternpowered.elementalarrows.item;
+package org.lanternpowered.elementalarrows.parser.gson;
 
-import org.lanternpowered.elementalarrows.event.EventActionSet;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
 import org.lanternpowered.elementalarrows.parser.Field;
-import org.spongepowered.api.text.Text;
+import org.spongepowered.api.effect.potion.PotionEffect;
+import org.spongepowered.api.effect.potion.PotionEffectType;
 
-import java.util.Optional;
+import java.lang.reflect.Type;
 
-import javax.annotation.Nullable;
-
-public class SimpleBaseItem implements BaseItem {
-
-    @Field("id")
-    private String id;
-
-    @Field("name")
-    private Text name;
-
-    @Nullable
-    @Field("item-model")
-    private String model;
-
-    @Field("events")
-    private EventActionSet eventActionSet;
-
-    @Nullable private String plainName;
+public class PotionEffectDeserializer implements JsonDeserializer<PotionEffect> {
 
     @Override
-    public String getId() {
-        return this.id;
+    public PotionEffect deserialize(JsonElement element, Type type, JsonDeserializationContext ctx) throws JsonParseException {
+        final Helper helper = ctx.deserialize(element, Helper.class);
+        return PotionEffect.builder()
+                .potionType(helper.type)
+                .duration(helper.duration)
+                .amplifier(helper.amplifier)
+                .ambience(helper.ambient)
+                .particles(helper.particles)
+                .build();
     }
 
-    @Override
-    public String getName() {
-        if (this.plainName == null) {
-            this.plainName = this.name.toPlain();
-        }
-        return this.plainName;
-    }
+    private static class Helper {
 
-    public Optional<String> getItemModel() {
-        return Optional.ofNullable(this.model);
-    }
+        @Field("type")
+        private PotionEffectType type;
 
-    public EventActionSet getEventActionSet() {
-        return this.eventActionSet;
+        @Field("amplifier")
+        private int amplifier;
+
+        @Field("duration")
+        private int duration;
+
+        @Field("ambient")
+        private boolean ambient = false;
+
+        @Field("particles")
+        private boolean particles = true;
     }
 }

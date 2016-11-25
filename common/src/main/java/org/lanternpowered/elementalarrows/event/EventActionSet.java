@@ -45,7 +45,7 @@ public final class EventActionSet {
 
     public <E extends Event> EventAction<E> get(Class<E> event) {
         //noinspection unchecked
-        final List<EventAction<E>> actions = this.actions.entrySet().stream()
+        final List<EventAction<E>> actions = (List) this.actions.entrySet().stream()
                 .filter(entry -> event.isAssignableFrom(entry.getValue()))
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());

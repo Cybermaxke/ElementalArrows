@@ -24,14 +24,14 @@
  */
 package org.lanternpowered.elementalarrows.arrow;
 
-import org.lanternpowered.elementalarrows.item.SimpleBaseItem;
+import org.lanternpowered.elementalarrows.item.CustomItem;
 import org.lanternpowered.elementalarrows.parser.Field;
 
 import java.util.Optional;
 
 import javax.annotation.Nullable;
 
-public class BaseArrow extends SimpleBaseItem {
+public class CustomArrow extends CustomItem {
 
     @Nullable
     @Field("entity-texture")

@@ -25,15 +25,15 @@
 package org.lanternpowered.elementalarrows.arrow.data;
 
 import org.lanternpowered.elementalarrows.arrow.ArrowKeys;
-import org.lanternpowered.elementalarrows.arrow.BaseArrow;
+import org.lanternpowered.elementalarrows.arrow.CustomArrow;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.data.DataContainer;
 import org.spongepowered.api.data.manipulator.immutable.common.AbstractImmutableSingleData;
 import org.spongepowered.api.data.value.immutable.ImmutableValue;
 
-public final class ImmutableArrowData extends AbstractImmutableSingleData<BaseArrow, ImmutableArrowData, ArrowData> {
+public final class ImmutableArrowData extends AbstractImmutableSingleData<CustomArrow, ImmutableArrowData, ArrowData> {
 
-    protected ImmutableArrowData(BaseArrow value) {
+    protected ImmutableArrowData(CustomArrow value) {
         super(value, ArrowKeys.ARROW_TYPE);
     }
 

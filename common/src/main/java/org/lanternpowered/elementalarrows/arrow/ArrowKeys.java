@@ -33,6 +33,6 @@ import org.spongepowered.api.data.value.mutable.Value;
 
 public final class ArrowKeys {
 
-    public static final Key<Value<BaseArrow>> ARROW_TYPE = makeSingleKey(new TypeToken<BaseArrow>() {}, new TypeToken<Value<BaseArrow>>() {},
+    public static final Key<Value<CustomArrow>> ARROW_TYPE = makeSingleKey(new TypeToken<CustomArrow>() {}, new TypeToken<Value<CustomArrow>>() {},
             DataQuery.of("ArrowType"), "elemental_arrows:arrow_type", "ArrowType");
 }

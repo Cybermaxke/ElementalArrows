@@ -25,7 +25,7 @@
 package org.lanternpowered.elementalarrows.arrow.data;
 
 import org.lanternpowered.elementalarrows.arrow.ArrowKeys;
-import org.lanternpowered.elementalarrows.arrow.BaseArrow;
+import org.lanternpowered.elementalarrows.arrow.CustomArrow;
 import org.lanternpowered.elementalarrows.item.BaseItem;
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.data.DataContainer;
@@ -36,9 +36,9 @@ import org.spongepowered.api.data.value.mutable.Value;
 
 import java.util.Optional;
 
-public final class ArrowData extends AbstractSingleData<BaseArrow, ArrowData, ImmutableArrowData> {
+public final class ArrowData extends AbstractSingleData<CustomArrow, ArrowData, ImmutableArrowData> {
 
-    public ArrowData(BaseArrow value) {
+    public ArrowData(CustomArrow value) {
         super(value, ArrowKeys.ARROW_TYPE);
     }
 
@@ -60,8 +60,8 @@ public final class ArrowData extends AbstractSingleData<BaseArrow, ArrowData, Im
     @Override
     public Optional<ArrowData> from(DataContainer container) {
         final Optional<BaseItem> optBaseItem = container.getCatalogType(ArrowKeys.ARROW_TYPE.getQuery(), BaseItem.class);
-        if (optBaseItem.isPresent() && optBaseItem.get() instanceof BaseArrow) {
-            return Optional.of(new ArrowData((BaseArrow) optBaseItem.get()));
+        if (optBaseItem.isPresent() && optBaseItem.get() instanceof CustomArrow) {
+            return Optional.of(new ArrowData((CustomArrow) optBaseItem.get()));
         }
         return Optional.empty();
     }

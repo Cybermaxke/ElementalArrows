@@ -25,7 +25,8 @@
 package org.lanternpowered.elementalarrows.registry;
 
 import org.spongepowered.api.CatalogType;
+import org.spongepowered.api.registry.CatalogRegistryModule;
 
-public interface CatalogTypeRegistry<T extends CatalogType> extends ObjectTypeRegistry<T> {
+public interface CatalogTypeRegistry<T extends CatalogType> extends ObjectTypeRegistry<T>, CatalogRegistryModule<T> {
 
 }

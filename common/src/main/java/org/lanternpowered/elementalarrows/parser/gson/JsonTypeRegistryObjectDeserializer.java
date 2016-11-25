@@ -49,6 +49,7 @@ public class JsonTypeRegistryObjectDeserializer<T> implements JsonDeserializer<T
         }
         final String identifier = json.get("object-type").getAsString();
         final Class<? extends T> type0 = this.registry.get(identifier);
+        //noinspection ConstantConditions
         if (type0 == null) {
             throw new JsonParseException("The object type entry is invalid! (" + identifier + ")");
         }
