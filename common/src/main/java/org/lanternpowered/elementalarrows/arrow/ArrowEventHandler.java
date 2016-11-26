@@ -24,19 +24,38 @@
  */
 package org.lanternpowered.elementalarrows.arrow;
 
+import org.lanternpowered.elementalarrows.arrow.data.ArrowData;
 import org.lanternpowered.elementalarrows.arrow.event.ArrowHitEntityEvent;
+import org.lanternpowered.elementalarrows.arrow.event.ArrowShotEvent;
 import org.lanternpowered.elementalarrows.event.EventFactory;
 import org.spongepowered.api.entity.projectile.arrow.Arrow;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.entity.DamageEntityEvent;
+import org.spongepowered.api.event.entity.projectile.LaunchProjectileEvent;
 import org.spongepowered.api.event.filter.cause.First;
+import org.spongepowered.api.item.inventory.ItemStackSnapshot;
 
 import java.util.Optional;
 
 public class ArrowEventHandler {
 
     @Listener
-    public void onEntityDamage(DamageEntityEvent event, @First Arrow arrow) {
+    public void onArrowSpawn(LaunchProjectileEvent event) {
+        System.out.println("onArrowSpawn Cause: " + event.getCause().toString());
+    }
+
+    @Listener
+    public void onArrowSpawn(LaunchProjectileEvent event, @First Arrow arrow, @First ItemStackSnapshot arrowItem) {
+        final Optional<CustomArrow> type = arrowItem.get(ArrowKeys.ARROW_TYPE);
+        if (type.isPresent()) {
+            arrow.offer(new ArrowData(type.get()));
+            type.get().getEventActionSet().get(ArrowShotEvent.class)
+                    .accept(EventFactory.createArrowShotEvent(arrow.getShooter(), arrow));
+        }
+    }
+
+    @Listener
+    public void onArrowHitEntity(DamageEntityEvent event, @First Arrow arrow) {
         final Optional<CustomArrow> type = arrow.get(ArrowKeys.ARROW_TYPE);
         if (type.isPresent()) {
             type.get().getEventActionSet().get(ArrowHitEntityEvent.class)

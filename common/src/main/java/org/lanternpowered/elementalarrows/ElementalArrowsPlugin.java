@@ -24,9 +24,14 @@
  */
 package org.lanternpowered.elementalarrows;
 
+import static org.spongepowered.api.Sponge.getEventManager;
+import static org.spongepowered.api.Sponge.getRegistry;
+
+import com.flowpowered.math.vector.Vector3d;
 import com.google.common.base.Throwables;
 import com.google.common.io.ByteStreams;
 import com.google.inject.Inject;
+import org.lanternpowered.elementalarrows.arrow.ArrowEventHandler;
 import org.lanternpowered.elementalarrows.arrow.ArrowKeys;
 import org.lanternpowered.elementalarrows.arrow.CustomArrow;
 import org.lanternpowered.elementalarrows.arrow.event.ArrowHitEntityEvent;
@@ -35,30 +40,37 @@ import org.lanternpowered.elementalarrows.arrow.event.ArrowShotEvent;
 import org.lanternpowered.elementalarrows.event.EventActionSet;
 import org.lanternpowered.elementalarrows.function.ObjectConsumer;
 import org.lanternpowered.elementalarrows.function.data.AddPotionEffects;
+import org.lanternpowered.elementalarrows.function.data.ModifyVelocity;
 import org.lanternpowered.elementalarrows.function.data.SetDataKey;
 import org.lanternpowered.elementalarrows.function.entity.DestroyEntity;
 import org.lanternpowered.elementalarrows.function.locatable.CreateExplosion;
 import org.lanternpowered.elementalarrows.function.locatable.PlaySound;
 import org.lanternpowered.elementalarrows.function.locatable.SpawnEntity;
+import org.lanternpowered.elementalarrows.function.locatable.SpawnParticles;
 import org.lanternpowered.elementalarrows.item.BaseItem;
 import org.lanternpowered.elementalarrows.item.ConstructableItem;
 import org.lanternpowered.elementalarrows.item.InbuiltBaseItem;
 import org.lanternpowered.elementalarrows.item.CustomItem;
+import org.lanternpowered.elementalarrows.parser.gson.BlockStateDeserializer;
 import org.lanternpowered.elementalarrows.parser.gson.CatalogTypeAdapterFactory;
 import org.lanternpowered.elementalarrows.parser.gson.EventActionSetDeserializer;
 import org.lanternpowered.elementalarrows.parser.gson.GsonParser;
 import org.lanternpowered.elementalarrows.parser.gson.JsonTypeRegistryObjectDeserializer;
 import org.lanternpowered.elementalarrows.parser.gson.ObjectConsumerDeserializer;
+import org.lanternpowered.elementalarrows.parser.gson.ParticleEffectDeserializer;
 import org.lanternpowered.elementalarrows.parser.gson.PotionEffectDeserializer;
 import org.lanternpowered.elementalarrows.parser.gson.TextDeserializer;
+import org.lanternpowered.elementalarrows.parser.gson.Vector3dDeserializer;
 import org.lanternpowered.elementalarrows.registry.CatalogTypeRegistry;
 import org.lanternpowered.elementalarrows.registry.SimpleCatalogTypeRegistry;
 import org.lanternpowered.elementalarrows.registry.SimpleTypeRegistry;
 import org.lanternpowered.elementalarrows.registry.TypeRegistry;
 import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
+import org.spongepowered.api.block.BlockState;
 import org.spongepowered.api.config.ConfigDir;
 import org.spongepowered.api.data.key.Key;
+import org.spongepowered.api.effect.particle.ParticleEffect;
 import org.spongepowered.api.effect.potion.PotionEffect;
 import org.spongepowered.api.event.Event;
 import org.spongepowered.api.event.Listener;
@@ -138,11 +150,13 @@ public final class ElementalArrowsPlugin {
 
         // Object consumer types
         this.objectConsumersTypeRegistry.register("add-potion-effects", AddPotionEffects.class);
+        this.objectConsumersTypeRegistry.register("modify-velocity", ModifyVelocity.class);
         this.objectConsumersTypeRegistry.register("set-data-key", SetDataKey.class);
         this.objectConsumersTypeRegistry.register("destroy-entity", DestroyEntity.class);
         this.objectConsumersTypeRegistry.register("create-explosion", CreateExplosion.class);
         this.objectConsumersTypeRegistry.register("play-sound", PlaySound.class);
         this.objectConsumersTypeRegistry.register("spawn-entity", SpawnEntity.class);
+        this.objectConsumersTypeRegistry.register("spawn-particles", SpawnParticles.class);
 
         // Base item types
         this.itemTypeRegistry.register("base-item", CustomItem.class);
@@ -152,21 +166,26 @@ public final class ElementalArrowsPlugin {
         this.eventTypeRegistry.register("arrow-hit-ground", ArrowHitGroundEvent.class);
         this.eventTypeRegistry.register("arrow-shot", ArrowShotEvent.class);
 
-        Sponge.getRegistry().registerModule(BaseItem.class, this.itemRegistry);
+        getRegistry().registerModule(BaseItem.class, this.itemRegistry);
 
         // Register the default item types
-        Sponge.getRegistry().getAllOf(ItemType.class)
+        getRegistry().getAllOf(ItemType.class)
                 .forEach(type -> this.itemRegistry.register(type.getId(), new InbuiltBaseItem(type)));
 
-        Sponge.getRegistry().register(Key.class, ArrowKeys.ARROW_TYPE);
+        getRegistry().register(Key.class, ArrowKeys.ARROW_TYPE);
+        getEventManager().registerListeners(this, new ArrowEventHandler());
 
         // Setup the gson parser
         final GsonParser gsonParser = new GsonParser();
+        gsonParser.registerTypeAdapter(BlockState.class, new BlockStateDeserializer());
         gsonParser.registerTypeAdapterFactory(new CatalogTypeAdapterFactory());
         gsonParser.registerTypeAdapter(ConstructableItem.class, new JsonTypeRegistryObjectDeserializer<>(this.itemTypeRegistry));
         gsonParser.registerTypeAdapter(BaseItem.class, new JsonTypeRegistryObjectDeserializer<>(this.itemTypeRegistry));
         gsonParser.registerTypeAdapter(PotionEffect.class, new PotionEffectDeserializer());
+        gsonParser.registerTypeAdapter(ParticleEffect.class, new ParticleEffectDeserializer());
         gsonParser.registerTypeAdapter(Text.class, new TextDeserializer());
+        gsonParser.registerTypeAdapter(Vector3d.class, new Vector3dDeserializer());
+        gsonParser.registerTypeAdapter(ModifyVelocity.Type.class, new ModifyVelocity.TypeDeserializer());
         gsonParser.registerTypeAdapter(EventActionSet.class, new EventActionSetDeserializer(this.eventTypeRegistry));
         gsonParser.registerTypeAdapter(ObjectConsumer.class, new ObjectConsumerDeserializer(this.objectConsumersTypeRegistry));
 

@@ -1,0 +1,26 @@
+{
+    "object-type": "base-arrow",
+    "id": "elemental_arrows:razor_arrow",
+    "name": "Razor Arrow",
+    "item-model": "elemental_arrows:models/items/razor_arrow.json",
+    "entity-texture": "elemental_arrows:textures/entities/razor_arrow",
+    "events": {
+        "arrow-shot": {
+            "action": {
+                "target": "arrow",
+                "function": [
+                    {
+                        "object-type": "set-data-key",
+                        "key": "sponge:knockback_strength",
+                        "element": 2
+                    },
+                    {
+                        "object-type": "modify-velocity",
+                        "type": "*",
+                        "vector": [ 1.5, 1.5, 1.5 ]
+                    }
+                ]
+            }
+        }
+    }
+}

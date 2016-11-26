@@ -1,0 +1,33 @@
+{
+    "object-type": "base-arrow",
+    "id": "elemental_arrows:dirt_arrow",
+    "name": "Dirt Arrow",
+    "item-model": "elemental_arrows:models/items/dirt_arrow.json",
+    "entity-texture": "elemental_arrows:textures/entities/dirt_arrow",
+    "events": {
+        "arrow-shot": {
+            "action": {
+                "target": "arrow",
+                "function": {
+                    "object-type": "set-data-key",
+                    "key": "sponge:knockback_strength",
+                    "element": 4
+                }
+            }
+        },
+        "arrow-hit-entity arrow-hit-ground": {
+            "action": {
+                "target": "arrow",
+                "function": [
+                    {
+                        "object-type": "spawn-particles",
+                        "type": "minecraft:block_crack",
+                        "minecraft:block_state": "minecraft:dirt",
+                        "minecraft:quantity": 30,
+                        "minecraft:offset": [ 0.3, 0.3, 0.3 ]
+                    }
+                ]
+            }
+        }
+    }
+}
