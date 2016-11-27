@@ -6,7 +6,7 @@
     "entity-texture": "elemental_arrows:textures/entities/fire_arrow",
     "events": {
         "arrow-shot": {
-            "action":{
+            "action": {
                 "target": "arrow",
                 "function": {
                     "object-type": "set-data-key",

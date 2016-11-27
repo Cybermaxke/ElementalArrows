@@ -18,15 +18,13 @@
         "arrow-hit-entity arrow-hit-ground": {
             "action": {
                 "target": "arrow",
-                "function": [
-                    {
-                        "object-type": "spawn-particles",
-                        "type": "minecraft:block_crack",
-                        "minecraft:block_state": "minecraft:dirt",
-                        "minecraft:quantity": 30,
-                        "minecraft:offset": [ 0.3, 0.3, 0.3 ]
-                    }
-                ]
+                "function": {
+                    "object-type": "spawn-particles",
+                    "type": "minecraft:block_crack",
+                    "minecraft:block_state": "minecraft:dirt",
+                    "minecraft:quantity": 30,
+                    "minecraft:offset": [ 0.3, 0.3, 0.3 ]
+                }
             }
         }
     }
